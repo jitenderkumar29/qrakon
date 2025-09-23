@@ -76,7 +76,7 @@ fun CategoryProducts(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .padding(horizontal = 12.dp, vertical = 6.dp)
     ) {
         items(firstRow.size) { columnIndex ->
             Column(

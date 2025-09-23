@@ -43,7 +43,7 @@ fun CategoryHeader(
     val categories = remember {
         listOf(
             CategoryHeaderClass(1, "Shopping", R.drawable.shopping, Color(0xFFD9C898), selectedColor = Color(
-                0xFFD6B860
+                0xFFD4AF44
             )
             ),
             CategoryHeaderClass(2, "Fashion", R.drawable.fashion_category, Color(0xFFCCF8CF), selectedColor = Color(
@@ -119,7 +119,7 @@ fun CategoryHeader(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize()
-            ) {
+            )         {
                 items(categories.size) { index ->
                     val category = categories[index]
                     CategoryItemHeader(
@@ -150,11 +150,11 @@ fun CategoryItemHeader(
             .clip(RoundedCornerShape(12.dp))
             .background(if (isSelected) category.selectedColor else category.backgroundColor)
 //            .background(category.backgroundColor)
-            .border(
-                width = if (isSelected) 5.dp else 0.dp,
-                color = if (isSelected) MaterialTheme.customColors.white else Color.Transparent,
-                shape = RoundedCornerShape(12.dp)
-            )
+//            .border(
+//                width = if (isSelected) 5.dp else 0.dp,
+//                color = if (isSelected) MaterialTheme.customColors.white else Color.Transparent,
+//                shape = RoundedCornerShape(12.dp)
+//            )
     ) {
         Box(
             modifier = Modifier

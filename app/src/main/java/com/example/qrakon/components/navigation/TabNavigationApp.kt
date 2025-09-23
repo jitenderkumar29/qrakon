@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.ui.theme.customColors
 
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.navigationBars
+
 @Composable
 fun TabNavigationApp() {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -46,25 +56,33 @@ fun TabNavigationApp() {
     Scaffold(
         containerColor = MaterialTheme.customColors.footer,
         bottomBar = {
-            Column {
-                // 🔶 Top border bar (active tab indicator with rounded bottom corners)
-                Row(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .windowInsetsPadding( // ✅ Adds padding above system nav bar
+                        WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
+                    )
+            ) {
+                // 🔶 Top border bar (active tab indicator)
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(5.dp) // slightly smaller border
+                ) {
                     tabItems.forEachIndexed { index, _ ->
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(8.dp)
+                                .fillMaxHeight()
                                 .clip(
                                     RoundedCornerShape(
-                                        bottomStart = 4.dp, // rounded bottom-left
-                                        bottomEnd = 4.dp    // rounded bottom-right
+                                        bottomStart = 4.dp,
+                                        bottomEnd = 4.dp
                                     )
                                 )
                                 .background(
                                     if (selectedTabIndex == index)
                                         MaterialTheme.customColors.orange
                                     else
-                                        MaterialTheme.customColors.footer // hide for inactive tabs
+                                        MaterialTheme.customColors.footer
                                 )
                         )
                     }
@@ -72,7 +90,10 @@ fun TabNavigationApp() {
 
                 // Bottom navigation bar
                 NavigationBar(
-                    containerColor = MaterialTheme.customColors.footer
+                    containerColor = MaterialTheme.customColors.footer,
+                    modifier = Modifier
+                        .height(52.dp)
+                        .navigationBarsPadding() // ✅ keeps bar above gesture nav/status bar
                 ) {
                     tabItems.forEachIndexed { index, item ->
                         NavigationBarItem(
@@ -118,7 +139,7 @@ fun TabNavigationApp() {
                                 selectedTextColor = MaterialTheme.customColors.orange,
                                 unselectedIconColor = MaterialTheme.customColors.white,
                                 unselectedTextColor = MaterialTheme.customColors.white,
-                                indicatorColor = MaterialTheme.customColors.footer // ✅ No background highlight
+                                indicatorColor = MaterialTheme.customColors.footer
                             )
                         )
                     }

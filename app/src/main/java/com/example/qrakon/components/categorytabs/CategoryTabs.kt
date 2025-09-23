@@ -403,15 +403,27 @@ fun AllCategoryPage() {
         val bannerImages = listOf(
             painterResource(id = R.drawable.banner_home1),
             painterResource(id = R.drawable.banner_home2),
-            painterResource(id = R.drawable.banner_home3)
+            painterResource(id = R.drawable.banner_home3),
+            painterResource(id = R.drawable.banner_home4),
+            painterResource(id = R.drawable.banner_home5),
+            painterResource(id = R.drawable.banner_home6),
+            painterResource(id = R.drawable.banner_home7),
+            painterResource(id = R.drawable.banner_home8),
+            painterResource(id = R.drawable.banner_home9),
+            painterResource(id = R.drawable.banner_home10),
+            painterResource(id = R.drawable.banner_home11),
+            painterResource(id = R.drawable.banner_home12),
+            painterResource(id = R.drawable.banner_home13),
+            painterResource(id = R.drawable.banner_home14),
+            painterResource(id = R.drawable.banner_home15)
         )
 
         BannerHome(
             images = bannerImages,
             onImageClick = { page -> /* handle click */ },
             autoScrollDelay = 2000,
-            height = 300.dp,
-            dotSize = 12.dp
+            height = 250.dp,
+            dotSize = 8.dp
         )
 
 //        BannerHome(
@@ -424,12 +436,14 @@ fun AllCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
 
+
+        CategoryProducts(modifier = Modifier.fillMaxWidth().wrapContentHeight())
+
         Spacer(
             modifier = Modifier.height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
-        CategoryProducts(modifier = Modifier.fillMaxWidth().wrapContentHeight())
 
 //        QrakonPayScreen()
 //        Spacer(
@@ -465,16 +479,51 @@ fun AllCategoryPage() {
     }
 }
 
+
 @Composable
 fun ShoppingCategoryPage() {
     var selectedCategory by remember { mutableStateOf("All") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.shopping_banner1),
+        painterResource(id = R.drawable.shopping_banner2),
+        painterResource(id = R.drawable.shopping_banner3),
+        painterResource(id = R.drawable.shopping_banner4),
+        painterResource(id = R.drawable.shopping_banner5),
+        painterResource(id = R.drawable.shopping_banner6),
+        painterResource(id = R.drawable.shopping_banner7),
+        painterResource(id = R.drawable.shopping_banner8),
+        painterResource(id = R.drawable.shopping_banner9),
+    )
+
+
     Column(
         modifier = Modifier.fillMaxSize().padding(0.dp)
     ) {
-        ShoppingCarousel(
-            selectedCategory = selectedCategory,
-            onCategoryClick = { category -> selectedCategory = category }
+//        ShoppingCarousel(
+//            selectedCategory = selectedCategory,
+//            onCategoryClick = { category -> selectedCategory = category }
+//        )
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 250.dp,            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        CategoryProducts(modifier = Modifier.fillMaxWidth().wrapContentHeight())
+
         Spacer(modifier = Modifier.height(16.dp))
         when (selectedCategory) {
             "All" -> AllShopping(categoryName = selectedCategory)
@@ -591,4 +640,16 @@ fun MainScreen(navController: NavHostController) {
             }
         )
     }
+}
+
+private fun onBanner1Click() {
+    // Handle banner 1 click
+}
+
+private fun onBanner2Click() {
+    // Handle banner 2 click
+}
+
+private fun onBanner3Click() {
+    // Handle banner 3 click
 }

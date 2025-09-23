@@ -111,8 +111,8 @@ fun ShoppingCarousel(
                     }
                 },
                 autoScrollDelay = 2000,
-                height = 300.dp,
-                dotSize = 12.dp,
+                height = 250.dp,
+                dotSize = 8.dp,
                 modifier = Modifier.padding(bottom = 0.dp)
             )
 
