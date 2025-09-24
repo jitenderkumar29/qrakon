@@ -102,6 +102,7 @@ fun AppContent(window: Window? = null) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(statusBarColor)
                     .statusBarsPadding() // content starts below status bar
             ) {
                 CategoryScreen()

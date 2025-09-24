@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,7 +37,6 @@ import androidx.navigation.NavHostController
 import com.example.qrakon.components.categorytabs.beauty.BeautyCarousel
 import com.example.qrakon.components.categorytabs.fashion.FashionCarousel
 import com.example.qrakon.components.categorytabs.shopping.ShoppingCarousel
-import com.example.qrakon.components.categorytabs.todaydeal.TodayDealCarousel
 import com.example.qrakon.components.homescreen.AdsSponsored
 import com.example.qrakon.components.homescreen.BannerHome
 import com.example.qrakon.components.homescreen.BikeCategoryHeader
@@ -47,23 +47,24 @@ import com.example.qrakon.components.homescreen.FurnitureCategory
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
+import com.example.qrakon.components.categorytabs.mobile.MobileCarousel
 
 // Sealed class for different category pages
 sealed class CategoryPage {
     object All : CategoryPage()
-    object Shopping : CategoryPage()
     object Mobile : CategoryPage()
-    object Fashion : CategoryPage()
-    object Beauty : CategoryPage()
-    object TodaysDeal : CategoryPage()
-    object Economy : CategoryPage()
-    object BrideGroom : CategoryPage()
-    object AirportDutyFree : CategoryPage()
-    object ElectricVehicles : CategoryPage()
-    object Industry : CategoryPage()
-    object Wholesale : CategoryPage()
-    object Sell : CategoryPage()
-//    object More : CategoryPage()
+    object Electronics : CategoryPage()
+    object Appliances : CategoryPage()
+    object Home : CategoryPage()
+    object FoodHealth : CategoryPage()
+    object ToysKids : CategoryPage()
+    object AutoAccessories : CategoryPage()
+    object Sports : CategoryPage()
+    object Furniture : CategoryPage()
+    object TwoWheelers : CategoryPage()
+    object Books : CategoryPage()
+    object Musical : CategoryPage()
+    object Ultra : CategoryPage()
 }
 
 @Composable
@@ -74,20 +75,20 @@ fun CategoryTabs(
 
     // Pair each tab title with its corresponding icon resource ID
     val tabs = listOf(
-        "All" to R.drawable.outline_all_inbox_24,
-        "Shopping" to R.drawable.outline_shopping_cart_24,
-        "Mobile" to R.drawable.outline_mobile_24,
-        "Fashion" to R.drawable.ic_fashion_24,
-        "Beauty" to R.drawable.ic_beauty_24,
-        "Today's deal" to R.drawable.ic_todays_deal,
-        "Economy" to R.drawable.ic_economy,
-        "Bride" to R.drawable.outline_person_24,
-        "Jewellery" to R.drawable.ic_jewellery_24,
-        "Airport" to R.drawable.outline_connecting_airports_24,
-        "E-Vehicles" to R.drawable.outline_electric_bolt_24,
-        "Industry" to R.drawable.ic_industry,
-        "Wholesale" to R.drawable.ic_wholesale,
-        "Sell" to R.drawable.outline_sell_24
+        "All" to R.drawable.ic_category_all_tab,
+        "Mobile" to R.drawable.ic_mobile,
+        "Electronics" to R.drawable.ic_electronics_tab,
+        "Appliances" to R.drawable.ic_appliances,
+        "Home" to R.drawable.ic_home_tab,
+        "Food & Health" to R.drawable.ic_food_health_tab,
+        "Toys & kids" to R.drawable.ic_toys_kids,
+        "Auto Acce" to R.drawable.ic_auto_acce,
+        "Sports" to R.drawable.ic_sports_tab,
+        "Furniture" to R.drawable.ic_furniture_tab,
+        "2 wheelers" to R.drawable.ic_two_wheelers,
+        "Books" to R.drawable.ic_books_tab,
+        "Musical" to R.drawable.ic_musical,
+        "Ultra" to R.drawable.ic_ultra,
     )
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -111,18 +112,19 @@ fun CategoryTabs(
                         selectedTabIndex = index
                         val page = when (index) {
                             0 -> CategoryPage.All
-                            1 -> CategoryPage.Shopping
-                            2 -> CategoryPage.Mobile
-                            3 -> CategoryPage.Fashion
-                            4 -> CategoryPage.Beauty
-                            5 -> CategoryPage.TodaysDeal
-                            6 -> CategoryPage.Economy
-                            7 -> CategoryPage.BrideGroom
-                            8 -> CategoryPage.AirportDutyFree
-                            9 -> CategoryPage.ElectricVehicles
-                            10 -> CategoryPage.Industry
-                            11 -> CategoryPage.Wholesale
-                            12 -> CategoryPage.Sell
+                            1 -> CategoryPage.Mobile
+                            2 -> CategoryPage.Electronics
+                            3 -> CategoryPage.Appliances
+                            4 -> CategoryPage.Home
+                            5 -> CategoryPage.FoodHealth
+                            6 -> CategoryPage.ToysKids
+                            7 -> CategoryPage.AutoAccessories
+                            8 -> CategoryPage.Sports
+                            9 -> CategoryPage.Furniture
+                            10 -> CategoryPage.TwoWheelers
+                            11 -> CategoryPage.Books
+                            12 -> CategoryPage.Musical
+                            13 -> CategoryPage.Ultra
                             else -> CategoryPage.All
                         }
                         onCategorySelected(page)
@@ -151,7 +153,7 @@ fun CategoryTabs(
                             }
                         )
 
-                        Spacer(modifier = Modifier.height(4.dp))
+//                        Spacer(modifier = Modifier.height(2.dp))
 
                         Text(
                             text = title,
@@ -174,94 +176,40 @@ fun CategoryTabs(
         // Show content for each tab
         when (selectedTabIndex) {
             0 -> AllCategoryPage()
-            1 -> ShoppingCategoryPage()
-            2 -> MobileCategoryPage()
-            3 -> FashionCategoryPage()
-            4 -> BeautyCategoryPage()
-            5 -> TodaysDealCategoryPage()
-            6 -> EconomyCategoryPage()
-            7 -> BrideGroomCategoryPage()
-            8 -> AirportDutyFreeCategoryPage()
-            9 -> ElectricVehiclesCategoryPage()
-            10 -> IndustryCategoryPage()
-            11 -> WholesaleCategoryPage()
-            12 -> SellCategoryPage()
+            1 -> MobileCategoryPage()
+            2 -> ElectronicsCategoryPage()
+            3 -> AppliancesCategoryPage()
+            4 -> HomeCategoryPage()
+            5 -> FoodHealthCategoryPage()
+            6 -> ToysKidsCategoryPage()
+            7 -> AutoAccessoriesCategoryPage()
+            8 -> SportsCategoryPage()
+            9 -> FurnitureCategoryPage()
+            10 -> TwoWheelersCategoryPage()
+            11 -> BooksCategoryPage()
+            12 -> MusicalCategoryPage()
+            13 -> UltraCategoryPage()
+            else -> AllCategoryPage()
         }
     }
 }
 
-// Add these new category page composables
+// Add the missing category page composables
 @Composable
-fun TodaysDealCategoryPage() {
-    var selectedCategory by remember { mutableStateOf("All") }
-    Column(
-        modifier = Modifier.fillMaxSize().padding(8.dp)
-    ) {
-        TodayDealCarousel(
-            selectedCategory = selectedCategory,
-            onCategoryClick = { category -> selectedCategory = category }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedCategory) {
-            "All" -> AllShopping(categoryName = selectedCategory)
-            "Electronics" -> ElectronicsShopping(categoryName = selectedCategory)
-            else -> AllShopping(categoryName = selectedCategory)
-        }
-    }
-}
-
-@Composable
-fun EconomyCategoryPage() {
+fun ElectronicsCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Economy Category",
+            text = "Electronics",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Explore the latest Economy Category trends",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
-//    var selectedCategory by remember { mutableStateOf("All") }
-//    Column(
-//        modifier = Modifier.fillMaxSize().padding(8.dp)
-//    ) {
-//        EconomyCarousel(
-//            selectedCategory = selectedCategory,
-//            onCategoryClick = { category -> selectedCategory = category }
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
-//        when (selectedCategory) {
-//            "All" -> AllShopping(categoryName = selectedCategory)
-//            "Electronics" -> ElectronicsShopping(categoryName = selectedCategory)
-//            else -> AllShopping(categoryName = selectedCategory)
-//        }
-//    }
-}
-
-@Composable
-fun BrideGroomCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Bride & Groom",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Everything for your special day",
+            text = "Explore the latest electronics",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -270,20 +218,20 @@ fun BrideGroomCategoryPage() {
 }
 
 @Composable
-fun AirportDutyFreeCategoryPage() {
+fun AppliancesCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Airport Duty Free",
+            text = "Appliances",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Tax-free shopping for travelers",
+            text = "Home and kitchen appliances",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -292,20 +240,20 @@ fun AirportDutyFreeCategoryPage() {
 }
 
 @Composable
-fun ElectricVehiclesCategoryPage() {
+fun HomeCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Electric Vehicles",
+            text = "Home",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Explore eco-friendly transportation options",
+            text = "Home decor and essentials",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -314,20 +262,20 @@ fun ElectricVehiclesCategoryPage() {
 }
 
 @Composable
-fun IndustryCategoryPage() {
+fun FoodHealthCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Industry",
+            text = "Food & Health",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Industrial equipment and supplies",
+            text = "Nutrition and wellness products",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -336,20 +284,20 @@ fun IndustryCategoryPage() {
 }
 
 @Composable
-fun WholesaleCategoryPage() {
+fun ToysKidsCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Wholesale",
+            text = "Toys & Kids",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Bulk purchasing at wholesale prices",
+            text = "Toys and kids products",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -358,26 +306,185 @@ fun WholesaleCategoryPage() {
 }
 
 @Composable
-fun SellCategoryPage() {
+fun AutoAccessoriesCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Sell",
+            text = "Auto Accessories",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "List your products for sale",
+            text = "Car accessories and parts",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
         )
     }
 }
+
+@Composable
+fun SportsCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Sports",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Sports equipment and gear",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+@Composable
+fun FurnitureCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Furniture",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Home and office furniture",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+@Composable
+fun TwoWheelersCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "2 Wheelers",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Bikes and scooters",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+@Composable
+fun BooksCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Books",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Books and educational material",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+@Composable
+fun MusicalCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Musical",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Musical instruments and equipment",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+@Composable
+fun UltraCategoryPage() {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Ultra",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = "Premium and luxury products",
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+// Remove or comment out the old category pages that are no longer needed
+/*
+@Composable
+fun TodaysDealCategoryPage() { ... }
+
+@Composable
+fun EconomyCategoryPage() { ... }
+
+@Composable
+fun BrideGroomCategoryPage() { ... }
+
+@Composable
+fun AirportDutyFreeCategoryPage() { ... }
+
+@Composable
+fun ElectricVehiclesCategoryPage() { ... }
+
+@Composable
+fun IndustryCategoryPage() { ... }
+
+@Composable
+fun WholesaleCategoryPage() { ... }
+
+@Composable
+fun SellCategoryPage() { ... }
+*/
 
 // Rest of the existing code remains the same...
 @Composable
@@ -422,20 +529,15 @@ fun AllCategoryPage() {
             images = bannerImages,
             onImageClick = { page -> /* handle click */ },
             autoScrollDelay = 2000,
-            height = 250.dp,
+            height = 270.dp,
             dotSize = 8.dp
         )
 
-//        BannerHome(
-//            onJoinPrimeClick = { println("Prime button clicked!") },
-//            onDealBoxClick = { println("Deal section clicked!") }
-//        )
         Spacer(
             modifier = Modifier.height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
-
 
         CategoryProducts(modifier = Modifier.fillMaxWidth().wrapContentHeight())
 
@@ -445,14 +547,8 @@ fun AllCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
 
-//        QrakonPayScreen()
-//        Spacer(
-//            modifier = Modifier.height(2.dp)
-//                .fillMaxWidth()
-//                .background(MaterialTheme.customColors.spacerColor)
-//        )
         AdsSponsored(onAdClick = { println("Ad clicked!") })
-         Spacer(
+        Spacer(
             modifier = Modifier.height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
@@ -479,30 +575,24 @@ fun AllCategoryPage() {
     }
 }
 
-
 @Composable
 fun ShoppingCategoryPage() {
     var selectedCategory by remember { mutableStateOf("All") }
     val bannerImages = listOf(
-        painterResource(id = R.drawable.shopping_banner1),
+        painterResource(id = R.drawable.mobile_banner1),
         painterResource(id = R.drawable.shopping_banner2),
         painterResource(id = R.drawable.shopping_banner3),
         painterResource(id = R.drawable.shopping_banner4),
         painterResource(id = R.drawable.shopping_banner5),
         painterResource(id = R.drawable.shopping_banner6),
-        painterResource(id = R.drawable.shopping_banner7),
+        painterResource(id = R.drawable.mobile_banner2),
         painterResource(id = R.drawable.shopping_banner8),
-        painterResource(id = R.drawable.shopping_banner9),
+        painterResource(id = R.drawable.mobile_banner3),
     )
-
 
     Column(
         modifier = Modifier.fillMaxSize().padding(0.dp)
     ) {
-//        ShoppingCarousel(
-//            selectedCategory = selectedCategory,
-//            onCategoryClick = { category -> selectedCategory = category }
-//        )
         BannerHome(
             images = bannerImages,
             onImageClick = { page ->
@@ -513,7 +603,8 @@ fun ShoppingCategoryPage() {
                 }
             },
             autoScrollDelay = 2000,
-            height = 250.dp,            dotSize = 8.dp,
+            height = 270.dp,
+            dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
         )
 
@@ -535,85 +626,169 @@ fun ShoppingCategoryPage() {
 
 @Composable
 fun MobileCategoryPage() {
+    // Track currently selected category
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.mobile_banner1),
+        painterResource(id = R.drawable.mobile_banner2),
+        painterResource(id = R.drawable.mobile_banner3),
+        painterResource(id = R.drawable.banner_home5),
+        painterResource(id = R.drawable.banner_home7),
+        painterResource(id = R.drawable.banner_home8),
+    )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Mobile Category",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Explore the latest Mobile Category trends",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
-}
 
-@Composable
-fun MoreCategoryPageTemp() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "More Category",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
-        Text(
-            text = "Explore the latest More Category trends and styles",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
-}
-
-@Composable
-fun FashionCategoryPage() {
-    var selectedCategory by remember { mutableStateOf("All") }
-    Column(
-        modifier = Modifier.fillMaxSize().padding(8.dp)
-    ) {
-        FashionCarousel(
-            selectedCategory = selectedCategory,
-            onCategoryClick = { category -> selectedCategory = category }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedCategory) {
-            "All" -> AllShopping(categoryName = selectedCategory)
-            "Electronics" -> ElectronicsShopping(categoryName = selectedCategory)
-            else -> AllShopping(categoryName = selectedCategory)
+        // Carousel Double
+        val MobileCategories = remember {
+            listOf(
+                Category(0, "iphone", R.drawable.ic_iphone),
+                Category(1, "motoriola", R.drawable.ic_motoriola),
+                Category(2, "Samsung", R.drawable.ic_samsung),
+                Category(3, "Vivo", R.drawable.ic_vivo),
+                Category(4, "OPPO", R.drawable.ic_oppo),
+                Category(5, "realme", R.drawable.ic_realme),
+                Category(6, "Nothing", R.drawable.ic_nothing),
+                Category(7, "POCO", R.drawable.ic_poco),
+                Category(8, "Google", R.drawable.ic_google),
+                Category(9, "AI+", R.drawable.ic_aiplus),
+                Category(10, "Minutes", R.drawable.ic_minutes),
+                Category(11, "Redmi", R.drawable.ic_redmi),
+                Category(12, "Tecno", R.drawable.ic_tecno),
+                Category(13, "Infinix", R.drawable.ic_infinix),
+                Category(14, "Alcatel", R.drawable.ic_alcatel),
+                Category(15, "Snapdragon", R.drawable.ic_snapdragon),
+                Category(16, "Android", R.drawable.ic_android),
+                Category(17, "Itel", R.drawable.ic_itel)
+            )
         }
-    }
-}
 
-@Composable
-fun BeautyCategoryPage() {
-    var selectedCategory by remember { mutableStateOf("All") }
-    Column(
-        modifier = Modifier.fillMaxSize().padding(8.dp)
-    ) {
-        BeautyCarousel(
-            selectedCategory = selectedCategory,
-            onCategoryClick = { category -> selectedCategory = category }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedCategory) {
-            "All" -> AllShopping(categoryName = selectedCategory)
-            "Electronics" -> ElectronicsShopping(categoryName = selectedCategory)
-            else -> AllShopping(categoryName = selectedCategory)
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = MobileCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = MobileCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            // Display content based on selected category
+//            selectedCategory?.let { category ->
+//                Text(
+//                    text = "Showing products for: ${category.name}",
+//                    modifier = Modifier.padding(16.dp)
+//                )
+//            }
         }
+//        MobileCarousel(
+//            selectedCategory = selectedCategory.value,
+//            onCategoryClick = { category ->
+//                selectedCategory.value = category
+//                // Handle category click, e.g., filter products
+//            }
+//        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+//         (selectedCategory = selectedMobileCategory?.name ?: "All")
+        // Example: Display selected category
+
+//        Column(
+//            modifier = Modifier.fillMaxWidth().padding(16.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Text(
+//                text = "Selected Category: ${selectedCategory.value}",
+//                style = MaterialTheme.typography.bodyMedium
+//            )
+//        }
     }
 }
+    @Composable
+    fun MobileProductsList(selectedCategory: String) {
+        // Sample mobile products data - replace with your actual data
+        val mobileProducts = remember {
+            listOf(
+                Product(
+                    id = 1,
+                    name = "Samsung",
+                    model = "Galaxy S24 Ultra",
+                    price = "From ₹1,29,999*",
+                    originalPrice = "₹1,49,999",
+                    discount = "13% off",
+                    imageRes = R.drawable.oppo_k13x // Replace with actual drawable
+                ),
+                Product(
+                    id = 2,
+                    name = "Apple",
+                    model = "iPhone 15 Pro",
+                    price = "From ₹1,34,900*",
+                    originalPrice = "₹1,49,900",
+                    discount = "10% off",
+                    imageRes = R.drawable.vivo_t4x // Replace with actual drawable
+                ),
+                Product(
+                    id = 3,
+                    name = "OnePlus",
+                    model = "12 5G",
+                    price = "From ₹69,999*",
+                    originalPrice = "₹79,999",
+                    discount = "12% off",
+                    imageRes = R.drawable.moto_g96 // Replace with actual drawable
+                ),
+
+            )
+        }
+
+        // Filter products based on selected category if needed
+        val filteredProducts = if (selectedCategory == "All") {
+            mobileProducts
+        } else {
+            mobileProducts.filter { it.name.contains(selectedCategory, ignoreCase = true) }
+        }
+
+        ProductListThree(
+            products = filteredProducts,
+            onProductClick = { product ->
+                // Handle product click - navigate to detail screen
+                println("Clicked on: ${product.name} ${product.model}")
+            }
+        )
+    }
+
 
 @Composable
 fun MainScreen(navController: NavHostController) {
@@ -623,19 +798,19 @@ fun MainScreen(navController: NavHostController) {
             onCategorySelected = { categoryPage ->
                 currentPage = when (categoryPage) {
                     is CategoryPage.All -> 0
-                    is CategoryPage.Shopping -> 1
-                    is CategoryPage.Mobile -> 2
-                    is CategoryPage.Fashion -> 3
-                    is CategoryPage.Beauty -> 4
-                    is CategoryPage.TodaysDeal -> 5
-                    is CategoryPage.Economy -> 6
-                    is CategoryPage.BrideGroom -> 7
-                    is CategoryPage.AirportDutyFree -> 8
-                    is CategoryPage.ElectricVehicles -> 9
-                    is CategoryPage.Industry -> 10
-                    is CategoryPage.Wholesale -> 11
-                    is CategoryPage.Sell -> 12
-//                    is CategoryPage.More -> 12
+                    is CategoryPage.Mobile -> 1
+                    is CategoryPage.Electronics -> 2
+                    is CategoryPage.Appliances -> 3
+                    is CategoryPage.Home -> 4
+                    is CategoryPage.FoodHealth -> 5
+                    is CategoryPage.ToysKids -> 6
+                    is CategoryPage.AutoAccessories -> 7
+                    is CategoryPage.Sports -> 8
+                    is CategoryPage.Furniture -> 9
+                    is CategoryPage.TwoWheelers -> 10
+                    is CategoryPage.Books -> 11
+                    is CategoryPage.Musical -> 12
+                    is CategoryPage.Ultra -> 13
                 }
             }
         )

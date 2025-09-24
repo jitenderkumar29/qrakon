@@ -92,7 +92,7 @@ fun TabNavigationApp() {
                 NavigationBar(
                     containerColor = MaterialTheme.customColors.footer,
                     modifier = Modifier
-                        .height(52.dp)
+                        .height(65.dp)
                         .navigationBarsPadding() // ✅ keeps bar above gesture nav/status bar
                 ) {
                     tabItems.forEachIndexed { index, item ->
@@ -104,7 +104,7 @@ fun TabNavigationApp() {
                                     androidx.compose.foundation.Image(
                                         painter = painterResource(id = item.imageResource),
                                         contentDescription = item.title,
-                                        modifier = Modifier.size(24.dp),
+                                        modifier = Modifier.size(28.dp),
                                         colorFilter = ColorFilter.tint(
                                             if (selectedTabIndex == index)
                                                 MaterialTheme.customColors.orange
@@ -116,6 +116,7 @@ fun TabNavigationApp() {
                                     Icon(
                                         imageVector = item.icon,
                                         contentDescription = item.title,
+                                        modifier = Modifier.size(28.dp),
                                         tint = if (selectedTabIndex == index)
                                             MaterialTheme.customColors.orange
                                         else
@@ -126,7 +127,7 @@ fun TabNavigationApp() {
                             label = {
                                 Text(
                                     text = item.title,
-                                    fontSize = 11.sp,
+                                    fontSize = 12.sp,
                                     maxLines = 1,
                                     color = if (selectedTabIndex == index)
                                         MaterialTheme.customColors.orange

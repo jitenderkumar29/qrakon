@@ -29,7 +29,7 @@ fun BannerHome(
     images: List<Painter>,
     onImageClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
-    height: Dp = 250.dp,
+    height: Dp = 270.dp,
     dotSize: Dp = 8.dp,
     dotPadding: Dp = 5.dp,
     selectedDotColor: Color = MaterialTheme.customColors.linkColor,
