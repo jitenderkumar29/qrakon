@@ -2,6 +2,8 @@ package com.example.qrakon.components.categorytabs
 
 import AllShopping
 import ElectronicsShopping
+import Product
+import ProductList
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -197,45 +199,209 @@ fun CategoryTabs(
 // Add the missing category page composables
 @Composable
 fun ElectronicsCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.electronics_banner1),
+        painterResource(id = R.drawable.electronics_banner2),
+        painterResource(id = R.drawable.electronics_banner3),
+        painterResource(id = R.drawable.electronics_banner4),
+        painterResource(id = R.drawable.electronics_banner5),
+        painterResource(id = R.drawable.electronics_banner6),
+        painterResource(id = R.drawable.electronics_banner7),
+        painterResource(id = R.drawable.electronics_banner8),
+        painterResource(id = R.drawable.electronics_banner9),
+    )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Electronics",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Explore the latest electronics",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val electronicsCategories = remember {
+            listOf(
+                Category(0, "Laptops", R.drawable.ic_laptops_tab),
+                Category(1, "2 Wheelers", R.drawable.ic_two_wheelers_tab),
+                Category(2, "Wearables", R.drawable.ic_wearables_tab),
+                Category(3, "ITPeripherals", R.drawable.ic_itperipherals_tab),
+                Category(4, "Camera", R.drawable.ic_camera_tab),
+                Category(5, "Accessories", R.drawable.ic_accessories_tab),
+                Category(6, "Powerbanks", R.drawable.ic_powerbanks_tab),
+                Category(7, "Smart Camera", R.drawable.ic_smart_camera),
+                Category(8, "Gaming", R.drawable.ic_gaming_pc_tab),
+                Category(9, "Headsets+", R.drawable.ic_headsets_tab),
+                Category(10, "Tablet", R.drawable.ic_tablet_tab),
+                Category(11, "Grooming", R.drawable.ic_grooming_tab),
+                Category(12, "Chargers", R.drawable.ic_chargers_tab),
+                Category(13, "Mobile case", R.drawable.ic_mobile_case_tab),
+                Category(14, "Storage", R.drawable.ic_storage_tab),
+                Category(15, "Gaming", R.drawable.ic_gaming_tab),
+                Category(16, "Healthcare", R.drawable.ic_healthcare_tab),
+            )
+        }
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = electronicsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = electronicsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Motobook 60 OLED", "Starts ₹39,999*", R.drawable.motobook_60_oled),
+                Product("HP Victus 3050", "Starts ₹54,949*", R.drawable.hp_victus_3050),
+                Product("HP Price Drop", "Starts ₹29,999*", R.drawable.hp_price_drop)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
 fun AppliancesCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.appliances_banner1),
+        painterResource(id = R.drawable.appliances_banner2),
+        painterResource(id = R.drawable.appliances_banner3),
+        painterResource(id = R.drawable.appliances_banner4),
+        painterResource(id = R.drawable.appliances_banner5),
+
+    )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Appliances",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Home and kitchen appliances",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val electronicsCategories = remember {
+            listOf(
+                Category(0, "Television", R.drawable.ic_television_tab),
+                Category(1, "Laundry", R.drawable.ic_two_laundry_tab),
+                Category(2, "Fridge", R.drawable.ic_fridge_tab),
+                Category(3, "Home Deals", R.drawable.ic_homedeals_tab),
+                Category(4, "ACs", R.drawable.ic_acs_tab),
+                Category(5, "FK Originals", R.drawable.ic_fk_originals_tab),
+                Category(6, "Vacuum Cleaner", R.drawable.ic_vacuum_cleaner_tab),
+                Category(7, "Kitchen Deals", R.drawable.ic_kitchen_deals_tab),
+                Category(8, "Inverter & Battery", R.drawable.ic_inverter_battery_tab),
+                Category(9, "Microwaves", R.drawable.ic_microwaves_tab),
+                Category(10, "Dishwasher", R.drawable.ic_dishwasher_tab),
+                Category(11, "Fans", R.drawable.ic_fans_tab),
+                  )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = electronicsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = electronicsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+//            val myProducts = listOf(
+//                Product("best Selling", "Extra ₹1,000 off", R.drawable.best_seelling),
+//                Product("Washers", "Extra ₹1,000 off", R.drawable.washers),
+//                Product("Air Conditioners", "Extra ₹1,500 off", R.drawable.air_conditioners)
+//            )
+//
+//            Spacer(
+//                modifier = Modifier.height(2.dp)
+//                    .fillMaxWidth()
+//                    .background(MaterialTheme.customColors.spacerColor)
+//            )
+//
+//            // Call the reusable component
+//            ProductList(
+//                products = myProducts,
+////                sectionTitle = "Featured Products", // Optional
+//                showName = true,  // Show name under image
+//                showPrice = true  // Show price under image
+//            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -508,9 +674,9 @@ fun AllCategoryPage() {
     ) {
 
         val bannerImages = listOf(
-            painterResource(id = R.drawable.banner_home1),
-            painterResource(id = R.drawable.banner_home2),
-            painterResource(id = R.drawable.banner_home3),
+//            painterResource(id = R.drawable.banner_home1),
+//            painterResource(id = R.drawable.banner_home2),
+//            painterResource(id = R.drawable.banner_home3),
             painterResource(id = R.drawable.banner_home4),
             painterResource(id = R.drawable.banner_home5),
             painterResource(id = R.drawable.banner_home6),
@@ -685,6 +851,12 @@ fun MobileCategoryPage() {
             )
         }
 
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+
         var selectedCategory by remember { mutableStateOf<Category?>(null) }
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
@@ -704,6 +876,23 @@ fun MobileCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            val myProducts = listOf(
+                Product("OPPO K13x 5G", "From ₹9,499*", R.drawable.oppo_k13x),
+                Product("vivo T4x 5G", "From ₹12,249*", R.drawable.vivo_t4x),
+                Product("moto g96 (8GB)", "Just ₹14,999*", R.drawable.moto_g96)
+            )
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
             // Display content based on selected category
 //            selectedCategory?.let { category ->
 //                Text(
@@ -737,57 +926,6 @@ fun MobileCategoryPage() {
 //        }
     }
 }
-    @Composable
-    fun MobileProductsList(selectedCategory: String) {
-        // Sample mobile products data - replace with your actual data
-        val mobileProducts = remember {
-            listOf(
-                Product(
-                    id = 1,
-                    name = "Samsung",
-                    model = "Galaxy S24 Ultra",
-                    price = "From ₹1,29,999*",
-                    originalPrice = "₹1,49,999",
-                    discount = "13% off",
-                    imageRes = R.drawable.oppo_k13x // Replace with actual drawable
-                ),
-                Product(
-                    id = 2,
-                    name = "Apple",
-                    model = "iPhone 15 Pro",
-                    price = "From ₹1,34,900*",
-                    originalPrice = "₹1,49,900",
-                    discount = "10% off",
-                    imageRes = R.drawable.vivo_t4x // Replace with actual drawable
-                ),
-                Product(
-                    id = 3,
-                    name = "OnePlus",
-                    model = "12 5G",
-                    price = "From ₹69,999*",
-                    originalPrice = "₹79,999",
-                    discount = "12% off",
-                    imageRes = R.drawable.moto_g96 // Replace with actual drawable
-                ),
-
-            )
-        }
-
-        // Filter products based on selected category if needed
-        val filteredProducts = if (selectedCategory == "All") {
-            mobileProducts
-        } else {
-            mobileProducts.filter { it.name.contains(selectedCategory, ignoreCase = true) }
-        }
-
-        ProductListThree(
-            products = filteredProducts,
-            onProductClick = { product ->
-                // Handle product click - navigate to detail screen
-                println("Clicked on: ${product.name} ${product.model}")
-            }
-        )
-    }
 
 
 @Composable

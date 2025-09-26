@@ -1,22 +1,35 @@
 package com.example.qrakon.components.homescreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.example.qrakon.ui.theme.customColors
 import com.example.qrakon.R
 import com.example.qrakon.components.navigation.TabNavigationApp
+import kotlinx.coroutines.coroutineScope
 
 data class CategoryHeaderClass(
     val id: Int,
@@ -189,35 +203,86 @@ fun CategoryItemHeader(
 }
 
 // Main composable that handles category selection and displays appropriate content
+
+
 @Composable
 fun CategoryScreen() {
     val selectedCategory = remember { mutableStateOf("Shopping") }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        // Category header with callback
-        CategoryHeader(
-            onCategorySelected = { categoryName ->
-                selectedCategory.value = categoryName
-            }
-        )
+    // Accumulated scroll offset (px). We will keep it >= 0.
+    val scrollOffset = remember { mutableStateOf(0f) }
+    val isHeaderVisible = remember { mutableStateOf(true) }
 
-        // Display the selected category content
-        when (selectedCategory.value) {
-            "Shopping" -> ShoppingScreen()
-            "Fashion" -> FashionScreen()
-            "Beauty" -> BeautyScreen()
-            "Economy" -> EconomyScreen()
-            "Deals" -> DealsScreen()
-            "Bride" -> BrideScreen()
-            "Groom" -> GroomScreen()
-            "Airport" -> AirportScreen()
-            "Electric" -> ElectricScreen()
-            "Industry" -> IndustryScreen()
-            "Wholesale" -> WholesaleScreen()
-            "Sell" -> SellScreen()
-            "Medical" -> MedicalScreen()
-            "Fresh" -> FreshScreen()
-            else -> ShoppingScreen() // Default fallback
+    val density = LocalDensity.current
+    val hideThresholdPx = with(density) { 50.dp.toPx() } // tweak this threshold if needed
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+
+                // IMPORTANT: subtract delta so that upward scrolling (delta < 0) INCREASES scrollOffset
+                // Example: delta = -10 (user swiped up) => scrollOffset += 10
+                scrollOffset.value = (scrollOffset.value - delta).coerceAtLeast(0f)
+
+                when {
+                    delta < 0f -> {
+                        // user is scrolling *up* (swipe up) — hide header after threshold
+                        if (scrollOffset.value > hideThresholdPx) {
+                            isHeaderVisible.value = false
+                        }
+                    }
+                    delta > 0f -> {
+                        // user is scrolling *down* (swipe down) — show header immediately
+                        isHeaderVisible.value = true
+                    }
+                }
+
+                // ensure header visible when at top
+                if (scrollOffset.value <= 0f) {
+                    isHeaderVisible.value = true
+                }
+
+                return Offset.Zero
+            }
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        AnimatedVisibility(
+            visible = isHeaderVisible.value,
+            enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
+            exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
+        ) {
+            CategoryHeader(
+                onCategorySelected = { categoryName ->
+                    selectedCategory.value = categoryName
+                }
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .nestedScroll(nestedScrollConnection)
+        ) {
+            when (selectedCategory.value) {
+                "Shopping" -> ShoppingScreen()
+                "Fashion" -> FashionScreen()
+                "Beauty" -> BeautyScreen()
+                "Economy" -> EconomyScreen()
+                "Deals" -> DealsScreen()
+                "Bride" -> BrideScreen()
+                "Groom" -> GroomScreen()
+                "Airport" -> AirportScreen()
+                "Electric" -> ElectricScreen()
+                "Industry" -> IndustryScreen()
+                "Wholesale" -> WholesaleScreen()
+                "Sell" -> SellScreen()
+                "Medical" -> MedicalScreen()
+                "Fresh" -> FreshScreen()
+                else -> ShoppingScreen()
+            }
         }
     }
 }

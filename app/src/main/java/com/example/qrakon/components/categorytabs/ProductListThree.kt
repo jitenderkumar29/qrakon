@@ -1,26 +1,12 @@
-package com.example.qrakon.components.categorytabs
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,274 +14,182 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
+import com.example.qrakon.ui.theme.customColors
 
+// ✅ Reusable Product Model
 data class Product(
-    val id: Int,
     val name: String,
-    val model: String,
     val price: String,
-    val originalPrice: String? = null,
-    val discount: String? = null,
-    val isSpecialOffer: Boolean = false,
-    val imageRes: Int? = null // Add image resource ID
+    val imageRes: Int
 )
 
-@Composable
-fun ProductListThree(
-    products: List<Product>,
-    onProductClick: (Product) -> Unit = {},
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(products.size) { index ->
-            ProductCard(
-                product = products[index],
-                onClick = { onProductClick(products[index]) }
-            )
-        }
-    }
-}
-
+// ✅ Reusable ProductCard with optional fields
 @Composable
 fun ProductCard(
     product: Product,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    isSelected: Boolean,
+    onProductClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    showName: Boolean = true,
+    showPrice: Boolean = true
 ) {
+    val cardElevation = if (isSelected) 12.dp else 6.dp
+
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        modifier = modifier.clickable { onProductClick() },
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
+        shape = RoundedCornerShape(16.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Product Image
-            if (product.imageRes != null) {
+            // Image section
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 2.dp)
+                    .height(120.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+//                    .background(Color(0xFFF8F8F8)),
+                contentAlignment = Alignment.Center
+            ) {
                 Image(
                     painter = painterResource(id = product.imageRes),
-                    contentDescription = "${product.name} ${product.model}",
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color.LightGray.copy(alpha = 0.2f)),
-                    contentScale = ContentScale.Fit
+                    contentDescription = product.name,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.FillBounds
                 )
-                Spacer(modifier = Modifier.width(16.dp))
-            } else {
-                // Placeholder for when no image is available
-                Box(
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color.LightGray.copy(alpha = 0.2f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "No Image",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.Gray
-                    )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
             }
 
-            // Product Details
-            Column(
-                modifier = Modifier.weight(1f)
+            // Optional Name & Price
+            if (showName || showPrice) {
+//                Spacer(modifier = Modifier.height(4.dp))
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp)
+                        .weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    if (showName) {
+                        Text(
+                            text = product.name,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF333333),
+                            textAlign = TextAlign.Center,
+                            maxLines = 2,
+                            modifier = Modifier.padding(bottom = if (showPrice) 4.dp else 0.dp)
+                        )
+                    }
+                    if (showPrice) {
+                        Text(
+                            text = product.price,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFFE91E63),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ✅ Reusable Product List with optional section title
+@Composable
+fun ProductList(
+    products: List<Product>,
+    modifier: Modifier = Modifier,
+    sectionTitle: String? = null,
+    showName: Boolean = true,
+    showPrice: Boolean = true
+) {
+    var selectedProduct by remember { mutableStateOf<String?>(null) }
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+//            .background(Color(0xFFF5F5F5))
+            .padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Optional Section Title
+        sectionTitle?.let {
+            Text(
+                text = it,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.customColors.black,
+                modifier = Modifier.padding(bottom = 20.dp)
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            products.forEach { product ->
+                ProductCard(
+                    product = product,
+                    isSelected = selectedProduct == product.name,
+                    onProductClick = { selectedProduct = product.name },
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(200.dp),
+                    showName = showName,
+                    showPrice = showPrice
+                )
+            }
+        }
+
+        // Show selected product (optional)
+        selectedProduct?.let { productName ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                // Product Name and Model
                 Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp
-                    ),
-                    color = Color.Black
+                    text = "Selected: $productName",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color(0xFF333333),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 )
-
-                Text(
-                    text = product.model,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 14.sp
-                    ),
-                    color = Color.Gray
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Price Section
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column {
-                        if (product.isSpecialOffer) {
-                            // Special offer styling for moto g96
-                            Text(
-                                text = product.price,
-                                style = MaterialTheme.typography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    color = Color(0xFFE53935) // Red color for special offer
-                                )
-                            )
-                        } else {
-                            // Regular pricing
-                            Text(
-                                text = product.price,
-                                style = MaterialTheme.typography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    color = Color(0xFF1E88E5) // Blue color for regular price
-                                )
-                            )
-                        }
-
-                        product.originalPrice?.let { originalPrice ->
-                            Text(
-                                text = originalPrice,
-                                style = MaterialTheme.typography.bodySmall.copy(
-                                    fontSize = 12.sp,
-                                    textDecoration = TextDecoration.LineThrough,
-                                    color = Color.Gray
-                                )
-                            )
-                        }
-                    }
-
-                    // Discount badge or Special offer indicator
-                    if (product.discount != null) {
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(Color(0xFFFF7043))
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = product.discount,
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp,
-                                    color = Color.White
-                                )
-                            )
-                        }
-                    } else if (product.isSpecialOffer) {
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(Color(0xFF4CAF50))
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = "Just",
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp,
-                                    color = Color.White
-                                )
-                            )
-                        }
-                    }
-                }
             }
         }
     }
 }
 
-// Preview function
-@Preview(showBackground = true)
-@Composable
-fun ProductListThreePreview() {
-    // Note: In preview, we use null for imageRes since we don't have actual resources
-    val sampleProducts = listOf(
-        Product(
-            id = 1,
-            name = "OPPO",
-            model = "K13x 5G",
-            price = "From ₹9,499*",
-            originalPrice = "₹12,999",
-            discount = "27% off",
-            imageRes = null // Replace with actual resource ID in your app
-        ),
-        Product(
-            id = 2,
-            name = "vivo",
-            model = "T4x 5G",
-            price = "From ₹12,249*",
-            originalPrice = "₹15,999",
-            discount = "23% off",
-            imageRes = null // Replace with actual resource ID in your app
-        ),
-        Product(
-            id = 3,
-            name = "moto",
-            model = "g96 (8GB)",
-            price = "₹14,999*",
-            isSpecialOffer = true,
-            imageRes = null // Replace with actual resource ID in your app
-        )
-    )
-
-    MaterialTheme {
-        ProductListThree(products = sampleProducts)
-    }
-}
-
-// Usage example in your app with actual images
-@Composable
-fun ProductScreen() {
-    val products = listOf(
-        Product(
-            id = 1,
-            name = "OPPO",
-            model = "K13x 5G",
-            price = "From ₹9,499*",
-            originalPrice = "₹12,999",
-            discount = "27% off",
-            imageRes = R.drawable.oppo_k13x // Replace with your actual drawable resource
-        ),
-        Product(
-            id = 2,
-            name = "vivo",
-            model = "T4x 5G",
-            price = "From ₹12,249*",
-            originalPrice = "₹15,999",
-            discount = "23% off",
-            imageRes = R.drawable.vivo_t4x // Replace with your actual drawable resource
-        ),
-        Product(
-            id = 3,
-            name = "moto",
-            model = "g96 (8GB)",
-            price = "₹14,999*",
-            isSpecialOffer = true,
-            imageRes = R.drawable.moto_g96 // Replace with your actual drawable resource
-        )
-    )
-
-    ProductListThree(
-        products = products,
-        onProductClick = { product ->
-            // Handle product click - navigate to detail screen or show dialog
-            println("Clicked on: ${product.name} ${product.model}")
-        }
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProductListPreview() {
+//    val sampleProducts = listOf(
+//        Product("", "From ₹9,499*", R.drawable.oppo_k13x),
+//        Product("", "From ₹12,249*", R.drawable.vivo_t4x),
+//        Product("", "Just ₹14,999*", R.drawable.moto_g96)
+//    )
+//    MaterialTheme {
+//        ProductList(
+//            products = sampleProducts,
+//            sectionTitle = "Featured Products",
+//            showName = true,
+//            showPrice = true
+//        )
+//    }
+//}

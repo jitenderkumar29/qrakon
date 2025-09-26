@@ -93,12 +93,16 @@ fun TabNavigationApp() {
                     containerColor = MaterialTheme.customColors.footer,
                     modifier = Modifier
                         .height(65.dp)
+                        .padding(horizontal = 4.dp)
                         .navigationBarsPadding() // ✅ keeps bar above gesture nav/status bar
                 ) {
                     tabItems.forEachIndexed { index, item ->
                         NavigationBarItem(
                             selected = selectedTabIndex == index,
                             onClick = { selectedTabIndex = index },
+                            modifier = Modifier
+                                .weight(1f) // equally distribute width, avoids extra spacing
+                                .padding(horizontal = 0.dp), // reduce internal padding
                             icon = {
                                 if (item.imageResource != null) {
                                     androidx.compose.foundation.Image(
@@ -127,7 +131,7 @@ fun TabNavigationApp() {
                             label = {
                                 Text(
                                     text = item.title,
-                                    fontSize = 12.sp,
+                                    fontSize = 11.sp,
                                     maxLines = 1,
                                     color = if (selectedTabIndex == index)
                                         MaterialTheme.customColors.orange
