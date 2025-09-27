@@ -381,10 +381,119 @@ fun AppliancesCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            val myProducts = listOf(
+                Product("best Selling", "Extra ₹1,000 off", R.drawable.best_seelling),
+                Product("Washers", "Extra ₹1,000 off", R.drawable.washers),
+                Product("Air Conditioners", "Extra ₹1,500 off", R.drawable.air_conditioners)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun HomeCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.home_category_banner1),
+        painterResource(id = R.drawable.home_category_banner2),
+        painterResource(id = R.drawable.home_category_banner3),
+        painterResource(id = R.drawable.home_category_banner4),
+        painterResource(id = R.drawable.home_category_banner5),
+        painterResource(id = R.drawable.home_category_banner6),
+        painterResource(id = R.drawable.home_category_banner7),
+        painterResource(id = R.drawable.home_category_banner8),
+        )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val electronicsCategories = remember {
+            listOf(
+                Category(0, "Shop Now", R.drawable.ic_shop_now_home_tab),
+                Category(1, "Containers", R.drawable.ic_containers_home_tab),
+                Category(2, "Decor", R.drawable.ic_decor_home_tab),
+                Category(3, "Drinkware", R.drawable.ic_drinkware_home_tab),
+                Category(4, "Dining", R.drawable.ic_dining_home_tab),
+                Category(5, "Bathroom", R.drawable.ic_bathroom_home_tab),
+                Category(6, "Cleaning", R.drawable.ic_cleaning_home_tab),
+                Category(7, "Floor Covers", R.drawable.ic_floor_covers_home_tab),
+                Category(8, "Wall Decor", R.drawable.ic_wall_decor_home_tab),
+                Category(9, "Bath Towels", R.drawable.ic_bath_towels_home_tab),
+                Category(10, "Sofas", R.drawable.ic_sofas_home_tab),
+                Category(11, "Cookware", R.drawable.ic_cookware_home_tab),
+                Category(12, "Furnishing", R.drawable.ic_furnishing_home_tab),
+                Category(13, "Hardware", R.drawable.ic_hardware_home_tab),
+                Category(14, "Lighting", R.drawable.ic_lighting_home_tab),
+                Category(15, "Bedsheets", R.drawable.ic_bedsheets_home_tab),
+                Category(16, "Furniture", R.drawable.ic_furniture_home_tab),
+                Category(17, "Blankets", R.drawable.ic_blankets_home_tab),
+                Category(18, "Utilities", R.drawable.ic_utilities_home_tab),
+                Category(19, "Pooja Needs", R.drawable.ic_pooja_needs_home_tab),
+                Category(20, "Gardening", R.drawable.ic_gardening_home_tab),
+                Category(21, "View All", R.drawable.ic_view_all_home_tab),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = electronicsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = electronicsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
 //            val myProducts = listOf(
-//                Product("best Selling", "Extra ₹1,000 off", R.drawable.best_seelling),
-//                Product("Washers", "Extra ₹1,000 off", R.drawable.washers),
-//                Product("Air Conditioners", "Extra ₹1,500 off", R.drawable.air_conditioners)
+//                Product("Plant stands", "From ₹99", R.drawable.plant_stands),
+//                Product("Laundry baskets", "From ₹100", R.drawable.laundry_baskets),
+//                Product("Prestige", "Up to 50% Off", R.drawable.prestige)
 //            )
 //
 //            Spacer(
@@ -402,28 +511,6 @@ fun AppliancesCategoryPage() {
 //            )
         }
         Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-@Composable
-fun HomeCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Home",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Home decor and essentials",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
     }
 }
 

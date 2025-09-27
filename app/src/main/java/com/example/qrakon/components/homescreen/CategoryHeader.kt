@@ -1,6 +1,7 @@
 package com.example.qrakon.components.homescreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -209,36 +210,33 @@ fun CategoryItemHeader(
 fun CategoryScreen() {
     val selectedCategory = remember { mutableStateOf("Shopping") }
 
-    // Accumulated scroll offset (px). We will keep it >= 0.
+    // Accumulated scroll offset (px). Keeping >= 0 so we can force header visible at top.
     val scrollOffset = remember { mutableStateOf(0f) }
     val isHeaderVisible = remember { mutableStateOf(true) }
 
     val density = LocalDensity.current
-    val hideThresholdPx = with(density) { 50.dp.toPx() } // tweak this threshold if needed
+    val hideThresholdPx = with(density) { 50.dp.toPx() } // still useful if you ever want to add smooth hide
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
 
-                // IMPORTANT: subtract delta so that upward scrolling (delta < 0) INCREASES scrollOffset
-                // Example: delta = -10 (user swiped up) => scrollOffset += 10
+                // Track scroll offset so we know when we're at top
                 scrollOffset.value = (scrollOffset.value - delta).coerceAtLeast(0f)
 
                 when {
                     delta < 0f -> {
-                        // user is scrolling *up* (swipe up) — hide header after threshold
-                        if (scrollOffset.value > hideThresholdPx) {
-                            isHeaderVisible.value = false
-                        }
+                        // User is scrolling UP (swipe up) → hide header immediately
+                        isHeaderVisible.value = false
                     }
                     delta > 0f -> {
-                        // user is scrolling *down* (swipe down) — show header immediately
+                        // User is scrolling DOWN (swipe down) → show header immediately
                         isHeaderVisible.value = true
                     }
                 }
 
-                // ensure header visible when at top
+                // Force header visible when at very top
                 if (scrollOffset.value <= 0f) {
                     isHeaderVisible.value = true
                 }
@@ -251,8 +249,14 @@ fun CategoryScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         AnimatedVisibility(
             visible = isHeaderVisible.value,
-            enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
-            exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
+            enter = slideInVertically(
+                initialOffsetY = { -it },
+                animationSpec = tween(durationMillis = 200) // faster show
+            ) + fadeIn(animationSpec = tween(durationMillis = 200)),
+            exit = slideOutVertically(
+                targetOffsetY = { -it },
+                animationSpec = tween(durationMillis = 120) // very fast hide
+            ) + fadeOut(animationSpec = tween(durationMillis = 120))
         ) {
             CategoryHeader(
                 onCategorySelected = { categoryName ->

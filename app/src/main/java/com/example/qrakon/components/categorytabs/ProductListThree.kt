@@ -54,7 +54,7 @@ fun ProductCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 2.dp)
+//                    .padding(top = 2.dp)
                     .height(120.dp)
                     .clip(RoundedCornerShape(12.dp)),
 //                    .background(Color(0xFFF8F8F8)),
