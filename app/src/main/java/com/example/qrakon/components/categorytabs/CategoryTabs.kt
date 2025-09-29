@@ -490,10 +490,212 @@ fun HomeCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            val myProducts = listOf(
+                Product("Plant stands", "From ₹99", R.drawable.plant_stands),
+                Product("Laundry baskets", "From ₹100", R.drawable.laundry_baskets),
+                Product("Prestige", "Up to 50% Off", R.drawable.prestige)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun FoodHealthCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.food_health_banner1),
+        painterResource(id = R.drawable.food_health_banner2),
+        painterResource(id = R.drawable.food_health_banner3),
+        painterResource(id = R.drawable.food_health_banner4),
+        painterResource(id = R.drawable.food_health_banner5),
+        painterResource(id = R.drawable.food_health_banner6),
+        painterResource(id = R.drawable.food_health_banner7),
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val electronicsCategories = remember {
+            listOf(
+                Category(0, "Dry Fruits", R.drawable.ic_dry_fruits_food_health_tab),
+                Category(1, "Oil & Ghee", R.drawable.ic_oil_ghee_food_health_tab),
+                Category(2, "Spreads", R.drawable.ic_spreads_home_food_health_tab),
+                Category(3, "Chokolates", R.drawable.ic_chokolates_food_health_tab),
+                Category(4, "Hot Brews", R.drawable.ic_hot_brews_home_food_health_tab),
+                Category(5, "Breakfast", R.drawable.ic_breakfast_home_food_health_tab),
+                Category(6, "Sweets", R.drawable.ic_sweets_home_food_health_tab),
+                Category(7, "Petfood", R.drawable.ic_petfood_home_food_health_tab),
+                Category(8, "Nutrition", R.drawable.ic_nutrition_home_food_health_tab),
+                Category(9, "Protein", R.drawable.ic_protein_home_food_health_tab),
+                Category(10, "Vitamin", R.drawable.ic_vitamin_home_food_health_tab),
+                Category(11, "Ayurveda", R.drawable.ic_ayurveda_home_food_health_tab),
+                Category(12, "Energy", R.drawable.ic_energy_home_food_health_tab),
+                Category(13, "Sexual", R.drawable.ic_sexual_home_food_health_tab),
+                Category(14, "Medical", R.drawable.ic_medical_home_food_health_tab),
+                Category(15, "Household", R.drawable.ic_household_food_health_tab),
+                  )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = electronicsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = electronicsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Edible Seeds", "Min. 25% Off", R.drawable.edible_seeds),
+                Product("Vitamins", "Min. 30% Off", R.drawable.vitamins),
+                Product("Dry Fruits", "Min. 40% Off", R.drawable.dry_fruits)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun ToysKidsCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.toys_kids_banner1),
+        painterResource(id = R.drawable.toys_kids_banner2),
+        painterResource(id = R.drawable.toys_kids_banner3),
+        painterResource(id = R.drawable.toys_kids_banner4),
+        painterResource(id = R.drawable.toys_kids_banner5),
+        painterResource(id = R.drawable.toys_kids_banner6),
+        painterResource(id = R.drawable.toys_kids_banner7),
+        painterResource(id = R.drawable.toys_kids_banner8),
+        painterResource(id = R.drawable.toys_kids_banner9),
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val electronicsCategories = remember {
+            listOf(
+                Category(0, "Toys & games", R.drawable.ic_toys_games_toys_kids_tab),
+                Category(1, "Diapers", R.drawable.ic_diapers_toys_kids_tab),
+                Category(2, "Travel", R.drawable.ic_travel_toys_kids_tab),
+                Category(3, "Bedding", R.drawable.ic_bedding_toys_kids_tab),
+                Category(4, "Supplies", R.drawable.ic_supplies_toys_kids_tab),
+                Category(5, "Top Brands", R.drawable.ic_top_brands_toys_kids_tab),
+                Category(6, "Wipes", R.drawable.ic_wipes_toys_kids_tab),
+                Category(7, "Gifting", R.drawable.ic_gifting_toys_kids_tab),
+                Category(8, "Skin & hair", R.drawable.ic_skin_hair_toys_kids_tab),
+                Category(9, "Stationery", R.drawable.ic_stationery_toys_kids_tab),
+                Category(10, "Arts & Crafts", R.drawable.ic_arts_crafts_toys_kids_tab),
+                Category(11, "STEM Toys", R.drawable.ic_stem_toys_toys_kids_tab),
+                )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = electronicsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = electronicsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
 //            val myProducts = listOf(
-//                Product("Plant stands", "From ₹99", R.drawable.plant_stands),
-//                Product("Laundry baskets", "From ₹100", R.drawable.laundry_baskets),
-//                Product("Prestige", "Up to 50% Off", R.drawable.prestige)
+//                Product("Essentials", "Upto 90% Off", R.drawable.essentials),
+//                Product("Scooters & ride-ons", "From ₹549", R.drawable.scooters_ride_ons),
+//                Product("Walker", "From ₹715", R.drawable.walker)
 //            )
 //
 //            Spacer(
@@ -511,50 +713,6 @@ fun HomeCategoryPage() {
 //            )
         }
         Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-@Composable
-fun FoodHealthCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Food & Health",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Nutrition and wellness products",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
-}
-
-@Composable
-fun ToysKidsCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Toys & Kids",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Toys and kids products",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
     }
 }
 

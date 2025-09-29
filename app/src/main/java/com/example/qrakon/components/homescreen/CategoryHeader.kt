@@ -69,30 +69,46 @@ fun CategoryHeader(
                 0xFFCA5353
             )
             ),
-            CategoryHeaderClass(4, "Economy", R.drawable.deal_economy, Color(0xFFFFF9C4), selectedColor = Color(
-                0xFFD2C54C
+            CategoryHeaderClass(4, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
+                0xFF31BC3B
             )
             ),
+//            CategoryHeaderClass(4, "Economy", R.drawable.deal_economy, Color(0xFFFFF9C4), selectedColor = Color(
+//                0xFFD2C54C
+//            )
+//            ),
             CategoryHeaderClass(5, "Deals", R.drawable.deal_category, Color(0xFFA6DF95), selectedColor = Color(
                 0xFF64CD44
             )
             ),
-            CategoryHeaderClass(6, "Bride", R.drawable.bride_category, Color(0xFFF0B7C0), selectedColor = Color(
+            CategoryHeaderClass(6, "Bridal", R.drawable.bride_category, Color(0xFFF0B7C0), selectedColor = Color(
                 0xFFC6374D
             )
             ),
-            CategoryHeaderClass(7, "Groom", R.drawable.groom_category, Color(0xFFCBBB6F), selectedColor = Color(
-                0xFFBAA438
+            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCEC7A5), selectedColor = Color(
+                0xFFC3B364
             )
             ),
-            CategoryHeaderClass(8, "Airport", R.drawable.airport_category, Color(0xFFAEE9F1), selectedColor = Color(
+//            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCBBB6F), selectedColor = Color(
+//                0xFFBAA438
+//            )
+//            ),
+            CategoryHeaderClass(8, "Economy", R.drawable.deal_economy, Color(0xFFF1EFDA), selectedColor = Color(
+                0xFFDDD373
+            )
+            ),
+//            CategoryHeaderClass(7, "Groom", R.drawable.groom_category, Color(0xFFCBBB6F), selectedColor = Color(
+//                0xFFBAA438
+//            )
+//            ),
+            CategoryHeaderClass(9, "Airport", R.drawable.airport_category, Color(0xFFAEE9F1), selectedColor = Color(
                 0xFF30A8B8
             )
             ),
-            CategoryHeaderClass(9, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
-                0xFF31BC3B
-            )
-            ),
+//            CategoryHeaderClass(9, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
+//                0xFF31BC3B
+//            )
+//            ),
             CategoryHeaderClass(10, "Industry", R.drawable.industry_category, Color(0xFFB0D0E6), selectedColor = Color(
                 0xFF3182BA
             )
@@ -109,8 +125,12 @@ fun CategoryHeader(
                 0xFFB6253A
             )
             ),
-            CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFFCCF8CF), selectedColor = Color(
+            CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFF95E69A), selectedColor = Color(
                 0xFF24B12D
+            )
+            ),
+            CategoryHeaderClass(15, "Pay", R.drawable.pay, Color(0xFFCFC76D), selectedColor = Color(
+                0xFFE7D532
             )
             ),
         )
@@ -246,7 +266,7 @@ fun CategoryScreen() {
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.customColors.white)) {
         AnimatedVisibility(
             visible = isHeaderVisible.value,
             enter = slideInVertically(
@@ -276,8 +296,9 @@ fun CategoryScreen() {
                 "Beauty" -> BeautyScreen()
                 "Economy" -> EconomyScreen()
                 "Deals" -> DealsScreen()
-                "Bride" -> BrideScreen()
-                "Groom" -> GroomScreen()
+                "Bridal" -> BrideScreen()
+                "Jewellery" -> JewelleryScreen()
+//                "Groom" -> GroomScreen()
                 "Airport" -> AirportScreen()
                 "Electric" -> ElectricScreen()
                 "Industry" -> IndustryScreen()
@@ -285,6 +306,7 @@ fun CategoryScreen() {
                 "Sell" -> SellScreen()
                 "Medical" -> MedicalScreen()
                 "Fresh" -> FreshScreen()
+                "Pay" -> PayScreen()
                 else -> ShoppingScreen()
             }
         }
@@ -408,20 +430,20 @@ fun BrideScreen() {
 }
 
 @Composable
-fun GroomScreen() {
+fun JewelleryScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         Text(
-            text = "Groom",
+            text = "Jewellery",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.customColors.primary
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Groom fashion and wedding essentials!")
+        Text("Jewellery Screen!")
     }
 }
 
@@ -548,5 +570,22 @@ fun FreshScreen() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text("Fresh produce and daily groceries!")
+    }
+}
+@Composable
+fun PayScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "Payment",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.customColors.primary
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Pay Online!")
     }
 }
