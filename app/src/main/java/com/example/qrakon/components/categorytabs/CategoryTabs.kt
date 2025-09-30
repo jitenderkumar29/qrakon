@@ -656,7 +656,7 @@ fun ToysKidsCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val electronicsCategories = remember {
+        val toysKidsCategories = remember {
             listOf(
                 Category(0, "Toys & games", R.drawable.ic_toys_games_toys_kids_tab),
                 Category(1, "Diapers", R.drawable.ic_diapers_toys_kids_tab),
@@ -677,14 +677,112 @@ fun ToysKidsCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = electronicsCategories,
+                categories = toysKidsCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = electronicsCategories.first(),
+                initialSelectedCategory = toysKidsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Essentials", "Upto 90% Off", R.drawable.essentials),
+                Product("Scooters & ride-ons", "From ₹549", R.drawable.scooters_ride_ons),
+                Product("Walker", "From ₹715", R.drawable.walker)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun AutoAccessoriesCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.auto_accessories_banner1),
+        painterResource(id = R.drawable.auto_accessories_banner2),
+        painterResource(id = R.drawable.auto_accessories_banner3),
+        painterResource(id = R.drawable.auto_accessories_banner4),
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val autoAccessoriesCategories = remember {
+            listOf(
+                Category(0, "Dashcams", R.drawable.ic_dashcams_auto_acce),
+                Category(1, "Riding gear", R.drawable.ic_riding_gear_auto_acce),
+                Category(2, "Cleaner", R.drawable.ic_cleaner_auto_acce),
+                Category(3, "Tyres", R.drawable.ic_tyres_auto_acce),
+                Category(4, "Batteries", R.drawable.ic_batteries_auto_acce),
+                Category(5, "Music sys", R.drawable.ic_music_sys_auto_acce),
+                Category(6, "Engine oils", R.drawable.ic_engine_oils_auto_acce),
+                Category(7, "Subwoofers", R.drawable.ic_subwoofers_auto_acce),
+                Category(8, "Helmets", R.drawable.ic_helmets_hair_auto_acce),
+                Category(9, "Car washer", R.drawable.ic_car_washer_auto_acce),
+                Category(10, "Body covers", R.drawable.ic_body_covers_auto_acce),
+                Category(11, "Styling", R.drawable.ic_styling_auto_acce),
+                Category(12, "Car mats", R.drawable.ic_car_mats_auto_acce),
+                Category(13, "Lights", R.drawable.ic_lights_auto_acce),
+                Category(14, "Type air pump", R.drawable.ic_type_air_pump_auto_acce),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = autoAccessoriesCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = autoAccessoriesCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
@@ -693,9 +791,9 @@ fun ToysKidsCategoryPage() {
             )
 
 //            val myProducts = listOf(
-//                Product("Essentials", "Upto 90% Off", R.drawable.essentials),
-//                Product("Scooters & ride-ons", "From ₹549", R.drawable.scooters_ride_ons),
-//                Product("Walker", "From ₹715", R.drawable.walker)
+//                Product("SMK", "Flat 28% Off", R.drawable.smk),
+//                Product("Redtiger", "40-60% Off", R.drawable.redtiger),
+//                Product("Steelbird", "Flat 30% Off", R.drawable.steelbird)
 //            )
 //
 //            Spacer(
@@ -713,28 +811,6 @@ fun ToysKidsCategoryPage() {
 //            )
         }
         Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-@Composable
-fun AutoAccessoriesCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Auto Accessories",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Car accessories and parts",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
     }
 }
 

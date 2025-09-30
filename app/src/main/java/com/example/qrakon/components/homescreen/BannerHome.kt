@@ -1,20 +1,27 @@
 package com.example.qrakon.components.homescreen
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -30,8 +37,8 @@ fun BannerHome(
     onImageClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
     height: Dp = 270.dp,
-    dotSize: Dp = 8.dp,
-    dotPadding: Dp = 5.dp,
+    dotSize: Dp = 4.dp,
+    dotPadding: Dp = 3.dp,
     selectedDotColor: Color = MaterialTheme.customColors.linkColor,
     unselectedDotColor: Color = Color.White.copy(alpha = 0.9f),
     backgroundColor: Color = Color.White,
@@ -92,28 +99,125 @@ fun BannerHome(
                     .align(Alignment.BottomCenter)
                     .padding(bottom = dotPadding)
             ) {
-                repeat(images.size) { index ->
-                    val isSelected = pagerState.currentPage == index
-                    val animatedDotSize = animateDpAsState(
-                        targetValue = if (isSelected) dotSize else dotSize
-                    )
-                    val dotColor = animateColorAsState(
-                        targetValue = if (isSelected) selectedDotColor else unselectedDotColor
-                    )
+            OverlayDots(
+                pagerState = pagerState,
+                imageCount = images.size, // only the count is required
+                dotSize = dotSize,
+                dotPadding = dotPadding,
+                selectedDotColor = selectedDotColor,
+                unselectedDotColor = unselectedDotColor,
+                indicatorDuration = autoScrollDelay
+            )
+        }
 
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = dotPadding)
-                            .size(animatedDotSize.value)
-                            .background(color = dotColor.value, shape = CircleShape)
-                            .clickable {
-                                coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
-                                }
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                modifier = Modifier
+//                    .align(Alignment.BottomCenter)
+//                    .padding(bottom = dotPadding)
+//            ) {
+//                repeat(images.size) { index ->
+//                    val isSelected = pagerState.currentPage == index
+//                    val animatedDotSize = animateDpAsState(
+//                        targetValue = if (isSelected) dotSize else dotSize
+//                    )
+//                    val dotColor = animateColorAsState(
+//                        targetValue = if (isSelected) selectedDotColor else unselectedDotColor
+//                    )
+//
+//                    Box(
+//                        modifier = Modifier
+//                            .padding(horizontal = dotPadding)
+//                            .size(animatedDotSize.value)
+//                            .background(color = dotColor.value, shape = CircleShape)
+//                            .clickable {
+//                                coroutineScope.launch {
+//                                    pagerState.animateScrollToPage(index)
+//                                }
+//                            }
+//                    )
+//                }
+//            }
+        }
+    }
+}
+
+
+@Composable
+fun OverlayDots(
+    pagerState: PagerState,
+    imageCount: Int,
+    dotSize: Dp = 6.dp, // height of the line
+    dotPadding: Dp = 3.dp,
+    selectedDotColor: Color = Color.White,
+    unselectedDotColor: Color = Color.Gray,
+    indicatorDuration: Long = 3000L // auto-scroll duration
+) {
+    val coroutineScope = rememberCoroutineScope()
+
+    // Full-width container to lock indicators at the bottom
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 2.dp),
+        contentAlignment = Alignment.BottomCenter // ✅ keep bottom centered
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(bottom = dotPadding)
+        ) {
+            repeat(imageCount) { index ->
+                val isSelected = pagerState.currentPage == index
+
+                // Progress animation for the active indicator
+                val progress = remember { Animatable(0f) }
+                if (isSelected) {
+                    LaunchedEffect(pagerState.currentPage) {
+                        progress.snapTo(0f)
+                        progress.animateTo(
+                            targetValue = 1f,
+                            animationSpec = tween(
+                                durationMillis = indicatorDuration.toInt(),
+                                easing = LinearEasing
+                            )
+                        )
+                    }
+                } else {
+                    LaunchedEffect(pagerState.currentPage) {
+                        progress.snapTo(0f)
+                    }
+                }
+
+                // Width: active = 2× inactive
+                val targetWidth = if (isSelected) dotSize * 5 else dotSize * 2
+                val animatedWidth = animateDpAsState(targetValue = targetWidth)
+                val animatedHeight = animateDpAsState(targetValue = dotSize)
+
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = dotPadding)
+                        .width(animatedWidth.value)
+                        .height(animatedHeight.value)
+                        .clip(RoundedCornerShape(50))
+                        .background(unselectedDotColor)
+                        .clickable {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
                             }
-                    )
+                        }
+                ) {
+                    if (isSelected) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .fillMaxWidth(progress.value) // animate line growth
+                                .clip(RoundedCornerShape(50))
+                                .background(selectedDotColor)
+                        )
+                    }
                 }
             }
         }
     }
 }
+
