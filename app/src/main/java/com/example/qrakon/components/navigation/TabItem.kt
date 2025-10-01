@@ -49,7 +49,7 @@ sealed class TabItem(
     data object Settings : TabItem(
         title = "Category",
         icon = Icons.Filled.Menu,
-        imageResource = R.drawable.ic_category, // Add this image to your drawable resources
+        imageResource = R.drawable.ic_category_24, // Add this image to your drawable resources
         screen = { SettingsScreen() }
     )
 

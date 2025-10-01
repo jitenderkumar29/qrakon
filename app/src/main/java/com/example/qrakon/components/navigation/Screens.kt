@@ -55,7 +55,7 @@ fun SettingsScreen() {
     WelcomeScreen(
         title = "Settings",
         message = "Customize your Qrakon experience with various settings and preferences.",
-        imageResource = R.drawable.ic_category
+        imageResource = R.drawable.ic_category_24
     )
 }
 

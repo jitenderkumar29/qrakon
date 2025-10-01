@@ -92,23 +92,42 @@ fun BannerHome(
                 )
             }
 
-            // Overlay dots
+            // Overlay dots at bottom
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = dotPadding)
+                    .padding(bottom = 6.dp) // spacing from bottom
             ) {
-            OverlayDots(
-                pagerState = pagerState,
-                imageCount = images.size, // only the count is required
-                dotSize = dotSize,
-                dotPadding = dotPadding,
-                selectedDotColor = selectedDotColor,
-                unselectedDotColor = unselectedDotColor,
-                indicatorDuration = autoScrollDelay
-            )
+                OverlayDots(
+                    pagerState = pagerState,
+                    imageCount = images.size,
+                    dotHeight = 5.dp, // width factor reference
+//                    dotSize = 5.dp, // width factor reference
+                    dotPadding = 3.dp,
+                    selectedDotColor = Color.White,
+                    unselectedDotColor = Color.Gray,
+                    indicatorDuration = autoScrollDelay
+                )
+            }
         }
+//            // Overlay dots
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                modifier = Modifier
+//                    .align(Alignment.BottomCenter)
+//                    .padding(bottom = dotPadding)
+//            ) {
+//            OverlayDots(
+//                pagerState = pagerState,
+//                imageCount = images.size, // only the count is required
+//                dotSize = dotSize,
+//                dotPadding = dotPadding,
+//                selectedDotColor = selectedDotColor,
+//                unselectedDotColor = unselectedDotColor,
+//                indicatorDuration = autoScrollDelay
+//            )
+//        }
 
 //            Row(
 //                horizontalArrangement = Arrangement.Center,
@@ -140,14 +159,14 @@ fun BannerHome(
 //            }
         }
     }
-}
+//}
 
-
+//Min Height dot line
 @Composable
 fun OverlayDots(
     pagerState: PagerState,
     imageCount: Int,
-    dotSize: Dp = 6.dp, // height of the line
+    dotHeight: Dp = 3.dp, // reduced height of the line
     dotPadding: Dp = 3.dp,
     selectedDotColor: Color = Color.White,
     unselectedDotColor: Color = Color.Gray,
@@ -155,12 +174,11 @@ fun OverlayDots(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    // Full-width container to lock indicators at the bottom
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 2.dp),
-        contentAlignment = Alignment.BottomCenter // ✅ keep bottom centered
+        contentAlignment = Alignment.BottomCenter
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -168,8 +186,9 @@ fun OverlayDots(
         ) {
             repeat(imageCount) { index ->
                 val isSelected = pagerState.currentPage == index
+                val isHighlighted = index <= pagerState.currentPage // ✅ highlight previous + current
 
-                // Progress animation for the active indicator
+                // Progress animation only for the current active dot
                 val progress = remember { Animatable(0f) }
                 if (isSelected) {
                     LaunchedEffect(pagerState.currentPage) {
@@ -188,10 +207,10 @@ fun OverlayDots(
                     }
                 }
 
-                // Width: active = 2× inactive
-                val targetWidth = if (isSelected) dotSize * 5 else dotSize * 2
+                // Width: active = 5×, inactive = 2×
+                val targetWidth = if (isSelected) dotHeight * 5 else dotHeight * 5
                 val animatedWidth = animateDpAsState(targetValue = targetWidth)
-                val animatedHeight = animateDpAsState(targetValue = dotSize)
+                val animatedHeight = animateDpAsState(targetValue = dotHeight)
 
                 Box(
                     modifier = Modifier
@@ -206,11 +225,13 @@ fun OverlayDots(
                             }
                         }
                 ) {
-                    if (isSelected) {
+                    if (isHighlighted) {
                         Box(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .fillMaxWidth(progress.value) // animate line growth
+                                .fillMaxWidth(
+                                    if (isSelected) progress.value else 1f
+                                ) // ✅ current animates, past full
                                 .clip(RoundedCornerShape(50))
                                 .background(selectedDotColor)
                         )
@@ -220,4 +241,83 @@ fun OverlayDots(
         }
     }
 }
+
+//
+//@Composable
+//fun OverlayDots(
+//    pagerState: PagerState,
+//    imageCount: Int,
+//    dotSize: Dp = 6.dp, // height of the line
+//    dotPadding: Dp = 3.dp,
+//    selectedDotColor: Color = Color.White,
+//    unselectedDotColor: Color = Color.Gray,
+//    indicatorDuration: Long = 3000L // auto-scroll duration
+//) {
+//    val coroutineScope = rememberCoroutineScope()
+//
+//    // Full-width container to lock indicators at the bottom
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(bottom = 2.dp),
+//        contentAlignment = Alignment.BottomCenter // ✅ keep bottom centered
+//    ) {
+//        Row(
+//            horizontalArrangement = Arrangement.Center,
+//            modifier = Modifier.padding(bottom = dotPadding)
+//        ) {
+//            repeat(imageCount) { index ->
+//                val isSelected = pagerState.currentPage == index
+//
+//                // Progress animation for the active indicator
+//                val progress = remember { Animatable(0f) }
+//                if (isSelected) {
+//                    LaunchedEffect(pagerState.currentPage) {
+//                        progress.snapTo(0f)
+//                        progress.animateTo(
+//                            targetValue = 1f,
+//                            animationSpec = tween(
+//                                durationMillis = indicatorDuration.toInt(),
+//                                easing = LinearEasing
+//                            )
+//                        )
+//                    }
+//                } else {
+//                    LaunchedEffect(pagerState.currentPage) {
+//                        progress.snapTo(0f)
+//                    }
+//                }
+//
+//                // Width: active = 2× inactive
+//                val targetWidth = if (isSelected) dotSize * 5 else dotSize * 3
+//                val animatedWidth = animateDpAsState(targetValue = targetWidth)
+//                val animatedHeight = animateDpAsState(targetValue = dotSize)
+//
+//                Box(
+//                    modifier = Modifier
+//                        .padding(horizontal = dotPadding)
+//                        .width(animatedWidth.value)
+//                        .height(animatedHeight.value)
+//                        .clip(RoundedCornerShape(50))
+//                        .background(unselectedDotColor)
+//                        .clickable {
+//                            coroutineScope.launch {
+//                                pagerState.animateScrollToPage(index)
+//                            }
+//                        }
+//                ) {
+//                    if (isSelected) {
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxHeight()
+//                                .fillMaxWidth(progress.value) // animate line growth
+//                                .clip(RoundedCornerShape(50))
+//                                .background(selectedDotColor)
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 

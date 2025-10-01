@@ -790,10 +790,107 @@ fun AutoAccessoriesCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            val myProducts = listOf(
+                Product("SMK", "Flat 28% Off", R.drawable.smk),
+                Product("Redtiger", "40-60% Off", R.drawable.redtiger),
+                Product("Steelbird", "Flat 30% Off", R.drawable.steelbird)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun SportsCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.sports_banner1),
+        painterResource(id = R.drawable.sports_banner2),
+        painterResource(id = R.drawable.sports_banner3),
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val sportsCategories = remember {
+            listOf(
+                Category(0, "Badminton", R.drawable.ic_badminton_sports_tab),
+                Category(1, "Cycles", R.drawable.ic_cycles_sports_tab),
+                Category(2, "Gym Combo", R.drawable.ic_gym_combo_sports_tab),
+                Category(3, "Fitness", R.drawable.ic_fitness_sports_tab),
+                Category(4, "Ball Sports", R.drawable.ic_ball_sports_sports_tab),
+                Category(5, "Camping", R.drawable.ic_camping_sports_tab),
+                Category(6, "Yoga", R.drawable.ic_yoga_sports_tab),
+                Category(7, "Protein", R.drawable.ic_protein_sports_tab),
+                Category(8, "Treadmills", R.drawable.ic_treadmills_sports_tab),
+                Category(9, "Excercise", R.drawable.ic_excercise_sports_tab),
+                Category(10, "Cricket", R.drawable.ic_cricket_sports_tab),
+                Category(11, "Indoor sports", R.drawable.ic_indoor_sports_sports_tab),
+                Category(12, "Kids Cycles", R.drawable.ic_kids_cycles_sports_tab),
+                Category(13, "Kids favs", R.drawable.ic_kids_favs_sports_tab),
+                Category(14, "Electric cycles", R.drawable.ic_electric_cycles_sports_tab),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = sportsCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = sportsCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
 //            val myProducts = listOf(
-//                Product("SMK", "Flat 28% Off", R.drawable.smk),
-//                Product("Redtiger", "40-60% Off", R.drawable.redtiger),
-//                Product("Steelbird", "Flat 30% Off", R.drawable.steelbird)
+//                Product("Home Gym Combo", "From ₹1699", R.drawable.home_gym_combo),
+//                Product("Adult cycle", "Min 40% Off", R.drawable.adult_cycle),
+//                Product("Treadmill", "Up to 70% Off", R.drawable.treadmill)
 //            )
 //
 //            Spacer(
@@ -811,28 +908,6 @@ fun AutoAccessoriesCategoryPage() {
 //            )
         }
         Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-@Composable
-fun SportsCategoryPage() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Sports",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Sports equipment and gear",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
     }
 }
 
