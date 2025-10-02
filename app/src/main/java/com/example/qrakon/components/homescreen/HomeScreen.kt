@@ -9,6 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.qrakon.components.searchbar.SearchBar
@@ -57,8 +59,17 @@ fun HomeScreen() {
             // 🔵 Sticky Search Bar (pinned on scroll)
             stickyHeader {
                 Surface(
-                    color = MaterialTheme.customColors.lightAccent,
+                    color = Color.Transparent,
+//                    color = MaterialTheme.customColors.lightAccent,
                     modifier = Modifier.fillMaxWidth()
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color(0xFF8B2B2D),
+                                    Color(0xFF923839)
+                                )
+                            )
+                        )
                 ) {
 //                    Column {
                         // ✅ Status bar spacer
@@ -86,7 +97,19 @@ fun HomeScreen() {
 
             // 🟢 Location Section
             item {
-                Surface(color = MaterialTheme.customColors.darkAccent) {
+                Surface(
+                    color = Color.Transparent,
+//                    color = MaterialTheme.customColors.darkAccent,
+                    modifier = Modifier.fillMaxWidth()
+//                    .background(
+//                        brush = Brush.verticalGradient(
+//                            colors = listOf(
+//                                Color(0xFF903E3F),
+//                                MaterialTheme.customColors.darkAccent
+//                            )
+//                        )
+//                    )
+                ) {
                     LocationSelectionButton(
                         selectedLocation = selectedLocation,
                         onLocationClick = { showLocationDialog = true }

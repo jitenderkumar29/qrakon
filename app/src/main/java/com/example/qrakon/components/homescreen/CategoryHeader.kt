@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -142,7 +143,16 @@ fun CategoryHeader(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(MaterialTheme.customColors.lightAccent)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        MaterialTheme.customColors.lightAccent,
+                        Color(0xFF8B2B2D)
+                    )
+                )
+            )
+//            .background(MaterialTheme.customColors.lightAccent)
+
     ) {
         // Fixed height for the LazyRow container to avoid infinite constraints
         Box(

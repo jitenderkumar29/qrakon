@@ -887,25 +887,25 @@ fun SportsCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
-//            val myProducts = listOf(
-//                Product("Home Gym Combo", "From ₹1699", R.drawable.home_gym_combo),
-//                Product("Adult cycle", "Min 40% Off", R.drawable.adult_cycle),
-//                Product("Treadmill", "Up to 70% Off", R.drawable.treadmill)
-//            )
-//
-//            Spacer(
-//                modifier = Modifier.height(2.dp)
-//                    .fillMaxWidth()
-//                    .background(MaterialTheme.customColors.spacerColor)
-//            )
-//
-//            // Call the reusable component
-//            ProductList(
-//                products = myProducts,
-////                sectionTitle = "Featured Products", // Optional
-//                showName = true,  // Show name under image
-//                showPrice = true  // Show price under image
-//            )
+            val myProducts = listOf(
+                Product("Home Gym Combo", "From ₹1699", R.drawable.home_gym_combo),
+                Product("Adult cycle", "Min 40% Off", R.drawable.adult_cycle),
+                Product("Treadmill", "Up to 70% Off", R.drawable.treadmill)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -913,23 +913,108 @@ fun SportsCategoryPage() {
 
 @Composable
 fun FurnitureCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.furniture_banner1),
+        painterResource(id = R.drawable.furniture_banner2),
+        painterResource(id = R.drawable.furniture_banner3),
+        painterResource(id = R.drawable.furniture_banner4),
+        painterResource(id = R.drawable.furniture_banner5),
+        painterResource(id = R.drawable.furniture_banner6),
+        painterResource(id = R.drawable.furniture_banner7),
+        painterResource(id = R.drawable.furniture_banner8),
+        painterResource(id = R.drawable.furniture_banner9),
+    )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Furniture",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Home and office furniture",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val furnitureCategories = remember {
+            listOf(
+                Category(0, "Mattresses", R.drawable.ic_mattresses_furniture_tab),
+                Category(1, "Beds", R.drawable.ic_beds_furniture_tab),
+                Category(2, "Sofas", R.drawable.ic_sofas_furniture_tab),
+                Category(3, "Laptop tables", R.drawable.ic_laptop_tables_furniture_tab),
+                Category(4, "Coffee tables", R.drawable.ic_coffee_tables_furniture_tab),
+                Category(5, "Sofa beds", R.drawable.ic_sofa_beds_furniture_tab),
+                Category(6, "TV units", R.drawable.ic_tv_units_furniture_tab),
+                Category(7, "Bath Fittings", R.drawable.ic_bath_fittings_furniture_tab),
+                Category(8, "Kid's furniture", R.drawable.ic_kids_furniture_furniture_tab),
+                Category(9, "View all", R.drawable.ic_view_all_furniture_tab),
+                Category(10, "Office chairs", R.drawable.ic_office_chairs_furniture_tab),
+                Category(11, "Wardrobes", R.drawable.ic_wardrobes_furniture_tab),
+                Category(12, "Dining sets", R.drawable.ic_dining_sets_furniture_tab),
+                Category(13, "Collapsibles", R.drawable.ic_collapsibles_furniture_tab),
+                Category(14, "Hammock", R.drawable.ic_hammock_furniture_tab),
+                Category(15, "Shoe racks", R.drawable.ic_shoe_racks_furniture_tab),
+                Category(16, "Pooja Mandir", R.drawable.ic_pooja_mandir_furniture_tab),
+                Category(17, "Inflatables", R.drawable.ic_inflatables_furniture_tab),
+                Category(18, "Top25 deals", R.drawable.ic_top25_deals_furniture_tab),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = furnitureCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = furnitureCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Bedroom furniture", "From ₹5,999", R.drawable.bedroom_furniture),
+                Product("Wardrobes", "From ₹5,499", R.drawable.wardrobes),
+                Product("Office chairs", "From ₹2,699", R.drawable.office_chairs)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
