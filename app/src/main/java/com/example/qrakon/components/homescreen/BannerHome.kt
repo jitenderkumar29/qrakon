@@ -93,23 +93,25 @@ fun BannerHome(
             }
 
             // Overlay dots at bottom
-//            Row(
-//                horizontalArrangement = Arrangement.Center,
-//                modifier = Modifier
-//                    .align(Alignment.BottomCenter)
-//                    .padding(bottom = 6.dp) // spacing from bottom
-//            ) {
-//                OverlayDots(
-//                    pagerState = pagerState,
-//                    imageCount = images.size,
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 1.dp) // spacing from bottom
+            ) {
+
+                OverlayDots(
+                    pagerState = pagerState,
+                    imageCount = images.size,
+                    dotSize = 8.dp, // width factor reference
 //                    dotHeight = 5.dp, // width factor reference
-////                    dotSize = 5.dp, // width factor reference
-//                    dotPadding = 3.dp,
-//                    selectedDotColor = Color.White,
-//                    unselectedDotColor = Color.Gray,
-//                    indicatorDuration = autoScrollDelay
-//                )
-//            }
+                    dotPadding = 6.dp,
+                    selectedDotColor = MaterialTheme.customColors.onPrimaryContainer,
+//                    selectedDotColor = Color.Blue,
+                    unselectedDotColor = Color.Gray,
+                    indicatorDuration = autoScrollDelay
+                )
+            }
         }
 //            // Overlay dots
 //            Row(
@@ -157,33 +159,34 @@ fun BannerHome(
 //                    )
 //                }
 //            }
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-                .padding(bottom = 3.dp, top = 12.dp) // spacing from bottom
-        ) {
-            OverlayDots(
-                pagerState = pagerState,
-                imageCount = images.size,
-//                dotHeight = 5.dp, // width factor reference
-                    dotSize = 10.dp, // width factor reference
-                dotPadding = 9.dp,
-                selectedDotColor = Color.Black,
-                unselectedDotColor = Color.Gray,
-                indicatorDuration = autoScrollDelay
-            )
-        }
+
+//        Row(
+//            horizontalArrangement = Arrangement.Center,
+//            modifier = Modifier
+////                .align(Alignment.BottomCenter)
+//                .padding(bottom = 0.dp, top = 6.dp) // spacing from bottom
+//        ) {
+//            OverlayDots(
+//                pagerState = pagerState,
+//                imageCount = images.size,
+////                dotHeight = 5.dp, // width factor reference
+//                    dotSize = 8.dp, // width factor reference
+//                dotPadding = 6.dp,
+//                selectedDotColor = Color.Black,
+//                unselectedDotColor = Color.Gray,
+//                indicatorDuration = autoScrollDelay
+//            )
+//        }
         }
     }
 //}
 
-// Dot in square shape
+// Dot in Circle shape
 @Composable
 fun OverlayDots(
     pagerState: PagerState,
     imageCount: Int,
-    dotSize: Dp = 6.dp, // square size
+    dotSize: Dp = 8.dp,           // circle size
     dotPadding: Dp = 3.dp,
     selectedDotColor: Color = Color.White,
     unselectedDotColor: Color = Color.Gray,
@@ -194,12 +197,12 @@ fun OverlayDots(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 2.dp),
+            .padding(bottom = 1.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(bottom = dotPadding)
+            modifier = Modifier.padding(bottom = 1.dp)
         ) {
             repeat(imageCount) { index ->
                 val isSelected = pagerState.currentPage == index
@@ -223,33 +226,103 @@ fun OverlayDots(
                     }
                 }
 
-                // Square: width = height
-                val targetSize = if (isSelected) dotSize * 1.15f else dotSize
+                // Animate circle slightly bigger when selected
+                val targetSize = if (isSelected) dotSize * 1.2f else dotSize
                 val animatedSize = animateDpAsState(targetValue = targetSize)
 
                 Box(
                     modifier = Modifier
                         .padding(horizontal = dotPadding)
-                        .size(animatedSize.value) // square shape
-                        .background(unselectedDotColor) // ⬜ square
+                        .size(animatedSize.value)
+                        .background(
+                            color = if (isHighlighted) selectedDotColor else unselectedDotColor,
+                            shape = CircleShape
+                        )
                         .clickable {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(index)
                             }
                         }
-                ) {
-                    if (isHighlighted) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(selectedDotColor) // ⬛ square fill
-                        )
-                    }
-                }
+                )
             }
         }
     }
 }
+
+
+
+//// Dot in square shape
+//@Composable
+//fun OverlayDots(
+//    pagerState: PagerState,
+//    imageCount: Int,
+//    dotSize: Dp = 6.dp, // square size
+//    dotPadding: Dp = 3.dp,
+//    selectedDotColor: Color = Color.White,
+//    unselectedDotColor: Color = Color.Gray,
+//    indicatorDuration: Long = 3000L
+//) {
+//    val coroutineScope = rememberCoroutineScope()
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(bottom = 2.dp),
+//        contentAlignment = Alignment.BottomCenter
+//    ) {
+//        Row(
+//            horizontalArrangement = Arrangement.Center,
+//            modifier = Modifier.padding(bottom = dotPadding)
+//        ) {
+//            repeat(imageCount) { index ->
+//                val isSelected = pagerState.currentPage == index
+//                val isHighlighted = index <= pagerState.currentPage
+//
+//                val progress = remember { Animatable(0f) }
+//                if (isSelected) {
+//                    LaunchedEffect(pagerState.currentPage) {
+//                        progress.snapTo(0f)
+//                        progress.animateTo(
+//                            targetValue = 1f,
+//                            animationSpec = tween(
+//                                durationMillis = indicatorDuration.toInt(),
+//                                easing = LinearEasing
+//                            )
+//                        )
+//                    }
+//                } else {
+//                    LaunchedEffect(pagerState.currentPage) {
+//                        progress.snapTo(0f)
+//                    }
+//                }
+//
+//                // Square: width = height
+//                val targetSize = if (isSelected) dotSize * 1.15f else dotSize
+//                val animatedSize = animateDpAsState(targetValue = targetSize)
+//
+//                Box(
+//                    modifier = Modifier
+//                        .padding(horizontal = dotPadding)
+//                        .size(animatedSize.value) // square shape
+//                        .background(unselectedDotColor) // ⬜ square
+//                        .clickable {
+//                            coroutineScope.launch {
+//                                pagerState.animateScrollToPage(index)
+//                            }
+//                        }
+//                ) {
+//                    if (isHighlighted) {
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .background(selectedDotColor) // ⬛ square fill
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 ////Min Height dot line

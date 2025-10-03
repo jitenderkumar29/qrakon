@@ -61,94 +61,6 @@ fun HomeScreenHeader(
         }
     }
 }
-
-@Composable
-fun LocationSelectionButton(
-    selectedLocation: String,
-    onLocationClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        onClick = onLocationClick,
-        modifier = modifier
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF923839),                // top
-                        Color(0xFF903E3F),                // top
-                    )
-                ),
-//                shape = RoundedCornerShape(12.dp) // ✅ ensures gradient matches card
-            ),
-//        shape = RoundedCornerShape(12.dp), // ✅ keep same shape
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent // ✅ allow gradient to show
-        ),
-//        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.LocationOn,
-                contentDescription = "Location",
-                tint = MaterialTheme.customColors.white
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Row(
-                modifier = Modifier.weight(1f),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Deliver to",
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
-                    color = MaterialTheme.customColors.white
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = selectedLocation,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
-                    color = MaterialTheme.customColors.white
-                )
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowDown,
-                    contentDescription = "Change location",
-                    tint = MaterialTheme.customColors.white
-                )
-            }
-
-            Button(
-                onClick = { /* Handle Join Ultra action */ },
-                modifier = Modifier
-                    .height(32.dp)
-                    .padding(start = 8.dp)
-                    .widthIn(min = 90.dp),
-                shape = MaterialTheme.shapes.extraLarge,
-                contentPadding = PaddingValues(horizontal = 8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.customColors.white,
-                    contentColor = MaterialTheme.customColors.black
-                )
-            ) {
-                Text(
-                    text = "Join Ultra",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 13.sp
-                )
-            }
-        }
-    }
-}
-
-
 //
 //@Composable
 //fun LocationSelectionButton(
@@ -158,10 +70,21 @@ fun LocationSelectionButton(
 //) {
 //    Card(
 //        onClick = onLocationClick,
-//        modifier = modifier,
+//        modifier = modifier
+//            .background(
+//                brush = Brush.verticalGradient(
+//                    colors = listOf(
+//                        Color(0xFF923839),                // top
+//                        Color(0xFF903E3F),                // top
+//                    )
+//                ),
+////                shape = RoundedCornerShape(12.dp) // ✅ ensures gradient matches card
+//            ),
+////        shape = RoundedCornerShape(12.dp), // ✅ keep same shape
 //        colors = CardDefaults.cardColors(
-//            containerColor = MaterialTheme.customColors.darkAccent
-//        )
+//            containerColor = Color.Transparent // ✅ allow gradient to show
+//        ),
+////        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
 //    ) {
 //        Row(
 //            modifier = Modifier
@@ -172,7 +95,7 @@ fun LocationSelectionButton(
 //            Icon(
 //                imageVector = Icons.Default.LocationOn,
 //                contentDescription = "Location",
-//                tint = MaterialTheme.customColors.white // ✅ Icon color white
+//                tint = MaterialTheme.customColors.white
 //            )
 //            Spacer(modifier = Modifier.width(4.dp))
 //            Row(
@@ -184,7 +107,7 @@ fun LocationSelectionButton(
 //                    style = MaterialTheme.typography.bodyLarge,
 //                    fontWeight = FontWeight.Medium,
 //                    fontSize = 14.sp,
-//                    color = MaterialTheme.customColors.white // ✅ Text color white
+//                    color = MaterialTheme.customColors.white
 //                )
 //                Spacer(modifier = Modifier.width(4.dp))
 //                Text(
@@ -192,17 +115,17 @@ fun LocationSelectionButton(
 //                    style = MaterialTheme.typography.bodyLarge,
 //                    fontWeight = FontWeight.Medium,
 //                    fontSize = 14.sp,
-//                    color = MaterialTheme.customColors.white // ✅ Text color white
+//                    color = MaterialTheme.customColors.white
 //                )
 //                Icon(
 //                    imageVector = Icons.Default.KeyboardArrowDown,
 //                    contentDescription = "Change location",
-//                    tint = MaterialTheme.customColors.white // ✅ Arrow icon color white
+//                    tint = MaterialTheme.customColors.white
 //                )
 //            }
 //
 //            Button(
-//                onClick = { /* Handle Join Prime action */ },
+//                onClick = { /* Handle Join Ultra action */ },
 //                modifier = Modifier
 //                    .height(32.dp)
 //                    .padding(start = 8.dp)
@@ -210,8 +133,8 @@ fun LocationSelectionButton(
 //                shape = MaterialTheme.shapes.extraLarge,
 //                contentPadding = PaddingValues(horizontal = 8.dp),
 //                colors = ButtonDefaults.buttonColors(
-//                    containerColor = MaterialTheme.customColors.white, // ✅ Button background white
-//                    contentColor = MaterialTheme.customColors.black     // ✅ Button text black
+//                    containerColor = MaterialTheme.customColors.white,
+//                    contentColor = MaterialTheme.customColors.black
 //                )
 //            ) {
 //                Text(
@@ -223,5 +146,82 @@ fun LocationSelectionButton(
 //            }
 //        }
 //    }
-//
 //}
+
+
+
+@Composable
+fun LocationSelectionButton(
+    selectedLocation: String,
+    onLocationClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        onClick = onLocationClick,
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.customColors.darkAccent
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.LocationOn,
+                contentDescription = "Location",
+                tint = MaterialTheme.customColors.white // ✅ Icon color white
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Deliver to",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 14.sp,
+                    color = MaterialTheme.customColors.white // ✅ Text color white
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = selectedLocation,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 14.sp,
+                    color = MaterialTheme.customColors.white // ✅ Text color white
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = "Change location",
+                    tint = MaterialTheme.customColors.white // ✅ Arrow icon color white
+                )
+            }
+
+            Button(
+                onClick = { /* Handle Join Prime action */ },
+                modifier = Modifier
+                    .height(32.dp)
+                    .padding(start = 8.dp)
+                    .widthIn(min = 90.dp),
+                shape = MaterialTheme.shapes.extraLarge,
+                contentPadding = PaddingValues(horizontal = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.customColors.white, // ✅ Button background white
+                    contentColor = MaterialTheme.customColors.black     // ✅ Button text black
+                )
+            ) {
+                Text(
+                    text = "Join Ultra",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp
+                )
+            }
+        }
+    }
+
+}

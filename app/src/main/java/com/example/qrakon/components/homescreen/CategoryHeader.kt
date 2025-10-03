@@ -143,15 +143,15 @@ fun CategoryHeader(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        MaterialTheme.customColors.lightAccent,
-                        Color(0xFF8B2B2D)
-                    )
-                )
-            )
-//            .background(MaterialTheme.customColors.lightAccent)
+//            .background(
+//                brush = Brush.verticalGradient(
+//                    colors = listOf(
+//                        MaterialTheme.customColors.lightAccent,
+//                        Color(0xFF8B2B2D)
+//                    )
+//                )
+//            )
+            .background(MaterialTheme.customColors.lightAccent)
 
     ) {
         // Fixed height for the LazyRow container to avoid infinite constraints
@@ -162,9 +162,9 @@ fun CategoryHeader(
                 .padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize()
-            )         {
+            )       {
                 items(categories.size) { index ->
                     val category = categories[index]
                     CategoryItemHeader(

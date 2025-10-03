@@ -96,14 +96,15 @@ fun CategoryTabs(
     Column(modifier = Modifier.fillMaxWidth()) {
         ScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
-            containerColor = MaterialTheme.customColors.orange,
-            contentColor = MaterialTheme.customColors.white,
+            containerColor = MaterialTheme.customColors.skyBlue,
+            contentColor = MaterialTheme.customColors.black,
             edgePadding = 0.dp,
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(
                     modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                     height = 5.dp,
-                    color = MaterialTheme.customColors.white
+//                    color = Color.Blue
+                    color = MaterialTheme.customColors.onPrimaryContainer
                 )
             }
         ) {
@@ -149,9 +150,10 @@ fun CategoryTabs(
                                 }
                             ),
                             tint = if (selectedTabIndex == index) {
-                                MaterialTheme.customColors.white // Different color when selected
+                                MaterialTheme.customColors.onPrimaryContainer // Different color when selected
+//                                Color.Blue
                             } else {
-                                MaterialTheme.customColors.white
+                                MaterialTheme.customColors.black
                             }
                         )
 
@@ -162,9 +164,10 @@ fun CategoryTabs(
                             fontSize = 12.sp, // Slightly smaller font for better fit
                             fontWeight = if (selectedTabIndex == index) FontWeight.Bold else FontWeight.Medium,
                             color = if (selectedTabIndex == index) {
-                                MaterialTheme.customColors.white
+                                MaterialTheme.customColors.onPrimaryContainer
+//                                Color.Blue
                             } else {
-                                MaterialTheme.customColors.white
+                                MaterialTheme.customColors.black
                             },
                             maxLines = 2, // Allow 2 lines for longer text
                             textAlign = TextAlign.Center,
@@ -1020,45 +1023,196 @@ fun FurnitureCategoryPage() {
 
 @Composable
 fun TwoWheelersCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.two_wheelers_banner1),
+        painterResource(id = R.drawable.two_wheelers_banner2),
+        painterResource(id = R.drawable.two_wheelers_banner3),
+        painterResource(id = R.drawable.two_wheelers_banner4),
+        painterResource(id = R.drawable.two_wheelers_banner5),
+        painterResource(id = R.drawable.two_wheelers_banner6),
+
+    )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "2 Wheelers",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Bikes and scooters",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val twowheelersCategories = remember {
+            listOf(
+                Category(0, "Hero", R.drawable.ic_hero_two_wheelers_tab),
+                Category(1, "VIDA", R.drawable.ic_vida_two_wheelers_tab),
+                Category(2, "ODYSSE", R.drawable.ic_odysse_two_wheelers_tab),
+                Category(3, "Simple", R.drawable.ic_simple_two_wheelers_tab),
+                Category(4, "Jawa", R.drawable.ic_jawa_tables_two_wheelers_tab),
+                Category(5, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
+                Category(6, "Chetak", R.drawable.ic_chetak_two_wheelers_tab),
+                Category(7, "AMPERE", R.drawable.ic_ampere_two_wheelers_tab),
+                Category(8, "OLA", R.drawable.ic_ola_two_wheelers_tab),
+                Category(9, "Matter", R.drawable.ic_matter_two_wheelers_tab),
+                Category(10, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
+                Category(11, "Oben Electric", R.drawable.ic_oben_electric_two_wheelers_tab),
+                 )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = twowheelersCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = twowheelersCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Ampere", "Up to 95km* range", R.drawable.ampere_product),
+                Product("Ather", "115km* range", R.drawable.ather_product),
+                Product("OLA", "Up to 242km* range", R.drawable.ola_product)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
 fun BooksCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.books_banner1),
+        painterResource(id = R.drawable.books_banner2),
+        painterResource(id = R.drawable.books_banner3),
+        painterResource(id = R.drawable.books_banner4),
+        painterResource(id = R.drawable.books_banner5),
+
+        )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Books",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Books and educational material",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
-        )
+
+//        Spacer(
+//            modifier = Modifier.height(2.dp)
+//                .fillMaxWidth()
+//                .background(MaterialTheme.customColors.spacerColor)
+//        )
+//        // Carousel Double
+//        val twowheelersCategories = remember {
+//            listOf(
+//                Category(0, "Hero", R.drawable.ic_hero_two_wheelers_tab),
+//                Category(1, "VIDA", R.drawable.ic_vida_two_wheelers_tab),
+//                Category(2, "ODYSSE", R.drawable.ic_odysse_two_wheelers_tab),
+//                Category(3, "Simple", R.drawable.ic_simple_two_wheelers_tab),
+//                Category(4, "Jawa", R.drawable.ic_jawa_tables_two_wheelers_tab),
+//                Category(5, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
+//                Category(6, "Chetak", R.drawable.ic_chetak_two_wheelers_tab),
+//                Category(7, "AMPERE", R.drawable.ic_ampere_two_wheelers_tab),
+//                Category(8, "OLA", R.drawable.ic_ola_two_wheelers_tab),
+//                Category(9, "Matter", R.drawable.ic_matter_two_wheelers_tab),
+//                Category(10, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
+//                Category(11, "Oben Electric", R.drawable.ic_oben_electric_two_wheelers_tab),
+//            )
+//        }
+//
+//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+//        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+//        Column {
+//            CategoryProducts(
+//                categories = twowheelersCategories,
+//                onCategorySelected = { category ->
+//                    selectedCategory = category
+//                    // Handle category selection (navigation, filtering, etc.)
+//                    println("Selected category: ${category.name}")
+//                },
+//                modifier = Modifier.fillMaxWidth(),
+//                initialSelectedCategory = twowheelersCategories.first(),
+//                itemWidth = 75, // Custom width
+//                itemHeight = 65, // Custom height
+//                horizontalSpacing = 8, // Custom spacing
+//                verticalSpacing = 8,
+//                backgroundColor = MaterialTheme.customColors.white // Light blue background
+//            )
+//
+//            val myProducts = listOf(
+//                Product("Ampere", "Up to 95km* range", R.drawable.ampere_product),
+//                Product("Ather", "115km* range", R.drawable.ather_product),
+//                Product("OLA", "Up to 242km* range", R.drawable.ola_product)
+//            )
+//
+//            Spacer(
+//                modifier = Modifier.height(2.dp)
+//                    .fillMaxWidth()
+//                    .background(MaterialTheme.customColors.spacerColor)
+//            )
+//
+//            // Call the reusable component
+//            ProductList(
+//                products = myProducts,
+////                sectionTitle = "Featured Products", // Optional
+//                showName = true,  // Show name under image
+//                showPrice = true  // Show price under image
+//            )
+//        }
+//        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 

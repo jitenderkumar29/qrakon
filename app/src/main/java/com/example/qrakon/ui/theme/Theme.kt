@@ -72,6 +72,7 @@ data class CustomColors(
     val darkAccent: Color,
     val footer: Color,
     val orange: Color,
+    val skyBlue: Color,
 
     // Custom gray colors
     val spacerColor: Color,
@@ -149,6 +150,7 @@ val LightCustomColors = CustomColors(
 //    darkAccent = Color(0xFFF62626),
     footer = Color(0xFF760241),
     orange = Color(0xFFFB5E20),
+    skyBlue = Color(0xFFDDE0FF),
 //    lightAccent = Color(0xFFB9DC96),
 //    darkAccent = Color(0xFFCBF0A3),
 //    lightAccent = Color(0xFF162271),
@@ -231,6 +233,7 @@ val DarkCustomColors = CustomColors(
     darkAccent = Color(0xFFF62626),
     footer = Color(0xFF760241),
     orange = Color(0xFFFB5E20),
+    skyBlue = Color(0xFFDDE0FF),
 
     // Custom gray colors
     spacerColor = Color(0xFFE3E2E2),

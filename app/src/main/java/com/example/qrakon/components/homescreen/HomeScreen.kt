@@ -59,17 +59,17 @@ fun HomeScreen() {
             // 🔵 Sticky Search Bar (pinned on scroll)
             stickyHeader {
                 Surface(
-                    color = Color.Transparent,
-//                    color = MaterialTheme.customColors.lightAccent,
+                    color = MaterialTheme.customColors.lightAccent,
+//                    color = Color.Transparent,
                     modifier = Modifier.fillMaxWidth()
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color(0xFF8B2B2D),
-                                    Color(0xFF923839)
-                                )
-                            )
-                        )
+//                        .background(
+//                            brush = Brush.verticalGradient(
+//                                colors = listOf(
+//                                    Color(0xFF8B2B2D),
+//                                    Color(0xFF923839)
+//                                )
+//                            )
+//                        )
                 ) {
 //                    Column {
                         // ✅ Status bar spacer
@@ -83,7 +83,7 @@ fun HomeScreen() {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 12.dp, vertical = 8.dp)
+                                .padding(horizontal = 12.dp, vertical = 0.dp)
                         ) {
                             SearchBar(
                                 query = searchQuery,
@@ -98,8 +98,8 @@ fun HomeScreen() {
             // 🟢 Location Section
             item {
                 Surface(
-                    color = Color.Transparent,
-//                    color = MaterialTheme.customColors.darkAccent,
+                    color = MaterialTheme.customColors.darkAccent,
+//                    color = Color.Transparent,
                     modifier = Modifier.fillMaxWidth()
 //                    .background(
 //                        brush = Brush.verticalGradient(
