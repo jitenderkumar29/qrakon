@@ -66,7 +66,9 @@ sealed class CategoryPage {
     object TwoWheelers : CategoryPage()
     object Books : CategoryPage()
     object Musical : CategoryPage()
-    object Ultra : CategoryPage()
+    object FourWheeler : CategoryPage()
+
+    object Gemstone : CategoryPage()
 }
 
 @Composable
@@ -90,7 +92,8 @@ fun CategoryTabs(
         "2 wheelers" to R.drawable.ic_two_wheelers,
         "Books" to R.drawable.ic_books_tab,
         "Musical" to R.drawable.ic_musical,
-        "Ultra" to R.drawable.ic_ultra,
+        "Four Wheeler" to R.drawable.ic_four_wheeler,
+        "Gemstone" to R.drawable.ic_gemstone,
     )
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -127,7 +130,8 @@ fun CategoryTabs(
                             10 -> CategoryPage.TwoWheelers
                             11 -> CategoryPage.Books
                             12 -> CategoryPage.Musical
-                            13 -> CategoryPage.Ultra
+                            13 -> CategoryPage.FourWheeler
+                            14 -> CategoryPage.Gemstone
                             else -> CategoryPage.All
                         }
                         onCategorySelected(page)
@@ -193,7 +197,8 @@ fun CategoryTabs(
             10 -> TwoWheelersCategoryPage()
             11 -> BooksCategoryPage()
             12 -> MusicalCategoryPage()
-            13 -> UltraCategoryPage()
+            13 -> FourWheelerCategoryPage()
+            14 -> GemstoneCategoryPage()
             else -> AllCategoryPage()
         }
     }
@@ -1061,19 +1066,22 @@ fun TwoWheelersCategoryPage() {
         // Carousel Double
         val twowheelersCategories = remember {
             listOf(
+                Category(0, "Upcoming", R.drawable.ic_upcoming_two_wheelers_tab),
+                Category(0, "New Launch", R.drawable.ic_new_launch_two_wheelers_tab),
+                Category(0, "Popular Brands", R.drawable.ic_popular_brands_two_wheelers_tab),
                 Category(0, "Hero", R.drawable.ic_hero_two_wheelers_tab),
-                Category(1, "VIDA", R.drawable.ic_vida_two_wheelers_tab),
-                Category(2, "ODYSSE", R.drawable.ic_odysse_two_wheelers_tab),
-                Category(3, "Simple", R.drawable.ic_simple_two_wheelers_tab),
-                Category(4, "Jawa", R.drawable.ic_jawa_tables_two_wheelers_tab),
-                Category(5, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
-                Category(6, "Chetak", R.drawable.ic_chetak_two_wheelers_tab),
-                Category(7, "AMPERE", R.drawable.ic_ampere_two_wheelers_tab),
-                Category(8, "OLA", R.drawable.ic_ola_two_wheelers_tab),
-                Category(9, "Matter", R.drawable.ic_matter_two_wheelers_tab),
-                Category(10, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
-                Category(11, "Oben Electric", R.drawable.ic_oben_electric_two_wheelers_tab),
-                 )
+                Category(1, "Honda", R.drawable.ic_honda_two_wheelers_tab),
+                Category(2, "Yamaha", R.drawable.ic_yamaha_two_wheelers_tab),
+                Category(3, "TVS", R.drawable.ic_tvs_two_wheelers_tab),
+                Category(4, "Bajaj", R.drawable.ic_bajaj_two_wheelers_tab),
+                Category(5, "Suzuki", R.drawable.ic_suzuki_two_wheelers_tab),
+                Category(6, "Royal Enfield", R.drawable.ic_royal_enfield_two_wheelers_tab),
+                Category(7, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
+                Category(8, "Jawa", R.drawable.ic_jawa_two_wheelers_tab),
+                Category(9, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
+                Category(10, "Harley-Davidson", R.drawable.ic_harley_davidson_two_wheelers_tab),
+                Category(11, "Aprilia", R.drawable.ic_aprilia_two_wheelers_tab)
+ )
         }
 
         var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -1126,6 +1134,105 @@ fun BooksCategoryPage() {
         painterResource(id = R.drawable.books_banner1),
         painterResource(id = R.drawable.books_banner2),
         painterResource(id = R.drawable.books_banner3),
+//        painterResource(id = R.drawable.books_banner4),
+//        painterResource(id = R.drawable.books_banner5),
+
+        )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
+    ) {
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val twowheelersCategories = remember {
+            listOf(
+//                Category(0, "Guitar", R.drawable.ic_guitar_books_tab),
+//                Category(1, "Microphones", R.drawable.ic_microphones_books_tab),
+//                Category(2, "Keyboards", R.drawable.ic_keyboards_books_tab),
+//                Category(3, "Cajons", R.drawable.ic_cajons_books_tab),
+//                Category(4, "Instruments", R.drawable.ic_instruments_books_tab),
+//                Category(5, "Amplifiers", R.drawable.ic_amplifiers_books_tab),
+                Category(0, "Boxsets", R.drawable.ic_boxsets_books_tab),
+                Category(1, "Children's", R.drawable.ic_childrens_books_tab),
+                Category(2, "Comics", R.drawable.ic_comics_books_tab),
+                Category(3, "Fiction", R.drawable.ic_fiction_books_tab),
+                Category(4, "Exam Prep", R.drawable.ic_exam_prep_books_tab),
+                Category(5, "School Books", R.drawable.ic_school_books_books_tab),
+                Category(6, "Non-Fiction", R.drawable.ic_non_fiction_books_tab),
+                Category(7, "Biographies", R.drawable.ic_biographies_books_tab),
+                Category(8, "Science & Tech", R.drawable.ic_science_tech_books_tab),
+                Category(9, "History", R.drawable.ic_history_books_tab),
+                Category(10, "Romance", R.drawable.ic_romance_books_tab),
+                Category(11, "Self Help", R.drawable.ic_self_help_books_tab))
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = twowheelersCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = twowheelersCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("English", "Up to 20% Off", R.drawable.english_product),
+                Product("Hindi", "Up to 25% Off", R.drawable.hindi_product),
+                Product("Tamil", "Up to 30% Off", R.drawable.tamil_product)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun MusicalCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
         painterResource(id = R.drawable.books_banner4),
         painterResource(id = R.drawable.books_banner5),
 
@@ -1150,52 +1257,52 @@ fun BooksCategoryPage() {
             modifier = Modifier.padding(bottom = 0.dp)
         )
 
-//        Spacer(
-//            modifier = Modifier.height(2.dp)
-//                .fillMaxWidth()
-//                .background(MaterialTheme.customColors.spacerColor)
-//        )
-//        // Carousel Double
-//        val twowheelersCategories = remember {
-//            listOf(
-//                Category(0, "Hero", R.drawable.ic_hero_two_wheelers_tab),
-//                Category(1, "VIDA", R.drawable.ic_vida_two_wheelers_tab),
-//                Category(2, "ODYSSE", R.drawable.ic_odysse_two_wheelers_tab),
-//                Category(3, "Simple", R.drawable.ic_simple_two_wheelers_tab),
-//                Category(4, "Jawa", R.drawable.ic_jawa_tables_two_wheelers_tab),
-//                Category(5, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
-//                Category(6, "Chetak", R.drawable.ic_chetak_two_wheelers_tab),
-//                Category(7, "AMPERE", R.drawable.ic_ampere_two_wheelers_tab),
-//                Category(8, "OLA", R.drawable.ic_ola_two_wheelers_tab),
-//                Category(9, "Matter", R.drawable.ic_matter_two_wheelers_tab),
-//                Category(10, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
-//                Category(11, "Oben Electric", R.drawable.ic_oben_electric_two_wheelers_tab),
-//            )
-//        }
-//
-//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
-//        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
-//        Column {
-//            CategoryProducts(
-//                categories = twowheelersCategories,
-//                onCategorySelected = { category ->
-//                    selectedCategory = category
-//                    // Handle category selection (navigation, filtering, etc.)
-//                    println("Selected category: ${category.name}")
-//                },
-//                modifier = Modifier.fillMaxWidth(),
-//                initialSelectedCategory = twowheelersCategories.first(),
-//                itemWidth = 75, // Custom width
-//                itemHeight = 65, // Custom height
-//                horizontalSpacing = 8, // Custom spacing
-//                verticalSpacing = 8,
-//                backgroundColor = MaterialTheme.customColors.white // Light blue background
-//            )
-//
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+        // Carousel Double
+        val twowheelersCategories = remember {
+            listOf(
+                Category(0, "Guitar", R.drawable.ic_guitar_books_tab),
+                Category(1, "Microphones", R.drawable.ic_microphones_books_tab),
+                Category(2, "Keyboards", R.drawable.ic_keyboards_books_tab),
+                Category(3, "Cajons", R.drawable.ic_cajons_books_tab),
+                Category(4, "Instruments", R.drawable.ic_instruments_books_tab),
+                Category(5, "Amplifiers", R.drawable.ic_amplifiers_books_tab),
+                Category(6, "Drums", R.drawable.ic_drums_books_tab),
+                Category(7, "Violins", R.drawable.ic_violins_books_tab),
+                Category(8, "Studio Gear", R.drawable.ic_studio_gear_books_tab),
+                Category(9, "DJ Equipment", R.drawable.ic_dj_equipment_books_tab),
+                Category(10, "Ukuleles", R.drawable.ic_ukulele_books_tab),
+                Category(11, "Accessories", R.drawable.ic_accessories_books_tab)
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = twowheelersCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = twowheelersCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
 //            val myProducts = listOf(
-//                Product("Ampere", "Up to 95km* range", R.drawable.ampere_product),
-//                Product("Ather", "115km* range", R.drawable.ather_product),
-//                Product("OLA", "Up to 242km* range", R.drawable.ola_product)
+//                Product("English", "Up to 20% Off", R.drawable.english_product),
+//                Product("Hindi", "Up to 25% Off", R.drawable.hindi_product),
+//                Product("Tamil", "Up to 30% Off", R.drawable.tamil_product)
 //            )
 //
 //            Spacer(
@@ -1211,26 +1318,26 @@ fun BooksCategoryPage() {
 //                showName = true,  // Show name under image
 //                showPrice = true  // Show price under image
 //            )
-//        }
-//        Spacer(modifier = Modifier.height(16.dp))
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
-fun MusicalCategoryPage() {
+fun FourWheelerCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Musical",
+            text = "FourWheeler",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Musical instruments and equipment",
+            text = "Premium and luxury products",
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp)
@@ -1239,14 +1346,14 @@ fun MusicalCategoryPage() {
 }
 
 @Composable
-fun UltraCategoryPage() {
+fun GemstoneCategoryPage() {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Ultra",
+            text = "Gemstone",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
@@ -1583,7 +1690,8 @@ fun MainScreen(navController: NavHostController) {
                     is CategoryPage.TwoWheelers -> 10
                     is CategoryPage.Books -> 11
                     is CategoryPage.Musical -> 12
-                    is CategoryPage.Ultra -> 13
+                    is CategoryPage.FourWheeler -> 13
+                    is CategoryPage.Gemstone -> 14
                 }
             }
         )

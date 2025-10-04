@@ -39,7 +39,7 @@ fun CategoryProducts(modifier: Modifier = Modifier) {
             Category(2, "Shop Live", R.drawable.shop_live),
             Category(3, "Electronics", R.drawable.electronics),
             Category(4, "Mobiles", R.drawable.mobiles),
-            Category(5, "Prime", R.drawable.prime),
+            Category(5, "Ultra", R.drawable.prime),
             Category(6, "Rewards", R.drawable.rewards),
             Category(7, "Movies", R.drawable.movies),
             Category(8, "Furniture", R.drawable.furniture),
