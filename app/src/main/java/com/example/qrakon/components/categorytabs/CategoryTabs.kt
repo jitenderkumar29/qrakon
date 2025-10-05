@@ -1263,7 +1263,7 @@ fun MusicalCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val twowheelersCategories = remember {
+        val musicalCategories = remember {
             listOf(
                 Category(0, "Guitar", R.drawable.ic_guitar_books_tab),
                 Category(1, "Microphones", R.drawable.ic_microphones_books_tab),
@@ -1284,14 +1284,14 @@ fun MusicalCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = twowheelersCategories,
+                categories = musicalCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = twowheelersCategories.first(),
+                initialSelectedCategory = musicalCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
@@ -1299,25 +1299,25 @@ fun MusicalCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
-//            val myProducts = listOf(
-//                Product("English", "Up to 20% Off", R.drawable.english_product),
-//                Product("Hindi", "Up to 25% Off", R.drawable.hindi_product),
-//                Product("Tamil", "Up to 30% Off", R.drawable.tamil_product)
-//            )
-//
-//            Spacer(
-//                modifier = Modifier.height(2.dp)
-//                    .fillMaxWidth()
-//                    .background(MaterialTheme.customColors.spacerColor)
-//            )
-//
-//            // Call the reusable component
-//            ProductList(
-//                products = myProducts,
-////                sectionTitle = "Featured Products", // Optional
-//                showName = true,  // Show name under image
-//                showPrice = true  // Show price under image
-//            )
+            val myProducts = listOf(
+                Product("Acoustic guitars", "From ₹1,299", R.drawable.acoustic_guitars_product),
+                Product("Microphones", "Up to 60% Off", R.drawable.microphones_product),
+                Product("Cajons", "Up to 50% Off", R.drawable.cajons_product)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -1325,23 +1325,101 @@ fun MusicalCategoryPage() {
 
 @Composable
 fun FourWheelerCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.four_wheeler_banner1),
+        painterResource(id = R.drawable.four_wheeler_banner2),
+        painterResource(id = R.drawable.four_wheeler_banner3),
+
+        )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "FourWheeler",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Premium and luxury products",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val fourwheelersCategories = remember {
+            listOf(
+                Category(0, "Maruti", R.drawable.ic_maruti_four_wheelers_tab),
+                Category(1, "Tata", R.drawable.ic_tata_four_wheelers_tab),
+                Category(2, "Kia", R.drawable.ic_kia_four_wheelers_tab),
+                Category(3, "Toyota", R.drawable.ic_toyota_four_wheelers_tab),
+                Category(4, "Hyundai", R.drawable.ic_hyundai_four_wheelers_tab),
+                Category(5, "Mahindra", R.drawable.ic_mahindra_four_wheelers_tab),
+                Category(6, "Haima", R.drawable.ic_haima_four_wheelers_tab),
+                Category(7, "Haval", R.drawable.ic_haval_four_wheelers_tab),
+                Category(8, "Koenigsegg", R.drawable.ic_koenigsegg_four_wheelers_tab),
+                Category(9, "Leapmotor", R.drawable.ic_leapmotor_four_wheelers_tab),
+                Category(10, "Xiaomi", R.drawable.ic_xiaomi_four_wheelers_tab),
+                Category(11, "Abarth", R.drawable.ic_abarth_four_wheelers_tab),
+                Category(12, "Ashok Leyland", R.drawable.ic_ashok_leyland_four_wheelers_tab),
+                Category(13, "Austin", R.drawable.ic_austin_four_wheelers_tab),
+                Category(14, "Cadillac", R.drawable.ic_cadillac_four_wheelers_tab),
+                Category(15, "Caterham", R.drawable.ic_caterham_four_wheelers_tab),
+                Category(16, "Chevrolet", R.drawable.ic_chevrolet_four_wheelers_tab),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = fourwheelersCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = fourwheelersCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Maruti FRONX", "₹6.85-11.98 Lakh*", R.drawable.maruti_fronx_product),
+                Product("Tata Punch", "₹5.50-9.30 Lakh*", R.drawable.tata_punch_product),
+                Product("Tata Nexon", "₹7.32-14.05 Lakh*", R.drawable.tata_nexon_product)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
