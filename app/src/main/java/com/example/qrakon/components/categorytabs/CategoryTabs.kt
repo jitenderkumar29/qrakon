@@ -1,7 +1,5 @@
 package com.example.qrakon.components.categorytabs
 
-import AllShopping
-import ElectronicsShopping
 import Product
 import ProductList
 import androidx.compose.foundation.background
@@ -29,16 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.qrakon.components.categorytabs.beauty.BeautyCarousel
-import com.example.qrakon.components.categorytabs.fashion.FashionCarousel
-import com.example.qrakon.components.categorytabs.shopping.ShoppingCarousel
 import com.example.qrakon.components.homescreen.AdsSponsored
 import com.example.qrakon.components.homescreen.BannerHome
 import com.example.qrakon.components.homescreen.BikeCategoryHeader
@@ -49,7 +43,6 @@ import com.example.qrakon.components.homescreen.FurnitureCategory
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
-import com.example.qrakon.components.categorytabs.mobile.MobileCarousel
 
 // Sealed class for different category pages
 sealed class CategoryPage {
@@ -1067,20 +1060,21 @@ fun TwoWheelersCategoryPage() {
         val twowheelersCategories = remember {
             listOf(
                 Category(0, "Upcoming", R.drawable.ic_upcoming_two_wheelers_tab),
-                Category(0, "New Launch", R.drawable.ic_new_launch_two_wheelers_tab),
-                Category(0, "Popular Brands", R.drawable.ic_popular_brands_two_wheelers_tab),
-                Category(0, "Hero", R.drawable.ic_hero_two_wheelers_tab),
-                Category(1, "Honda", R.drawable.ic_honda_two_wheelers_tab),
-                Category(2, "Yamaha", R.drawable.ic_yamaha_two_wheelers_tab),
-                Category(3, "TVS", R.drawable.ic_tvs_two_wheelers_tab),
-                Category(4, "Bajaj", R.drawable.ic_bajaj_two_wheelers_tab),
-                Category(5, "Suzuki", R.drawable.ic_suzuki_two_wheelers_tab),
-                Category(6, "Royal Enfield", R.drawable.ic_royal_enfield_two_wheelers_tab),
-                Category(7, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
-                Category(8, "Jawa", R.drawable.ic_jawa_two_wheelers_tab),
-                Category(9, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
-                Category(10, "Harley-Davidson", R.drawable.ic_harley_davidson_two_wheelers_tab),
-                Category(11, "Aprilia", R.drawable.ic_aprilia_two_wheelers_tab)
+                Category(1, "New Launch", R.drawable.ic_new_launch_two_wheelers_tab),
+//                Category(0, "Popular Brands", R.drawable.ic_popular_brands_two_wheelers_tab),
+                Category(2, "Hero", R.drawable.ic_hero_two_wheelers_tab),
+                Category(3, "Honda", R.drawable.ic_honda_two_wheelers_tab),
+                Category(4, "Yamaha", R.drawable.ic_yamaha_two_wheelers_tab),
+                Category(5, "TVS", R.drawable.ic_tvs_two_wheelers_tab),
+                Category(6, "Bajaj", R.drawable.ic_bajaj_two_wheelers_tab),
+                Category(7, "Suzuki", R.drawable.ic_suzuki_two_wheelers_tab),
+                Category(8, "Royal Enfield", R.drawable.ic_royal_enfield_two_wheelers_tab),
+                Category(9, "KTM", R.drawable.ic_ktm_two_wheelers_tab),
+                Category(10, "Jawa", R.drawable.ic_jawa_two_wheelers_tab),
+                Category(11, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
+                Category(12, "Harley-Davidson", R.drawable.ic_harley_davidson_two_wheelers_tab),
+                Category(13, "Aprilia", R.drawable.ic_aprilia_two_wheelers_tab),
+                Category(14, "BMW", R.drawable.ic_bmw_two_wheelers_tab)
  )
         }
 
@@ -1164,7 +1158,7 @@ fun BooksCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val twowheelersCategories = remember {
+        val booksCategories = remember {
             listOf(
 //                Category(0, "Guitar", R.drawable.ic_guitar_books_tab),
 //                Category(1, "Microphones", R.drawable.ic_microphones_books_tab),
@@ -1190,14 +1184,14 @@ fun BooksCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = twowheelersCategories,
+                categories = booksCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = twowheelersCategories.first(),
+                initialSelectedCategory = booksCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
@@ -1370,13 +1364,15 @@ fun FourWheelerCategoryPage() {
                 Category(7, "Haval", R.drawable.ic_haval_four_wheelers_tab),
                 Category(8, "Koenigsegg", R.drawable.ic_koenigsegg_four_wheelers_tab),
                 Category(9, "Leapmotor", R.drawable.ic_leapmotor_four_wheelers_tab),
-                Category(10, "Xiaomi", R.drawable.ic_xiaomi_four_wheelers_tab),
-                Category(11, "Abarth", R.drawable.ic_abarth_four_wheelers_tab),
-                Category(12, "Ashok Leyland", R.drawable.ic_ashok_leyland_four_wheelers_tab),
-                Category(13, "Austin", R.drawable.ic_austin_four_wheelers_tab),
-                Category(14, "Cadillac", R.drawable.ic_cadillac_four_wheelers_tab),
-                Category(15, "Caterham", R.drawable.ic_caterham_four_wheelers_tab),
-                Category(16, "Chevrolet", R.drawable.ic_chevrolet_four_wheelers_tab),
+//                Category(10, "Xiaomi", R.drawable.ic_xiaomi_four_wheelers_tab),
+                Category(10, "Abarth", R.drawable.ic_abarth_four_wheelers_tab),
+                Category(11, "BMW", R.drawable.ic_bmw_four_wheelers_tab),
+                Category(12, "Austin", R.drawable.ic_austin_four_wheelers_tab),
+                Category(13, "Cadillac", R.drawable.ic_cadillac_four_wheelers_tab),
+                Category(14, "Caterham", R.drawable.ic_caterham_four_wheelers_tab),
+                Category(15, "Chevrolet", R.drawable.ic_chevrolet_four_wheelers_tab),
+                Category(16, "Audi", R.drawable.ic_audi_four_wheelers_tab),
+                Category(17, "Rolls-Royce", R.drawable.ic_rolls_royce_four_wheelers_tab),
             )
         }
 
@@ -1396,7 +1392,7 @@ fun FourWheelerCategoryPage() {
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
-                backgroundColor = MaterialTheme.customColors.white // Light blue background
+                backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light blue background
             )
 
             val myProducts = listOf(
@@ -1425,23 +1421,94 @@ fun FourWheelerCategoryPage() {
 
 @Composable
 fun GemstoneCategoryPage() {
+    var selectedCategory = remember { mutableStateOf("All Deals") }
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.gemstone_banner1),
+        painterResource(id = R.drawable.gemstone_banner2),
+        painterResource(id = R.drawable.gemstone_banner3),
+
+        )
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
-        Text(
-            text = "Gemstone",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+        BannerHome(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
         )
-        Text(
-            text = "Premium and luxury products",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 8.dp)
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
+        // Carousel Double
+        val fourwheelersCategories = remember {
+            listOf(
+                Category(0, "Gemstones", R.drawable.ic_gemstones_gemstone_tab),
+                Category(1, "Rudraksh", R.drawable.ic_rudraksh_gemstone_tab),
+                Category(2, "Bracelets", R.drawable.ic_bracelets_gemstone_tab),
+                Category(3, "Mala", R.drawable.ic_mala_gemstone_tab),
+                Category(4, "Crystal Products", R.drawable.ic_crystal_products_gemstone_tab),
+                Category(5, "Customized Jewellery", R.drawable.ic_customized_jewellery_gemstone_tab),
+                Category(6, "Gemstone Rings", R.drawable.ic_gemstone_rings_gemstone_tab),
+                Category(7, "New Arrivals", R.drawable.ic_new_arrivals_gemstone_tab),
+                Category(8, "Gem Recommendation", R.drawable.ic_gem_recommendation_gemstone_tab),
+                Category(9, "Remedies", R.drawable.ic_remedies_gemstone_tab),
+                 )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
+        Column {
+            CategoryProducts(
+                categories = fourwheelersCategories,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    // Handle category selection (navigation, filtering, etc.)
+                    println("Selected category: ${category.name}")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                initialSelectedCategory = fourwheelersCategories.first(),
+                itemWidth = 75, // Custom width
+                itemHeight = 65, // Custom height
+                horizontalSpacing = 8, // Custom spacing
+                verticalSpacing = 8,
+                backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light blue background
+            )
+
+            val myProducts = listOf(
+                Product("Yellow Sapphire/Pukhraj", "Up to 20% Off", R.drawable.yellow_sapphire_pukhraj),
+                Product("Blue Sapphire/Neelam", "Up to 20% Off", R.drawable.blue_sapphir_neelam),
+                Product("Ruby/Manik", "Up to 20% Off", R.drawable.ruby_manik)
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            // Call the reusable component
+            ProductList(
+                products = myProducts,
+//                sectionTitle = "Featured Products", // Optional
+                showName = true,  // Show name under image
+                showPrice = true  // Show price under image
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -1561,54 +1628,6 @@ fun AllCategoryPage() {
     }
 }
 
-@Composable
-fun ShoppingCategoryPage() {
-    var selectedCategory by remember { mutableStateOf("All") }
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.mobile_banner1),
-        painterResource(id = R.drawable.shopping_banner2),
-        painterResource(id = R.drawable.shopping_banner3),
-        painterResource(id = R.drawable.shopping_banner4),
-        painterResource(id = R.drawable.shopping_banner5),
-        painterResource(id = R.drawable.shopping_banner6),
-        painterResource(id = R.drawable.mobile_banner2),
-        painterResource(id = R.drawable.shopping_banner8),
-        painterResource(id = R.drawable.mobile_banner3),
-    )
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(0.dp)
-    ) {
-        BannerHome(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 270.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
-        )
-
-        Spacer(
-            modifier = Modifier.height(2.dp)
-                .fillMaxWidth()
-                .background(MaterialTheme.customColors.spacerColor)
-        )
-        CategoryProducts(modifier = Modifier.fillMaxWidth().wrapContentHeight())
-
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedCategory) {
-            "All" -> AllShopping(categoryName = selectedCategory)
-            "Electronics" -> ElectronicsShopping(categoryName = selectedCategory)
-            else -> AllShopping(categoryName = selectedCategory)
-        }
-    }
-}
 
 @Composable
 fun MobileCategoryPage() {
@@ -1668,6 +1687,8 @@ fun MobileCategoryPage() {
                 Category(15, "Snapdragon", R.drawable.ic_snapdragon),
                 Category(16, "Android", R.drawable.ic_android),
                 Category(17, "Itel", R.drawable.ic_itel)
+
+
             )
         }
 

@@ -37,11 +37,11 @@ fun ElectronicCategory(modifier: Modifier = Modifier) {
         listOf(
             ElectronicCategory(1, "Smartphones", R.drawable.ic_smartphone, "₹15,999"),
             ElectronicCategory(2, "Laptops", R.drawable.ic_laptop, "₹45,999"),
-            ElectronicCategory(3, "Headphones", R.drawable.ic_headphones, "₹2,499"),
+//            ElectronicCategory(3, "Headphones", R.drawable.ic_headphones, "₹2,499"),
             ElectronicCategory(4, "Watches", R.drawable.ic_smartwatch, "₹8,999"),
             ElectronicCategory(5, "Tablets", R.drawable.ic_tablet, "₹25,999"),
-            ElectronicCategory(6, "Cameras", R.drawable.ic_camera, "₹32,999"),
-            ElectronicCategory(7, "Gaming", R.drawable.ic_gaming, "₹35,999"),
+//            ElectronicCategory(6, "Cameras", R.drawable.ic_camera, "₹32,999"),
+//            ElectronicCategory(7, "Gaming", R.drawable.ic_gaming, "₹35,999"),
             ElectronicCategory(8, "Speakers", R.drawable.ic_speaker, "₹5,499"),
             ElectronicCategory(9, "Power Banks", R.drawable.ic_power_banks, "₹799")
         )

@@ -17,9 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
-import com.example.qrakon.components.homescreen.CategoryHeader
 import com.example.qrakon.components.homescreen.CategoryScreen
-import com.example.qrakon.components.navigation.TabNavigationApp
 import com.example.qrakon.components.splashscreen.SplashScreen
 import com.example.qrakon.ui.theme.QrakonAppTheme
 import com.example.qrakon.ui.theme.customColors

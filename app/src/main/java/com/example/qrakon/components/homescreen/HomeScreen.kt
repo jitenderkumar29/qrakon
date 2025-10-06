@@ -9,20 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
-import com.example.qrakon.R
-import com.example.qrakon.components.categorytabs.CategoryPage
 import com.example.qrakon.components.categorytabs.CategoryTabs
-import com.example.shopping.ui.screens.MoreCategoryPage
 
-//import com.example.shopping.ui.screens.MoreCategoryPage
-
-//import com.example.shopping.ui.screens.MoreCategoryPage
 
 @Composable
 fun HomeScreen() {
