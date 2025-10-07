@@ -257,7 +257,9 @@ fun ElectronicsCategoryPage() {
                 Category(14, "Storage", R.drawable.ic_storage_tab),
                 Category(15, "Gaming", R.drawable.ic_gaming_tab),
                 Category(16, "Healthcare", R.drawable.ic_healthcare_tab),
-            )
+                Category(17, "View All", R.drawable.ic_view_all_home_tab),
+
+                )
         }
 
         Spacer(
@@ -283,6 +285,24 @@ fun ElectronicsCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_sponsored_electronics_1,
+                    R.drawable.ads_sponsored_electronics_2,
+                    R.drawable.ads_sponsored_electronics_3,
+                    R.drawable.ads_sponsored_electronics_4
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -315,9 +335,9 @@ fun AppliancesCategoryPage() {
     val bannerImages = listOf(
         painterResource(id = R.drawable.appliances_banner1),
         painterResource(id = R.drawable.appliances_banner2),
-        painterResource(id = R.drawable.appliances_banner3),
+//        painterResource(id = R.drawable.appliances_banner3),
         painterResource(id = R.drawable.appliances_banner4),
-        painterResource(id = R.drawable.appliances_banner5),
+//        painterResource(id = R.drawable.appliances_banner5),
 
     )
     Column(
@@ -346,7 +366,7 @@ fun AppliancesCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val electronicsCategories = remember {
+        val appliancesCategories = remember {
             listOf(
                 Category(0, "Television", R.drawable.ic_television_tab),
                 Category(1, "Laundry", R.drawable.ic_two_laundry_tab),
@@ -367,19 +387,36 @@ fun AppliancesCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = electronicsCategories,
+                categories = appliancesCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = electronicsCategories.first(),
+                initialSelectedCategory = appliancesCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.appliances_banner3,
+                    R.drawable.appliances_banner5,
+
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -413,9 +450,9 @@ fun HomeCategoryPage() {
         painterResource(id = R.drawable.home_category_banner1),
         painterResource(id = R.drawable.home_category_banner2),
         painterResource(id = R.drawable.home_category_banner3),
-        painterResource(id = R.drawable.home_category_banner4),
-        painterResource(id = R.drawable.home_category_banner5),
-        painterResource(id = R.drawable.home_category_banner6),
+//        painterResource(id = R.drawable.home_category_banner4),
+//        painterResource(id = R.drawable.home_category_banner5),
+//        painterResource(id = R.drawable.home_category_banner6),
         painterResource(id = R.drawable.home_category_banner7),
         painterResource(id = R.drawable.home_category_banner8),
         )
@@ -445,7 +482,7 @@ fun HomeCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val electronicsCategories = remember {
+        val homeCategories = remember {
             listOf(
                 Category(0, "Shop Now", R.drawable.ic_shop_now_home_tab),
                 Category(1, "Containers", R.drawable.ic_containers_home_tab),
@@ -476,19 +513,39 @@ fun HomeCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = electronicsCategories,
+                categories = homeCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = electronicsCategories.first(),
+                initialSelectedCategory = homeCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.home_category_banner4,
+                    R.drawable.home_category_banner5,
+                    R.drawable.home_category_banner6,
+//                    R.drawable.ads_spoonsored_home_1,
+//                    R.drawable.ads_sponsored_home_2,
+
+                    ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -553,7 +610,7 @@ fun FoodHealthCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
         // Carousel Double
-        val electronicsCategories = remember {
+        val foodhealthCategories = remember {
             listOf(
                 Category(0, "Dry Fruits", R.drawable.ic_dry_fruits_food_health_tab),
                 Category(1, "Oil & Ghee", R.drawable.ic_oil_ghee_food_health_tab),
@@ -578,19 +635,37 @@ fun FoodHealthCategoryPage() {
         var selectedMobileCategory by remember { mutableStateOf<Category?>(null) }
         Column {
             CategoryProducts(
-                categories = electronicsCategories,
+                categories = foodhealthCategories,
                 onCategorySelected = { category ->
                     selectedCategory = category
                     // Handle category selection (navigation, filtering, etc.)
                     println("Selected category: ${category.name}")
                 },
                 modifier = Modifier.fillMaxWidth(),
-                initialSelectedCategory = electronicsCategories.first(),
+                initialSelectedCategory = foodhealthCategories.first(),
                 itemWidth = 75, // Custom width
                 itemHeight = 65, // Custom height
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+
+                    R.drawable.ads_spoonsored_foodhealth_1,
+                    R.drawable.ads_spoonsored_foodhealth_2,
+
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -693,6 +768,24 @@ fun ToysKidsCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_toyskids_1,
+                    R.drawable.ads_spoonsored_toyskids_2,
+                    R.drawable.ads_spoonsored_toyskids_3,
+
+                    ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
+            )
+
             val myProducts = listOf(
                 Product("Essentials", "Upto 90% Off", R.drawable.essentials),
                 Product("Scooters & ride-ons", "From ₹549", R.drawable.scooters_ride_ons),
@@ -722,9 +815,9 @@ fun AutoAccessoriesCategoryPage() {
     var selectedCategory = remember { mutableStateOf("All Deals") }
     val bannerImages = listOf(
         painterResource(id = R.drawable.auto_accessories_banner1),
-        painterResource(id = R.drawable.auto_accessories_banner2),
+//        painterResource(id = R.drawable.auto_accessories_banner2),
         painterResource(id = R.drawable.auto_accessories_banner3),
-        painterResource(id = R.drawable.auto_accessories_banner4),
+//        painterResource(id = R.drawable.auto_accessories_banner4),
     )
     Column(
         modifier = Modifier
@@ -769,7 +862,9 @@ fun AutoAccessoriesCategoryPage() {
                 Category(12, "Car mats", R.drawable.ic_car_mats_auto_acce),
                 Category(13, "Lights", R.drawable.ic_lights_auto_acce),
                 Category(14, "Type air pump", R.drawable.ic_type_air_pump_auto_acce),
-            )
+                Category(15, "View All", R.drawable.ic_view_all_home_tab),
+
+                )
         }
 
         var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -789,6 +884,23 @@ fun AutoAccessoriesCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.auto_accessories_banner2,
+                    R.drawable.auto_accessories_banner4,
+//                    R.drawable.ads_spoonsored_autoacce_3,
+                    ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -866,7 +978,9 @@ fun SportsCategoryPage() {
                 Category(12, "Kids Cycles", R.drawable.ic_kids_cycles_sports_tab),
                 Category(13, "Kids favs", R.drawable.ic_kids_favs_sports_tab),
                 Category(14, "Electric cycles", R.drawable.ic_electric_cycles_sports_tab),
-            )
+                Category(15, "View All", R.drawable.ic_view_all_home_tab),
+
+                )
         }
 
         var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -963,16 +1077,16 @@ fun FurnitureCategoryPage() {
                 Category(6, "TV units", R.drawable.ic_tv_units_furniture_tab),
                 Category(7, "Bath Fittings", R.drawable.ic_bath_fittings_furniture_tab),
                 Category(8, "Kid's furniture", R.drawable.ic_kids_furniture_furniture_tab),
-                Category(9, "View all", R.drawable.ic_view_all_furniture_tab),
-                Category(10, "Office chairs", R.drawable.ic_office_chairs_furniture_tab),
-                Category(11, "Wardrobes", R.drawable.ic_wardrobes_furniture_tab),
-                Category(12, "Dining sets", R.drawable.ic_dining_sets_furniture_tab),
-                Category(13, "Collapsibles", R.drawable.ic_collapsibles_furniture_tab),
-                Category(14, "Hammock", R.drawable.ic_hammock_furniture_tab),
-                Category(15, "Shoe racks", R.drawable.ic_shoe_racks_furniture_tab),
-                Category(16, "Pooja Mandir", R.drawable.ic_pooja_mandir_furniture_tab),
-                Category(17, "Inflatables", R.drawable.ic_inflatables_furniture_tab),
-                Category(18, "Top25 deals", R.drawable.ic_top25_deals_furniture_tab),
+                Category(9, "Office chairs", R.drawable.ic_office_chairs_furniture_tab),
+                Category(10, "Wardrobes", R.drawable.ic_wardrobes_furniture_tab),
+                Category(11, "Dining sets", R.drawable.ic_dining_sets_furniture_tab),
+                Category(12, "Collapsibles", R.drawable.ic_collapsibles_furniture_tab),
+                Category(13, "Hammock", R.drawable.ic_hammock_furniture_tab),
+                Category(14, "Shoe racks", R.drawable.ic_shoe_racks_furniture_tab),
+                Category(15, "Pooja Mandir", R.drawable.ic_pooja_mandir_furniture_tab),
+                Category(16, "Inflatables", R.drawable.ic_inflatables_furniture_tab),
+                Category(17, "View all", R.drawable.ic_view_all_furniture_tab),
+//                Category(18, "Top25 deals", R.drawable.ic_top25_deals_furniture_tab),
             )
         }
 
@@ -1074,8 +1188,10 @@ fun TwoWheelersCategoryPage() {
                 Category(11, "Triumph", R.drawable.ic_triumph_two_wheelers_tab),
                 Category(12, "Harley-Davidson", R.drawable.ic_harley_davidson_two_wheelers_tab),
                 Category(13, "Aprilia", R.drawable.ic_aprilia_two_wheelers_tab),
-                Category(14, "BMW", R.drawable.ic_bmw_two_wheelers_tab)
- )
+                Category(14, "BMW", R.drawable.ic_bmw_two_wheelers_tab),
+                Category(15, "View all", R.drawable.ic_view_all_furniture_tab),
+
+                )
         }
 
         var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -1465,7 +1581,10 @@ fun GemstoneCategoryPage() {
                 Category(6, "Gemstone Rings", R.drawable.ic_gemstone_rings_gemstone_tab),
                 Category(7, "New Arrivals", R.drawable.ic_new_arrivals_gemstone_tab),
                 Category(8, "Gem Recommendation", R.drawable.ic_gem_recommendation_gemstone_tab),
-                Category(9, "Remedies", R.drawable.ic_remedies_gemstone_tab),
+                Category(9, "View all", R.drawable.ic_view_all_furniture_tab),
+
+//                Category(9, "Remedies", R.drawable.ic_remedies_gemstone_tab),
+
                  )
         }
 
@@ -1600,7 +1719,21 @@ fun AllCategoryPage() {
                 .background(MaterialTheme.customColors.spacerColor)
         )
 
-        AdsSponsored(onAdClick = { println("Ad clicked!") })
+        AdsSponsored(
+            adImages = listOf(
+//                R.drawable.ads_sponsored_1,
+                R.drawable.ads_sponsored_2,
+//                R.drawable.ads_sponsored_3,
+                R.drawable.ads_sponsored_4,
+                R.drawable.ads_sponsored_5,
+                R.drawable.ads_sponsored_6
+            ),
+            onAdClick = { index ->
+                println("Clicked ad index: $index")
+            }
+        )
+
+//        AdsSponsored(onAdClick = { println("Ad clicked!") })
         Spacer(
             modifier = Modifier.height(2.dp)
                 .fillMaxWidth()
@@ -1715,6 +1848,23 @@ fun MobileCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_sponsored_mobile_1,
+                    R.drawable.ads_sponsored_mobile_2,
+//                    R.drawable.ads_sponsored_mobile_3
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
