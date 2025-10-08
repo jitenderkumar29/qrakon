@@ -932,7 +932,7 @@ fun SportsCategoryPage() {
     var selectedCategory = remember { mutableStateOf("All Deals") }
     val bannerImages = listOf(
         painterResource(id = R.drawable.sports_banner1),
-        painterResource(id = R.drawable.sports_banner2),
+//        painterResource(id = R.drawable.sports_banner2),
         painterResource(id = R.drawable.sports_banner3),
     )
     Column(
@@ -960,6 +960,7 @@ fun SportsCategoryPage() {
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
+
         // Carousel Double
         val sportsCategories = remember {
             listOf(
@@ -1002,6 +1003,22 @@ fun SportsCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_sports_1,
+                    R.drawable.sports_banner2,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
+            )
+
             val myProducts = listOf(
                 Product("Home Gym Combo", "From ₹1699", R.drawable.home_gym_combo),
                 Product("Adult cycle", "Min 40% Off", R.drawable.adult_cycle),
@@ -1031,10 +1048,10 @@ fun FurnitureCategoryPage() {
     var selectedCategory = remember { mutableStateOf("All Deals") }
     val bannerImages = listOf(
         painterResource(id = R.drawable.furniture_banner1),
-        painterResource(id = R.drawable.furniture_banner2),
+//        painterResource(id = R.drawable.furniture_banner2),
         painterResource(id = R.drawable.furniture_banner3),
         painterResource(id = R.drawable.furniture_banner4),
-        painterResource(id = R.drawable.furniture_banner5),
+//        painterResource(id = R.drawable.furniture_banner5),
         painterResource(id = R.drawable.furniture_banner6),
         painterResource(id = R.drawable.furniture_banner7),
         painterResource(id = R.drawable.furniture_banner8),
@@ -1107,6 +1124,22 @@ fun FurnitureCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.furniture_banner2,
+                    R.drawable.furniture_banner5,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -1213,6 +1246,25 @@ fun TwoWheelersCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_two_wheeler_1,
+                    R.drawable.ads_spoonsored_two_wheeler_2,
+                    R.drawable.ads_spoonsored_two_wheeler_3,
+                    R.drawable.ads_spoonsored_two_wheeler_4,
+                    R.drawable.ads_spoonsored_two_wheeler_5,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
+            )
+
             val myProducts = listOf(
                 Product("Ampere", "Up to 95km* range", R.drawable.ampere_product),
                 Product("Ather", "115km* range", R.drawable.ather_product),
@@ -1315,6 +1367,22 @@ fun BooksCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
             )
 
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_books_1,
+                    R.drawable.ads_spoonsored_books_2,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
+            )
+
             val myProducts = listOf(
                 Product("English", "Up to 20% Off", R.drawable.english_product),
                 Product("Hindi", "Up to 25% Off", R.drawable.hindi_product),
@@ -1407,6 +1475,22 @@ fun MusicalCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.white // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_musical_1,
+                    R.drawable.ads_spoonsored_musical_2,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
@@ -1511,6 +1595,22 @@ fun FourWheelerCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light blue background
             )
 
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_four_wheeler_1,
+                    R.drawable.ads_spoonsored_four_wheeler_2,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
+            )
+
             val myProducts = listOf(
                 Product("Maruti FRONX", "₹6.85-11.98 Lakh*", R.drawable.maruti_fronx_product),
                 Product("Tata Punch", "₹5.50-9.30 Lakh*", R.drawable.tata_punch_product),
@@ -1605,6 +1705,22 @@ fun GemstoneCategoryPage() {
                 horizontalSpacing = 8, // Custom spacing
                 verticalSpacing = 8,
                 backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light blue background
+            )
+
+            Spacer(
+                modifier = Modifier.height(2.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.spacerColor)
+            )
+
+            AdsSponsored(
+                adImages = listOf(
+                    R.drawable.ads_spoonsored_gemstone_1,
+                    R.drawable.ads_spoonsored_gemstone_2,
+                ),
+                onAdClick = { index ->
+                    println("Clicked ad index: $index")
+                }
             )
 
             val myProducts = listOf(
