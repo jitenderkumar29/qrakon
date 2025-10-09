@@ -42,11 +42,11 @@ import com.example.qrakon.ui.theme.customColors
  * @param backgroundColor Background color for the category items
  */
 
-data class Category(
-    val id: Int,
-    val name: String,
-    val iconRes: Int
-)
+//data class Category(
+//    val id: Int,
+//    val name: String,
+//    val iconRes: Int
+//)
 
 @Composable
 fun CategoryProducts(

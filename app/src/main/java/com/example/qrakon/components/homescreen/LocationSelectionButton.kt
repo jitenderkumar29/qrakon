@@ -161,7 +161,8 @@ fun LocationSelectionButton(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp),
+                .padding(start = 12.dp, end = 12.dp, top = 0.dp, bottom = 0.dp),
+//                .padding(horizontal = 12.dp, vertical = 0.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(

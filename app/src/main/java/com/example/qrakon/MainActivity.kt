@@ -18,16 +18,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import com.example.qrakon.components.homescreen.CategoryScreen
+import com.example.qrakon.components.navigation.AppNavGraph
 import com.example.qrakon.components.splashscreen.SplashScreen
 import com.example.qrakon.ui.theme.QrakonAppTheme
 import com.example.qrakon.ui.theme.customColors
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Make the app edge-to-edge so we can control the system bars ourselves
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        // Set up edge-to-edge display
+        enableEdgeToEdge()
 
         setContent {
             QrakonAppTheme {
@@ -35,8 +37,21 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
+    private fun enableEdgeToEdge() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+    }
+}
 
 @Composable
 fun AppContent(window: Window? = null) {
@@ -46,13 +61,10 @@ fun AppContent(window: Window? = null) {
         MaterialTheme.colorScheme.primary
     } else {
         MaterialTheme.customColors.footer
-//        MaterialTheme.customColors.lightAccent
     }
 
-    // ✅ Nav bar color only changes after splash
     val navBarColor: Color = if (showSplash) {
-        MaterialTheme.colorScheme.primaryContainer // or Color.Transparent
-//        Color.Transparent // or Color.Transparent
+        MaterialTheme.colorScheme.primaryContainer
     } else {
         MaterialTheme.customColors.footer
     }
@@ -62,51 +74,32 @@ fun AppContent(window: Window? = null) {
         val win = currentWindow.value
         if (win != null) {
             win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            win.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-
-            win.statusBarColor = statusBarColor.copy(alpha = 1f).toArgb()
-
-            try {
-                win.navigationBarColor = navBarColor.toArgb()
-            } catch (_: Throwable) { /* ignore OEM issues */ }
-
+            win.statusBarColor = statusBarColor.toArgb()
+            win.navigationBarColor = navBarColor.toArgb()
             val insetsController = WindowInsetsControllerCompat(win, win.decorView)
             val lightIcons = statusBarColor.luminance() < 0.5f
             insetsController.isAppearanceLightStatusBars = !lightIcons
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val flags = win.decorView.systemUiVisibility
-                win.decorView.systemUiVisibility = if (!lightIcons) {
-                    flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
-                    flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-                }
-            }
         }
         onDispose { }
     }
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-//            .background(MaterialTheme.colorScheme.background),
-//        color = MaterialTheme.colorScheme.background
-    ) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         if (showSplash) {
             SplashScreen(
                 onSplashEnd = { showSplash = false },
                 duration = 500L
             )
         } else {
+            val navController = rememberNavController()
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(statusBarColor)
-                    .statusBarsPadding() // content starts below status bar
+                    .statusBarsPadding()
             ) {
-                CategoryScreen()
+                AppNavGraph(navController = navController)
             }
-//            TabNavigationApp()
         }
     }
 }

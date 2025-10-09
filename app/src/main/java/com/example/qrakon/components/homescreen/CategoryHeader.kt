@@ -229,42 +229,22 @@ fun CategoryItemHeader(
 
 // Main composable that handles category selection and displays appropriate content
 
-
 @Composable
-fun CategoryScreen() {
+fun CategoryScreen(onOpenFashion: () -> Unit) {
     val selectedCategory = remember { mutableStateOf("Shopping") }
 
-    // Accumulated scroll offset (px). Keeping >= 0 so we can force header visible at top.
     val scrollOffset = remember { mutableStateOf(0f) }
     val isHeaderVisible = remember { mutableStateOf(true) }
 
     val density = LocalDensity.current
-    val hideThresholdPx = with(density) { 50.dp.toPx() } // still useful if you ever want to add smooth hide
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
-
-                // Track scroll offset so we know when we're at top
                 scrollOffset.value = (scrollOffset.value - delta).coerceAtLeast(0f)
-
-                when {
-                    delta < 0f -> {
-                        // User is scrolling UP (swipe up) → hide header immediately
-                        isHeaderVisible.value = false
-                    }
-                    delta > 0f -> {
-                        // User is scrolling DOWN (swipe down) → show header immediately
-                        isHeaderVisible.value = true
-                    }
-                }
-
-                // Force header visible when at very top
-                if (scrollOffset.value <= 0f) {
-                    isHeaderVisible.value = true
-                }
-
+                if (delta < 0f) isHeaderVisible.value = false
+                if (delta > 0f || scrollOffset.value <= 0f) isHeaderVisible.value = true
                 return Offset.Zero
             }
         }
@@ -275,16 +255,19 @@ fun CategoryScreen() {
             visible = isHeaderVisible.value,
             enter = slideInVertically(
                 initialOffsetY = { -it },
-                animationSpec = tween(durationMillis = 200) // faster show
+                animationSpec = tween(durationMillis = 200)
             ) + fadeIn(animationSpec = tween(durationMillis = 200)),
             exit = slideOutVertically(
                 targetOffsetY = { -it },
-                animationSpec = tween(durationMillis = 120) // very fast hide
+                animationSpec = tween(durationMillis = 120)
             ) + fadeOut(animationSpec = tween(durationMillis = 120))
         ) {
             CategoryHeader(
                 onCategorySelected = { categoryName ->
                     selectedCategory.value = categoryName
+                    if (categoryName == "Fashion") {
+                        onOpenFashion() // 🚀 navigate to new screen
+                    }
                 }
             )
         }
@@ -296,13 +279,11 @@ fun CategoryScreen() {
         ) {
             when (selectedCategory.value) {
                 "Shopping" -> ShoppingScreen()
-                "Fashion" -> FashionScreen()
                 "Beauty" -> BeautyScreen()
                 "Economy" -> EconomyScreen()
                 "Deals" -> DealsScreen()
                 "Bridal" -> BrideScreen()
                 "Jewellery" -> JewelleryScreen()
-//                "Groom" -> GroomScreen()
                 "Airport" -> AirportScreen()
                 "Electric" -> ElectricScreen()
                 "Industry" -> IndustryScreen()
@@ -311,11 +292,99 @@ fun CategoryScreen() {
                 "Medical" -> MedicalScreen()
                 "Fresh" -> FreshScreen()
                 "Pay" -> PayScreen()
-                else -> ShoppingScreen()
             }
         }
     }
 }
+
+
+//
+//@Composable
+//fun CategoryScreen() {
+//    val selectedCategory = remember { mutableStateOf("Shopping") }
+//
+//    // Accumulated scroll offset (px). Keeping >= 0 so we can force header visible at top.
+//    val scrollOffset = remember { mutableStateOf(0f) }
+//    val isHeaderVisible = remember { mutableStateOf(true) }
+//
+//    val density = LocalDensity.current
+//    val hideThresholdPx = with(density) { 50.dp.toPx() } // still useful if you ever want to add smooth hide
+//
+//    val nestedScrollConnection = remember {
+//        object : NestedScrollConnection {
+//            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+//                val delta = available.y
+//
+//                // Track scroll offset so we know when we're at top
+//                scrollOffset.value = (scrollOffset.value - delta).coerceAtLeast(0f)
+//
+//                when {
+//                    delta < 0f -> {
+//                        // User is scrolling UP (swipe up) → hide header immediately
+//                        isHeaderVisible.value = false
+//                    }
+//                    delta > 0f -> {
+//                        // User is scrolling DOWN (swipe down) → show header immediately
+//                        isHeaderVisible.value = true
+//                    }
+//                }
+//
+//                // Force header visible when at very top
+//                if (scrollOffset.value <= 0f) {
+//                    isHeaderVisible.value = true
+//                }
+//
+//                return Offset.Zero
+//            }
+//        }
+//    }
+//
+//    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.customColors.white)) {
+//        AnimatedVisibility(
+//            visible = isHeaderVisible.value,
+//            enter = slideInVertically(
+//                initialOffsetY = { -it },
+//                animationSpec = tween(durationMillis = 200) // faster show
+//            ) + fadeIn(animationSpec = tween(durationMillis = 200)),
+//            exit = slideOutVertically(
+//                targetOffsetY = { -it },
+//                animationSpec = tween(durationMillis = 120) // very fast hide
+//            ) + fadeOut(animationSpec = tween(durationMillis = 120))
+//        ) {
+//            CategoryHeader(
+//                onCategorySelected = { categoryName ->
+//                    selectedCategory.value = categoryName
+//                }
+//            )
+//        }
+//
+//        Box(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .nestedScroll(nestedScrollConnection)
+//        ) {
+//            when (selectedCategory.value) {
+//                "Shopping" -> ShoppingScreen()
+//                "Fashion" -> FashionScreen()
+//                "Beauty" -> BeautyScreen()
+//                "Economy" -> EconomyScreen()
+//                "Deals" -> DealsScreen()
+//                "Bridal" -> BrideScreen()
+//                "Jewellery" -> JewelleryScreen()
+////                "Groom" -> GroomScreen()
+//                "Airport" -> AirportScreen()
+//                "Electric" -> ElectricScreen()
+//                "Industry" -> IndustryScreen()
+//                "Wholesale" -> WholesaleScreen()
+//                "Sell" -> SellScreen()
+//                "Medical" -> MedicalScreen()
+//                "Fresh" -> FreshScreen()
+//                "Pay" -> PayScreen()
+//                else -> ShoppingScreen()
+//            }
+//        }
+//    }
+//}
 
 // Separate screen composables for each category
 @Composable
