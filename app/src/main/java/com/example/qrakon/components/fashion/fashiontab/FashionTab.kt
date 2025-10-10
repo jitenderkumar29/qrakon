@@ -1,5 +1,6 @@
 package com.example.qrakon.components.fashion.fashiontab
 
+import KidsFilter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -69,7 +71,8 @@ fun FashionTab(
         "Men" to null,
         "Kids" to null,
         "Home" to null,
-        "" to R.drawable.ic_category_1
+        "" to R.drawable.ic_category_image
+//        "" to R.drawable.ic_category_1
     )
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -110,12 +113,15 @@ fun FashionTab(
                             Icon(
                                 painter = painterResource(id = iconRes),
                                 contentDescription = "Categories",
-                                modifier = Modifier.size(20.dp),
-                                tint = if (isSelected) {
-                                    MaterialTheme.customColors.onPrimaryContainer
-                                } else {
-                                    MaterialTheme.customColors.black
-                                }
+                                modifier = Modifier.size(30.dp),
+                                tint = Color.Unspecified // ✅ keeps the original image color
+//                                tint = if (isSelected) {
+//                                    Color.Transparent
+////                                    MaterialTheme.customColors.onPrimaryContainer
+//                                } else {
+//                                    Color.Transparent
+////                                    MaterialTheme.customColors.black
+//                                }
                             )
                         } else {
                             // Show text for other tabs
@@ -161,8 +167,16 @@ fun FashionTab(
                     // You can add navigation, filtering, or state updates here
                 }
             )
-            1 -> MenFashionPage()
-            2 -> KidsFashionPage()
+            1 -> MenFashionPage( onTabSelected = { categoryName ->
+                // Handle subcategory selection for Women tab
+                println("Women subcategory selected: $categoryName")
+                // You can add navigation, filtering, or state updates here
+            })
+            2 -> KidsFashionPage( onTabSelected = { categoryName ->
+                // Handle subcategory selection for Women tab
+                println("Women subcategory selected: $categoryName")
+                // You can add navigation, filtering, or state updates here
+            })
             3 -> HomeFashionPage()
             4 -> CategoriesFashionPage()
             else -> WomenFashionPage(
@@ -208,6 +222,8 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
         painterResource(id = R.drawable.women_fashion_banner1),
         painterResource(id = R.drawable.women_fashion_banner2),
         painterResource(id = R.drawable.women_fashion_banner3),
+        painterResource(id = R.drawable.women_fashion_banner4),
+        painterResource(id = R.drawable.women_fashion_banner5),
     )
 
     Column(
@@ -327,7 +343,53 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
 }
 
 @Composable
-fun MenFashionPage() {
+fun MenFashionPage(onTabSelected: (String) -> Unit,
+                   modifier: Modifier = Modifier) {
+    val menFashionCategories = listOf(
+        Category(0, "Casual", R.drawable.ic_casual_men),
+        Category(1, "Ethnic", R.drawable.ic_ethnic_men),
+        Category(2, "Footwear", R.drawable.ic_footwear_men),
+        Category(3, "Sports", R.drawable.ic_sports_men),
+        Category(4, "Essentials", R.drawable.ic_essentials_men),
+        Category(5, "Ad-Ons", R.drawable.ic_ad_ons_men),
+        Category(6, "Grooming", R.drawable.ic_grooming_men),
+        Category(7, "Boys", R.drawable.ic_boys_men),
+       )
+    CarouselFashionOne(
+        categories = menFashionCategories,
+        onTabSelected = onTabSelected,
+        modifier = modifier,
+        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+        itemWidth = 75,
+        itemHeight = 75,
+        horizontalSpacing = 8
+    )
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.men_fashion_banner1),
+        painterResource(id = R.drawable.men_fashion_banner2),
+        painterResource(id = R.drawable.men_fashion_banner3),
+        painterResource(id = R.drawable.men_fashion_banner4),
+        painterResource(id = R.drawable.men_fashion_banner5),
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        BannerFashion(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.men_fashion_banner1),
 //        painterResource(id = R.drawable.men_fashion_banner2),
@@ -429,11 +491,61 @@ fun MenFashionPage() {
 //            )
 //        }
 //        Spacer(modifier = Modifier.height(16.dp))
-//    }
+    }
 }
 
 @Composable
-fun KidsFashionPage() {
+fun KidsFashionPage(onTabSelected: (String) -> Unit,
+                    modifier: Modifier = Modifier) {
+    val kidsFashionCategories = listOf(
+        Category(0, "Girls", R.drawable.ic_girls_kids),
+        Category(1, "Boys", R.drawable.ic_boys_kids),
+        Category(2, "Infants", R.drawable.ic_infants_kids),
+        Category(3, "Teens", R.drawable.ic_teens_kids),
+        Category(4, "Ad-Ons", R.drawable.ic_ad_ons_kids),
+       )
+    CarouselFashionOne(
+        categories = kidsFashionCategories,
+        onTabSelected = onTabSelected,
+        modifier = modifier,
+        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+        itemWidth = 75,
+        itemHeight = 75,
+        horizontalSpacing = 8
+    )
+
+    // With selection handling
+    KidsFilter { selectedRange ->
+        println("Selected age range: $selectedRange")
+        // Handle the selection - update state, filter data, etc.
+    }
+
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.kids_fashion_banner1),
+        painterResource(id = R.drawable.kids_fashion_banner2),
+        painterResource(id = R.drawable.kids_fashion_banner3),
+        painterResource(id = R.drawable.kids_fashion_banner4),
+        painterResource(id = R.drawable.kids_fashion_banner5),
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        BannerFashion(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 270.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.kids_fashion_banner1),
 //        painterResource(id = R.drawable.kids_fashion_banner2),
@@ -535,7 +647,7 @@ fun KidsFashionPage() {
 //            )
 //        }
 //        Spacer(modifier = Modifier.height(16.dp))
-//    }
+    }
 }
 
 @Composable
