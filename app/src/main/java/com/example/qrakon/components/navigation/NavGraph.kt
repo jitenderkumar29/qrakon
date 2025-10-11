@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.qrakon.components.fashion.CategoriesFashionPage
 import com.example.qrakon.components.fashion.FashionScreen
 import com.example.qrakon.components.homescreen.CategoryScreen
-import com.example.qrakon.components.homescreen.FashionScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -14,7 +14,6 @@ fun AppNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = "category_screen"
     ) {
-        // 🏠 Main screen with all categories
         composable("category_screen") {
             CategoryScreen(
                 onOpenFashion = {
@@ -23,10 +22,16 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-        // 👗 Fashion page
         composable("fashion_screen") {
             FashionScreen(
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                navController = navController // Pass navController here
+            )
+        }
+
+        composable("fashion_categories") {
+            CategoriesFashionPage(
+                onBackClick = { navController.popBackStack() }
             )
         }
     }

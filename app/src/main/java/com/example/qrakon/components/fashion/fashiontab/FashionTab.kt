@@ -13,15 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,17 +32,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.qrakon.components.homescreen.AdsSponsored
-import com.example.qrakon.components.homescreen.BannerHome
-import com.example.qrakon.components.homescreen.CategoryProducts
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
 import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
-import com.example.qrakon.components.categorytabs.WomenFashionCarousel
-import com.example.qrakon.components.categorytabs.womenFashionCategories
-import com.example.qrakon.components.homescreen.LocationSelectionButton
+import com.example.qrakon.components.categorytabs.CategoryProducts
 
 // Sealed class for fashion category pages
 sealed class FashionCategoryPage {
@@ -62,7 +51,8 @@ sealed class FashionCategoryPage {
 
 @Composable
 fun FashionTab(
-    onCategorySelected: (FashionCategoryPage) -> Unit = {}
+    onCategorySelected: (FashionCategoryPage) -> Unit = {},
+    onOpenFashionCategory: () -> Unit = {} // Add this parameter
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -72,11 +62,9 @@ fun FashionTab(
         "Kids" to null,
         "Home" to null,
         "" to R.drawable.ic_category_image
-//        "" to R.drawable.ic_category_1
     )
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Use Row for fixed width tabs
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -99,7 +87,14 @@ fun FashionTab(
                                 4 -> FashionCategoryPage.Categories
                                 else -> FashionCategoryPage.Women
                             }
-                            onCategorySelected(page)
+
+                            if (index == 4) {
+                                // Navigate to categories page
+//                                onOpenFashionCategory()
+                            } else {
+                                // Handle regular category selection
+                                onCategorySelected(page)
+                            }
                         }
                 ) {
                     Column(
@@ -108,23 +103,14 @@ fun FashionTab(
                             .padding(vertical = 8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        // Show icon only for Categories tab
                         if (index == 4 && iconRes != null) {
                             Icon(
                                 painter = painterResource(id = iconRes),
                                 contentDescription = "Categories",
                                 modifier = Modifier.size(30.dp),
-                                tint = Color.Unspecified // ✅ keeps the original image color
-//                                tint = if (isSelected) {
-//                                    Color.Transparent
-////                                    MaterialTheme.customColors.onPrimaryContainer
-//                                } else {
-//                                    Color.Transparent
-////                                    MaterialTheme.customColors.black
-//                                }
+                                tint = Color.Unspecified
                             )
                         } else {
-                            // Show text for other tabs
                             Text(
                                 text = title,
                                 fontSize = 15.sp,
@@ -141,7 +127,6 @@ fun FashionTab(
                         }
                     }
 
-                    // Indicator at the bottom that spans the full tab width
                     if (isSelected) {
                         Spacer(
                             modifier = Modifier
@@ -162,23 +147,19 @@ fun FashionTab(
         when (selectedTabIndex) {
             0 -> WomenFashionPage(
                 onTabSelected = { categoryName ->
-                    // Handle subcategory selection for Women tab
                     println("Women subcategory selected: $categoryName")
-                    // You can add navigation, filtering, or state updates here
                 }
             )
             1 -> MenFashionPage( onTabSelected = { categoryName ->
-                // Handle subcategory selection for Women tab
-                println("Women subcategory selected: $categoryName")
-                // You can add navigation, filtering, or state updates here
+                println("Men subcategory selected: $categoryName")
             })
             2 -> KidsFashionPage( onTabSelected = { categoryName ->
-                // Handle subcategory selection for Women tab
-                println("Women subcategory selected: $categoryName")
-                // You can add navigation, filtering, or state updates here
+                println("Kids subcategory selected: $categoryName")
             })
-            3 -> HomeFashionPage()
-            4 -> CategoriesFashionPage()
+            3 -> HomeFashionPage(onTabSelected = { categoryName ->
+                println("Home subcategory selected: $categoryName")
+            })
+            // Don't show CategoriesFashionPage here since we're navigating to a new screen
             else -> WomenFashionPage(
                 onTabSelected = { categoryName ->
                     println("Women subcategory selected: $categoryName")
@@ -191,8 +172,6 @@ fun FashionTab(
 @Composable
 fun WomenFashionPage( onTabSelected: (String) -> Unit,
                       modifier: Modifier = Modifier) {
-    var selectedLocation by remember { mutableStateOf("Dhruv 110044") }
-    var showLocationDialog by remember { mutableStateOf(false) }
 
     // Women's Fashion Categories
     val womenFashionCategories = listOf(
@@ -245,58 +224,72 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
             modifier = Modifier.padding(bottom = 0.dp)
         )
 
+//
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+//
+        val womenFashionCategoriesTwo = remember {
+            listOf(
+                Category(0, "Explore", R.drawable.ic_explore_women_fashion_two),
+                Category(1, "Kurta Sets", R.drawable.ic_kurta_sets_women_fashion_two),
+                Category(2, "Jeans", R.drawable.ic_jeans_women_fashion_two),
+                Category(3, "Ethnic Dresses", R.drawable.ic_ethnic_dresses_women_fashion_two),
+                Category(4, "Lingerie", R.drawable.ic_lingerie_women_fashion_two),
+                Category(5, "Western Workwear", R.drawable.ic_western_workwear_women_fashion_two),
+                Category(6, "Kurtas", R.drawable.ic_kurtas_women_fashion_two),
+                Category(7, "Co-Ords", R.drawable.ic_co_ords_women_fashion_two),
+                Category(8, "T-Shirts", R.drawable.ic_t_shirts_women_fashion_two),
+                Category(9, "Dresses", R.drawable.ic_dresses_women_fashion_two),
+                Category(10, "Tops & Shirts", R.drawable.ic_tops_shirts_women_fashion_two),
+                Category(11, "Sarees", R.drawable.ic_sarees_women_fashion_two),
+                Category(12, "Curve Collection", R.drawable.ic_curve_collection_women_fashion_two),
+                Category(13, "Trousers", R.drawable.ic_trousers_women_fashion_two),
+                Category(14, "Watches", R.drawable.ic_watches_women_fashion_two),
+                Category(15, "Flats & Heels", R.drawable.ic_flats_heels_women_fashion_two),
+                Category(16, "Handbags", R.drawable.ic_handbags_women_fashion_two),
+                Category(17, "Smart Watches", R.drawable.ic_smart_watches_women_fashion_two),
+                Category(18, "Explore", R.drawable.ic_explore_women_fashion_two2),
+                Category(19, "Casuals Shoes", R.drawable.ic_casuals_shoes_women_fashion_two),
+                Category(20, "Flip-Flops", R.drawable.ic_flip_flops_women_fashion_two),
+                Category(21, "Sports Shoes", R.drawable.ic_sports_shoes_women_fashion_two),
+                Category(22, "Sunglasses", R.drawable.ic_sunglasses_women_fashion_two),
+                Category(23, "Makeup", R.drawable.makeup_women_fashion_two),
+                Category(24, "Blankets & Quilts", R.drawable.ic_blankets_quilts_women_fashion_two),
+                Category(25, "Fragrances", R.drawable.ic_fragrances_women_fashion_two),
+                Category(26, "Salon & Appliances", R.drawable.ic_salon_appliances_women_fashion_two),
+                Category(27, "Bedsheets", R.drawable.ic_bedsheets_women_fashion_two),
+//                Category(28, "View All", R.drawable.ic_view_all_home_tab),
+            )
+        }
+//
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
 
-//            Surface(
-//                color = MaterialTheme.customColors.darkAccent,
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(start = 0.dp, end = 0.dp, top = 0.dp, bottom = 0.dp)
-//                ) {
-//                    LocationSelectionButton(
-//                        selectedLocation = selectedLocation,
-//                        onLocationClick = { showLocationDialog = true }
-//                    )
-//                }
-//            }
-
-//
-//        Spacer(
-//            modifier = Modifier.height(2.dp)
-//                .fillMaxWidth()
-//                .background(MaterialTheme.customColors.spacerColor)
-//        )
-//
-//        val womenCategories = remember {
-//            listOf(
-//                Category(0, "Dresses", R.drawable.ic_dresses),
-//                Category(1, "Tops", R.drawable.ic_tops),
-//                Category(2, "Jeans", R.drawable.ic_jeans),
-//                Category(3, "Ethnic Wear", R.drawable.ic_ethnic_wear),
-//                Category(4, "Footwear", R.drawable.ic_footwear),
-//                Category(5, "Bags", R.drawable.ic_bags),
-//                Category(6, "Jewellery", R.drawable.ic_jewellery),
-//                Category(7, "Lingerie", R.drawable.ic_lingerie),
-//                Category(8, "Activewear", R.drawable.ic_activewear),
-//                Category(9, "Winter Wear", R.drawable.ic_winter_wear),
-//                Category(10, "Beauty", R.drawable.ic_beauty),
-//                Category(11, "View All", R.drawable.ic_view_all_home_tab),
-//            )
-//        }
-//
-//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
-//
+        CategoryProducts(
+            categories = womenFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = womenFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
+        )
 //        Column {
 //            CategoryProducts(
-//                categories = womenCategories,
+//                categories = womenFashionCategoriesTwo,
 //                onCategorySelected = { category ->
 //                    selectedCategory = category
 //                    println("Selected category: ${category.name}")
 //                },
 //                modifier = Modifier.fillMaxWidth(),
-//                initialSelectedCategory = womenCategories.first(),
+//                initialSelectedCategory = womenFashionCategoriesTwo.first(),
 //                itemWidth = 75,
 //                itemHeight = 65,
 //                horizontalSpacing = 8,
@@ -651,7 +644,65 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
 }
 
 @Composable
-fun HomeFashionPage() {
+fun HomeFashionPage(onTabSelected: (String) -> Unit,
+                    modifier: Modifier = Modifier) {
+    val kidsFashionCategories = listOf(
+        Category(0, "Decor", R.drawable.ic_decor_home_fashion),
+        Category(1, "Bedding", R.drawable.ic_bedding_home_fashion),
+        Category(2, "Kitchen & Dining", R.drawable.ic_kitchen_dining_home_fashion),
+        Category(3, "Thoughtful Gifts", R.drawable.ic_thoughtful_gifts_home_fashion),
+        Category(4, "Appliances", R.drawable.ic_appliances_home_fashion),
+        Category(5, "Bath", R.drawable.ic_bath_home_fashion),
+        Category(6, "Storage", R.drawable.ic_storage_home_fashion),
+        Category(7, "Accent Furniture", R.drawable.ic_accent_furniture_home_fashion),
+        Category(8, "Cushions", R.drawable.ic_cushions_home_fashion),
+        Category(9, "Global Store", R.drawable.ic_global_store_home_fashion),
+        Category(10, "Hidden Gems", R.drawable.ic_hidden_gems_home_fashion),
+        Category(11, "Luxe", R.drawable.ic_luxe_home_fashion),
+    )
+    CarouselFashionOne(
+        categories = kidsFashionCategories,
+        onTabSelected = onTabSelected,
+        modifier = modifier,
+        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+        itemWidth = 75,
+        itemHeight = 75,
+        horizontalSpacing = 8
+    )
+
+    // With selection handling
+//    KidsFilter { selectedRange ->
+//        println("Selected age range: $selectedRange")
+//        // Handle the selection - update state, filter data, etc.
+//    }
+
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.home_fashion_banner1),
+        painterResource(id = R.drawable.home_fashion_banner2),
+        painterResource(id = R.drawable.home_fashion_banner3),
+        painterResource(id = R.drawable.home_fashion_banner4),
+        painterResource(id = R.drawable.home_fashion_banner5),
+        painterResource(id = R.drawable.home_fashion_banner6),
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        BannerFashion(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 470.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.home_fashion_banner1),
 //        painterResource(id = R.drawable.home_fashion_banner2),
@@ -753,7 +804,7 @@ fun HomeFashionPage() {
 //            )
 //        }
 //        Spacer(modifier = Modifier.height(16.dp))
-//    }
+    }
 }
 
 @Composable

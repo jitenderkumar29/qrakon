@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,17 +31,19 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.qrakon.ui.theme.customColors
-
+import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.navigationBars
+import com.example.qrakon.components.fashion.fashiontab.FashionTab
+import com.example.qrakon.components.homescreen.HomeFashionScreen
+import com.example.qrakon.ui.theme.customColors
 
 @Composable
-fun TabNavigationFashion() {
+fun TabNavigationFashion(
+    navController: NavHostController // Add NavController parameter
+) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
 
     val tabItems = listOf(
@@ -56,14 +60,14 @@ fun TabNavigationFashion() {
         bottomBar = {
             Column(
                 modifier = Modifier
-                    .windowInsetsPadding( // ✅ Adds padding above system nav bar
+                    .windowInsetsPadding(
                         WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
                     )
             ) {
                 // 🔶 Top border bar (active tab indicator)
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .height(5.dp) // slightly smaller border
+                    .height(5.dp)
                 ) {
                     tabItems.forEachIndexed { index, _ ->
                         Box(
@@ -92,15 +96,15 @@ fun TabNavigationFashion() {
                     modifier = Modifier
                         .height(65.dp)
                         .padding(horizontal = 4.dp)
-                        .navigationBarsPadding() // ✅ keeps bar above gesture nav/status bar
+                        .navigationBarsPadding()
                 ) {
                     tabItems.forEachIndexed { index, item ->
                         NavigationBarItem(
                             selected = selectedTabIndex == index,
                             onClick = { selectedTabIndex = index },
                             modifier = Modifier
-                                .weight(1f) // equally distribute width, avoids extra spacing
-                                .padding(horizontal = 0.dp), // reduce internal padding
+                                .weight(1f)
+                                .padding(horizontal = 0.dp),
                             icon = {
                                 if (item.imageResource != null) {
                                     androidx.compose.foundation.Image(
@@ -157,7 +161,26 @@ fun TabNavigationFashion() {
                 .fillMaxWidth()
                 .fillMaxSize()
         ) {
-            tabItems[selectedTabIndex].screen()
+            // Pass the navController to the Home screen (which should contain FashionTab)
+            when (selectedTabIndex) {
+                0 -> HomeFashionScreen(navController = navController) // Home tab shows fashion categories
+                else -> tabItems[selectedTabIndex].screen()
+            }
         }
     }
 }
+
+// Create a Home screen that contains the FashionTab
+//@Composable
+//fun HomeFashionScreen(navController: NavHostController) {
+//    FashionTab(
+//        onCategorySelected = { categoryPage ->
+//            // Handle category selection if needed
+//            println("Category selected: $categoryPage")
+//        },
+//        onOpenFashionCategory = {
+//            // Navigate to categories page when category icon is clicked
+//            navController.navigate("fashion_categories")
+//        }
+//    )
+//}

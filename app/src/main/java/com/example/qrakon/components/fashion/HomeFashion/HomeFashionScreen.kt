@@ -16,13 +16,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavHostController
 import com.example.qrakon.components.fashion.fashiontab.FashionTab
 import com.example.qrakon.components.fashion.searchfashion.SearchFashion
 import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
-fun HomeFashionScreen() {
+fun HomeFashionScreen(navController: NavHostController) {
     var searchQuery by remember { mutableStateOf("") }
     var showLocationDialog by remember { mutableStateOf(false) }
     var selectedLocation by remember { mutableStateOf("Dhruv 110044") }
@@ -86,7 +87,17 @@ fun HomeFashionScreen() {
 
             // 🟢 Fashion Content Items
             item {
-                FashionTab()
+                FashionTab(
+                    onCategorySelected = { categoryPage ->
+                        // Handle category selection if needed
+                        println("Category selected: $categoryPage")
+                    },
+                    onOpenFashionCategory = {
+                        // Navigate to categories page when category icon is clicked
+                        navController.navigate("fashion_categories")
+                    }
+                )
+//                FashionTab()
             }
 
 //            item {

@@ -30,11 +30,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
 import com.example.qrakon.components.fashion.navigationFashion.TabNavigationFashion
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
-fun FashionScreen(onBack: () -> Unit) {
+fun FashionScreen(
+    onBack: () -> Unit,
+    navController: NavHostController
+) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
@@ -48,7 +52,7 @@ fun FashionScreen(onBack: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, end = 12.dp, top = 4.dp, bottom = 4.dp)
+                .padding(start = 12.dp, end = 12.dp, top = 2.dp, bottom = 0.dp)
                 .background(MaterialTheme.customColors.lightAccent)
 
         ) {
@@ -125,6 +129,6 @@ fun FashionScreen(onBack: () -> Unit) {
                 )
             }
         }
-        TabNavigationFashion()
+        TabNavigationFashion(navController = navController)
     }
 }

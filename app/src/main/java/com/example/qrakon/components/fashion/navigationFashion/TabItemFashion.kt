@@ -19,11 +19,10 @@ sealed class TabItemFashion(
     val imageResource: Int? = null,
     val screen: @Composable () -> Unit
 ) {
-    data object Home : TabItemFashion(
+    object Home : TabItemFashion(
         title = "Home",
-        icon = Icons.Filled.Home,
-        imageResource = R.drawable.outline_home_24, // Add this image to your drawable resources
-        screen = { HomeFashionScreen() }
+        icon = Icons.Default.Home,
+        screen = { } // This will be overridden in TabNavigationFashion
     )
 
     data object Explore : TabItemFashion(
