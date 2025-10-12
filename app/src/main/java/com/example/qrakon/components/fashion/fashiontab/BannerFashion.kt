@@ -130,6 +130,11 @@ fun BannerFashion(
                 indicatorDuration = autoScrollDelay
             )
         }
+        Spacer(
+            modifier = Modifier.height(3.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.white)
+        )
     }
 }
 

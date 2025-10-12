@@ -90,7 +90,7 @@ fun FashionTab(
 
                             if (index == 4) {
                                 // Navigate to categories page
-                                onOpenFashionCategory()
+//                                onOpenFashionCategory()
                             } else {
                                 // Handle regular category selection
                                 onCategorySelected(page)
@@ -160,12 +160,12 @@ fun FashionTab(
                 println("Home subcategory selected: $categoryName")
             })
             // Don't show CategoriesFashionPage here since we're navigating to a new screen
-            else -> WomenFashionPage(
-                onTabSelected = { categoryName ->
-                    println("Women subcategory selected: $categoryName")
-                }
-            )
-//            else -> CategoriesFashionPage()
+//            else -> WomenFashionPage(
+//                onTabSelected = { categoryName ->
+//                    println("Women subcategory selected: $categoryName")
+//                }
+//            )
+            else -> CategoriesFashionPage()
         }
     }
 }

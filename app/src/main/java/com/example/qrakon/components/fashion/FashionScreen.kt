@@ -90,7 +90,7 @@ fun FashionScreen(
                             shape = CircleShape
                         )
                         .background(MaterialTheme.customColors.white, CircleShape)
-                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
                     Row(verticalAlignment = Alignment.Bottom) {
                         Text(
@@ -115,7 +115,7 @@ fun FashionScreen(
 //                        color = MaterialTheme.customColors.black
 //                    )
                     // Add extra space for the overlapping image
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
                 }
 
                 // Image placed outside the bordered container but overlapping it
