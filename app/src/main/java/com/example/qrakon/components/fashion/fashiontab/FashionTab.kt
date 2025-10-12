@@ -90,7 +90,7 @@ fun FashionTab(
 
                             if (index == 4) {
                                 // Navigate to categories page
-//                                onOpenFashionCategory()
+                                onOpenFashionCategory()
                             } else {
                                 // Handle regular category selection
                                 onCategorySelected(page)
@@ -165,6 +165,7 @@ fun FashionTab(
                     println("Women subcategory selected: $categoryName")
                 }
             )
+//            else -> CategoriesFashionPage()
         }
     }
 }
@@ -383,6 +384,63 @@ fun MenFashionPage(onTabSelected: (String) -> Unit,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
         )
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+//
+        val menFashionCategoriesTwo = remember {
+            listOf(
+                Category(0, "Explore", R.drawable.ic_explore_men_fashion_two),
+                Category(1, "Shirts", R.drawable.ic_shirts_men_fashion_two),
+                Category(2, "Jeans", R.drawable.ic_jeans_men_fashion_two),
+                Category(3, "Gen-Z Drip", R.drawable.ic_gen_z_drip_men_fashion_two),
+                Category(4, "Formal Shirts", R.drawable.ic_formal_shirts_men_fashion_two),
+                Category(5, "T-Shirts", R.drawable.ic_t_shirts_men_fashion_two),
+                Category(6, "Track Pants", R.drawable.ic_track_pants_men_fashion_two),
+                Category(7, "Trousers", R.drawable.ic_trousers_men_fashion_two),
+                Category(8, "Shorts", R.drawable.ic_shorts_men_fashion_two),
+                Category(9, "Blazers & Suits", R.drawable.ic_blazers_suits_men_fashion_two),
+                Category(10, "Ethnic  Sets", R.drawable.ic_ethnic_sets_men_fashion_two),
+                Category(11, "Kurtas", R.drawable.ic_kurtas_men_fashion_two),
+                Category(12, "Kids", R.drawable.ic_kids_men_fashion_two),
+                Category(13, "Headphones", R.drawable.ic_headphones_men_fashion_two),
+                Category(14, "Watches", R.drawable.ic_watches_men_fashion_two),
+                Category(15, "Sunglasses", R.drawable.ic_sunglasses_men_fashion_two),
+                Category(16, "Sports Shoes", R.drawable.ic_sports_shoes_men_fashion_two),
+                Category(17, "Flip-Flops", R.drawable.ic_flip_flops_men_fashion_two),
+                Category(18, "Explore", R.drawable.ic_explore_men_fashion_two2),
+                Category(19, "Formal Shoes", R.drawable.ic_formal_shoes_men_fashion_two),
+                Category(20, "Perfume & Deos", R.drawable.ic_perfume_deos_men_fashion_two),
+                Category(21, "Wallets", R.drawable.ic_wallets_men_fashion_two),
+                Category(22, "Belts", R.drawable.ic_belts_men_fashion_two),
+                Category(23, "Smart Watches", R.drawable.ic_smart_watches_men_fashion_two),
+                Category(24, "Backpacks", R.drawable.ic_backpacks_men_fashion_two),
+                Category(25, "Casual Shoes", R.drawable.ic_casual_shoes_men_fashion_two),
+                Category(26, "Personal Care", R.drawable.ic_personal_care_men_fashion_two),
+                Category(27, "View All", R.drawable.ic_view_all_home_tab),
+
+                )
+        }
+//
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+        CategoryProducts(
+            categories = menFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = menFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
+        )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.men_fashion_banner1),
 //        painterResource(id = R.drawable.men_fashion_banner2),
@@ -538,6 +596,57 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
             height = 270.dp,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+
+        Spacer(
+            modifier = Modifier.height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
+        )
+//
+        val kidsFashionCategoriesTwo = remember {
+            listOf(
+                Category(0, "Dresses", R.drawable.ic_dresses_kids_fashion_two),
+                Category(1, "Shorts", R.drawable.ic_shorts_kids_fashion_two),
+                Category(2, "Watches", R.drawable.ic_watches_kids_fashion_two),
+                Category(3, "Backpacks", R.drawable.ic_backpacks_kids_fashion_two),
+                Category(4, "Accessories", R.drawable.ic_accessories_kids_fashion_two),
+                Category(5, "Troleys", R.drawable.ic_troleys_kids_fashion_two),
+                Category(6, "Hair Accessories", R.drawable.ic_hair_accessories_kids_fashion_two),
+                Category(7, "Casual Shoes", R.drawable.ic_casual_shoes_kids_fashion_two),
+                Category(8, "Sunglasses", R.drawable.ic_sunglasses_kids_fashion_two),
+                Category(9, "Innerwear", R.drawable.ic_innerwear_kids_fashion_two),
+                Category(10, "Value Packs", R.drawable.ic_value_packs_kids_fashion_two),
+                Category(11, "Night Suits", R.drawable.ic_night_suits_kids_fashion_two),
+                Category(12, "Tops", R.drawable.ic_tops_kids_fashion_two),
+                Category(13, "Tops wear", R.drawable.ic_tops_wear_kids_fashion_two),
+                Category(14, "Ethnic Wear", R.drawable.ic_ethnic_wear_kids_fashion_two),
+                Category(15, "Bottom wear", R.drawable.ic_bottom_wear_kids_fashion_two),
+                Category(16, "Dresses wear", R.drawable.ic_dresses_wear_kids_fashion_two),
+                Category(17, "Innerwear Kids", R.drawable.ic_innerwear_kids_kids_fashion_two),
+                Category(18, "Footwear", R.drawable.ic_footwear_kids_fashion_two),
+                Category(19, "Shorts", R.drawable.ic_shorts_deos_kids_fashion_two),
+//                Category(20, ""View All", R.drawable.ic_view_all_home_tab),
+
+                )
+        }
+//
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+        CategoryProducts(
+            categories = kidsFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = kidsFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
         )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.kids_fashion_banner1),
