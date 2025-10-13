@@ -143,7 +143,7 @@ fun BannerFashion(
 fun OverlayDotsFashion(
     pagerState: PagerState,
     imageCount: Int,
-    dotSize: Dp = 8.dp,           // circle size
+    dotSize: Dp = 8.dp,         // circle size
     dotPadding: Dp = 3.dp,
     selectedDotColor: Color = Color.White,
     unselectedDotColor: Color = Color.Gray,

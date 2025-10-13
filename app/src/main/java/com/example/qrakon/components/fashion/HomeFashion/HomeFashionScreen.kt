@@ -30,6 +30,11 @@ fun HomeFashionScreen(navController: NavHostController) {
 
     val lazyListState = rememberLazyListState()
 
+    // Handle category click
+    val onCategoryClick: () -> Unit = {
+        navController.navigate("fashion_categories")
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             state = lazyListState,
@@ -60,7 +65,8 @@ fun HomeFashionScreen(navController: NavHostController) {
                             onQRCodeScan = {
                                 println("QR Code scan for fashion")
                                 // Handle QR code scanning for fashion
-                            }
+                            },
+                            onCategoryClick = onCategoryClick // Use the local function
                         )
                     }
                 }

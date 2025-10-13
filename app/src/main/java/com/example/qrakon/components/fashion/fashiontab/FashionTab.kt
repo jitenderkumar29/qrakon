@@ -90,7 +90,7 @@ fun FashionTab(
 
                             if (index == 4) {
                                 // Navigate to categories page
-//                                onOpenFashionCategory()
+                                onOpenFashionCategory()
                             } else {
                                 // Handle regular category selection
                                 onCategorySelected(page)
@@ -160,12 +160,12 @@ fun FashionTab(
                 println("Home subcategory selected: $categoryName")
             })
             // Don't show CategoriesFashionPage here since we're navigating to a new screen
-//            else -> WomenFashionPage(
-//                onTabSelected = { categoryName ->
-//                    println("Women subcategory selected: $categoryName")
-//                }
-//            )
-            else -> CategoriesFashionPage()
+            else -> WomenFashionPage(
+                onTabSelected = { categoryName ->
+                    println("Women subcategory selected: $categoryName")
+                }
+            )
+//            else -> CategoriesFashionPage()
         }
     }
 }
@@ -577,6 +577,9 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
         painterResource(id = R.drawable.kids_fashion_banner3),
         painterResource(id = R.drawable.kids_fashion_banner4),
         painterResource(id = R.drawable.kids_fashion_banner5),
+        painterResource(id = R.drawable.kids_fashion_banner6),
+        painterResource(id = R.drawable.kids_fashion_banner7),
+        painterResource(id = R.drawable.kids_fashion_banner8),
     )
 
     Column(
@@ -593,7 +596,7 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
                 }
             },
             autoScrollDelay = 2000,
-            height = 270.dp,
+            height = 500.dp,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
         )
@@ -758,15 +761,15 @@ fun HomeFashionPage(onTabSelected: (String) -> Unit,
     val kidsFashionCategories = listOf(
         Category(0, "Decor", R.drawable.ic_decor_home_fashion),
         Category(1, "Bedding", R.drawable.ic_bedding_home_fashion),
-        Category(2, "Kitchen & Dining", R.drawable.ic_kitchen_dining_home_fashion),
-        Category(3, "Thoughtful Gifts", R.drawable.ic_thoughtful_gifts_home_fashion),
+        Category(2, "Kitchen", R.drawable.ic_kitchen_dining_home_fashion),
+        Category(3, "Gifts", R.drawable.ic_thoughtful_gifts_home_fashion),
         Category(4, "Appliances", R.drawable.ic_appliances_home_fashion),
         Category(5, "Bath", R.drawable.ic_bath_home_fashion),
         Category(6, "Storage", R.drawable.ic_storage_home_fashion),
-        Category(7, "Accent Furniture", R.drawable.ic_accent_furniture_home_fashion),
+        Category(7, "Furniture", R.drawable.ic_accent_furniture_home_fashion),
         Category(8, "Cushions", R.drawable.ic_cushions_home_fashion),
         Category(9, "Global Store", R.drawable.ic_global_store_home_fashion),
-        Category(10, "Hidden Gems", R.drawable.ic_hidden_gems_home_fashion),
+        Category(10, "Gems", R.drawable.ic_hidden_gems_home_fashion),
         Category(11, "Luxe", R.drawable.ic_luxe_home_fashion),
     )
     CarouselFashionOne(
@@ -811,6 +814,47 @@ fun HomeFashionPage(onTabSelected: (String) -> Unit,
             height = 470.dp,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+        val homeFashionCategoriesTwo = remember {
+            listOf(
+                Category(0, "Dinnerware", R.drawable.ic_dinnerware_home_fashion_two),
+                Category(1, "Cookware", R.drawable.ic_cookware_home_fashion_two),
+                Category(2, "Cups & Mugs", R.drawable.ic_cups_mugs_home_fashion_two),
+                Category(3, "Appliances", R.drawable.ic_appliances_home_fashion_two),
+                Category(4, "Water Bottles", R.drawable.ic_water_bottles_home_fashion_two),
+                Category(5, "Storage", R.drawable.ic_storage_home_fashion_two),
+                Category(6, "Curtain", R.drawable.ic_curtain_accessories_home_fashion_two),
+                Category(7, "Showpieces", R.drawable.ic_showpieces_shoes_home_fashion_two),
+                Category(8, "Sofa Cover", R.drawable.ic_sofa_cover_home_fashion_two),
+                Category(9, "Wall Art", R.drawable.ic_wall_art_home_fashion_two),
+                Category(10, "Clocks", R.drawable.ic_clocks_home_fashion_two),
+                Category(11, "Plants", R.drawable.ic_plants_home_fashion_two),
+                Category(12, "BedSheets", R.drawable.ic_bed_sheets_home_fashion_two),
+                Category(13, "Blankets", R.drawable.ic_blankets_home_fashion_two),
+                Category(14, "Cushion", R.drawable.ic_cushion_home_fashion_two),
+                Category(15, "Towels", R.drawable.ic_towels_home_fashion_two),
+                Category(16, "Bath Robes", R.drawable.ic_bath_robes_home_fashion_two),
+                Category(17, "Bathroom Accessories", R.drawable.ic_bathroom_accessories_home_kids_fashion_two),
+               //Category(20, ""View All", R.drawable.ic_view_all_home_tab),
+            )
+        }
+//
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+        CategoryProducts(
+            categories = homeFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = homeFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
         )
 //    val bannerImages = listOf(
 //        painterResource(id = R.drawable.home_fashion_banner1),

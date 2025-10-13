@@ -40,26 +40,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
-fun SearchFashion(
+fun SearchCategoriesF(
     modifier: Modifier = Modifier,
     query: String = "",
     onQueryChange: (String) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onQRCodeScan: () -> Unit = {},
-    onCategoryClick: () -> Unit = {}, // New parameter for category icon click
-    placeholder: String = "Search fashion, brands, styles...",
+    onCategoryClick: () -> Unit = {},
+    placeholder: String = "Search categories, styles...",
     enabled: Boolean = true,
-    backgroundColor: Color = MaterialTheme.customColors.onPrimary,
-    textColor: Color = MaterialTheme.colorScheme.scrim,
-    placeholderColor: Color = MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f),
-    elevation: Int = 2,
-    qrIconColor: Color = MaterialTheme.colorScheme.scrim
+    backgroundColor: Color = MaterialTheme.customColors.surface,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+    elevation: Int = 4,
+    iconColor: Color = MaterialTheme.colorScheme.primary
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
@@ -70,20 +71,20 @@ fun SearchFashion(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Category Icon in circle box with white background
+        // Category Icon with different styling
 //        Box(
 //            modifier = Modifier
-//                .size(40.dp) // Slightly larger for the circle
+//                .size(42.dp)
 //                .shadow(
-//                    elevation = 2.dp,
+//                    elevation = 3.dp,
 //                    shape = CircleShape,
 //                    clip = true
 //                )
 //                .clip(CircleShape)
-//                .background(Color.White) // White background
+//                .background(MaterialTheme.colorScheme.primaryContainer)
 //                .border(
-//                    width = 1.dp,
-//                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+//                    width = 1.5.dp,
+//                    color = MaterialTheme.colorScheme.primary,
 //                    shape = CircleShape
 //                )
 //                .clickable { onCategoryClick() },
@@ -92,12 +93,12 @@ fun SearchFashion(
 //            Icon(
 //                painter = painterResource(id = R.drawable.ic_category_1),
 //                contentDescription = "Categories",
-//                tint = qrIconColor,
-//                modifier = Modifier.size(25.dp) // Slightly smaller icon inside circle
+//                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+//                modifier = Modifier.size(24.dp)
 //            )
 //        }
 
-        // Search Box
+        // Search Box with different styling
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -110,28 +111,28 @@ fun SearchFashion(
                 .clip(RoundedCornerShape(8.dp))
                 .background(backgroundColor)
                 .border(
-                    width = 1.dp,
-                    color = if (isFocused) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    width = 2.dp,
+                    color = if (isFocused) MaterialTheme.customColors.white
+                    else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(8.dp)
                 )
-                .padding(horizontal = 5.dp, vertical = 8.dp),
+                .padding(horizontal = 6.dp, vertical = 8.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 // Search icon
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_search_24),
-                    contentDescription = "Search Fashion",
-                    tint = qrIconColor,
-                    modifier = Modifier
-                        .size(25.dp)
-                        .clickable { onQRCodeScan() }
-                )
+//                Icon(
+//                    painter = painterResource(id = R.drawable.baseline_search_24),
+//                    contentDescription = "Search Categories",
+//                    tint = iconColor,
+//                    modifier = Modifier
+//                        .size(26.dp)
+//                        .clickable { onQRCodeScan() }
+//                )
 
                 // Search text field
                 BasicTextField(
@@ -143,8 +144,9 @@ fun SearchFashion(
                         .onFocusChanged { isFocused = it.isFocused },
                     textStyle = TextStyle(
                         color = textColor,
-                        fontSize = 16.sp,
-                        lineHeight = 24.sp
+                        fontSize = 17.sp,
+                        lineHeight = 24.sp,
+                        fontWeight = FontWeight.Normal
                     ),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
@@ -164,7 +166,7 @@ fun SearchFashion(
                                 Text(
                                     text = placeholder,
                                     color = placeholderColor,
-                                    fontSize = 16.sp,
+                                    fontSize = 17.sp,
                                     lineHeight = 24.sp,
                                     fontWeight = FontWeight.Medium
                                 )
@@ -174,80 +176,80 @@ fun SearchFashion(
                     }
                 )
 
-                // Camera Icon (inside the search box)
+                // Camera Icon with different styling
                 Icon(
                     painter = painterResource(id = R.drawable.outline_photo_camera_24),
-                    contentDescription = "Camera",
-                    tint = qrIconColor,
+                    contentDescription = "Scan QR Code",
+                    tint = iconColor,
                     modifier = Modifier
-                        .size(25.dp)
+                        .size(26.dp)
                         .clickable { onQRCodeScan() }
                 )
 
-                // Clear button (only shown when there's text)
+                // Clear button with different styling
                 if (query.isNotEmpty()) {
                     IconButton(
                         onClick = {
                             onQueryChange("")
                             focusRequester.requestFocus()
                         },
-                        modifier = Modifier.size(25.dp)
+                        modifier = Modifier.size(26.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Clear search",
-                            tint = placeholderColor
+                            tint = MaterialTheme.colorScheme.error
                         )
                     }
                 }
             }
         }
 
-        // Wishlist Icon (outside the search box)
-//        Box(
-//            modifier = Modifier
-//                .size(40.dp)
-//                .shadow(
-//                    elevation = 2.dp,
-//                    shape = CircleShape,
-//                    clip = true
-//                )
-//                .clip(CircleShape)
-//                .background(Color.White) // White background
-//                .border(
-//                    width = 1.dp,
-//                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
-//                    shape = CircleShape
-//                )
-//                .clickable { onQRCodeScan() },
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Icon(
-//                painter = painterResource(id = R.drawable.ic_wishlist_outline),
-//                contentDescription = "Wishlist",
-//                tint = qrIconColor,
-//                modifier = Modifier.size(25.dp)
-//            )
-//        }
+        // Wishlist Icon with different styling
+        Box(
+            modifier = Modifier
+                .size(42.dp)
+                .shadow(
+                    elevation = 3.dp,
+                    shape = CircleShape,
+                    clip = true
+                )
+                .clip(CircleShape)
+                .background(MaterialTheme.customColors.white)
+                .border(
+                    width = 1.5.dp,
+                    color = MaterialTheme.colorScheme.secondary,
+                    shape = CircleShape
+                )
+                .clickable { onQRCodeScan() },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_wishlist_outline),
+                contentDescription = "Wishlist",
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier.size(24.dp)
+            )
+        }
     }
 }
 
-// Alternative version with simpler circle background (without border)
+// Alternative simplified version
 @Composable
-fun SearchFashionSimple(
+fun SearchCategoriesFSimple(
     modifier: Modifier = Modifier,
     query: String = "",
     onQueryChange: (String) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onQRCodeScan: () -> Unit = {},
     onCategoryClick: () -> Unit = {},
-    placeholder: String = "Search fashion, brands, styles...",
+    placeholder: String = "Search categories, styles...",
     enabled: Boolean = true,
-    backgroundColor: Color = MaterialTheme.customColors.onPrimary,
-    textColor: Color = MaterialTheme.colorScheme.scrim,
-    placeholderColor: Color = MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f),
+    backgroundColor: Color = MaterialTheme.customColors.surface,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
     elevation: Int = 2,
-    qrIconColor: Color = MaterialTheme.colorScheme.scrim
+    iconColor: Color = MaterialTheme.colorScheme.primary
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
@@ -258,42 +260,42 @@ fun SearchFashionSimple(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Category Icon in simple circle with white background
+        // Category Icon with simple styling
         Box(
             modifier = Modifier
-                .size(38.dp)
+                .size(40.dp)
                 .clip(CircleShape)
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primary)
                 .clickable { onCategoryClick() },
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_category_1),
                 contentDescription = "Categories",
-                tint = qrIconColor,
+                tint = Color.White,
                 modifier = Modifier.size(22.dp)
             )
         }
 
-        // Search Box (same as before)
+        // Search Box with simplified styling
         Box(
             modifier = Modifier
                 .weight(1f)
-                .height(45.dp)
+                .height(46.dp)
                 .shadow(
                     elevation = elevation.dp,
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(16.dp),
                     clip = true
                 )
-                .clip(RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(16.dp))
                 .background(backgroundColor)
                 .border(
                     width = 1.dp,
                     color = if (isFocused) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                    shape = RoundedCornerShape(8.dp)
+                    else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                    shape = RoundedCornerShape(16.dp)
                 )
-                .padding(horizontal = 8.dp, vertical = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 8.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             Row(
@@ -303,10 +305,10 @@ fun SearchFashionSimple(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_search_24),
-                    contentDescription = "Search Fashion",
-                    tint = qrIconColor,
+                    contentDescription = "Search Categories",
+                    tint = iconColor,
                     modifier = Modifier
-                        .size(25.dp)
+                        .size(24.dp)
                         .clickable { onQRCodeScan() }
                 )
 
@@ -320,7 +322,8 @@ fun SearchFashionSimple(
                     textStyle = TextStyle(
                         color = textColor,
                         fontSize = 16.sp,
-                        lineHeight = 24.sp
+                        lineHeight = 24.sp,
+                        fontWeight = FontWeight.Normal
                     ),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
@@ -352,10 +355,10 @@ fun SearchFashionSimple(
 
                 Icon(
                     painter = painterResource(id = R.drawable.outline_photo_camera_24),
-                    contentDescription = "Camera",
-                    tint = qrIconColor,
+                    contentDescription = "Scan QR Code",
+                    tint = iconColor,
                     modifier = Modifier
-                        .size(25.dp)
+                        .size(24.dp)
                         .clickable { onQRCodeScan() }
                 )
 
@@ -365,7 +368,7 @@ fun SearchFashionSimple(
                             onQueryChange("")
                             focusRequester.requestFocus()
                         },
-                        modifier = Modifier.size(25.dp)
+                        modifier = Modifier.size(24.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
@@ -377,29 +380,29 @@ fun SearchFashionSimple(
             }
         }
 
-        // Wishlist Icon in simple circle with white background
-//        Box(
-//            modifier = Modifier
-//                .size(38.dp)
-//                .clip(CircleShape)
-//                .background(Color.White)
-//                .clickable { onQRCodeScan() },
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Icon(
-//                painter = painterResource(id = R.drawable.ic_wishlist_outline),
-//                contentDescription = "Wishlist",
-//                tint = qrIconColor,
-//                modifier = Modifier.size(22.dp)
-//            )
-//        }
+        // Wishlist Icon with simple styling
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.secondary)
+                .clickable { onQRCodeScan() },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_wishlist_outline),
+                contentDescription = "Wishlist",
+                tint = Color.White,
+                modifier = Modifier.size(22.dp)
+            )
+        }
     }
 }
 
 // Preview
-@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun SearchFashionPreview() {
+fun SearchCategoriesFPreview() {
     MaterialTheme {
         Box(
             modifier = Modifier
@@ -408,10 +411,10 @@ fun SearchFashionPreview() {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             var query by remember { mutableStateOf("") }
-            SearchFashion(
+            SearchCategoriesF(
                 query = query,
                 onQueryChange = { query = it },
-                onSearch = { println("Searching fashion: $it") },
+                onSearch = { println("Searching categories: $it") },
                 onQRCodeScan = { println("QR Code scan requested") },
                 onCategoryClick = { println("Category clicked") }
             )
@@ -419,9 +422,9 @@ fun SearchFashionPreview() {
     }
 }
 
-@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun SearchFashionSimplePreview() {
+fun SearchCategoriesFSimplePreview() {
     MaterialTheme {
         Box(
             modifier = Modifier
@@ -430,10 +433,10 @@ fun SearchFashionSimplePreview() {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             var query by remember { mutableStateOf("") }
-            SearchFashionSimple(
+            SearchCategoriesFSimple(
                 query = query,
                 onQueryChange = { query = it },
-                onSearch = { println("Searching fashion: $it") },
+                onSearch = { println("Searching categories: $it") },
                 onQRCodeScan = { println("QR Code scan requested") },
                 onCategoryClick = { println("Category clicked") }
             )
