@@ -68,6 +68,7 @@ fun HomeFashionScreen(navController: NavHostController) {
                             },
                             onCategoryClick = onCategoryClick // Use the local function
                         )
+//                        Spacer(modifier = Modifier.height(2.dp))
                     }
                 }
             }

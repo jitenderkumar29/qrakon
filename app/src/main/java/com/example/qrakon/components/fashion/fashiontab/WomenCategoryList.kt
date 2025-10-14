@@ -2,6 +2,7 @@ package com.example.qrakon.components.fashion.fashiontab
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,14 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 
-//
-//@Composable
-//fun WomenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-//    Column(Modifier.fillMaxWidth()) {
-//        InfoCategoriesF()
-//        WomenCategoryList()
-//    }
-//}
 
 @Composable
 fun WomenCategoryList() {
@@ -42,11 +35,19 @@ fun WomenCategoryList() {
 
     val validCategories = remember {
         listOf(
-            "Indianwear" to R.drawable.ic_bathroom_accessories_home_kids_fashion_two,
-            "Westernwear" to R.drawable.ic_bathroom_accessories_home_kids_fashion_two,
-            "Footwear" to R.drawable.ic_bathroom_accessories_home_kids_fashion_two,
-            "Lingerie" to R.drawable.ic_bathroom_accessories_home_kids_fashion_two,
-            "Bags" to R.drawable.ic_bathroom_accessories_home_kids_fashion_two,
+            "Indianwear" to R.drawable.ic_indianwear,
+            "Westernwear" to R.drawable.ic_westernwear,
+            "Footwear" to R.drawable.ic_footwear,
+            "Lingerie" to R.drawable.ic_lingerie,
+            "Bags" to R.drawable.ic_bags,
+            "Jewellery" to R.drawable.ic_jewellery,
+            "Active & Sports" to R.drawable.ic_active_sports,
+            "Watches" to R.drawable.ic_watches,
+            "Sleep & Lounge" to R.drawable.ic_sleep_lounge,
+            "Accessories" to R.drawable.ic_accessories,
+            "Maternity Wear" to R.drawable.ic_maternity_wear,
+            "Tech Accessories" to R.drawable.ic_tech_accessories,
+            "Sports & Fitness" to R.drawable.ic_sports_fitness,
         ).filter { (_, resId) ->
             isResourceAvailable(context, resId)
         }
@@ -55,7 +56,6 @@ fun WomenCategoryList() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Text(
@@ -68,12 +68,53 @@ fun WomenCategoryList() {
             modifier = Modifier.padding(bottom = 20.dp)
         )
 
-        validCategories.forEach { (name, imageRes) ->
-            BasicCategoryItem(
-                imageRes = imageRes,
-                text = name
-            )
+        validCategories.forEachIndexed { index, (name, imageRes) ->
+            Column(modifier = Modifier.fillMaxWidth()) {
+                BasicCategoryItem(
+                    imageRes = imageRes,
+                    text = name
+                )
+                // Add border line after each item
+                Spacer(modifier = Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color.LightGray.copy(alpha = 0.6f))
+                )
+            }
+
+            // Add spacing between items except for the last one
+            if (index != validCategories.lastIndex) {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = "Shop Stylish Brands",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            ),
+            modifier = Modifier.padding(bottom = 10.dp)
+        )
+//        Row(verticalAlignment = Alignment.CenterVertically) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_shop_stylish_brands),
+            contentDescription = "Shop Stylish Brands",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp) // fixed height, width fills parent
+//                .clip(RoundedCornerShape(6.dp))
+                .background(Color.LightGray),
+            contentScale = ContentScale.FillBounds
+        )
+
+
+
     }
 }
 
@@ -95,10 +136,11 @@ fun BasicCategoryItem(
                 painter = painterResource(id = imageRes),
                 contentDescription = text,
                 modifier = Modifier
-                    .size(60.dp)
+                    .height(70.dp)
+                    .width(60.dp)
                     .clip(RoundedCornerShape(6.dp))
                     .background(Color.LightGray),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillBounds
             )
 
             Spacer(modifier = Modifier.width(16.dp))
@@ -106,7 +148,7 @@ fun BasicCategoryItem(
             Text(
                 text = text,
                 style = TextStyle(
-                    fontSize = 16.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black
                 )
@@ -117,7 +159,7 @@ fun BasicCategoryItem(
             imageVector = Icons.Default.KeyboardArrowRight,
             contentDescription = "Go to $text",
             tint = Color.Gray,
-            modifier = Modifier.size(18.dp)
+            modifier = Modifier.size(35.dp)
         )
     }
 }

@@ -64,7 +64,8 @@ fun CategoriesFashionPage(
                         .background(MaterialTheme.customColors.white)
                         .border(
                             width = 1.5.dp,
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.customColors.white,
+//                            color = MaterialTheme.colorScheme.primary,
                             shape = CircleShape
                         ),
 //                        .clickable { onCategoryClick() },

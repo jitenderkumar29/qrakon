@@ -44,6 +44,9 @@ fun FashionScreen(
     navController: NavHostController
 ) {
     var searchQuery by remember { mutableStateOf("") }
+    val onCategoryClick: () -> Unit = {
+        navController.navigate("fashion_categories")
+    }
 
     Column(
         modifier = Modifier
@@ -93,8 +96,8 @@ fun FashionScreen(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         shape = CircleShape
-                    ),
-//              .clickable { onCategoryClick() },
+                    )
+              .clickable { onCategoryClick() },
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -105,7 +108,7 @@ fun FashionScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             // Wishlist Icon
             Box(
@@ -134,7 +137,7 @@ fun FashionScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             // Amount Field with overlapping coin image
             Box(

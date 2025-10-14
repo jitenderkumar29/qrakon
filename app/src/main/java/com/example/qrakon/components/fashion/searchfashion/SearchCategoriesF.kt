@@ -113,7 +113,8 @@ fun SearchCategoriesF(
                 .border(
                     width = 2.dp,
                     color = if (isFocused) MaterialTheme.customColors.white
-                    else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                    else MaterialTheme.customColors.white,
+//                    else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(8.dp)
                 )
                 .padding(horizontal = 6.dp, vertical = 8.dp),
@@ -218,7 +219,8 @@ fun SearchCategoriesF(
                 .background(MaterialTheme.customColors.white)
                 .border(
                     width = 1.5.dp,
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.customColors.white,
+//                    color = MaterialTheme.colorScheme.secondary,
                     shape = CircleShape
                 )
                 .clickable { onQRCodeScan() },

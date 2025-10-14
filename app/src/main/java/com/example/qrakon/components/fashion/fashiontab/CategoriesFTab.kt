@@ -155,13 +155,23 @@ fun CategoriesFTab(
 
 @Composable
 fun WomenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
+//    Column(
+//        modifier = Modifier
+//            .fillMaxSize()
+////            .fillMaxWidth()
+////            .verticalScroll(rememberScrollState())
+//    ) {
+//        InfoCategoriesF()
+////        WomenCategoryList()
+//    }
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-//            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
+//            .padding(16.dp)
     ) {
         InfoCategoriesF()
-//        WomenCategoryList()
+        WomenCategoryList()
+        WomenCategoryStores()
     }
 }
 
