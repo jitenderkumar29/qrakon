@@ -4,11 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,27 +25,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 
-
 @Composable
-fun WomenCategoryList() {
+fun SubCategoryFList(
+    title: String = "Shop by Category",
+    categories: List<Pair<String, Int>> = emptyList(),
+    showBrandsSection: Boolean = true,
+    brandsImageRes: Int? = R.drawable.ic_shop_stylish_brands,
+    brandsTitle: String = "Shop Stylish Brands",
+    onCategoryClick: (String) -> Unit = {},
+    onBrandsClick: () -> Unit = {}
+) {
     val context = LocalContext.current
 
-    val validCategories = remember {
-        listOf(
-            "Indianwear" to R.drawable.ic_indianwear,
-            "Westernwear" to R.drawable.ic_westernwear,
-            "Footwear" to R.drawable.ic_footwear,
-            "Lingerie" to R.drawable.ic_lingerie,
-            "Bags" to R.drawable.ic_bags,
-            "Jewellery" to R.drawable.ic_jewellery,
-            "Active & Sports" to R.drawable.ic_active_sports,
-            "Watches" to R.drawable.ic_watches,
-            "Sleep & Lounge" to R.drawable.ic_sleep_lounge,
-            "Accessories" to R.drawable.ic_accessories,
-            "Maternity Wear" to R.drawable.ic_maternity_wear,
-            "Tech Accessories" to R.drawable.ic_tech_accessories,
-            "Sports & Fitness" to R.drawable.ic_sports_fitness,
-        ).filter { (_, resId) ->
+    val validCategories = remember(categories) {
+        categories.filter { (_, resId) ->
             isResourceAvailable(context, resId)
         }
     }
@@ -59,7 +49,7 @@ fun WomenCategoryList() {
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Text(
-            text = "Shop by Category",
+            text = title,
             style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -72,7 +62,8 @@ fun WomenCategoryList() {
             Column(modifier = Modifier.fillMaxWidth()) {
                 BasicCategoryItem(
                     imageRes = imageRes,
-                    text = name
+                    text = name,
+                    onClick = { onCategoryClick(name) }
                 )
                 // Add border line after each item
                 Spacer(modifier = Modifier.height(8.dp))
@@ -90,31 +81,30 @@ fun WomenCategoryList() {
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        if (showBrandsSection && brandsImageRes != null) {
+            Spacer(modifier = Modifier.height(20.dp))
 
-        Text(
-            text = "Shop Stylish Brands",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Black
-            ),
-            modifier = Modifier.padding(bottom = 10.dp)
-        )
-//        Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_shop_stylish_brands),
-            contentDescription = "Shop Stylish Brands",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp) // fixed height, width fills parent
-//                .clip(RoundedCornerShape(6.dp))
-                .background(Color.LightGray),
-            contentScale = ContentScale.FillBounds
-        )
+            Text(
+                text = brandsTitle,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black
+                ),
+                modifier = Modifier.padding(bottom = 10.dp)
+            )
 
-
-
+            Image(
+                painter = painterResource(id = brandsImageRes),
+                contentDescription = brandsTitle,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clickable { onBrandsClick() }
+                    .background(Color.LightGray),
+                contentScale = ContentScale.FillBounds
+            )
+        }
     }
 }
 
@@ -122,12 +112,14 @@ fun WomenCategoryList() {
 fun BasicCategoryItem(
     imageRes: Int,
     text: String,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(70.dp),
+            .height(70.dp)
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -173,8 +165,84 @@ private fun isResourceAvailable(context: android.content.Context, resId: Int): B
     }
 }
 
+//
+//// Usage example for Men's category
+//@Composable
+//fun MenCategoryList() {
+//    val menCategories = listOf(
+//        "Topwear" to R.drawable.ic_topwear,
+//        "Bottomwear" to R.drawable.ic_bottomwear,
+//        "Footwear" to R.drawable.ic_footwear_men,
+//        "Innerwear" to R.drawable.ic_innerwear,
+//        "Sports & Active" to R.drawable.ic_sports_active,
+//        "Watches" to R.drawable.ic_watches_men,
+//        "Accessories" to R.drawable.ic_accessories_men,
+//    )
+//
+//    SubCategoryFList(
+//        title = "Men's Categories",
+//        categories = menCategories,
+//        showBrandsSection = true,
+//        brandsImageRes = R.drawable.ic_men_brands,
+//        brandsTitle = "Popular Men's Brands",
+//        onCategoryClick = { categoryName ->
+//            // Handle category click
+//        },
+//        onBrandsClick = {
+//            // Handle brands click
+//        }
+//    )
+//}
+//
+//// Usage example without brands section
+//@Composable
+//fun SimpleCategoryList() {
+//    val simpleCategories = listOf(
+//        "Category 1" to R.drawable.ic_category1,
+//        "Category 2" to R.drawable.ic_category2,
+//    )
+//
+//    SubCategoryFList(
+//        title = "Categories",
+//        categories = simpleCategories,
+//        showBrandsSection = false,
+//        onCategoryClick = { categoryName ->
+//            // Handle category click
+//        }
+//    )
+//}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun WomenCategoryListPreview() {
-    WomenCategoryList()
+fun SubCategoryFListPreview() {
+    val previewCategories = listOf(
+        "Indianwear" to R.drawable.ic_indianwear,
+        "Westernwear" to R.drawable.ic_westernwear,
+        "Footwear" to R.drawable.ic_footwear,
+    )
+
+    SubCategoryFList(
+        title = "Shop by Category",
+        categories = previewCategories,
+        showBrandsSection = true,
+        brandsImageRes = R.drawable.ic_shop_stylish_brands,
+        onCategoryClick = { },
+        onBrandsClick = { }
+    )
 }
+//
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun SubCategoryFListNoBrandsPreview() {
+//    val previewCategories = listOf(
+//        "Category 1" to R.drawable.ic_category1,
+//        "Category 2" to R.drawable.ic_category2,
+//    )
+//
+//    SubCategoryFList(
+//        title = "Categories",
+//        categories = previewCategories,
+//        showBrandsSection = false,
+//        onCategoryClick = { }
+//    )
+//}

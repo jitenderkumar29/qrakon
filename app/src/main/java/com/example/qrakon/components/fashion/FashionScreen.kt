@@ -91,7 +91,8 @@ fun FashionScreen(
                         clip = true
                     )
                     .clip(CircleShape)
-                    .background(Color.White)
+                    .background(MaterialTheme.customColors.lightAccent)
+//                    .background(Color.White)
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
@@ -101,10 +102,12 @@ fun FashionScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_category_1),
+                    painter = painterResource(id = R.drawable.ic_category_image),
+//                    painter = painterResource(id = R.drawable.ic_category_1),
                     contentDescription = "Categories",
-                    tint = MaterialTheme.colorScheme.scrim,
-                    modifier = Modifier.size(25.dp)
+                    tint = Color.Unspecified,
+//                    tint = MaterialTheme.colorScheme.scrim,
+                    modifier = Modifier.size(30.dp)
                 )
             }
 

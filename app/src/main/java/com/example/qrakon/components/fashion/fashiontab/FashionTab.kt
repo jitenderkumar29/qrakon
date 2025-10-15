@@ -47,6 +47,7 @@ sealed class FashionCategoryPage {
     object Kids : FashionCategoryPage()
     object Home : FashionCategoryPage()
     object Luxe : FashionCategoryPage()
+    object Brands : FashionCategoryPage()
     object Categories : FashionCategoryPage()
 }
 
@@ -63,7 +64,8 @@ fun FashionTab(
         "Kids" to null,
         "Home" to null,
         "Luxe" to null,
-        "" to R.drawable.ic_category_image
+        "Brands" to null,
+//        "" to R.drawable.ic_category_image
     )
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -87,11 +89,12 @@ fun FashionTab(
                                 2 -> FashionCategoryPage.Kids
                                 3 -> FashionCategoryPage.Home
                                 4 -> FashionCategoryPage.Luxe
-                                5 -> FashionCategoryPage.Categories
+                                5 -> FashionCategoryPage.Brands
+                                6 -> FashionCategoryPage.Categories
                                 else -> FashionCategoryPage.Women
                             }
 
-                            if (index == 5) {
+                            if (index == 6) {
                                 onOpenFashionCategory()
                             } else {
                                 onCategorySelected(page)
@@ -110,11 +113,12 @@ fun FashionTab(
                                     2 -> FashionCategoryPage.Kids
                                     3 -> FashionCategoryPage.Home
                                     4 -> FashionCategoryPage.Luxe
-                                    5 -> FashionCategoryPage.Categories
+                                    5 -> FashionCategoryPage.Brands
+                                    6 -> FashionCategoryPage.Categories
                                     else -> FashionCategoryPage.Women
                                 }
 
-                                if (index == 5) {
+                                if (index == 6) {
                                     onOpenFashionCategory()
                                 } else {
                                     onCategorySelected(page)
@@ -128,7 +132,7 @@ fun FashionTab(
                                 .padding(vertical = 8.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            if (index == 5 && iconRes != null) {
+                            if (index == 6 && iconRes != null) {
                                 Icon(
                                     painter = painterResource(id = iconRes),
                                     contentDescription = "Categories",
@@ -184,6 +188,7 @@ fun FashionTab(
             2 -> KidsFashionPage(onTabSelected = { println("Kids subcategory: $it") })
             3 -> HomeFashionPage(onTabSelected = { println("Home subcategory: $it") })
             4 -> LuxeFashionPage(onTabSelected = { println("Luxe subcategory: $it") })
+            5 -> BrandsFashionPage(onTabSelected = { println("Brands subcategory: $it") })
             else -> WomenFashionPage(onTabSelected = { println("Women subcategory: $it") })
         }
     }
@@ -334,6 +339,8 @@ fun MenFashionPage(onTabSelected: (String) -> Unit,
         painterResource(id = R.drawable.men_fashion_banner3),
         painterResource(id = R.drawable.men_fashion_banner4),
         painterResource(id = R.drawable.men_fashion_banner5),
+        painterResource(id = R.drawable.men_fashion_banner6),
+        painterResource(id = R.drawable.men_fashion_banner7),
     )
 
     Column(
@@ -350,7 +357,7 @@ fun MenFashionPage(onTabSelected: (String) -> Unit,
                 }
             },
             autoScrollDelay = 2000,
-            height = 270.dp,
+            height = 500.dp,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
         )
@@ -671,6 +678,100 @@ fun LuxeFashionPage(onTabSelected: (String) -> Unit,
         modifier = Modifier
             .fillMaxSize()
     ) {
+        BannerFashion(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 470.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
+
+//        val luxeFashionCategoriesTwo = remember {
+//            listOf(
+//                Category(0, "Luxury Watches", R.drawable.ic_watches_men_fashion_two),
+//                Category(1, "Designer Bags", R.drawable.ic_handbags_women_fashion_two),
+//                Category(2, "Premium Jewellery", R.drawable.ic_fashion_jewellery),
+//                Category(3, "Luxury Fragrances", R.drawable.ic_fragrances_women_fashion_two),
+//                Category(4, "Designer Apparel", R.drawable.ic_explore_women_fashion_two),
+//                Category(5, "Premium Footwear", R.drawable.ic_footwear_men),
+//                Category(6, "Luxury Accessories", R.drawable.ic_ad_ons_men),
+//                Category(7, "Exclusive Collections", R.drawable.ic_global_store_home_fashion),
+//            )
+//        }
+//
+//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+//
+//        CategoryProducts(
+//            categories = luxeFashionCategoriesTwo,
+//            onCategorySelected = { category ->
+//                selectedCategory = category
+//                println("Selected category: ${category.name}")
+//            },
+//            modifier = Modifier.fillMaxWidth(),
+//            initialSelectedCategory = luxeFashionCategoriesTwo.first(),
+//            itemWidth = 75,
+//            itemHeight = 65,
+//            horizontalSpacing = 8,
+//            verticalSpacing = 8,
+//            backgroundColor = MaterialTheme.customColors.white
+//        )
+    }
+}
+@Composable
+fun BrandsFashionPage(onTabSelected: (String) -> Unit,
+                    modifier: Modifier = Modifier) {
+    Box(Modifier.fillMaxWidth().padding(16.dp)) {
+        Text("Brands Fashion Content")
+    }
+//    val brandsFashionCategories = listOf(
+//        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
+//        Category(1, "Women", R.drawable.ic_luxe_women_fashion),
+//        Category(2, "Watches", R.drawable.ic_luxe_watches_fashion),
+//        Category(3, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
+//        Category(4, "Handbags", R.drawable.ic_luxe_handbags_fashion),
+//        Category(5, "Beauty", R.drawable.ic_luxe_beauty_fashion),
+//        Category(6, "Footwear", R.drawable.ic_luxe_footwear_fashion),
+//        Category(7, "MLI", R.drawable.ic_luxe_mli_fashion),
+//        Category(8, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
+//        Category(9, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
+//        Category(10, "Kids", R.drawable.ic_luxe_kids_fashion),
+//        Category(10, "Accessories", R.drawable.ic_luxe_accessories_fashion),
+//        Category(11, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
+//    )
+//    CarouselFashionOne(
+//        categories = brandsFashionCategories,
+//        onTabSelected = onTabSelected,
+//        modifier = modifier,
+//        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+//        itemWidth = 75,
+//        itemHeight = 75,
+//        horizontalSpacing = 8
+//    )
+//
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.luxe_fashion_banner1), // Using existing banner as placeholder
+//        painterResource(id = R.drawable.luxe_fashion_banner2),
+//        painterResource(id = R.drawable.luxe_fashion_banner3),
+//        painterResource(id = R.drawable.luxe_fashion_banner4),
+//        painterResource(id = R.drawable.luxe_fashion_banner5),
+//        painterResource(id = R.drawable.luxe_fashion_banner6),
+//        painterResource(id = R.drawable.luxe_fashion_banner7),
+//        painterResource(id = R.drawable.luxe_fashion_banner8),
+//        painterResource(id = R.drawable.luxe_fashion_banner9),
+//        painterResource(id = R.drawable.luxe_fashion_banner10),
+//    )
+//
+//    Column(
+//        modifier = Modifier
+//            .fillMaxSize()
+//    ) {
 //        BannerFashion(
 //            images = bannerImages,
 //            onImageClick = { page ->
@@ -715,7 +816,7 @@ fun LuxeFashionPage(onTabSelected: (String) -> Unit,
 //            verticalSpacing = 8,
 //            backgroundColor = MaterialTheme.customColors.white
 //        )
-    }
+//    }
 }
 
 @Composable
@@ -735,7 +836,8 @@ fun FashionMainScreen(navController: NavHostController) {
                     is FashionCategoryPage.Kids -> 2
                     is FashionCategoryPage.Home -> 3
                     is FashionCategoryPage.Luxe -> 4
-                    is FashionCategoryPage.Categories -> 5
+                    is FashionCategoryPage.Brands -> 5
+                    is FashionCategoryPage.Categories -> 6
                 }
             }
         )

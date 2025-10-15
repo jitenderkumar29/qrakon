@@ -43,7 +43,6 @@ import com.example.qrakon.components.homescreen.FurnitureCategory
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
-import com.example.qrakon.components.fashion.fashiontab.WomenCategoryList
 
 // Sealed class for different category pages
 sealed class CategoryPage {

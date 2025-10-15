@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
@@ -59,19 +60,24 @@ fun CategoriesFTab(
                 ) {
                     // ✅ Extract theme colors *before* drawBehind
                     // Extract colors in composable scope
-                    val backgroundColor = MaterialTheme.customColors.skyBlue
-                    val borderColor = if (isSelected) MaterialTheme.customColors.gray else Color.Transparent
-                    val bottomLineColor = if (isSelected) MaterialTheme.customColors.onPrimaryContainer else Color.Transparent
+                    MaterialTheme.customColors.skyBlue
+                    if (isSelected) MaterialTheme.customColors.gray else Color.Transparent
+                    if (isSelected) MaterialTheme.customColors.onPrimaryContainer else Color.Transparent
 
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)) // Rounded top corners
+                            .clip(
+                                RoundedCornerShape(
+                                    topStart = 15.dp,
+                                    topEnd = 15.dp
+                                )
+                            ) // Rounded top corners
 //                            .background(backgroundColor) // Background respects clip
                             .drawBehind {
-                                val strokeWidth = if (isSelected) 2.dp.toPx() else 1.dp.toPx()
-                                val width = size.width
-                                val height = size.height
+                                if (isSelected) 2.dp.toPx() else 1.dp.toPx()
+                                size.width
+                                size.height
 
 //                                // Top border (optional)
 //                                drawLine(
@@ -155,39 +161,194 @@ fun CategoriesFTab(
 
 @Composable
 fun WomenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-////            .fillMaxWidth()
-////            .verticalScroll(rememberScrollState())
-//    ) {
-//        InfoCategoriesF()
-////        WomenCategoryList()
-//    }
     Column(
         modifier = Modifier
             .fillMaxSize()
-//            .padding(16.dp)
     ) {
         InfoCategoriesF()
-        WomenCategoryList()
-        WomenCategoryStores()
+        val womenCategoriesF = listOf(
+            "Indianwear" to R.drawable.ic_indianwear,
+            "Westernwear" to R.drawable.ic_westernwear,
+            "Footwear" to R.drawable.ic_footwear,
+            "Lingerie" to R.drawable.ic_lingerie,
+            "Bags" to R.drawable.ic_bags,
+            "Jewellery" to R.drawable.ic_jewellery,
+            "Active & Sports" to R.drawable.ic_active_sports,
+            "Watches" to R.drawable.ic_watches,
+            "Sleep & Lounge" to R.drawable.ic_sleep_lounge,
+            "Accessories" to R.drawable.ic_accessories,
+            "Maternity Wear" to R.drawable.ic_maternity_wear,
+            "Tech Accessories" to R.drawable.ic_tech_accessories,
+            "Sports & Fitness" to R.drawable.ic_sports_fitness,
+        )
+
+        SubCategoryFList(
+            title = "Shop by Category",
+            categories = womenCategoriesF,
+            showBrandsSection = true,
+            brandsImageRes = R.drawable.ic_shop_stylish_brands,
+            brandsTitle = "Shop Stylish Brands",
+            onCategoryClick = { categoryName ->
+                // Handle category click
+            },
+            onBrandsClick = {
+                // Handle brands click
+            }
+        )
+        val womenStores = listOf(
+            StoreItem(
+                name = "Global Store",
+                imageRes = R.drawable.ic_global_store,
+                description = "Influencer approved global brands handpicked for you"
+            ),
+            StoreItem(
+                name = "Hidden Gems",
+                imageRes = R.drawable.ic_hidden_gems,
+                description = "Our selection of 300+ most sought after homegrown labels"
+            ),
+            StoreItem(
+                name = "Luxe Edit",
+                imageRes = R.drawable.ic_luxe_edit,
+                description = "Our collection of 250+ designers rooted in traditional sophistication"
+            ),
+            StoreItem(
+                name = "Genz",
+                imageRes = R.drawable.ic_genz,
+                description = "30,000+ curated Gen-Z approved styles to slay in"
+            ),
+            StoreItem(
+                name = "House of Nykaa",
+                imageRes = R.drawable.ic_house_of_nykaa,
+                description = "Unique brands and curated styles; Made for you, by us"
+            ),
+            StoreItem(
+                name = "Revolve",
+                imageRes = R.drawable.ic_revolve,
+                description = "Hottest celebrity styles from LA exclusively on Nykaa Fashion"
+            )
+        )
+
+        StoresFList(
+            title = "Shop by Category",
+            stores = womenStores,
+            onStoreClick = { storeName ->
+                // Handle store click
+                when (storeName) {
+                    "Global Store" -> { /* Navigate to Global Store */ }
+                    "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
+                    "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
+                    "Genz" -> { /* Navigate to Genz */ }
+                    "House of Nykaa" -> { /* Navigate to House of Nykaa */ }
+                    "Revolve" -> { /* Navigate to Revolve */ }
+                }
+            }
+        )
+
+        val moreFromQrakon = listOf(
+            StoreItem(
+                name = "Style Advice",
+                imageRes = R.drawable.ic_style_advice, // You'll need to create this drawable
+                description = "Chat with a Nykaa Personal Stylist"
+            ),
+            StoreItem(
+                name = "Retail Stores",
+                imageRes = R.drawable.ic_retail_stores, // You'll need to create this drawable
+                description = "Shop from our stores in your city"
+            )
+        )
+
+        StoresFList(
+            title = "More from Qrakon",
+            stores = moreFromQrakon,
+            onStoreClick = { storeName ->
+                // Handle store click
+                when (storeName) {
+                    "Style Advice" -> {
+                        /* Navigate to Style Advice/Chat with Stylist */
+                    }
+                    "Retail Stores" -> {
+                        /* Navigate to Retail Stores locator */
+                    }
+                }
+            }
+        )
+//        WomenCategoryStores()
     }
 }
 
-//@Composable
-//fun WomenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-//    Box(Modifier.fillMaxWidth()) {
-//        InfoCategoriesF()
-//        WomenCategoryList()
-////        Text("Women Fashion Content")
-//    }
-//}
-
 @Composable
 fun MenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-    Box(Modifier.fillMaxWidth()) {
-        Text("Men Fashion Content")
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        InfoCategoriesF()
+
+        val menCategoriesF = listOf(
+            "Topwear" to R.drawable.ic_topwear_men_scf,
+            "Bottomwear" to R.drawable.ic_bottomwear_men_scf,
+            "Ethnicwear" to R.drawable.ic_ethnicwear_men_scf,
+            "Footwear" to R.drawable.ic_footwear_men_scf,
+            "Active & Sports" to R.drawable.ic_active_sports_men_scf,
+            "Accessories" to R.drawable.ic_accessories_men_scf,
+            "Innerwear & Sleepwear" to R.drawable.ic_innerwear_sleepwear_men_scf,
+            "Watches" to R.drawable.ic_watches_men_scf,
+            "Bags & Backpacks" to R.drawable.ic_bags_backpacks_men_scf,
+            "Tech Accessories" to R.drawable.ic_tech_accessories_men_scf,
+            "Sports & Fitness" to R.drawable.ic_sports_fitness_men_scf
+        )
+
+        SubCategoryFList(
+            title = "Shop by Category",
+            categories = menCategoriesF,
+            showBrandsSection = true,
+            brandsImageRes = R.drawable.ic_men_categories_f_stylish_brands,
+            brandsTitle = "Shop Stylish Brands",
+            onCategoryClick = { categoryName ->
+                // Handle category click
+            },
+            onBrandsClick = {
+                // Handle brands click
+            }
+        )
+
+            val menStores = listOf(
+                StoreItem(
+                    name = "Global Store",
+                    imageRes = R.drawable.ic_global_store_men,
+                    description = "Influencer approved global brands handpicked for you"
+                ),
+                StoreItem(
+                    name = "Hidden Gems",
+                    imageRes = R.drawable.ic_hidden_gems_men,
+                    description = "Our selection of 300+ most sought after homegrown labels"
+                ),
+                StoreItem(
+                    name = "Luxe Edit",
+                    imageRes = R.drawable.ic_luxe_edit_men,
+                    description = "Our collection of 250+ Indian designers rooted in traditional sophistication"
+                ),
+                StoreItem(
+                    name = "Genz",
+                    imageRes = R.drawable.ic_genz_men,
+                    description = "30,000+ Gen-Z approved styles to slay in"
+                )
+            )
+
+            StoresFList(
+                title = "Curated Style Stores",
+                stores = menStores,
+                onStoreClick = { storeName ->
+                    // Handle store click
+                    when (storeName) {
+                        "Global Store" -> { /* Navigate to Global Store */ }
+                        "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
+                        "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
+                        "Genz" -> { /* Navigate to Genz */ }
+                    }
+                }
+            )
     }
 }
 
