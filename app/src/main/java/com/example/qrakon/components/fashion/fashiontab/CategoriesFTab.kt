@@ -354,8 +354,138 @@ fun MenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
 
 @Composable
 fun KidsCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-    Box(Modifier.fillMaxWidth()) {
-        Text("Kids Fashion Content")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        InfoCategoriesF()
+
+
+        val infantCategories = listOf(
+            ListItemSquare(0, "Shop All", R.drawable.ic_kids_view_all_home_tab),
+            ListItemSquare(1, "Infant Clothing", R.drawable.ic_infants_kids2, ""),
+            ListItemSquare(2, "Nursery", R.drawable.ic_nursery_kids, ""),
+            ListItemSquare(3, "Feeding & Meal", R.drawable.ic_feeding_n_meal_time_kids, ""),
+            ListItemSquare(4, "Diapering", R.drawable.ic_diapering_kids, ""),
+            ListItemSquare(5, "Baby Gear", R.drawable.ic_baby_gear_kids, ""),
+            ListItemSquare(6, "Baby Toys", R.drawable.ic_baby_first_toys_kids, ""),
+            ListItemSquare(7, "Bath Time", R.drawable.ic_bath_time_kids, ""),
+            ListItemSquare(8, "Gift sets", R.drawable.ic_gift_sets_kids, ""),
+        )
+
+
+        ListItemSquareSection(
+            heading = "Shop for Infants",
+            subheading = "Westernwear, Indianwear & much more",
+            items = infantCategories,
+            onItemClick = { item ->
+                println("Selected: ${item.name}")
+            },
+//            modifier = modifier
+        )
+
+        val girlsCategories = listOf(
+            ListItemSquare(0, "Shop All", R.drawable.ic_girls_shop_all, ""),
+            ListItemSquare(1, "Toddler", R.drawable.ic_girls_toddler, "2–4 years"),
+            ListItemSquare(2, "Child", R.drawable.ic_girls_child, "4–8 years"),
+            ListItemSquare(3, "Tween", R.drawable.ic_girls_tween, "8–12 years"),
+            ListItemSquare(4, "Teen", R.drawable.ic_girls_teen, "12–16 years"),
+        )
+
+
+        ListItemSquareSection(
+            heading = "Shop for Girls",
+            subheading = "Westernwear, Indianwear & much more",
+            items = girlsCategories,
+            onItemClick = { item ->
+                println("Selected: ${item.name}")
+            }
+        )
+
+
+        // ✅ Merged Boys Categories (Unique + Ordered)
+        val boysCategories = listOf(
+            ListItemSquare(0, "Shop All", R.drawable.ic_boys_shop_all),
+            ListItemSquare(1, "Toddler", R.drawable.ic_boys_toddler, "2-4 years"),
+            ListItemSquare(2, "Child", R.drawable.ic_boys_child, "4-8 years"),
+            ListItemSquare(3, "Tween", R.drawable.ic_boys_tween, "8-12 years"),
+            ListItemSquare(4, "Teen", R.drawable.ic_boys_teen, "12-16 years")
+        )
+
+// ✅ Single Section Call
+        ListItemSquareSection(
+            heading = "Shop for Boys",
+            subheading = "Westernwear, Indianwear & much more",
+            items = boysCategories,
+            onItemClick = { item ->
+                println("Selected: ${item.name}")
+            }
+        )
+
+
+        val kidsCategoriesF = listOf(
+            "Infant" to R.drawable.ic_infant_kids,
+            "Westernwear" to R.drawable.ic_westernwear_kids,
+            "Indianwear" to R.drawable.ic_indianwear_kids,
+            "Winterwear" to R.drawable.ic_winterwear_kids,
+            "Footwear" to R.drawable.ic_footwear_kids,
+            "Sports & Athleisure" to R.drawable.ic_sports_athleisure_kids,
+            "Kids Accessories" to R.drawable.ic_kids_accessories,
+            "Toys & Playtime" to R.drawable.ic_toys_playtime_kids,
+            "Home" to R.drawable.ic_home_kids,
+            "Sports & Fitness" to R.drawable.ic_sports_fitness_kids,
+            "School Must Haves" to R.drawable.ic_school_must_haves_kids,
+            "Innerwear" to R.drawable.ic_innerwear_kids,
+            "Sleepwear" to R.drawable.ic_sleepwear_kids
+        )
+
+        SubCategoryFList(
+            title = "Shop by Category",
+            categories = kidsCategoriesF,
+            showBrandsSection = true,
+            brandsImageRes = R.drawable.ic_kids_categories_f_stylish_brands, // Changed to kids variant
+            brandsTitle = "Shop Stylish Brands",
+            onCategoryClick = { categoryName ->
+                // Handle category click
+                println("Selected category: $categoryName")
+            },
+            onBrandsClick = {
+                // Handle brands click
+                println("Brands section clicked")
+            }
+        )
+
+//        val curatedStores = listOf(
+//            StoreItem(
+//                name = "Global Store",
+//                imageRes = R.drawable.ic_global_store_kids,
+//                description = "Influencer approved global brands handpicked for you"
+//            ),
+//            StoreItem(
+//                name = "Hidden Gems",
+//                imageRes = R.drawable.ic_hidden_gems_kids,
+//                description = "Our selection of 300+ most sought after homegrown labels"
+//            ),
+//            StoreItem(
+//                name = "Luxe Edit",
+//                imageRes = R.drawable.ic_luxe_edit_kids,
+//                description = "Our collection of 250+ Indian designers rooted in traditional sophistication"
+//            )
+//        )
+//
+//        StoresFList(
+//            title = "Curated Style Stores",
+//            stores = curatedStores,
+//            onStoreClick = { storeName ->
+//                // Handle store click
+//                when (storeName) {
+//                    "Global Store" -> { /* Navigate to Global Store */ }
+//                    "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
+//                    "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
+//                }
+//                println("Selected store: $storeName")
+//            }
+//        )
     }
 }
 

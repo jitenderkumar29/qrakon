@@ -230,6 +230,7 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
         painterResource(id = R.drawable.women_fashion_banner4),
         painterResource(id = R.drawable.women_fashion_banner5),
         painterResource(id = R.drawable.women_fashion_banner6),
+
     )
 
     Column(
@@ -727,8 +728,57 @@ fun LuxeFashionPage(onTabSelected: (String) -> Unit,
 @Composable
 fun BrandsFashionPage(onTabSelected: (String) -> Unit,
                     modifier: Modifier = Modifier) {
-    Box(Modifier.fillMaxWidth().padding(16.dp)) {
-        Text("Brands Fashion Content")
+//    val luxeFashionCategories = listOf(
+//        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
+//        Category(1, "Women", R.drawable.ic_luxe_women_fashion),
+//        Category(2, "Watches", R.drawable.ic_luxe_watches_fashion),
+//        Category(3, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
+//        Category(4, "Handbags", R.drawable.ic_luxe_handbags_fashion),
+//        Category(5, "Beauty", R.drawable.ic_luxe_beauty_fashion),
+//        Category(6, "Footwear", R.drawable.ic_luxe_footwear_fashion),
+//        Category(7, "MLI", R.drawable.ic_luxe_mli_fashion),
+//        Category(8, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
+//        Category(9, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
+//        Category(10, "Kids", R.drawable.ic_luxe_kids_fashion),
+//        Category(10, "Accessories", R.drawable.ic_luxe_accessories_fashion),
+//        Category(11, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
+//    )
+//    CarouselFashionOne(
+//        categories = luxeFashionCategories,
+//        onTabSelected = onTabSelected,
+//        modifier = modifier,
+//        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+//        itemWidth = 75,
+//        itemHeight = 75,
+//        horizontalSpacing = 8
+//    )
+
+    val bannerImages = listOf(
+        painterResource(id = R.drawable.brands_fashion_banner4),
+        painterResource(id = R.drawable.brands_fashion_banner5),
+        painterResource(id = R.drawable.brands_fashion_banner1), // Using existing banner as placeholder
+        painterResource(id = R.drawable.brands_fashion_banner2),
+        painterResource(id = R.drawable.brands_fashion_banner3)
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        BannerFashion(
+            images = bannerImages,
+            onImageClick = { page ->
+                when (page) {
+                    0 -> onBanner1Click()
+                    1 -> onBanner2Click()
+                    2 -> onBanner3Click()
+                }
+            },
+            autoScrollDelay = 2000,
+            height = 470.dp,
+            dotSize = 8.dp,
+            modifier = Modifier.padding(bottom = 0.dp)
+        )
     }
 //    val brandsFashionCategories = listOf(
 //        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
