@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
@@ -29,18 +28,12 @@ import com.example.qrakon.R
 fun SubCategoryFList(
     title: String = "Shop by Category",
     categories: List<Pair<String, Int>> = emptyList(),
-    showBrandsSection: Boolean = true,
-    brandsImageRes: Int? = R.drawable.ic_shop_stylish_brands,
-    brandsTitle: String = "Shop Stylish Brands",
-    onCategoryClick: (String) -> Unit = {},
-    onBrandsClick: () -> Unit = {}
+    onCategoryClick: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
 
     val validCategories = remember(categories) {
-        categories.filter { (_, resId) ->
-            isResourceAvailable(context, resId)
-        }
+        categories.filter { (_, resId) -> isResourceAvailable(context, resId) }
     }
 
     Column(
@@ -65,7 +58,7 @@ fun SubCategoryFList(
                     text = name,
                     onClick = { onCategoryClick(name) }
                 )
-                // Add border line after each item
+
                 Spacer(modifier = Modifier.height(8.dp))
                 Box(
                     modifier = Modifier
@@ -75,35 +68,9 @@ fun SubCategoryFList(
                 )
             }
 
-            // Add spacing between items except for the last one
             if (index != validCategories.lastIndex) {
                 Spacer(modifier = Modifier.height(8.dp))
             }
-        }
-
-        if (showBrandsSection && brandsImageRes != null) {
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = brandsTitle,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
-
-            Image(
-                painter = painterResource(id = brandsImageRes),
-                contentDescription = brandsTitle,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clickable { onBrandsClick() }
-                    .background(Color.LightGray),
-                contentScale = ContentScale.FillBounds
-            )
         }
     }
 }
@@ -164,85 +131,3 @@ private fun isResourceAvailable(context: android.content.Context, resId: Int): B
         false
     }
 }
-
-//
-//// Usage example for Men's category
-//@Composable
-//fun MenCategoryList() {
-//    val menCategories = listOf(
-//        "Topwear" to R.drawable.ic_topwear,
-//        "Bottomwear" to R.drawable.ic_bottomwear,
-//        "Footwear" to R.drawable.ic_footwear_men,
-//        "Innerwear" to R.drawable.ic_innerwear,
-//        "Sports & Active" to R.drawable.ic_sports_active,
-//        "Watches" to R.drawable.ic_watches_men,
-//        "Accessories" to R.drawable.ic_accessories_men,
-//    )
-//
-//    SubCategoryFList(
-//        title = "Men's Categories",
-//        categories = menCategories,
-//        showBrandsSection = true,
-//        brandsImageRes = R.drawable.ic_men_brands,
-//        brandsTitle = "Popular Men's Brands",
-//        onCategoryClick = { categoryName ->
-//            // Handle category click
-//        },
-//        onBrandsClick = {
-//            // Handle brands click
-//        }
-//    )
-//}
-//
-//// Usage example without brands section
-//@Composable
-//fun SimpleCategoryList() {
-//    val simpleCategories = listOf(
-//        "Category 1" to R.drawable.ic_category1,
-//        "Category 2" to R.drawable.ic_category2,
-//    )
-//
-//    SubCategoryFList(
-//        title = "Categories",
-//        categories = simpleCategories,
-//        showBrandsSection = false,
-//        onCategoryClick = { categoryName ->
-//            // Handle category click
-//        }
-//    )
-//}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun SubCategoryFListPreview() {
-    val previewCategories = listOf(
-        "Indianwear" to R.drawable.ic_indianwear,
-        "Westernwear" to R.drawable.ic_westernwear,
-        "Footwear" to R.drawable.ic_footwear,
-    )
-
-    SubCategoryFList(
-        title = "Shop by Category",
-        categories = previewCategories,
-        showBrandsSection = true,
-        brandsImageRes = R.drawable.ic_shop_stylish_brands,
-        onCategoryClick = { },
-        onBrandsClick = { }
-    )
-}
-//
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun SubCategoryFListNoBrandsPreview() {
-//    val previewCategories = listOf(
-//        "Category 1" to R.drawable.ic_category1,
-//        "Category 2" to R.drawable.ic_category2,
-//    )
-//
-//    SubCategoryFList(
-//        title = "Categories",
-//        categories = previewCategories,
-//        showBrandsSection = false,
-//        onCategoryClick = { }
-//    )
-//}

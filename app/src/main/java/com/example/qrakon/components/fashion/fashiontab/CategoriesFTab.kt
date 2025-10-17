@@ -185,16 +185,31 @@ fun WomenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
         SubCategoryFList(
             title = "Shop by Category",
             categories = womenCategoriesF,
-            showBrandsSection = true,
-            brandsImageRes = R.drawable.ic_shop_stylish_brands,
-            brandsTitle = "Shop Stylish Brands",
             onCategoryClick = { categoryName ->
-                // Handle category click
-            },
+                // handle click
+            }
+        )
+
+        BrandsSectionF(
+            brandsTitle = "Shop Stylish Brands",
+            brandsImageRes = R.drawable.ic_shop_stylish_brands,
             onBrandsClick = {
                 // Handle brands click
             }
         )
+//        SubCategoryFList(
+//            title = "Shop by Category",
+//            categories = womenCategoriesF,
+//            showBrandsSection = true,
+//            brandsImageRes = R.drawable.ic_shop_stylish_brands,
+//            brandsTitle = "Shop Stylish Brands",
+//            onCategoryClick = { categoryName ->
+//                // Handle category click
+//            },
+//            onBrandsClick = {
+//                // Handle brands click
+//            }
+//        )
         val womenStores = listOf(
             StoreItem(
                 name = "Global Store",
@@ -302,16 +317,31 @@ fun MenCategoriesFashionPage(onTabSelected: (String) -> Unit) {
         SubCategoryFList(
             title = "Shop by Category",
             categories = menCategoriesF,
-            showBrandsSection = true,
-            brandsImageRes = R.drawable.ic_men_categories_f_stylish_brands,
-            brandsTitle = "Shop Stylish Brands",
             onCategoryClick = { categoryName ->
-                // Handle category click
-            },
+                // handle click
+            }
+        )
+
+        BrandsSectionF(
+            brandsTitle = "Shop Stylish Brands",
+            brandsImageRes = R.drawable.ic_men_categories_f_stylish_brands,
             onBrandsClick = {
                 // Handle brands click
             }
         )
+//        SubCategoryFList(
+//            title = "Shop by Category",
+//            categories = menCategoriesF,
+//            showBrandsSection = true,
+//            brandsImageRes = R.drawable.ic_men_categories_f_stylish_brands,
+//            brandsTitle = "Shop Stylish Brands",
+//            onCategoryClick = { categoryName ->
+//                // Handle category click
+//            },
+//            onBrandsClick = {
+//                // Handle brands click
+//            }
+//        )
 
             val menStores = listOf(
                 StoreItem(
@@ -442,57 +472,165 @@ fun KidsCategoriesFashionPage(onTabSelected: (String) -> Unit) {
         SubCategoryFList(
             title = "Shop by Category",
             categories = kidsCategoriesF,
-            showBrandsSection = true,
-            brandsImageRes = R.drawable.ic_kids_categories_f_stylish_brands, // Changed to kids variant
-            brandsTitle = "Shop Stylish Brands",
             onCategoryClick = { categoryName ->
-                // Handle category click
-                println("Selected category: $categoryName")
-            },
-            onBrandsClick = {
-                // Handle brands click
-                println("Brands section clicked")
+                // handle click
             }
         )
 
-//        val curatedStores = listOf(
-//            StoreItem(
-//                name = "Global Store",
-//                imageRes = R.drawable.ic_global_store_kids,
-//                description = "Influencer approved global brands handpicked for you"
-//            ),
-//            StoreItem(
-//                name = "Hidden Gems",
-//                imageRes = R.drawable.ic_hidden_gems_kids,
-//                description = "Our selection of 300+ most sought after homegrown labels"
-//            ),
-//            StoreItem(
-//                name = "Luxe Edit",
-//                imageRes = R.drawable.ic_luxe_edit_kids,
-//                description = "Our collection of 250+ Indian designers rooted in traditional sophistication"
-//            )
-//        )
-//
-//        StoresFList(
-//            title = "Curated Style Stores",
-//            stores = curatedStores,
-//            onStoreClick = { storeName ->
-//                // Handle store click
-//                when (storeName) {
-//                    "Global Store" -> { /* Navigate to Global Store */ }
-//                    "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
-//                    "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
-//                }
-//                println("Selected store: $storeName")
+        BrandsSectionF(
+            brandsTitle = "Shop Stylish Brands",
+            brandsImageRes = R.drawable.ic_kids_categories_f_stylish_brands,
+            onBrandsClick = {
+                // Handle brands click
+            }
+        )
+
+//        SubCategoryFList(
+//            title = "Shop by Category",
+//            categories = kidsCategoriesF,
+//            showBrandsSection = true,
+//            brandsImageRes = R.drawable.ic_kids_categories_f_stylish_brands, // Changed to kids variant
+//            brandsTitle = "Shop Stylish Brands",
+//            onCategoryClick = { categoryName ->
+//                // Handle category click
+//                println("Selected category: $categoryName")
+//            },
+//            onBrandsClick = {
+//                // Handle brands click
+//                println("Brands section clicked")
 //            }
 //        )
+
+        val curatedStores = listOf(
+            StoreItem(
+                name = "Global Store",
+                imageRes = R.drawable.ic_global_store_kids,
+                description = "Influencer approved global brands handpicked for you"
+            ),
+            StoreItem(
+                name = "Hidden Gems",
+                imageRes = R.drawable.ic_hidden_gems_kids,
+                description = "Our selection of 300+ most sought after homegrown labels"
+            ),
+            StoreItem(
+                name = "Luxe Edit",
+                imageRes = R.drawable.ic_luxe_edit_kids,
+                description = "Our collection of 250+ Indian designers rooted in traditional sophistication"
+            )
+        )
+
+        StoresFList(
+            title = "Curated Style Stores",
+            stores = curatedStores,
+            onStoreClick = { storeName ->
+                // Handle store click
+                when (storeName) {
+                    "Global Store" -> { /* Navigate to Global Store */ }
+                    "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
+                    "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
+                }
+                println("Selected store: $storeName")
+            }
+        )
     }
 }
 
 @Composable
 fun HomeCategoriesFashionPage(onTabSelected: (String) -> Unit) {
-    Box(Modifier.fillMaxWidth()) {
-        Text("Home Fashion Content")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        InfoCategoriesF()
+
+        val homeCategoriesF = listOf(
+            "Shop All" to R.drawable.ic_shop_all_home,
+            "Decor" to R.drawable.ic_decor_home,
+            "Kitchen & Dining" to R.drawable.ic_kitchen_dining_home,
+            "Bedding" to R.drawable.ic_bedding_home,
+            "Bath" to R.drawable.ic_bath_home,
+            "Storage" to R.drawable.ic_storage_home,
+            "Appliances" to R.drawable.ic_appliances_home,
+            "Floor Coverings" to R.drawable.ic_floor_coverings_home,
+            "Accent Furniture" to R.drawable.ic_accent_furniture_home,
+            "Home Essentials" to R.drawable.ic_home_essentials_home
+        )
+
+        SubCategoryFList(
+            title = "Shop by Category",
+            categories = homeCategoriesF,
+            onCategoryClick = { categoryName ->
+                // handle click
+            }
+        )
+
+        val roomCategories = listOf(
+            CategoryItem(0, "Kitchen", R.drawable.ic_kitchen, "View products"),
+            CategoryItem(1, "Bathroom", R.drawable.ic_bathroom, "View products"),
+            CategoryItem(2, "Bedroom", R.drawable.ic_bedroom, "View products"),
+            CategoryItem(3, "Living Room", R.drawable.ic_living_room, "View products")
+        )
+
+        CategoryListOverlay(
+            heading = "Shop by Room",
+            subtitle = "View all categories", // Example with subtitle
+            items = roomCategories,
+            onItemClick = { item ->
+                println("Selected: ${item.name}")
+            },
+            showOverlayOnImage = true,
+        )
+
+
+        BrandsSectionF(
+            brandsTitle = "Shop Stylish Brands",
+            brandsImageRes = R.drawable.ic_home_categories_f_stylish_brands,
+            onBrandsClick = {
+                // Handle brands click
+            }
+        )
+
+//        SubCategoryFList(
+//            title = "Shop by Category",
+//            categories = homeCategoriesF,
+//            showBrandsSection = true,
+//            brandsImageRes = R.drawable.ic_home_categories_f_stylish_brands, // Changed to kids variant
+//            brandsTitle = "Shop Stylish Brands",
+//            onCategoryClick = { categoryName ->
+//                // Handle category click
+//                println("Selected category: $categoryName")
+//            },
+//            onBrandsClick = {
+//                // Handle brands click
+//                println("Brands section clicked")
+//            }
+//        )
+
+        val curatedStores = listOf(
+            StoreItem(
+                name = "Hidden Gems",
+                imageRes = R.drawable.ic_hidden_gems_home,
+                description = "Our selection of 300+ most sought after homegrown labels"
+            ),
+            StoreItem(
+                name = "Luxe Edit",
+                imageRes = R.drawable.ic_luxe_edit_home,
+                description = "Our collection of 250+ Indian designers rooted in traditional sophistication"
+            )
+        )
+
+        StoresFList(
+            title = "Curated Style Stores",
+            stores = curatedStores,
+            onStoreClick = { storeName ->
+                // Handle store click
+                when (storeName) {
+                    "Hidden Gems" -> { /* Navigate to Hidden Gems */ }
+                    "Luxe Edit" -> { /* Navigate to Luxe Edit */ }
+                }
+                println("Selected store: $storeName")
+            }
+        )
     }
 }
 
