@@ -1,6 +1,8 @@
 package com.example.qrakon.components.fashion.fashiontab
 
 import KidsFilter
+import Product
+import ProductList
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -309,6 +311,57 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
             verticalSpacing = 8,
             backgroundColor = MaterialTheme.customColors.white
         )
+
+        // Usage example:
+
+        val productsListScroll = listOf(
+            ProductListScroll("U.S. Polo Assn.", "Preppy Outfits\nMin 30% off\nExtra 10% off*", R.drawable.us_polo_preppy_outfits),
+            ProductListScroll("New Balance | Asics", "Athlete's Faves\nMin 30% off", R.drawable.newbalance_asics_athletes_faves),
+            ProductListScroll("Rare Rabbit", "Refined Staples\nMin 50% off\nExtra 10-15% off*", R.drawable.rare_rabbit_mens_refined),
+            ProductListScroll("Libas", "Festive Ethnics\nMin 40-70% off\nExtra 10% off*", R.drawable.libas_festive_ethnics),
+            ProductListScroll("Truffle Collection", "Stylish Pairs\nUp to 60% off", R.drawable.truffle_carlton_stylish_pairs),
+            ProductListScroll("Alo | AllSaints", "Hot Global Styles\nUp to 70% off\nExtra 10% off", R.drawable.alo_allsaints_hot_global),
+        )
+
+        // In your Composable function:
+        // Usage with different background colors:
+        ProductListScroll(
+            products = productsListScroll,
+            sectionTitle = "Rush Hour Deals",
+            showName = true,
+            showPrice = true,
+            backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light gray background
+        )
+//        ProductListScroll(
+//            products = productsListScroll,
+//            sectionTitle = "Featured Products",
+//            showName = true,
+//            showPrice = true
+//        )
+
+
+//        val myProducts = listOf(
+//            Product("U.S. Polo Assn.", "Preppy Outfits\\nMin 30% off\\nExtra 10% off*", R.drawable.us_polo_preppy_outfits),
+//            Product("New Balance | Asics", "Athlete's Faves\\nMin 30% off", R.drawable.newbalance_asics_athletes_faves),
+//            Product("Rare Rabbit", "Men's Refined Staples\\nMin 50% off\\nExtra 10-15% off*", R.drawable.rare_rabbit_mens_refined),
+//            Product("Libas", "Festive Ethnics\\nMin 40-70% off\\nExtra 10% off*", R.drawable.libas_festive_ethnics),
+//            Product("Truffle Collection | Carlton London", "Stylish Pairs\\nUp to 60% off", R.drawable.truffle_carlton_stylish_pairs),
+//            Product("Alo | AllSaints", "Hot Global Styles\\nUp to 70% off\\nExtra 10% off", R.drawable.alo_allsaints_hot_global),
+//        )
+//
+//        Spacer(
+//            modifier = Modifier.height(2.dp)
+//                .fillMaxWidth()
+//                .background(MaterialTheme.customColors.spacerColor)
+//        )
+//
+//        // Call the reusable component
+//        ProductList(
+//            products = myProducts,
+////                sectionTitle = "Featured Products", // Optional
+//            showName = true,  // Show name under image
+//            showPrice = true  // Show price under image
+//        )
     }
 }
 
@@ -694,64 +747,59 @@ fun LuxeFashionPage(onTabSelected: (String) -> Unit,
             modifier = Modifier.padding(bottom = 0.dp)
         )
 
-//        val luxeFashionCategoriesTwo = remember {
-//            listOf(
-//                Category(0, "Luxury Watches", R.drawable.ic_watches_men_fashion_two),
-//                Category(1, "Designer Bags", R.drawable.ic_handbags_women_fashion_two),
-//                Category(2, "Premium Jewellery", R.drawable.ic_fashion_jewellery),
-//                Category(3, "Luxury Fragrances", R.drawable.ic_fragrances_women_fashion_two),
-//                Category(4, "Designer Apparel", R.drawable.ic_explore_women_fashion_two),
-//                Category(5, "Premium Footwear", R.drawable.ic_footwear_men),
-//                Category(6, "Luxury Accessories", R.drawable.ic_ad_ons_men),
-//                Category(7, "Exclusive Collections", R.drawable.ic_global_store_home_fashion),
-//            )
-//        }
-//
-//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
-//
-//        CategoryProducts(
-//            categories = luxeFashionCategoriesTwo,
-//            onCategorySelected = { category ->
-//                selectedCategory = category
-//                println("Selected category: ${category.name}")
-//            },
-//            modifier = Modifier.fillMaxWidth(),
-//            initialSelectedCategory = luxeFashionCategoriesTwo.first(),
-//            itemWidth = 75,
-//            itemHeight = 65,
-//            horizontalSpacing = 8,
-//            verticalSpacing = 8,
-//            backgroundColor = MaterialTheme.customColors.white
-//        )
+        val luxeFashionCategoriesTwo = remember {
+            listOf(
+                Category(0, "Fragrances", R.drawable.ic_fragrances_fashion_luxe_two),
+                Category(1, "Lipstick", R.drawable.ic_lipstick_fashion_luxe_two),
+                Category(2, "Handbags", R.drawable.ic_handbags_fashion_luxe_two),
+                Category(3, "Footwear", R.drawable.ic_footwear_fashion_luxe_two),
+                Category(4, "Eyewear", R.drawable.ic_eyewear_fashion_luxe_two),
+                Category(5, "Skincare", R.drawable.ic_skincare_fashion_luxe_two),
+                Category(6, "Haircare", R.drawable.ic_haircare_fashion_luxe_two),
+                Category(7, "Watches", R.drawable.ic_watches_fashion_luxe_two),
+                Category(8, "Makeup", R.drawable.ic_makeup_fashion_luxe_two),
+                Category(9, "Shop All", R.drawable.ic_view_all_home_tab),
+//                Category(9, "Shop All", R.drawable.ic_shop_all_fashion_luxe_two),
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+        CategoryProducts(
+            categories = luxeFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = luxeFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
+        )
     }
 }
 @Composable
 fun BrandsFashionPage(onTabSelected: (String) -> Unit,
                     modifier: Modifier = Modifier) {
-//    val luxeFashionCategories = listOf(
-//        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
-//        Category(1, "Women", R.drawable.ic_luxe_women_fashion),
-//        Category(2, "Watches", R.drawable.ic_luxe_watches_fashion),
-//        Category(3, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
-//        Category(4, "Handbags", R.drawable.ic_luxe_handbags_fashion),
-//        Category(5, "Beauty", R.drawable.ic_luxe_beauty_fashion),
-//        Category(6, "Footwear", R.drawable.ic_luxe_footwear_fashion),
-//        Category(7, "MLI", R.drawable.ic_luxe_mli_fashion),
-//        Category(8, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
-//        Category(9, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
-//        Category(10, "Kids", R.drawable.ic_luxe_kids_fashion),
-//        Category(10, "Accessories", R.drawable.ic_luxe_accessories_fashion),
-//        Category(11, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
-//    )
-//    CarouselFashionOne(
-//        categories = luxeFashionCategories,
-//        onTabSelected = onTabSelected,
-//        modifier = modifier,
-//        backgroundColor = MaterialTheme.customColors.imageBgColor1,
-//        itemWidth = 75,
-//        itemHeight = 75,
-//        horizontalSpacing = 8
-//    )
+    val luxeFashionCategories = listOf(
+        Category(0, "Men", R.drawable.ic_luxe_men_fashion_brands), // Using existing icon as placeholder
+        Category(1, "Women", R.drawable.ic_luxe_women_fashion_brands),
+        Category(2, "Kids", R.drawable.ic_luxe_kids_fashion_brands),
+        Category(3, "Home", R.drawable.ic_luxe_home_fashion_brands),
+        Category(4, "Footwear", R.drawable.ic_luxe_footwear_fashion_brands),
+        )
+    CarouselFashionOne(
+        categories = luxeFashionCategories,
+        onTabSelected = onTabSelected,
+        modifier = modifier,
+        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+        itemWidth = 75,
+        itemHeight = 75,
+        horizontalSpacing = 8
+    )
 
     val bannerImages = listOf(
         painterResource(id = R.drawable.brands_fashion_banner4),
@@ -779,94 +827,66 @@ fun BrandsFashionPage(onTabSelected: (String) -> Unit,
             dotSize = 8.dp,
             modifier = Modifier.padding(bottom = 0.dp)
         )
-    }
-//    val brandsFashionCategories = listOf(
-//        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
-//        Category(1, "Women", R.drawable.ic_luxe_women_fashion),
-//        Category(2, "Watches", R.drawable.ic_luxe_watches_fashion),
-//        Category(3, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
-//        Category(4, "Handbags", R.drawable.ic_luxe_handbags_fashion),
-//        Category(5, "Beauty", R.drawable.ic_luxe_beauty_fashion),
-//        Category(6, "Footwear", R.drawable.ic_luxe_footwear_fashion),
-//        Category(7, "MLI", R.drawable.ic_luxe_mli_fashion),
-//        Category(8, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
-//        Category(9, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
-//        Category(10, "Kids", R.drawable.ic_luxe_kids_fashion),
-//        Category(10, "Accessories", R.drawable.ic_luxe_accessories_fashion),
-//        Category(11, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
-//    )
-//    CarouselFashionOne(
-//        categories = brandsFashionCategories,
-//        onTabSelected = onTabSelected,
-//        modifier = modifier,
-//        backgroundColor = MaterialTheme.customColors.imageBgColor1,
-//        itemWidth = 75,
-//        itemHeight = 75,
-//        horizontalSpacing = 8
-//    )
-//
-//    val bannerImages = listOf(
-//        painterResource(id = R.drawable.luxe_fashion_banner1), // Using existing banner as placeholder
-//        painterResource(id = R.drawable.luxe_fashion_banner2),
-//        painterResource(id = R.drawable.luxe_fashion_banner3),
-//        painterResource(id = R.drawable.luxe_fashion_banner4),
-//        painterResource(id = R.drawable.luxe_fashion_banner5),
-//        painterResource(id = R.drawable.luxe_fashion_banner6),
-//        painterResource(id = R.drawable.luxe_fashion_banner7),
-//        painterResource(id = R.drawable.luxe_fashion_banner8),
-//        painterResource(id = R.drawable.luxe_fashion_banner9),
-//        painterResource(id = R.drawable.luxe_fashion_banner10),
-//    )
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//    ) {
-//        BannerFashion(
-//            images = bannerImages,
-//            onImageClick = { page ->
-//                when (page) {
-//                    0 -> onBanner1Click()
-//                    1 -> onBanner2Click()
-//                    2 -> onBanner3Click()
-//                }
-//            },
-//            autoScrollDelay = 2000,
-//            height = 470.dp,
-//            dotSize = 8.dp,
-//            modifier = Modifier.padding(bottom = 0.dp)
-//        )
 
-//        val luxeFashionCategoriesTwo = remember {
-//            listOf(
-//                Category(0, "Luxury Watches", R.drawable.ic_watches_men_fashion_two),
-//                Category(1, "Designer Bags", R.drawable.ic_handbags_women_fashion_two),
-//                Category(2, "Premium Jewellery", R.drawable.ic_fashion_jewellery),
-//                Category(3, "Luxury Fragrances", R.drawable.ic_fragrances_women_fashion_two),
-//                Category(4, "Designer Apparel", R.drawable.ic_explore_women_fashion_two),
-//                Category(5, "Premium Footwear", R.drawable.ic_footwear_men),
-//                Category(6, "Luxury Accessories", R.drawable.ic_ad_ons_men),
-//                Category(7, "Exclusive Collections", R.drawable.ic_global_store_home_fashion),
-//            )
-//        }
-//
-//        var selectedCategory by remember { mutableStateOf<Category?>(null) }
-//
-//        CategoryProducts(
-//            categories = luxeFashionCategoriesTwo,
-//            onCategorySelected = { category ->
-//                selectedCategory = category
-//                println("Selected category: ${category.name}")
-//            },
-//            modifier = Modifier.fillMaxWidth(),
-//            initialSelectedCategory = luxeFashionCategoriesTwo.first(),
-//            itemWidth = 75,
-//            itemHeight = 65,
-//            horizontalSpacing = 8,
-//            verticalSpacing = 8,
-//            backgroundColor = MaterialTheme.customColors.white
-//        )
-//    }
+        val brandsFashionCategoriesTwo = remember {
+            listOf(
+                // Ethnic & Fusion Wear
+                Category(0, "Libas", R.drawable.ic_libas_fashion_brands_two),
+                Category(1, "Lihas", R.drawable.ic_lihas_fashion_brands_two),
+                Category(2, "Autumn Lane", R.drawable.ic_autumn_lane_fashion_brands_two),
+
+                // GenZ & Youth Styles
+                Category(3, "Cider", R.drawable.ic_cider_fashion_brands_two),
+                Category(4, "Y Wenty Dresses", R.drawable.ic_y_wenty_dresses_fashion_brands_two),
+
+                // American Classics
+                Category(5, "US Polo Assn", R.drawable.ic_us_polo_assn_fashion_brands_two),
+                Category(6, "Buck 1800", R.drawable.ic_buck_1800_fashion_brands_two),
+                Category(7, "Tommy Hilfiger", R.drawable.ic_tommy_hilfiger_fashion_brands_two),
+
+                // Minimalistic & Modern
+                Category(8, "Calvin Klein", R.drawable.ic_calvin_klein_fashion_brands_two),
+
+                // Formal & Business Wear
+                Category(9, "Allen Solly", R.drawable.ic_allen_solly_fashion_brands_two),
+                Category(10, "Van Heusen", R.drawable.ic_van_heusen_fashion_brands_two),
+
+                // Denim & Casual
+                Category(11, "Nurcay", R.drawable.ic_nurcay_fashion_brands_two),
+
+                // Footwear & Accessories
+                Category(12, "Aldo", R.drawable.ic_aldo_fashion_brands_two),
+                Category(13, "Slacklets", R.drawable.ic_slacklets_fashion_brands_two),
+
+                // Activewear & Performance
+                Category(14, "Dumm", R.drawable.ic_dumm_fashion_brands_two),
+
+                // Feminine Fashion & Lingerie
+                Category(15, "Veromoda", R.drawable.ic_veromoda_fashion_brands_two),
+                Category(16, "Bry/Nyraa", R.drawable.ic_bry_nyraa_fashion_brands_two),
+
+                // Occasion Wear
+                Category(17, "Forever New", R.drawable.ic_forever_new_fashion_brands_two)
+            )
+        }
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+        CategoryProducts(
+            categories = brandsFashionCategoriesTwo,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = brandsFashionCategoriesTwo.first(),
+            itemWidth = 75,
+            itemHeight = 65,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = MaterialTheme.customColors.white
+        )
+    }
 }
 
 @Composable
