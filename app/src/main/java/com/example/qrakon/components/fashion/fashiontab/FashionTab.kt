@@ -38,6 +38,7 @@ import androidx.navigation.NavHostController
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
 import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
 import com.example.qrakon.components.categorytabs.CategoryProducts
@@ -55,6 +56,7 @@ sealed class FashionCategoryPage {
 
 @Composable
 fun FashionTab(
+    navController: NavController,
     onCategorySelected: (FashionCategoryPage) -> Unit = {},
     onOpenFashionCategory: () -> Unit = {}
 ) {
@@ -185,7 +187,9 @@ fun FashionTab(
 
         // Show content for each tab
         when (selectedTabIndex) {
-            0 -> WomenFashionPage(onTabSelected = { println("Women subcategory: $it") })
+            0 -> WomenFashionPage(onTabSelected = { categoryName ->
+                navController.navigate("categoryDetail/$categoryName")
+            })
             1 -> MenFashionPage(onTabSelected = { println("Men subcategory: $it") })
             2 -> KidsFashionPage(onTabSelected = { println("Kids subcategory: $it") })
             3 -> HomeFashionPage(onTabSelected = { println("Home subcategory: $it") })
@@ -198,13 +202,15 @@ fun FashionTab(
 
 
 @Composable
-fun WomenFashionPage( onTabSelected: (String) -> Unit,
-                      modifier: Modifier = Modifier) {
+fun WomenFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     // Women's Fashion Categories
     val womenFashionCategories = listOf(
-        Category(0, "Western", R.drawable.ic_fashion_western),
-        Category(1, "Ethnic", R.drawable.ic_fashion_ethnic),
+        Category(0, "Ethnic", R.drawable.ic_fashion_ethnic),
+        Category(1, "Western", R.drawable.ic_fashion_western),
         Category(2, "Fusion", R.drawable.ic_fashion_fusion),
         Category(3, "Essentials", R.drawable.ic_fashion_essentials),
         Category(4, "Beauty", R.drawable.ic_fashion_beauty),
@@ -216,6 +222,18 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
         Category(10, "Girls", R.drawable.ic_fashion_girls),
         Category(11, "View All", R.drawable.ic_view_all_home_tab),
     )
+//    CarouselFashionOne(
+//        categories = womenFashionCategories,
+//        onTabSelected = { categoryName ->
+//            navController.navigate("categoryDetail/$categoryName")
+//        },
+//        modifier = modifier,
+//        backgroundColor = MaterialTheme.customColors.imageBgColor1,
+//        itemWidth = 75,
+//        itemHeight = 75,
+//        horizontalSpacing = 8
+//    )
+
     CarouselFashionOne(
         categories = womenFashionCategories,
         onTabSelected = onTabSelected,
@@ -233,7 +251,7 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
         painterResource(id = R.drawable.women_fashion_banner5),
         painterResource(id = R.drawable.women_fashion_banner6),
 
-    )
+        )
 
     Column(
         modifier = Modifier
@@ -256,7 +274,8 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
 
 //
         Spacer(
-            modifier = Modifier.height(2.dp)
+            modifier = Modifier
+                .height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
@@ -289,7 +308,11 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
                 Category(23, "Makeup", R.drawable.makeup_women_fashion_two),
                 Category(24, "Blankets & Quilts", R.drawable.ic_blankets_quilts_women_fashion_two),
                 Category(25, "Fragrances", R.drawable.ic_fragrances_women_fashion_two),
-                Category(26, "Salon & Appliances", R.drawable.ic_salon_appliances_women_fashion_two),
+                Category(
+                    26,
+                    "Salon & Appliances",
+                    R.drawable.ic_salon_appliances_women_fashion_two
+                ),
                 Category(27, "Bedsheets", R.drawable.ic_bedsheets_women_fashion_two),
 //                Category(28, "View All", R.drawable.ic_view_all_home_tab),
             )
@@ -315,12 +338,36 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
         // Usage example:
 
         val productsListScroll = listOf(
-            ProductListScroll("U.S. Polo Assn.", "Preppy Outfits\nMin 30% off\nExtra 10% off*", R.drawable.us_polo_preppy_outfits),
-            ProductListScroll("New Balance | Asics", "Athlete's Faves\nMin 30% off", R.drawable.newbalance_asics_athletes_faves),
-            ProductListScroll("Rare Rabbit", "Refined Staples\nMin 50% off\nExtra 10-15% off*", R.drawable.rare_rabbit_mens_refined),
-            ProductListScroll("Libas", "Festive Ethnics\nMin 40-70% off\nExtra 10% off*", R.drawable.libas_festive_ethnics),
-            ProductListScroll("Truffle Collection", "Stylish Pairs\nUp to 60% off", R.drawable.truffle_carlton_stylish_pairs),
-            ProductListScroll("Alo | AllSaints", "Hot Global Styles\nUp to 70% off\nExtra 10% off", R.drawable.alo_allsaints_hot_global),
+            ProductListScroll(
+                "U.S. Polo Assn.",
+                "Preppy Outfits\nMin 30% off\nExtra 10% off*",
+                R.drawable.us_polo_preppy_outfits
+            ),
+            ProductListScroll(
+                "New Balance | Asics",
+                "Athlete's Faves\nMin 30% off",
+                R.drawable.newbalance_asics_athletes_faves
+            ),
+            ProductListScroll(
+                "Rare Rabbit",
+                "Refined Staples\nMin 50% off\nExtra 10-15% off*",
+                R.drawable.rare_rabbit_mens_refined
+            ),
+            ProductListScroll(
+                "Libas",
+                "Festive Ethnics\nMin 40-70% off\nExtra 10% off*",
+                R.drawable.libas_festive_ethnics
+            ),
+            ProductListScroll(
+                "Truffle Collection",
+                "Stylish Pairs\nUp to 60% off",
+                R.drawable.truffle_carlton_stylish_pairs
+            ),
+            ProductListScroll(
+                "Alo | AllSaints",
+                "Hot Global Styles\nUp to 70% off\nExtra 10% off",
+                R.drawable.alo_allsaints_hot_global
+            ),
         )
 
         // In your Composable function:
@@ -366,8 +413,10 @@ fun WomenFashionPage( onTabSelected: (String) -> Unit,
 }
 
 @Composable
-fun MenFashionPage(onTabSelected: (String) -> Unit,
-                   modifier: Modifier = Modifier) {
+fun MenFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val menFashionCategories = listOf(
         Category(0, "Casual", R.drawable.ic_casual_men),
         Category(1, "Ethnic", R.drawable.ic_ethnic_men),
@@ -417,7 +466,8 @@ fun MenFashionPage(onTabSelected: (String) -> Unit,
         )
 
         Spacer(
-            modifier = Modifier.height(2.dp)
+            modifier = Modifier
+                .height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
@@ -472,12 +522,79 @@ fun MenFashionPage(onTabSelected: (String) -> Unit,
             verticalSpacing = 8,
             backgroundColor = MaterialTheme.customColors.white
         )
+
+        val productsListScroll = listOf(
+            ProductListScroll(
+                "U.S. Polo Assn.",
+                "Min 30% off\nExtra 10% off*",
+                R.drawable.us_polo_preppy_outfits_min_30_extra_10
+            ),
+            ProductListScroll(
+                "Puma",
+                "Min 50% off\nExtra 10% off*",
+                R.drawable.newbalance_asics_athletes_faves_min_30
+            ),
+            ProductListScroll(
+                "Tommy Hilfiger",
+                "Min 40% off\nExtra 10% off*",
+                R.drawable.tommy_hilfiger_faves_min_30
+            ),
+            ProductListScroll(
+                "Rare Rabbit",
+                "Min 50% off\nExtra 10-15% off*",
+                R.drawable.rare_rabbit_refined_staples_min_50_extra_15
+            ),
+            ProductListScroll(
+                "Calvin Klein",
+                "Min 40% off\nExtra 10% off*",
+                R.drawable.calvin_klein_premium_min_40
+            ),
+            ProductListScroll(
+                "Adidas",
+                "Min 50% off\nExtra 10% off*",
+                R.drawable.adidas_sportswear_min_50
+            ),
+            ProductListScroll(
+                "GAP",
+                "Min 40% off\nExtra 10% off*",
+                R.drawable.gap_casual_wear_min_40
+            ),
+            ProductListScroll(
+                "KISAH",
+                "Min 40% off\nExtra 10% off*",
+                R.drawable.kisah_ethnic_min_40
+            ),
+            ProductListScroll(
+                "SNITCH",
+                "Up to 50% off\nExtra 10% off*",
+                R.drawable.snitch_urban_up_to_50
+            ),
+            ProductListScroll(
+                "Asics",
+                "Min 40% off\nExtra 10% off*",
+                R.drawable.asics_athletic_min_40
+            )
+        )
+
+        // In your Composable function:
+        // Usage with different background colors:
+        ProductListScroll(
+            products = productsListScroll,
+            sectionTitle = "Rush Hour Deals",
+            showName = true,
+            showPrice = true,
+            backgroundColor = Color(0xFFF8E8AE)
+            // Light gray background
+//            backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light gray background
+        )
     }
 }
 
 @Composable
-fun KidsFashionPage(onTabSelected: (String) -> Unit,
-                    modifier: Modifier = Modifier) {
+fun KidsFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val kidsFashionCategories = listOf(
         Category(0, "Girls", R.drawable.ic_girls_kids),
         Category(1, "Boys", R.drawable.ic_boys_kids),
@@ -533,7 +650,8 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
 
 
         Spacer(
-            modifier = Modifier.height(2.dp)
+            modifier = Modifier
+                .height(2.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.customColors.spacerColor)
         )
@@ -580,12 +698,74 @@ fun KidsFashionPage(onTabSelected: (String) -> Unit,
             verticalSpacing = 8,
             backgroundColor = MaterialTheme.customColors.white
         )
+
+        val productsListScroll = listOf(
+            ProductListScroll(
+                name = "Saiwai Suits & Sets",
+                price = "Up to 70% off",
+                imageRes = R.drawable.saiwai_suits_sets_kids
+            ),
+            ProductListScroll(
+                name = "Boss Kurta Set",
+                price = "Up to 70% off",
+                imageRes = R.drawable.boss_kurta_set_kids
+            ),
+            ProductListScroll(
+                name = "Lehenga Set",
+                price = "Up to 70% off",
+                imageRes = R.drawable.lehenga_set_kids
+            ),
+            ProductListScroll(
+                name = "Sherwani & Ethnic Jackets",
+                price = "Up to 60% off",
+                imageRes = R.drawable.sherwani_jackets_kids
+            ),
+            ProductListScroll(
+                name = "Fusionwear",
+                price = "Up to 60% off",
+                imageRes = R.drawable.fusionwear_kids
+            ),
+            ProductListScroll(
+                name = "South Indian Trends",
+                price = "Up to 60% off",
+                imageRes = R.drawable.south_indian_trends_kids
+            ),
+            ProductListScroll(
+                name = "Ethnic Dresses",
+                price = "Up to 60% off",
+                imageRes = R.drawable.ethnic_dresses_kids
+            ),
+            ProductListScroll(
+                name = "Ethnic Footwear",
+                price = "Up to 55% off",
+                imageRes = R.drawable.ethnic_footwear_kids
+            ),
+            ProductListScroll(
+                name = "Pre-draped Saree",
+                price = "Up to 60% off",
+                imageRes = R.drawable.predraped_saree_kids
+            )
+        )
+
+        // In your Composable function:
+        // Usage with different background colors:
+        ProductListScroll(
+            products = productsListScroll,
+            sectionTitle = "Rush Hour Deals",
+            showName = true,
+            showPrice = true,
+            backgroundColor = Color(0xFFF8E8AE)
+            // Light gray background
+//            backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light gray background
+        )
     }
 }
 
 @Composable
-fun HomeFashionPage(onTabSelected: (String) -> Unit,
-                    modifier: Modifier = Modifier) {
+fun HomeFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val kidsFashionCategories = listOf(
         Category(0, "Decor", R.drawable.ic_decor_home_fashion),
         Category(1, "Bedding", R.drawable.ic_bedding_home_fashion),
@@ -663,7 +843,11 @@ fun HomeFashionPage(onTabSelected: (String) -> Unit,
                 Category(14, "Cushion", R.drawable.ic_cushion_home_fashion_two),
                 Category(15, "Towels", R.drawable.ic_towels_home_fashion_two),
                 Category(16, "Bath Robes", R.drawable.ic_bath_robes_home_fashion_two),
-                Category(17, "Bathroom Accessories", R.drawable.ic_bathroom_accessories_home_kids_fashion_two),
+                Category(
+                    17,
+                    "Bathroom Accessories",
+                    R.drawable.ic_bathroom_accessories_home_kids_fashion_two
+                ),
                 //Category(20, ""View All", R.drawable.ic_view_all_home_tab),
             )
         }
@@ -684,12 +868,74 @@ fun HomeFashionPage(onTabSelected: (String) -> Unit,
             verticalSpacing = 8,
             backgroundColor = MaterialTheme.customColors.white
         )
+
+        val productsListScroll = listOf(
+            ProductListScroll(
+                name = "Stunning Cutlery",
+                price = "Up to 55% off",
+                imageRes = R.drawable.stunning_cutlery_sets_kids
+            ),
+            ProductListScroll(
+                name = "Comfy Decor Picks",
+                price = "Up to 80% off",
+                imageRes = R.drawable.comfy_decor_picks_set_kids
+            ),
+            ProductListScroll(
+                name = "Accent Furniture",
+                price = "Up to 60% off",
+                imageRes = R.drawable.accent_furniture_set_kids
+            ),
+            ProductListScroll(
+                name = "Home Texttiles",
+                price = "Up to 70% off",
+                imageRes = R.drawable.home_texttiles_set_kids
+            ),
+            ProductListScroll(
+                name = "Rustic Bedding",
+                price = "Up to 50% off",
+                imageRes = R.drawable.rustic_bedding_set_kids
+            ),
+            ProductListScroll(
+                name = "Classy Barware",
+                price = "Up to 50% off",
+                imageRes = R.drawable.classy_barware_set_kids
+            ),
+            ProductListScroll(
+                name = "Homeware",
+                price = "Up to 60% off",
+                imageRes = R.drawable.homeware_set_kids
+            ),
+            ProductListScroll(
+                name = "Standout Decor",
+                price = "Up to 10% off",
+                imageRes = R.drawable.standout_decor_set_kids
+            ),
+            ProductListScroll(
+                name = "Stylish Battles",
+                price = "Min 45% off",
+                imageRes = R.drawable.stylish_battles_set_kids
+            )
+        )
+
+        // In your Composable function:
+        // Usage with different background colors:
+        ProductListScroll(
+            products = productsListScroll,
+            sectionTitle = "Rush Hour Deals",
+            showName = true,
+            showPrice = true,
+            backgroundColor = Color(0xFFF8E8AE)
+            // Light gray background
+//            backgroundColor = MaterialTheme.customColors.imageBgColor1 // Light gray background
+        )
     }
 }
 
 @Composable
-fun LuxeFashionPage(onTabSelected: (String) -> Unit,
-                    modifier: Modifier = Modifier) {
+fun LuxeFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val luxeFashionCategories = listOf(
         Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
         Category(1, "Women", R.drawable.ic_luxe_women_fashion),
@@ -781,16 +1027,23 @@ fun LuxeFashionPage(onTabSelected: (String) -> Unit,
         )
     }
 }
+
 @Composable
-fun BrandsFashionPage(onTabSelected: (String) -> Unit,
-                    modifier: Modifier = Modifier) {
+fun BrandsFashionPage(
+    onTabSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val luxeFashionCategories = listOf(
-        Category(0, "Men", R.drawable.ic_luxe_men_fashion_brands), // Using existing icon as placeholder
+        Category(
+            0,
+            "Men",
+            R.drawable.ic_luxe_men_fashion_brands
+        ), // Using existing icon as placeholder
         Category(1, "Women", R.drawable.ic_luxe_women_fashion_brands),
         Category(2, "Kids", R.drawable.ic_luxe_kids_fashion_brands),
         Category(3, "Home", R.drawable.ic_luxe_home_fashion_brands),
         Category(4, "Footwear", R.drawable.ic_luxe_footwear_fashion_brands),
-        )
+    )
     CarouselFashionOne(
         categories = luxeFashionCategories,
         onTabSelected = onTabSelected,
@@ -897,8 +1150,10 @@ fun CategoriesFashionPage() {
 @Composable
 fun FashionMainScreen(navController: NavHostController) {
     var currentPage by remember { mutableIntStateOf(0) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         FashionTab(
+            navController = navController, // ✅ Pass navController here
             onCategorySelected = { fashionCategoryPage ->
                 currentPage = when (fashionCategoryPage) {
                     is FashionCategoryPage.Women -> 0
@@ -909,10 +1164,14 @@ fun FashionMainScreen(navController: NavHostController) {
                     is FashionCategoryPage.Brands -> 5
                     is FashionCategoryPage.Categories -> 6
                 }
+            },
+            onOpenFashionCategory = {
+                navController.navigate("fashion_categories")
             }
         )
     }
 }
+
 
 private fun onBanner1Click() {
     // Handle banner 1 click

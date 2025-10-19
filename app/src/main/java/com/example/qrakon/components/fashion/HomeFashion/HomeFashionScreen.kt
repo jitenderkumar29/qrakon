@@ -95,6 +95,7 @@ fun HomeFashionScreen(navController: NavHostController) {
             // 🟢 Fashion Content Items
             item {
                 FashionTab(
+                    navController = navController, // ✅ Pass it here
                     onCategorySelected = { categoryPage ->
                         // Handle category selection if needed
                         println("Category selected: $categoryPage")

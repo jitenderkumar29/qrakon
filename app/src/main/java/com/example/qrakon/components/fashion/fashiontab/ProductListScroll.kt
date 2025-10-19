@@ -57,7 +57,8 @@ fun ProductCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(220.dp)
-                    .clip(RoundedCornerShape(12.dp)),
+                    .background(backgroundColor)
+                    .clip(RoundedCornerShape(0.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
