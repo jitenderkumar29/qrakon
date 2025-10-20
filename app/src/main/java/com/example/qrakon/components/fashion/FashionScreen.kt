@@ -123,10 +123,12 @@ fun FashionScreen(
                         clip = true
                     )
                     .clip(CircleShape)
-                    .background(Color.White)
+                    .background(MaterialTheme.customColors.black)
+//                    .background(Color.Black)
                     .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                        width = 2.dp,
+                        color = MaterialTheme.customColors.white,
+//                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         shape = CircleShape
                     ),
 //              .clickable { onQRCodeScan() },
@@ -135,7 +137,8 @@ fun FashionScreen(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_wishlist_outline),
                     contentDescription = "Wishlist",
-                    tint = MaterialTheme.colorScheme.scrim,
+                    tint = MaterialTheme.customColors.white,
+//                    tint = MaterialTheme.colorScheme.scrim,
                     modifier = Modifier.size(22.dp)
                 )
             }
@@ -151,11 +154,14 @@ fun FashionScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .border(
-                            width = 5.dp,
-                            color = MaterialTheme.customColors.spacerColor,
+                            width = 2.dp,
+//                            width = 5.dp,
+                            color = MaterialTheme.customColors.white,
+//                            color = MaterialTheme.customColors.spacerColor,
                             shape = CircleShape
                         )
-                        .background(MaterialTheme.customColors.white, CircleShape)
+                        .background(MaterialTheme.customColors.black, CircleShape)
+//                        .background(MaterialTheme.customColors.white, CircleShape)
                         .padding(horizontal = 12.dp, vertical = 2.dp)
                 ) {
                     Row(verticalAlignment = Alignment.Bottom) {
@@ -163,14 +169,16 @@ fun FashionScreen(
                             text = "₹",
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.customColors.black
+                            color = MaterialTheme.customColors.white
+//                            color = MaterialTheme.customColors.black
                         )
                         Spacer(modifier = Modifier.width(0.dp))
                         Text(
                             text = "0",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.customColors.black
+                            color = MaterialTheme.customColors.white
+//                            color = MaterialTheme.customColors.black
                         )
                     }
                     // Add extra space for the overlapping image

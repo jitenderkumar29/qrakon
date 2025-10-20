@@ -2,26 +2,45 @@ package com.example.qrakon.components.fashion.categorydetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
+import com.example.qrakon.components.categorytabs.CarouselFashionOne
+import com.example.qrakon.components.categorytabs.Category
+import com.example.qrakon.components.fashion.fashiontab.BannerFashion
+import com.example.qrakon.components.fashion.fashiontab.CategoryItem
+import com.example.qrakon.components.fashion.fashiontab.CategoryListSimple
+import com.example.qrakon.components.fashion.fashiontab.CategoryListSimpleWithHeading
+import com.example.qrakon.components.fashion.fashiontab.CustomCardCategoryListItem
+import com.example.qrakon.components.fashion.fashiontab.CustomCategoryListItem
+import com.example.qrakon.ui.theme.customColors
 
 @Composable
 fun CategoryDetailScreen(
     categoryName: String?,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onTabSelected: (Category) -> Unit, // Added this parameter
+    onBanner1Click: () -> Unit = {},
+    onBanner2Click: () -> Unit = {},
+    onBanner3Click: () -> Unit = {}
 ) {
     val name = categoryName ?: "Category"
 
@@ -29,110 +48,314 @@ fun CategoryDetailScreen(
     val categoryItems = when (name.lowercase()) {
         "ethnic" -> listOf(
             R.drawable.ic_fashion_ethnic to "Sarees",
-            R.drawable.ic_fashion_ethnic to "Lehengas",
-            R.drawable.ic_fashion_ethnic to "Kurtas & Sets"
         )
         "western" -> listOf(
             R.drawable.ic_fashion_western to "Dresses",
-            R.drawable.ic_fashion_western to "Tops & Shirts",
-            R.drawable.ic_fashion_western to "Jeans & Trousers"
         )
         "fusion" -> listOf(
             R.drawable.ic_fashion_fusion to "Indo-Western Dresses",
-            R.drawable.ic_fashion_fusion to "Bohemian Styles",
-            R.drawable.ic_fashion_fusion to "Tunics"
         )
         "essentials" -> listOf(
             R.drawable.ic_fashion_essentials to "T-Shirts",
-            R.drawable.ic_fashion_essentials to "Casual Bottoms",
-            R.drawable.ic_fashion_essentials to "Sleepwear"
         )
         "beauty" -> listOf(
             R.drawable.ic_fashion_beauty to "Makeup",
-            R.drawable.ic_fashion_beauty to "Skincare",
-            R.drawable.ic_fashion_beauty to "Fragrances"
         )
         "footwear" -> listOf(
             R.drawable.ic_fashion_footwear to "Flats",
-            R.drawable.ic_fashion_footwear to "Heels",
-            R.drawable.ic_fashion_footwear to "Sneakers"
         )
         "jewellery" -> listOf(
             R.drawable.ic_fashion_jewellery to "Earrings",
-            R.drawable.ic_fashion_jewellery to "Necklaces",
-            R.drawable.ic_fashion_jewellery to "Bangles"
         )
         "home" -> listOf(
             R.drawable.ic_fashion_home to "Bedding",
-            R.drawable.ic_fashion_home to "Curtains",
-            R.drawable.ic_fashion_home to "Decor"
         )
         "sportswear" -> listOf(
             R.drawable.ic_fashion_sportswear to "Active T-Shirts",
-            R.drawable.ic_fashion_sportswear to "Leggings",
-            R.drawable.ic_fashion_sportswear to "Track Jackets"
         )
         "girls" -> listOf(
             R.drawable.ic_fashion_girls to "Frocks",
-            R.drawable.ic_fashion_girls to "Tops",
-            R.drawable.ic_fashion_girls to "Denims"
         )
         else -> listOf(
             R.drawable.ic_view_all_home_tab to "Popular Styles",
-            R.drawable.ic_view_all_home_tab to "Top Brands",
-            R.drawable.ic_view_all_home_tab to "Shop All Categories"
         )
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(16.dp)
+            .background(MaterialTheme.customColors.white)
     ) {
-        // 🔙 Back + Title Bar
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBackClick) {
-                Icon(
+        // Header Section with padding and background color
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.lightAccent)
+                .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 12.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Image(
                     painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = "Back",
-                    tint = Color.Black
-                )
-            }
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = Color.Black
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Category-specific list
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            items(categoryItems) { (imageRes, title) ->
-                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .size(28.dp)
+                        .clickable { onBackClick() }
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Ethnic",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.customColors.white
+                )
+
+                // Spacer to push the icons to the right
+                Spacer(modifier = Modifier.weight(1f))
+
+                // Category Icon
+                Box(
+                    modifier = Modifier
+                        .size(35.dp)
+                        .shadow(
+                            elevation = 2.dp,
+                            shape = CircleShape,
+                            clip = true
+                        )
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                            shape = CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Image(
-                        painter = painterResource(id = imageRes),
-                        contentDescription = title,
-                        modifier = Modifier
-                            .size(60.dp)
-                            .padding(end = 12.dp)
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_search_24),
+                        contentDescription = "Categories",
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(30.dp)
                     )
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-                        color = MaterialTheme.colorScheme.onSurface
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                // Wishlist Icon
+                Box(
+                    modifier = Modifier
+                        .size(35.dp)
+                        .shadow(
+                            elevation = 2.dp,
+                            shape = CircleShape,
+                            clip = true
+                        )
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                            shape = CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_wishlist_outline),
+                        contentDescription = "Wishlist",
+                        tint = MaterialTheme.colorScheme.scrim,
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Box(
+                    modifier = Modifier
+                        .size(35.dp)
+                        .shadow(
+                            elevation = 2.dp,
+                            shape = CircleShape,
+                            clip = true
+                        )
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                            shape = CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.outline_shopping_bag_24),
+                        contentDescription = "Wishlist",
+                        tint = MaterialTheme.colorScheme.scrim,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
             }
+        }
+
+        // Content Section
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(4.dp) // Reduced from 12.dp to 4.dp
+        ) {
+            // Show banner only for ethnic category
+            if (name.lowercase() == "ethnic") {
+                item {
+                    // Banner images for ethnic category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.ethnic_banner1),
+                        painterResource(id = R.drawable.ethnic_banner2),
+                        painterResource(id = R.drawable.ethnic_banner3),
+                        painterResource(id = R.drawable.ethnic_banner4),
+                        painterResource(id = R.drawable.ethnic_banner5),
+                        painterResource(id = R.drawable.ethnic_banner6),
+                        painterResource(id = R.drawable.ethnic_banner7),
+                        painterResource(id = R.drawable.ethnic_banner8),
+                        painterResource(id = R.drawable.ethnic_banner9),
+                        painterResource(id = R.drawable.ethnic_banner10),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
+                    )
+//                    Spacer(
+//                        modifier = Modifier
+//                            .height(2.dp)
+//                            .fillMaxWidth()
+//                            .background(MaterialTheme.customColors.spacerColor)
+//                    )
+                    val ethnicCategories = listOf(
+                        Category(0, "Kurta Sets", R.drawable.kurta_sets_ethnic),
+                        Category(1, "Sarees", R.drawable.sarees_ethnic),
+                        Category(2, "Lehengas", R.drawable.lehengas_ethnic),
+                        Category(3, "Dresses", R.drawable.ethnic_dresses_ethnic),
+                        Category(4, "Co-Ords", R.drawable.co_ords_ethnic),
+                        Category(5, "Indie", R.drawable.indie_work_ethnic),
+                        Category(6, "Runway", R.drawable.runway_ethnic),
+                        Category(7, "Designer", R.drawable.designer_ethnic),
+                        Category(8, "Fusion", R.drawable.indie_fusion_ethnic)
+                    )
+                    CarouselFashionOne(
+                        categories = ethnicCategories,
+                        onTabSelected = { categoryName ->
+                            println("hello")
+//                            onTabSelected(categoryName) // Then call the original callback
+                        },
+                        modifier = Modifier,
+                        backgroundColor = MaterialTheme.customColors.white,
+                        itemWidth = 75,
+                        itemHeight = 90,
+                        horizontalSpacing = 8
+                    )
+
+                    val roomCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_ethnic_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_ethnic_8, "")
+                    )
+                    val items = roomCategoriesSimple
+//                    Spacer(
+//                        modifier = Modifier
+//                            .height(2.dp)
+//                            .fillMaxWidth()
+//                            .background(MaterialTheme.customColors.spacerColor)
+//                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListSimple(
+                        items = roomCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+
+//                    CategoryListSimpleWithHeading(
+//                        heading = "",
+////                        heading = "The Festive Edit",
+//                        items = roomCategoriesSimple,
+//                        onItemClick = { item -> println("Selected: ${item.name}") },
+//                        customListItem = { item, onClick ->
+//                            CustomCardCategoryListItem(
+//                                item = item,
+//                                onClick = onClick,
+//                                itemWidth = 180.dp,
+//                                itemHeight = 220.dp,
+//                                imageSize = 220.dp,
+//                                backgroundColor = Color(0xFFFFFFFF)
+//                            )
+//                        },
+//                        backgroundColor = Color(0xFFFFFFFF),
+//                        horizontalSpacing = 6.dp,
+//                        verticalPadding = 6.dp,
+//                        horizontalPadding = 6.dp,
+//                    )
+
+                    }
+                }
+
+
+            // Category items list
+//            items(categoryItems) { (imageRes, title) ->
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .background(MaterialTheme.colorScheme.surfaceVariant)
+//                        .padding(12.dp)
+//                        .clickable {
+//                            // Handle item click - you can navigate to a product list screen
+//                            // or perform other actions here
+//                        },
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Image(
+//                        painter = painterResource(id = imageRes),
+//                        contentDescription = title,
+//                        modifier = Modifier
+//                            .size(60.dp)
+//                            .padding(end = 12.dp)
+//                    )
+//                    Text(
+//                        text = title,
+//                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+//                        color = MaterialTheme.colorScheme.onSurface
+//                    )
+//                }
+//            }
         }
     }
 }

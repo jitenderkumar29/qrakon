@@ -131,11 +131,12 @@ fun FashionCategoryItem(
             Image(
                 painter = painterResource(id = category.iconRes),
                 contentDescription = category.name,
-                contentScale = ContentScale.Crop, // use Crop for better corner clipping
+                contentScale = ContentScale.FillBounds, // use Crop for better corner clipping
+//                contentScale = ContentScale.Crop, // use Crop for better corner clipping
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp)
-                    .clip(RoundedCornerShape(8.dp)) // ⬅ Rounded corners
+                    .clip(RoundedCornerShape(8.dp))    // ⬅ Rounded corners
             )
 
 //            Image(
