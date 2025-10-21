@@ -267,7 +267,7 @@ fun CategoryDetailScreen(
                         horizontalSpacing = 8
                     )
 
-                    val roomCategoriesSimple = listOf(
+                    val festiveCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_ethnic_1, ""),
                         CategoryItem(1, "", R.drawable.ic_ethnic_2, ""),
                         CategoryItem(2, "", R.drawable.ic_ethnic_3, ""),
@@ -277,33 +277,92 @@ fun CategoryDetailScreen(
                         CategoryItem(6, "", R.drawable.ic_ethnic_7, ""),
                         CategoryItem(7, "", R.drawable.ic_ethnic_8, "")
                     )
-                    val items = roomCategoriesSimple
+//                    val items = roomCategoriesSimple
 //                    Spacer(
 //                        modifier = Modifier
 //                            .height(2.dp)
 //                            .fillMaxWidth()
 //                            .background(MaterialTheme.customColors.spacerColor)
 //                    )
+
                     Image(
-                        painter = painterResource(R.drawable.ic_ethnic_header),
+                        painter = painterResource(R.drawable.ic_ethnic_header_festive),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
-
                     CategoryListSimple(
-                        items = roomCategoriesSimple,
+                        items = festiveCategoriesSimple,
                         onItemClick = { item -> println("Selected: ${item.name}") },
                         itemWidth = 180.dp,
                         itemHeight = 220.dp,
                         horizontalSpacing = 12.dp,
 //                        verticalPadding = 8.dp,
                         horizontalPadding = 12.dp,
-                        backgroundColor = Color(0xFFFFF8E1)
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    val handpickedCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_handpicked_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_handpicked_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_handpicked_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_handpicked_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_handpicked_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_handpicked_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_ethnic_handpicked_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_ethnic_handpicked_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_ethnic_handpicked_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_ethnic_handpicked_10, "")
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_handpicked),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = handpickedCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 260.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
                     )
 
+                    val reelCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_reel_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_reel_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_reel_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_reel_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_reel_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_reel_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_ethnic_reel_7, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_reel),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = reelCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 270.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+                    )
 //                    CategoryListSimpleWithHeading(
 //                        heading = "",
 ////                        heading = "The Festive Edit",

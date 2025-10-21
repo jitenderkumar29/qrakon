@@ -122,12 +122,13 @@ fun CategoryListItemSimple(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, overlayBackground),
-                            startY = 80f
-                        )
-                    )
+//                    .background(overlayBackground)
+//                    .background(
+//                        Brush.verticalGradient(
+//                            colors = listOf(Color.Transparent, overlayBackground),
+//                            startY = 80f
+//                        )
+//                    )
                     .padding(horizontal = 10.dp, vertical = 8.dp)
             ) {
                 Text(
