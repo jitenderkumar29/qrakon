@@ -233,7 +233,7 @@ fun CategoryDetailScreen(
                             }
                         },
                         autoScrollDelay = 2000,
-                        height = 450.dp,
+                        height = 470.dp,
                         dotSize = 8.dp,
                         modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
                     )
@@ -266,7 +266,7 @@ fun CategoryDetailScreen(
                         itemHeight = 90,
                         horizontalSpacing = 8
                     )
-
+                    // Festive Categories Simple
                     val festiveCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_ethnic_1, ""),
                         CategoryItem(1, "", R.drawable.ic_ethnic_2, ""),
@@ -304,6 +304,8 @@ fun CategoryDetailScreen(
                         backgroundColor = Color(0xFFFDFDF1)
 //                        backgroundColor = Color(0xFFFFF8E1)
                     )
+
+                    // Handpicked Categories Simple
                     val handpickedCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_ethnic_handpicked_1, ""),
                         CategoryItem(1, "", R.drawable.ic_ethnic_handpicked_2, ""),
@@ -336,6 +338,36 @@ fun CategoryDetailScreen(
 //                        backgroundColor = Color(0xFFFFF8E1)
                     )
 
+                    // Just Categories Simple
+                    val justCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_just_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_just_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_just_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_just_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_just_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_just_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_ethnic_just_7, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_just),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = justCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 270.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+                    )
+
+                    // Reel Categories Simple
                     val reelCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_ethnic_reel_1, ""),
                         CategoryItem(1, "", R.drawable.ic_ethnic_reel_2, ""),
@@ -344,7 +376,10 @@ fun CategoryDetailScreen(
                         CategoryItem(4, "", R.drawable.ic_ethnic_reel_5, ""),
                         CategoryItem(5, "", R.drawable.ic_ethnic_reel_6, ""),
                         CategoryItem(6, "", R.drawable.ic_ethnic_reel_7, ""),
-                        )
+                        CategoryItem(7, "", R.drawable.ic_ethnic_reel_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_ethnic_reel_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_ethnic_reel_10, ""),
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_reel),
                         contentDescription = "Banner",
@@ -355,6 +390,58 @@ fun CategoryDetailScreen(
                     )
                     CategoryListSimple(
                         items = reelCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 270.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+                    )
+
+                    // Reel Categories Simple
+                    val indieCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_indie_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_indie_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_indie_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_indie_4, ""),
+                         )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_indie),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = indieCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 270.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFDFDF1)
+                    )
+                    // Reel Categories Simple
+                    val celebCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_celeb_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_celeb_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_celeb_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_celeb_4, ""),
+                         )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_celeb),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = celebCategoriesSimple,
                         onItemClick = { item -> println("Selected: ${item.name}") },
                         itemWidth = 180.dp,
                         itemHeight = 270.dp,

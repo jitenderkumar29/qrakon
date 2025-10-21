@@ -245,12 +245,12 @@ fun WomenFashionPage(
     )
     val bannerImages = listOf(
         painterResource(id = R.drawable.women_fashion_banner1),
+        painterResource(id = R.drawable.women_fashion_banner6),
+        painterResource(id = R.drawable.women_fashion_banner7),
         painterResource(id = R.drawable.women_fashion_banner2),
         painterResource(id = R.drawable.women_fashion_banner3),
         painterResource(id = R.drawable.women_fashion_banner4),
         painterResource(id = R.drawable.women_fashion_banner5),
-        painterResource(id = R.drawable.women_fashion_banner6),
-
         )
 
     Column(
