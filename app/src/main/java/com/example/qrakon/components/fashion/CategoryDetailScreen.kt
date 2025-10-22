@@ -27,10 +27,13 @@ import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
 import com.example.qrakon.components.fashion.fashiontab.BannerFashion
 import com.example.qrakon.components.fashion.fashiontab.CategoryItem
+import com.example.qrakon.components.fashion.fashiontab.CategoryListDouble
+import com.example.qrakon.components.fashion.fashiontab.CategoryListDoubleWithHeading
 import com.example.qrakon.components.fashion.fashiontab.CategoryListSimple
 import com.example.qrakon.components.fashion.fashiontab.CategoryListSimpleWithHeading
 import com.example.qrakon.components.fashion.fashiontab.CustomCardCategoryListItem
 import com.example.qrakon.components.fashion.fashiontab.CustomCategoryListItem
+import com.example.qrakon.components.fashion.fashiontab.roomCategoriesDouble
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
@@ -107,7 +110,7 @@ fun CategoryDetailScreen(
 
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Ethnic",
+                    text = name,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.customColors.white
@@ -210,8 +213,8 @@ fun CategoryDetailScreen(
                 item {
                     // Banner images for ethnic category
                     val bannerImages = listOf(
-                        painterResource(id = R.drawable.ethnic_banner1),
                         painterResource(id = R.drawable.ethnic_banner2),
+                        painterResource(id = R.drawable.ethnic_banner1),
                         painterResource(id = R.drawable.ethnic_banner3),
                         painterResource(id = R.drawable.ethnic_banner4),
                         painterResource(id = R.drawable.ethnic_banner5),
@@ -220,6 +223,8 @@ fun CategoryDetailScreen(
                         painterResource(id = R.drawable.ethnic_banner8),
                         painterResource(id = R.drawable.ethnic_banner9),
                         painterResource(id = R.drawable.ethnic_banner10),
+                        painterResource(id = R.drawable.ethnic_banner11),
+                        painterResource(id = R.drawable.ethnic_banner12),
                     )
                     BannerFashion(
                         images = bannerImages,
@@ -233,7 +238,7 @@ fun CategoryDetailScreen(
                             }
                         },
                         autoScrollDelay = 2000,
-                        height = 470.dp,
+                        height = 450.dp,
                         dotSize = 8.dp,
                         modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
                     )
@@ -449,6 +454,145 @@ fun CategoryDetailScreen(
 //                        verticalPadding = 8.dp,
                         horizontalPadding = 12.dp,
                         backgroundColor = Color(0xFFFDFDF1)
+                    )
+                    // Kurta Categories Simple
+                    val kurtaCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_kurta_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_kurta_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_kurta_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_kurta_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_kurta_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_kurta_6, ""),
+                      )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_kurta),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListDouble(
+                        items = kurtaCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        showItemName = false,
+                        itemWidth = 160.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+                        verticalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFBE0CD),
+//                        showOverlayOnImage = false,
+//                        overlayBackground = Color.Black.copy(alpha = 0.6f),
+
+                    )
+                    // Saree Categories Simple
+                    val sareeCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_saree_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_saree_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_saree_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_saree_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_saree_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_saree_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_ethnic_saree_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_ethnic_saree_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_ethnic_saree_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_ethnic_saree_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_saree),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = sareeCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 270.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+                    )
+                    // Luxe Categories Simple
+                    val luxeCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_luxe_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_luxe_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_luxe_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_luxe_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_ethnic_luxe_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_ethnic_luxe_6, ""),
+                     )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_luxe),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = luxeCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 290.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+                    )
+                    // Wedding Categories Simple
+                    val weddingCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_wedding_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_wedding_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_wedding_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_wedding_4, ""),
+                     )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_wedding),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = weddingCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 220.dp,
+                        itemHeight = 290.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFF2E2D5)
+                    )
+                    // Rising Star Categories Simple
+                    val risingCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_ethnic_rising_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_ethnic_rising_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_ethnic_rising_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_ethnic_rising_4, ""),
+                     )
+                    Image(
+                        painter = painterResource(R.drawable.ic_ethnic_header_rising),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = risingCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 220.dp,
+                        itemHeight = 290.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFF2E2D5)
                     )
 //                    CategoryListSimpleWithHeading(
 //                        heading = "",

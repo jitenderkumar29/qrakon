@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -116,17 +117,17 @@ fun FashionScreen(
             // Wishlist Icon
             Box(
                 modifier = Modifier
-                    .size(35.dp)
+                    .size(32.dp)
                     .shadow(
                         elevation = 2.dp,
                         shape = CircleShape,
                         clip = true
                     )
                     .clip(CircleShape)
+//                    .clip(CircleShape)
                     .background(MaterialTheme.customColors.black)
-//                    .background(Color.Black)
                     .border(
-                        width = 2.dp,
+                        width = 1.5.dp,
                         color = MaterialTheme.customColors.white,
 //                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         shape = CircleShape
@@ -154,7 +155,7 @@ fun FashionScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .border(
-                            width = 2.dp,
+                            width = 1.25.dp,
 //                            width = 5.dp,
                             color = MaterialTheme.customColors.white,
 //                            color = MaterialTheme.customColors.spacerColor,
