@@ -618,6 +618,203 @@ fun CategoryDetailScreen(
                     }
                 }
 
+//            Western
+            if (name.lowercase() == "western") {
+                item {
+                    // Banner images for ethnic category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.western_banner1),
+                        painterResource(id = R.drawable.western_banner2),
+                        painterResource(id = R.drawable.western_banner3),
+                        painterResource(id = R.drawable.western_banner4),
+                        painterResource(id = R.drawable.western_banner5),
+                        painterResource(id = R.drawable.western_banner6),
+                        painterResource(id = R.drawable.western_banner7),
+                        painterResource(id = R.drawable.western_banner8),
+                        painterResource(id = R.drawable.western_banner9),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
+                    )
+//                    Spacer(
+//                        modifier = Modifier
+//                            .height(2.dp)
+//                            .fillMaxWidth()
+//                            .background(MaterialTheme.customColors.spacerColor)
+//                    )
+                    val westernCategories = listOf(
+                        Category(0, "Shirts", R.drawable.shirts_western),
+                        Category(1, "Tops", R.drawable.tops_western),
+                        Category(2, "Jeans", R.drawable.jeans_western),
+                        Category(3, "L&L", R.drawable.l_and_l_western),
+                        Category(4, "Tees", R.drawable.tees_western),
+                        Category(5, "Dresses", R.drawable.dresses_western),
+                        Category(6, "Jumpsuits", R.drawable.jumpsuits_western),
+                        Category(7, "Rising Stars", R.drawable.rising_stars_western),
+                        Category(8, "MLI", R.drawable.mli_western)
+                    )
+                    CarouselFashionOne(
+                        categories = westernCategories,
+                        onTabSelected = { categoryName ->
+                            println("hello")
+//                            onTabSelected(categoryName) // Then call the original callback
+                        },
+                        modifier = Modifier,
+                        backgroundColor = MaterialTheme.customColors.white,
+                        itemWidth = 75,
+                        itemHeight = 90,
+                        horizontalSpacing = 8
+                    )
+//
+                    val bannerImages2 = listOf(
+                        painterResource(id = R.drawable.western_banner2_1),
+                        painterResource(id = R.drawable.western_banner2_2),
+                        painterResource(id = R.drawable.western_banner2_3),
+                        painterResource(id = R.drawable.western_banner2_4),
+                        painterResource(id = R.drawable.western_banner2_5),
+                        painterResource(id = R.drawable.western_banner2_6),
+                        painterResource(id = R.drawable.western_banner2_7),
+                        painterResource(id = R.drawable.western_banner2_8),
+                        painterResource(id = R.drawable.western_banner2_9),
+                    )
+                    BannerFashion(
+                        images = bannerImages2,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
+                    )
+                    // New Categories Simple
+                    val newWesternCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_western_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_western_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_western_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_western_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_western_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_western_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_western_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_western_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_western_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_new),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = newWesternCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 250.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // New Season Categories Simple
+                    val newSeasonCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_western_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_western_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_western_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_western_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_western_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_season_western_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_season_western_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_season_western_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_season_western_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_new_season),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = newSeasonCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 250.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // All Things Global Season Categories Simple
+                    val globalCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_global_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_global_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_global_3, ""),
+                         )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_global),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = globalCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 260.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+//                    CategoryListSimple(
+//                        items = globalCategoriesSimple,
+//                        onItemClick = { item -> println("Selected: ${item.name}") },
+//                        itemWidth = 220.dp,
+//                        itemHeight = 290.dp,
+//                        horizontalSpacing = 12.dp,
+////                        verticalPadding = 8.dp,
+//                        horizontalPadding = 12.dp,
+//                        backgroundColor = Color(0xFFF2E2D5)
+//                    )
+                }
+            }
+
 
             // Category items list
 //            items(categoryItems) { (imageRes, title) ->
