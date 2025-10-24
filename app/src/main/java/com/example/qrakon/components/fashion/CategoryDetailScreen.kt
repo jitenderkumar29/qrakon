@@ -647,7 +647,7 @@ fun CategoryDetailScreen(
                         autoScrollDelay = 2000,
                         height = 450.dp,
                         dotSize = 8.dp,
-                        modifier = Modifier.padding(bottom = 4.dp) // Reduced from 12.dp to 4.dp
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
                     )
 //                    Spacer(
 //                        modifier = Modifier
@@ -664,7 +664,11 @@ fun CategoryDetailScreen(
                         Category(5, "Dresses", R.drawable.dresses_western),
                         Category(6, "Jumpsuits", R.drawable.jumpsuits_western),
                         Category(7, "Rising Stars", R.drawable.rising_stars_western),
-                        Category(8, "MLI", R.drawable.mli_western)
+                        Category(8, "MLI", R.drawable.mli_western),
+                        Category(9, "Newest Launches", R.drawable.newest_launches),
+                        Category(10, "Dazzling Dresses", R.drawable.dazzling_dresses),
+                        Category(11, "Trendy Tops", R.drawable.trendy_tops),
+                        Category(12, "Versatile Bottoms", R.drawable.versatile_bottoms),
                     )
                     CarouselFashionOne(
                         categories = westernCategories,
@@ -774,12 +778,13 @@ fun CategoryDetailScreen(
                         backgroundColor = Color(0xFFFDFDF1)
 //                        backgroundColor = Color(0xFFFFF8E1)
                     )
+
                     // All Things Global Season Categories Simple
                     val globalCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_new_season_global_1, ""),
                         CategoryItem(1, "", R.drawable.ic_new_season_global_2, ""),
                         CategoryItem(2, "", R.drawable.ic_new_season_global_3, ""),
-                         )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_global),
                         contentDescription = "Banner",
@@ -802,6 +807,172 @@ fun CategoryDetailScreen(
                         backgroundColor = Color(0xFFFDFDF1)
 //                        backgroundColor = Color(0xFFFFF8E1)
                     )
+
+                    // Hot on the Timeline Categories Simple
+                    val timelineCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_timeline_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_timeline_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_timeline_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_timeline_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_timeline_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_season_timeline_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_season_timeline_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_season_timeline_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_season_timeline_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_new_season_timeline_10, ""),
+                         )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_timeline),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = timelineCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 220.dp,
+                        itemHeight = 180.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // Premium Collections Categories Simple
+                    val premiumCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_premium_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_premium_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_premium_3, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_premium),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = premiumCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 250.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // The Fan Favourites Categories Simple
+                    val fanCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_fan_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_fan_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_fan_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_fan_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_fan_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_season_fan_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_season_fan_7, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_fan),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = fanCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // The Party Dressing Categories Simple
+                    val partyCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_party_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_party_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_party_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_party_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_party_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_season_party_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_season_party_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_season_party_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_season_party_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_new_season_party_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_new_season_party_11, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_party),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 400.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = partyCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 330.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // Gen Z Edit Categories Simple
+                    val genzCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_genz_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_genz_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_genz_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_genz_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_genz_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_season_genz_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_season_genz_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_season_genz_8, ""),
+                        )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_genz),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 450.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = genzCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+
 //                    CategoryListSimple(
 //                        items = globalCategoriesSimple,
 //                        onItemClick = { item -> println("Selected: ${item.name}") },
