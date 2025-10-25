@@ -4,9 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,12 +38,9 @@ import com.example.qrakon.components.categorytabs.Category
 import com.example.qrakon.components.fashion.fashiontab.BannerFashion
 import com.example.qrakon.components.fashion.fashiontab.CategoryItem
 import com.example.qrakon.components.fashion.fashiontab.CategoryListDouble
-import com.example.qrakon.components.fashion.fashiontab.CategoryListDoubleWithHeading
+import com.example.qrakon.components.fashion.fashiontab.CategoryListGrid
 import com.example.qrakon.components.fashion.fashiontab.CategoryListSimple
-import com.example.qrakon.components.fashion.fashiontab.CategoryListSimpleWithHeading
-import com.example.qrakon.components.fashion.fashiontab.CustomCardCategoryListItem
-import com.example.qrakon.components.fashion.fashiontab.CustomCategoryListItem
-import com.example.qrakon.components.fashion.fashiontab.roomCategoriesDouble
+import com.example.qrakon.components.fashion.fashiontab.ProductListGrid
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
@@ -973,6 +980,129 @@ fun CategoryDetailScreen(
 //                        backgroundColor = Color(0xFFFFF8E1)
                     )
 
+//                    Global Store
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_global_store),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(600.dp),
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    // Shades of the Season Categories Simple
+                    val shadesCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_shades_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_shades_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_shades_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_shades_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_shades_5, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_shades),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = shadesCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 220.dp,
+                        itemHeight = 350.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+                    // The Hot List Categories Simple
+                    val hot_listCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_season_hot_list_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_season_hot_list_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_season_hot_list_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_season_hot_list_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_hot_list_5, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_hot_list_6, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_season_hot_list_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_hot_list),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = hot_listCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 180.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFF202E51)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+
+                    val sampleProducts = listOf(
+                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.iki_chic),
+                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.product2),
+                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.product3),
+                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.product4),
+                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.product5),
+                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.product6),
+                        ProductListGrid("Sera Classic", "Starting at ₹350", R.drawable.sera),
+                        ProductListGrid("Stylish Top", "Starting at ₹499", R.drawable.product8),
+                        ProductListGrid("Trendy Shirt", "Starting at ₹400", R.drawable.product9),
+                        ProductListGrid("Dilinger Hoodie", "Starting at ₹599", R.drawable.dilinger),
+                        ProductListGrid("Fnocks Jacket", "Starting at ₹399", R.drawable.fnocks),
+                        ProductListGrid("Rebelmme Tee", "Starting at ₹599", R.drawable.therebelmme)
+                    )
+
+// Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_western_header_list_grid),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = sampleProducts,
+                        columns = 3,
+                        gridHeight = 945.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+//                        defaultCardColor = Color(0xFFB3212E),
+                        defaultCardColor = Color(0xFFF5F2ED),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+//                    CategoryListGrid(
+//                        products = sampleProducts,
+//                        columns = 3,
+//                        onItemClick = { product ->
+//                            // ✅ Handle item click here (e.g., navigate or show toast)
+//                            println("Clicked on ${product.name}")
+//                        }
+//                    )
+//                    MaterialTheme {
+//                    }
 //                    CategoryListSimple(
 //                        items = globalCategoriesSimple,
 //                        onItemClick = { item -> println("Selected: ${item.name}") },
