@@ -1116,6 +1116,169 @@ fun CategoryDetailScreen(
                 }
             }
 
+            if (name.lowercase() == "fusion") {
+                item {
+                    // Banner images for ethnic category
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_new),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.fusion_banner1),
+                        painterResource(id = R.drawable.fusion_banner2),
+                        painterResource(id = R.drawable.fusion_banner3),
+                        painterResource(id = R.drawable.fusion_banner4),
+                        painterResource(id = R.drawable.fusion_banner5),
+                        painterResource(id = R.drawable.fusion_banner6),
+                        painterResource(id = R.drawable.fusion_banner7),
+                        painterResource(id = R.drawable.fusion_banner8),
+                        painterResource(id = R.drawable.fusion_banner9),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+//                    Spacer(
+//                        modifier = Modifier
+//                            .height(2.dp)
+//                            .fillMaxWidth()
+//                            .background(MaterialTheme.customColors.spacerColor)
+//                    )
+                    val fusionCategories = listOf(
+                        Category(0, "Top At", R.drawable.shirts_fusion),
+                        Category(1, "What's New", R.drawable.tops_fusion),
+                        Category(2, "Brands To Bag", R.drawable.jeans_fusion),
+                        Category(3, "Fusion Deals", R.drawable.l_and_l_fusion),
+                         )
+                    CarouselFashionOne(
+                        categories = fusionCategories,
+                        onTabSelected = { categoryName ->
+                            println("hello")
+//                            onTabSelected(categoryName) // Then call the original callback
+                        },
+                        modifier = Modifier,
+                        backgroundColor = MaterialTheme.customColors.white,
+                        itemWidth = 75,
+                        itemHeight = 90,
+                        horizontalSpacing = 8
+                    )
+
+                    // Trendy Jackpot Simple
+                    val trendyCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_fusion_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_fusion_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_fusion_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_fusion_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_fusion_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_fusion_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_fusion_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_fusion_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_fusion_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_trendy),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = trendyCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 250.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFFFF8E1)
+                    )
+
+                    // Brands in Spotlight Categories Simple
+                    val brandsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_fusion_brands_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_fusion_brands_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_fusion_brands_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_fusion_brands_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_fusion_brands_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_fusion_brands_6, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_brands),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListDouble(
+                        items = brandsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        showItemName = false,
+                        itemWidth = 160.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+                        verticalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF),
+//                        showOverlayOnImage = false,
+//                        overlayBackground = Color.Black.copy(alpha = 0.6f),
+
+                    )
+
+                    // Silhouette Story Simple
+//                    val silhouetteCategoriesSimple = listOf(
+//                        CategoryItem(0, "", R.drawable.ic_silhouette_fusion_1, ""),
+//                        CategoryItem(1, "", R.drawable.ic_silhouette_fusion_2, ""),
+//                        CategoryItem(2, "", R.drawable.ic_silhouette_fusion_3, ""),
+//                        CategoryItem(3, "", R.drawable.ic_silhouette_fusion_4, ""),
+//                        CategoryItem(4, "", R.drawable.ic_silhouette_fusion_5, ""),
+//                        CategoryItem(5, "", R.drawable.ic_silhouette_fusion_6, ""),
+//                    )
+//                    Image(
+//                        painter = painterResource(R.drawable.ic_silhouette_header_fusion),
+//                        contentDescription = "Banner",
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .heightIn(
+//                                min = 100.dp,
+//                                max = 300.dp
+//                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+//                        contentScale = ContentScale.FillBounds
+//                    )
+//                    CategoryListSimple(
+//                        items = silhouetteCategoriesSimple,
+//                        onItemClick = { item -> println("Selected: ${item.name}") },
+//                        itemWidth = 200.dp,
+//                        itemHeight = 250.dp,
+//                        horizontalSpacing = 12.dp,
+////                        verticalPadding = 8.dp,
+//                        horizontalPadding = 12.dp,
+//                        backgroundColor = Color(0xFFFDFDF1)
+////                        backgroundColor = Color(0xFFA54086)
+//                    )
+                }
+            }
 
             // Category items list
 //            items(categoryItems) { (imageRes, title) ->

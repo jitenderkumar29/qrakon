@@ -797,6 +797,10 @@ fun HomeFashionPage(
 //    }
 
     val bannerImages = listOf(
+        painterResource(id = R.drawable.home_category_banner9),
+        painterResource(id = R.drawable.home_category_banner10),
+        painterResource(id = R.drawable.home_category_banner11),
+        painterResource(id = R.drawable.home_category_banner12),
         painterResource(id = R.drawable.home_fashion_banner1),
         painterResource(id = R.drawable.home_fashion_banner2),
         painterResource(id = R.drawable.home_fashion_banner3),
