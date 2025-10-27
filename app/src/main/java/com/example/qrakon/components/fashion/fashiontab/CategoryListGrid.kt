@@ -107,10 +107,13 @@ fun CategoryGridItem(
                     .height(190.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(0.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillBounds
+//                contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(6.dp))
+            if (showName || showPrice) {
+                Spacer(modifier = Modifier.height(6.dp))
+            }
 
             if (showName && product.name.isNotEmpty()) {
                 Text(
@@ -137,7 +140,10 @@ fun CategoryGridItem(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Spacer(modifier = Modifier.height(6.dp))
+            if (showName || showPrice) {
+                Spacer(modifier = Modifier.height(6.dp))
+            }
+//            Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }

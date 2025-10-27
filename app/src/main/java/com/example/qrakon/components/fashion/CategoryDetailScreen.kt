@@ -1247,40 +1247,181 @@ fun CategoryDetailScreen(
                     )
 
                     // Silhouette Story Simple
-//                    val silhouetteCategoriesSimple = listOf(
-//                        CategoryItem(0, "", R.drawable.ic_silhouette_fusion_1, ""),
-//                        CategoryItem(1, "", R.drawable.ic_silhouette_fusion_2, ""),
-//                        CategoryItem(2, "", R.drawable.ic_silhouette_fusion_3, ""),
-//                        CategoryItem(3, "", R.drawable.ic_silhouette_fusion_4, ""),
-//                        CategoryItem(4, "", R.drawable.ic_silhouette_fusion_5, ""),
-//                        CategoryItem(5, "", R.drawable.ic_silhouette_fusion_6, ""),
-//                    )
-//                    Image(
-//                        painter = painterResource(R.drawable.ic_silhouette_header_fusion),
-//                        contentDescription = "Banner",
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .heightIn(
-//                                min = 100.dp,
-//                                max = 300.dp
-//                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-//                        contentScale = ContentScale.FillBounds
-//                    )
-//                    CategoryListSimple(
-//                        items = silhouetteCategoriesSimple,
-//                        onItemClick = { item -> println("Selected: ${item.name}") },
-//                        itemWidth = 200.dp,
-//                        itemHeight = 250.dp,
-//                        horizontalSpacing = 12.dp,
-////                        verticalPadding = 8.dp,
-//                        horizontalPadding = 12.dp,
-//                        backgroundColor = Color(0xFFFDFDF1)
-////                        backgroundColor = Color(0xFFA54086)
-//                    )
+                    val silhouetteCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_silhouette_fusion_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_silhouette_fusion_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_silhouette_fusion_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_silhouette_fusion_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_silhouette_fusion_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_silhouette_fusion_6, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_silhouette_header_fusion),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = silhouetteCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 250.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFDFDF1)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+                    val sampleProducts = listOf(
+                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.ic_explore_more_fusion_1),
+                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.ic_explore_more_fusion_2),
+                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.ic_explore_more_fusion_3),
+                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.ic_explore_more_fusion_4),
+                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.ic_explore_more_fusion_5),
+                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_explore_more_fusion_6),
+                        ProductListGrid("Sera Classic", "Starting at ₹350", R.drawable.ic_explore_more_fusion_7),
+                        ProductListGrid("Stylish Top", "Starting at ₹499", R.drawable.ic_explore_more_fusion_8),
+                        ProductListGrid("Trendy Shirt", "Starting at ₹400", R.drawable.ic_explore_more_fusion_9),
+                        ProductListGrid("Dilinger Hoodie", "Starting at ₹599", R.drawable.ic_explore_more_fusion_10),
+                        ProductListGrid("Fnocks Jacket", "Starting at ₹399", R.drawable.ic_explore_more_fusion_11),
+                        ProductListGrid("Rebelmme Tee", "Starting at ₹599", R.drawable.ic_explore_more_fusion_12)
+                    )
+
+// Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_explore_more_header_list_grid_fusion),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = sampleProducts,
+                        columns = 3,
+                        gridHeight = 945.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+//                        defaultCardColor = Color(0xFFB3212E),
+                        defaultCardColor = Color(0xFFF5F2ED),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
                 }
             }
 
-            // Category items list
+            if (name.lowercase() == "essentials") {
+                item {
+                    // Banner images for Essentials category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.essentials_banner1),
+                        painterResource(id = R.drawable.essentials_banner2),
+                        painterResource(id = R.drawable.essentials_banner3),
+                        painterResource(id = R.drawable.essentials_banner4),
+                        painterResource(id = R.drawable.essentials_banner5),
+                        painterResource(id = R.drawable.essentials_banner6),
+                        painterResource(id = R.drawable.essentials_banner7),
+                        painterResource(id = R.drawable.essentials_banner8),
+                        painterResource(id = R.drawable.essentials_banner9),
+                        painterResource(id = R.drawable.essentials_banner10),
+                        painterResource(id = R.drawable.essentials_banner11),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 550.dp,
+                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+//                    Spacer(
+//                        modifier = Modifier
+//                            .height(2.dp)
+//                            .fillMaxWidth()
+//                            .background(MaterialTheme.customColors.spacerColor)
+//                    )
+                    val essentialsCategories = listOf(
+                        Category(0, "Bras", R.drawable.bras_essentials),
+                        Category(1, "Panties", R.drawable.panties_essentials),
+                        Category(2, "Night Suits", R.drawable.night_suits_essentials),
+                        Category(3, "Shapewear", R.drawable.shapewear_essentials),
+                        Category(4, "Stockings", R.drawable.stockings_essentials),
+                        Category(5, "Thermals", R.drawable.thermals_essentials),
+                        Category(6, "Maternity Wear", R.drawable.maternity_wear_essentials),
+                        Category(7, "Swimwear", R.drawable.swimwear_essentials),
+                        Category(8, "Babydolls", R.drawable.babydolls_essentials),
+                        Category(9, "Lingerie Accessories", R.drawable.lingerie_accessories_essentials),
+                        Category(10, "Saree Shapewear", R.drawable.saree_shapewear_essentials)
+                    )
+                    CarouselFashionOne(
+                        categories = essentialsCategories,
+                        onTabSelected = { categoryName ->
+                            println("hello")
+//                            onTabSelected(categoryName) // Then call the original callback
+                        },
+                        modifier = Modifier,
+                        backgroundColor = MaterialTheme.customColors.white,
+                        itemWidth = 75,
+                        itemHeight = 90,
+                        horizontalSpacing = 8
+                    )
+
+                    // Deals So Irresistible Simple
+                    val sampleProducts = listOf(
+                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.ic_deals_essentials_1),
+                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.ic_deals_essentials_2),
+                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.ic_deals_essentials_3),
+                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.ic_deals_essentials_4),
+                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.ic_deals_essentials_5),
+                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_deals_essentials_6),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_deals),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = sampleProducts,
+                        columns = 3,
+                        gridHeight = 472.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+//                        defaultCardColor = Color(0xFFB3212E),
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                }
+            }
+
+                    // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(
 //                    modifier = Modifier
