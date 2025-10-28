@@ -44,6 +44,8 @@ fun CategoryListGrid(
     showName: Boolean = true,
     showPrice: Boolean = true,
     defaultCardColor: Color = MaterialTheme.colorScheme.surface, // Default card color
+    imageHeight: Dp? = null, // Optional fixed image height (null for dynamic)
+    imageAspectRatio: Float = 1f, // Aspect ratio for dynamic height (width:height)
     onItemClick: (ProductListGrid) -> Unit = {}
 ) {
     val safeModifier = if (gridHeight != null) {
@@ -69,6 +71,8 @@ fun CategoryListGrid(
                 showName = showName,
                 showPrice = showPrice,
                 defaultCardColor = defaultCardColor,
+                imageHeight = imageHeight,
+                imageAspectRatio = imageAspectRatio,
                 onClick = { onItemClick(product) }
             )
         }
@@ -82,6 +86,8 @@ fun CategoryGridItem(
     showName: Boolean = true,
     showPrice: Boolean = true,
     defaultCardColor: Color = MaterialTheme.colorScheme.surface,
+    imageHeight: Dp? = null, // Optional fixed image height (null for dynamic)
+    imageAspectRatio: Float = 1f, // Aspect ratio for dynamic height (width:height)
     onClick: () -> Unit
 ) {
     // Use product's background color if provided, otherwise use default
@@ -100,15 +106,23 @@ fun CategoryGridItem(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier.padding(0.dp)
         ) {
+            // Dynamic image height based on provided parameters
+            val imageModifier = if (imageHeight != null) {
+                Modifier
+                    .height(imageHeight)
+                    .fillMaxWidth()
+            } else {
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(imageAspectRatio)
+            }
+
             Image(
                 painter = painterResource(id = product.imageRes),
                 contentDescription = product.name,
-                modifier = Modifier
-                    .height(190.dp)
-                    .fillMaxWidth()
+                modifier = imageModifier
                     .clip(RoundedCornerShape(0.dp)),
                 contentScale = ContentScale.FillBounds
-//                contentScale = ContentScale.Crop
             )
 
             if (showName || showPrice) {
@@ -140,10 +154,10 @@ fun CategoryGridItem(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
+
             if (showName || showPrice) {
                 Spacer(modifier = Modifier.height(6.dp))
             }
-//            Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }
@@ -178,38 +192,87 @@ fun ExampleUsage() {
         )
     )
 
-    // Example 1: With dynamic background colors from products
+    // Example 1: Fixed image height (original behavior)
     CategoryListGrid(
         products = sampleProducts,
         columns = 3,
         gridHeight = 945.dp,
         showName = false,
         showPrice = true,
+        imageHeight = 190.dp, // Fixed height
         onItemClick = { product ->
             println("Clicked on ${product.name}")
         }
     )
 
-    // Example 2: With custom default background color for all cards
+    // Example 2: Dynamic height with 1:1 aspect ratio (square images)
     CategoryListGrid(
         products = sampleProducts,
         columns = 3,
-        gridHeight = 945.dp,
         showName = true,
         showPrice = true,
-        defaultCardColor = Color(0xFFF5F5F5), // Light gray default
+        imageHeight = null, // Dynamic based on aspect ratio
+        imageAspectRatio = 1f, // Square images
+        defaultCardColor = Color(0xFFF5F5F5),
         onItemClick = { product ->
             println("Clicked on ${product.name}")
         }
     )
 
-    // Example 3: Using MaterialTheme colors as default
+    // Example 3: Dynamic height with 4:3 aspect ratio (wider images)
     CategoryListGrid(
         products = sampleProducts,
         columns = 3,
+        showName = true,
+        showPrice = true,
+        imageHeight = null, // Dynamic based on aspect ratio
+        imageAspectRatio = 4f / 3f, // 4:3 aspect ratio
         defaultCardColor = MaterialTheme.colorScheme.background,
         onItemClick = { product ->
             println("Clicked on ${product.name}")
         }
     )
+
+    // Example 4: Dynamic height with 3:4 aspect ratio (portrait images)
+    CategoryListGrid(
+        products = sampleProducts,
+        columns = 2, // Fewer columns for portrait images
+        showName = true,
+        showPrice = true,
+        imageHeight = null, // Dynamic based on aspect ratio
+        imageAspectRatio = 3f / 4f, // Portrait orientation
+        onItemClick = { product ->
+            println("Clicked on ${product.name}")
+        }
+    )
+
+    // Example 5: Mixed usage - some with fixed height, some with dynamic
+    Column {
+        // Fixed height section
+        CategoryListGrid(
+            products = sampleProducts.take(2),
+            columns = 2,
+            showName = true,
+            showPrice = true,
+            imageHeight = 120.dp, // Compact fixed height
+            onItemClick = { product ->
+                println("Clicked on ${product.name}")
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Dynamic height section
+        CategoryListGrid(
+            products = sampleProducts.takeLast(2),
+            columns = 2,
+            showName = true,
+            showPrice = true,
+            imageHeight = null, // Dynamic
+            imageAspectRatio = 16f / 9f, // Wide banner-like images
+            onItemClick = { product ->
+                println("Clicked on ${product.name}")
+            }
+        )
+    }
 }
