@@ -1327,15 +1327,17 @@ fun CategoryDetailScreen(
                     val bannerImages = listOf(
                         painterResource(id = R.drawable.essentials_banner1),
                         painterResource(id = R.drawable.essentials_banner2),
-                        painterResource(id = R.drawable.essentials_banner3),
-                        painterResource(id = R.drawable.essentials_banner4),
-                        painterResource(id = R.drawable.essentials_banner5),
-                        painterResource(id = R.drawable.essentials_banner6),
-                        painterResource(id = R.drawable.essentials_banner7),
                         painterResource(id = R.drawable.essentials_banner8),
-                        painterResource(id = R.drawable.essentials_banner9),
-                        painterResource(id = R.drawable.essentials_banner10),
+                        painterResource(id = R.drawable.essentials_banner3),
+                        painterResource(id = R.drawable.essentials_banner5),
                         painterResource(id = R.drawable.essentials_banner11),
+                        painterResource(id = R.drawable.essentials_banner7),
+                        painterResource(id = R.drawable.essentials_banner10),
+                        painterResource(id = R.drawable.essentials_banner4),
+                        painterResource(id = R.drawable.essentials_banner6),
+                        painterResource(id = R.drawable.essentials_banner9),
+                        painterResource(id = R.drawable.essentials_banner12),
+                        painterResource(id = R.drawable.essentials_banner13),
                     )
                     BannerFashion(
                         images = bannerImages,
@@ -1349,16 +1351,11 @@ fun CategoryDetailScreen(
                             }
                         },
                         autoScrollDelay = 2000,
-                        height = 550.dp,
-                        dotSize = 8.dp,
+                        height = 500.dp,
+//                        dotSize = 8.dp,
                         modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
                     )
-//                    Spacer(
-//                        modifier = Modifier
-//                            .height(2.dp)
-//                            .fillMaxWidth()
-//                            .background(MaterialTheme.customColors.spacerColor)
-//                    )
+
                     val essentialsCategories = listOf(
                         Category(0, "Bras", R.drawable.bras_essentials),
                         Category(1, "Panties", R.drawable.panties_essentials),
@@ -1383,6 +1380,45 @@ fun CategoryDetailScreen(
                         itemWidth = 75,
                         itemHeight = 90,
                         horizontalSpacing = 8
+                    )
+
+                    // Banner images for Brands in Focus category
+                    Image(
+                        painter = painterResource(R.drawable.ic_brands_header_fusion),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    val bannerImagesBrands = listOf(
+                        painterResource(id = R.drawable.brands_banner1),
+                        painterResource(id = R.drawable.brands_banner2),
+                        painterResource(id = R.drawable.brands_banner3),
+                        painterResource(id = R.drawable.brands_banner4),
+                        painterResource(id = R.drawable.brands_banner5),
+                        painterResource(id = R.drawable.brands_banner6),
+                        painterResource(id = R.drawable.brands_banner7),
+                        painterResource(id = R.drawable.brands_banner8),
+                    )
+                    BannerFashion(
+                        images = bannerImagesBrands,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 200.dp,
+                        dotSize = 0.dp,
+                        modifier = Modifier.padding(bottom = 0.dp) // Reduced from 12.dp to 4.dp
                     )
 
                     // Deals So Irresistible Simple
@@ -1414,7 +1450,7 @@ fun CategoryDetailScreen(
                         gridHeight = 472.dp, // fixed height to avoid crashes
                         showName = false,
                         showPrice = false,   // hide price
-                        imageAspectRatio = 3f / 5.25f,
+                        imageAspectRatio = 3f / 5f,
 //                        defaultCardColor = Color(0xFFB3212E),
                         defaultCardColor = Color(0xFFFFFFFF),
                         onItemClick = { product ->
@@ -1453,87 +1489,9 @@ fun CategoryDetailScreen(
                         backgroundColor = Color(0xFFFDFDF1)
 //                        backgroundColor = Color(0xFFA54086)
                     )
-//                    Bra Banner images
-                    Image(
-                        painter = painterResource(R.drawable.ic_bra_header_fusion),
-                        contentDescription = "Banner",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(
-                                min = 100.dp,
-                                max = 300.dp
-                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-                        contentScale = ContentScale.FillBounds
-                    )
-                    val bannerImagesBra = listOf(
-                        painterResource(id = R.drawable.bra_banner1),
-                        painterResource(id = R.drawable.bra_banner2),
-                        painterResource(id = R.drawable.bra_banner3),
-                        painterResource(id = R.drawable.bra_banner4),
-                        painterResource(id = R.drawable.bra_banner5),
-                        painterResource(id = R.drawable.bra_banner6),
-                        painterResource(id = R.drawable.bra_banner7),
-                        painterResource(id = R.drawable.bra_banner8),
-                        painterResource(id = R.drawable.bra_banner9),
-                        painterResource(id = R.drawable.bra_banner10),
-                    )
-                    BannerFashion(
-                        images = bannerImagesBra,
-                        onImageClick = { page ->
-                            when (page) {
-                                0 -> onBanner1Click()
-                                1 -> onBanner2Click()
-                                2 -> onBanner3Click()
-                                // Add more cases if needed for other banners
-                                else -> onBanner1Click() // Default fallback
-                            }
-                        },
-                        autoScrollDelay = 2000,
-                        height = 450.dp,
-                        dotSize = 8.dp,
-                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
-                    )
-
-//                    Cosy Corner Banner images
-                    Image(
-                        painter = painterResource(R.drawable.ic_cosy_header_fusion),
-                        contentDescription = "Banner",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(
-                                min = 100.dp,
-                                max = 300.dp
-                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-                        contentScale = ContentScale.FillBounds
-                    )
-                    val bannerImagescosy = listOf(
-                        painterResource(id = R.drawable.cosy_banner1),
-                        painterResource(id = R.drawable.cosy_banner2),
-                        painterResource(id = R.drawable.cosy_banner3),
-                        painterResource(id = R.drawable.cosy_banner4),
-                        painterResource(id = R.drawable.cosy_banner5),
-                        painterResource(id = R.drawable.cosy_banner6),
-                        painterResource(id = R.drawable.cosy_banner7),
-                    )
-                    BannerFashion(
-                        images = bannerImagescosy,
-                        onImageClick = { page ->
-                            when (page) {
-                                0 -> onBanner1Click()
-                                1 -> onBanner2Click()
-                                2 -> onBanner3Click()
-                                // Add more cases if needed for other banners
-                                else -> onBanner1Click() // Default fallback
-                            }
-                        },
-                        autoScrollDelay = 2000,
-                        height = 450.dp,
-                        dotSize = 8.dp,
-                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
-                    )
 
                     // Lingerie trends Simple
-                    val lingerieCategoriesSimple = listOf(
+                    val lingerieCategoriesSimple1 = listOf(
                         CategoryItem(0, "", R.drawable.ic_lingerie_fusion_1, ""),
                         CategoryItem(1, "", R.drawable.ic_lingerie_fusion_2, ""),
                         CategoryItem(2, "", R.drawable.ic_lingerie_fusion_3, ""),
@@ -1551,7 +1509,7 @@ fun CategoryDetailScreen(
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
-                        items = lingerieCategoriesSimple,
+                        items = lingerieCategoriesSimple1,
                         onItemClick = { item -> println("Selected: ${item.name}") },
                         itemWidth = 250.dp,
                         itemHeight = 350.dp,
@@ -1571,7 +1529,6 @@ fun CategoryDetailScreen(
                         ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_spice_fusion_6),
                     )
 
-                    // Display CategoryListGrid showing **name only**
                     Image(
                         painter = painterResource(R.drawable.ic_fusion_header_spice),
                         contentDescription = "Banner",
@@ -1588,6 +1545,135 @@ fun CategoryDetailScreen(
                         products = spiceProducts,
                         columns = 2,
                         gridHeight = 820.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Lingerie For Every Occasion Simple
+                    val lingerieCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_lingerie_occasion_fusion_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_lingerie_occasion_fusion_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_lingerie_occasion_fusion_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_lingerie_occasion_fusion_4, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_lingerie_occasion_header_fusion),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = lingerieCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFF0F5)
+                    )
+
+                    // Brands We love Simple
+                    val brandsLoveProducts = listOf(
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_brands_love_fusion_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_brands_love_fusion_2),
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_brands_love_fusion_3),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_brands_love_fusion_4),
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_brands_love_fusion_5),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_brands_love_fusion_6),
+                        ProductListGrid("", "Min 20% off", R.drawable.ic_brands_love_fusion_7),
+                        ProductListGrid("", "Starting at ₹219", R.drawable.ic_brands_love_fusion_8),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_brands_love_fusion_9),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_brands_love),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = brandsLoveProducts,
+                        columns = 3,
+                        gridHeight = 630.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFE1F6F1),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Bold & Beautiful Simple
+                    val boldCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_bold_beautiful_fusion_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_bold_beautiful_fusion_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_bold_beautiful_fusion_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_bold_beautiful_fusion_4, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_bold_beautiful_header_fusion),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(350.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = boldCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 200.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFCBEFFF)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+
+                    // Sleepwear Brands We Love Simple
+                    val sleepwearProducts = listOf(
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_sleepwear_fusion_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_sleepwear_fusion_2),
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_sleepwear_fusion_3),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_sleepwear_fusion_4),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_fusion_header_sleepwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = sleepwearProducts,
+                        columns = 2,
+                        gridHeight = 550.dp, // fixed height to avoid crashes
                         showName = false,
                         showPrice = false,   // hide price
                         imageAspectRatio = 3f / 4f,

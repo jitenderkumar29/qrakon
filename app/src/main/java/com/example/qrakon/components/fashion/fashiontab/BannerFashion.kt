@@ -34,8 +34,8 @@ fun BannerFashion(
     onImageClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
     height: Dp = 270.dp,
-    dotSize: Dp = 4.dp,
-    dotPadding: Dp = 3.dp,
+    dotSize: Dp? = null, // Made optional
+    dotPadding: Dp? = null, // Made optional
     selectedDotColor: Color = MaterialTheme.customColors.linkColor,
     unselectedDotColor: Color = Color.White.copy(alpha = 0.9f),
     backgroundColor: Color = Color.White,
@@ -88,24 +88,6 @@ fun BannerFashion(
                     contentScale = contentScale
                 )
             }
-
-            // Overlay dots at bottom
-//            Row(
-//                horizontalArrangement = Arrangement.Center,
-//                modifier = Modifier
-//                    .align(Alignment.BottomCenter)
-//                    .padding(bottom = 1.dp) // spacing from bottom
-//            ) {
-//                OverlayDotsFashion(
-//                    pagerState = pagerState,
-//                    imageCount = images.size,
-//                    dotSize = 8.dp, // width factor reference
-//                    dotPadding = 6.dp,
-//                    selectedDotColor = MaterialTheme.customColors.onPrimaryContainer,
-//                    unselectedDotColor = Color.Gray,
-//                    indicatorDuration = autoScrollDelay
-//                )
-//            }
         }
 
         Spacer(
@@ -114,22 +96,26 @@ fun BannerFashion(
                 .background(MaterialTheme.customColors.white)
         )
 
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-                .padding(bottom = 1.dp) // spacing from bottom
-        ) {
-            OverlayDotsFashion(
-                pagerState = pagerState,
-                imageCount = images.size,
-                dotSize = 8.dp, // width factor reference
-                dotPadding = 6.dp,
-                selectedDotColor = MaterialTheme.customColors.onPrimaryContainer,
-                unselectedDotColor = Color.Gray,
-                indicatorDuration = autoScrollDelay
-            )
+        // Show dots only if dotSize is explicitly set to a positive value
+        // or if it's null (which means use default positive size)
+        if (dotSize == null || dotSize > 0.dp) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .padding(bottom = 1.dp) // spacing from bottom
+            ) {
+                OverlayDotsFashion(
+                    pagerState = pagerState,
+                    imageCount = images.size,
+                    dotSize = dotSize, // Pass optional parameter
+                    dotPadding = dotPadding, // Pass optional parameter
+                    selectedDotColor = MaterialTheme.customColors.onPrimaryContainer,
+                    unselectedDotColor = Color.Gray,
+                    indicatorDuration = autoScrollDelay
+                )
+            }
         }
+
         Spacer(
             modifier = Modifier.height(3.dp)
                 .fillMaxWidth()
@@ -143,13 +129,20 @@ fun BannerFashion(
 fun OverlayDotsFashion(
     pagerState: PagerState,
     imageCount: Int,
-    dotSize: Dp = 8.dp,         // circle size
-    dotPadding: Dp = 3.dp,
+    dotSize: Dp? = null,         // Made optional
+    dotPadding: Dp? = null,      // Made optional
     selectedDotColor: Color = Color.White,
     unselectedDotColor: Color = Color.Gray,
     indicatorDuration: Long = 3000L
 ) {
     val coroutineScope = rememberCoroutineScope()
+
+    // Default values when null
+    val defaultDotSize = 8.dp
+    val defaultDotPadding = 6.dp
+
+    val actualDotSize = dotSize ?: defaultDotSize
+    val actualDotPadding = dotPadding ?: defaultDotPadding
 
     Box(
         modifier = Modifier
@@ -184,12 +177,12 @@ fun OverlayDotsFashion(
                 }
 
                 // Animate circle slightly bigger when selected
-                val targetSize = if (isSelected) dotSize * 1.2f else dotSize
+                val targetSize = if (isSelected) actualDotSize * 1.2f else actualDotSize
                 val animatedSize = animateDpAsState(targetValue = targetSize)
 
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = dotPadding)
+                        .padding(horizontal = actualDotPadding)
                         .size(animatedSize.value)
                         .background(
                             color = if (isHighlighted) selectedDotColor else unselectedDotColor,
