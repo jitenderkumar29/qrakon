@@ -52,7 +52,8 @@ fun CategoryListItemDouble(
         Image(
             painter = painterResource(id = item.imageRes),
             contentDescription = item.name,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
+//            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(8.dp))

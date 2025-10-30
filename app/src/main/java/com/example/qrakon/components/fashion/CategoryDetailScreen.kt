@@ -22,6 +22,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
+import com.example.qrakon.components.categorytabs.CategoryProducts
 import com.example.qrakon.components.fashion.fashiontab.BannerFashion
 import com.example.qrakon.components.fashion.fashiontab.CategoryItem
 import com.example.qrakon.components.fashion.fashiontab.CategoryListDouble
@@ -1684,6 +1689,214 @@ fun CategoryDetailScreen(
                     )
                 }
             }
+
+//            Beauty
+            if (name.lowercase() == "beauty") {
+                item {
+                    // Banner images for Essentials category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.beauty_banner1),
+                        painterResource(id = R.drawable.beauty_banner2),
+                        painterResource(id = R.drawable.beauty_banner8),
+                        painterResource(id = R.drawable.beauty_banner3),
+                        painterResource(id = R.drawable.beauty_banner5),
+                        painterResource(id = R.drawable.beauty_banner11),
+                        painterResource(id = R.drawable.beauty_banner7),
+                        painterResource(id = R.drawable.beauty_banner10),
+                        painterResource(id = R.drawable.beauty_banner4),
+                        painterResource(id = R.drawable.beauty_banner6),
+                        painterResource(id = R.drawable.beauty_banner9),
+                        painterResource(id = R.drawable.beauty_banner12),
+                        painterResource(id = R.drawable.beauty_banner13),
+                        painterResource(id = R.drawable.beauty_banner14),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 400.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Beauty Products List
+                    val beautyCategoriesList = remember {
+                        listOf(
+                            Category(0, "Fem Care", R.drawable.ic_fem_care_beauty),
+                            Category(1, "Makeup", R.drawable.ic_makeup_beauty),
+                            Category(2, "Skincare", R.drawable.ic_skincare_beauty),
+                            Category(3, "Haircare", R.drawable.ic_haircare_beauty),
+                            Category(4, "Fragrance", R.drawable.ic_fragrance_beauty),
+                            Category(5, "Rainkissed Beauty", R.drawable.ic_rainkissed_beauty),
+                            Category(6, "Baby Care", R.drawable.ic_baby_care_beauty),
+                            Category(7, "Explore", R.drawable.ic_explore_beauty),
+                            Category(8, "Wellness", R.drawable.ic_wellness_beauty),
+                            Category(9, "Dermacosmetics", R.drawable.ic_dermacosmetics_beauty),
+                            Category(10, "Luxe", R.drawable.ic_luxe_beauty),
+                            Category(11, "K-Glow Studio", R.drawable.ic_k_glow_studio_beauty),
+                            Category(12, "Bath & Body", R.drawable.ic_bath_body_beauty),
+                            Category(13, "Straightener", R.drawable.ic_straightener_beauty)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = beautyCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = beautyCategoriesList.first(),
+                        itemWidth = 75,
+                        itemHeight = 85,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+
+                    // deals You Can't Miss Categories Simple
+                    val brandsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_deals_beauty_brands_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_deals_beauty_brands_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_deals_beauty_brands_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_deals_beauty_brands_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_deals_beauty_brands_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_6, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_7, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_8, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_9, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_10, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_11, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_12, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_13, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_14, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_15, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_16, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_17, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_18, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_19, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_20, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_21, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_22, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_23, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_24, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_25, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_26, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_27, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_28, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_29, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_30, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_31, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_32, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_33, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_34, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_35, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_36, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_37, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_38, ""),
+                        CategoryItem(5, "", R.drawable.ic_deals_beauty_brands_39, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_deals_beauty_header_brands),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListDouble(
+                        items = brandsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        showItemName = false,
+                        itemWidth = 160.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+                        verticalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF),
+//                        showOverlayOnImage = false,
+//                        overlayBackground = Color.Black.copy(alpha = 0.6f),
+
+                    )
+
+                }
+            }
+
+            if (name.lowercase() == "footwear") {
+                item {
+                    // Banner images for Essentials category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.footwear_banner1),
+                        painterResource(id = R.drawable.footwear_banner2),
+                        painterResource(id = R.drawable.footwear_banner3),
+                        painterResource(id = R.drawable.footwear_banner4),
+                        painterResource(id = R.drawable.footwear_banner5),
+                        painterResource(id = R.drawable.footwear_banner6),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 400.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Footwear Categories List
+                    val footwearCategoriesList = remember {
+                        listOf(
+                            Category(0, "Heels", R.drawable.ic_heels_footwear),
+                            Category(1, "Flats", R.drawable.ic_flats_footwear),
+                            Category(2, "Sandals", R.drawable.ic_sandals_footwear),
+                            Category(3, "Sneakers", R.drawable.ic_sneakers_footwear),
+                            Category(4, "Sports Shoes", R.drawable.ic_sports_shoes_footwear),
+                            Category(5, "Flip Flops", R.drawable.ic_flip_flops_footwear),
+                            Category(6, "Ethnic", R.drawable.ic_ethnic_footwear),
+                            Category(7, "Casual Shoes", R.drawable.ic_casual_shoes_footwear),
+                            Category(8, "Boots", R.drawable.ic_boots_footwear),
+                            Category(9, "Formal Shoes", R.drawable.ic_formal_shoes_footwear),
+                            Category(10, "Shop All", R.drawable.ic_shop_all_footwear)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = footwearCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = footwearCategoriesList.first(),
+                        itemWidth = 75,
+                        itemHeight = 75,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+                }
+            }
+
+
 
                     // Category items list
 //            items(categoryItems) { (imageRes, title) ->
