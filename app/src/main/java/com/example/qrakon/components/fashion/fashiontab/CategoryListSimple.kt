@@ -256,16 +256,17 @@ fun CustomCategoryListItem(
         Box(
             modifier = Modifier
                 .size(imageSize)
-                .clip(RoundedCornerShape(40.dp))
+                .clip(RoundedCornerShape(0.dp))
                 .background(backgroundColor)
         ) {
             Image(
                 painter = painterResource(id = item.imageRes),
                 contentDescription = item.name,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
+//                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(40.dp))
+                    .clip(RoundedCornerShape(0.dp))
             )
         }
 
@@ -429,9 +430,9 @@ fun CategoryListSimplePreview() {
                     CustomCategoryListItem(
                         item = item,
                         onClick = onClick,
-                        itemWidth = 90.dp,
-                        itemHeight = 110.dp,
-                        imageSize = 60.dp,
+                        itemWidth = 200.dp,
+                        itemHeight = 300.dp,
+                        imageSize = 300.dp,
                         backgroundColor = Color.White
                     )
                 }

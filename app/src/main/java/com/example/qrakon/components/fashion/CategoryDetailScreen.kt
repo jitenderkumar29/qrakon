@@ -45,7 +45,9 @@ import com.example.qrakon.components.fashion.fashiontab.CategoryItem
 import com.example.qrakon.components.fashion.fashiontab.CategoryListDouble
 import com.example.qrakon.components.fashion.fashiontab.CategoryListGrid
 import com.example.qrakon.components.fashion.fashiontab.CategoryListSimple
+import com.example.qrakon.components.fashion.fashiontab.CustomCategoryListItem
 import com.example.qrakon.components.fashion.fashiontab.ProductListGrid
+import com.example.qrakon.components.fashion.fashiontab.roomCategoriesSimple
 import com.example.qrakon.ui.theme.customColors
 
 @Composable
@@ -1855,7 +1857,7 @@ fun CategoryDetailScreen(
                             }
                         },
                         autoScrollDelay = 2000,
-                        height = 400.dp,
+                        height = 500.dp,
 //                        dotSize = 8.dp,
                         modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
                     )
@@ -1893,8 +1895,181 @@ fun CategoryDetailScreen(
                         verticalSpacing = 8,
                         backgroundColor = MaterialTheme.customColors.white
                     )
+
+                    // Unbeatable Deals Simple
+                    val unbeatableCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_unbeatable_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_unbeatable_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_unbeatable_footwear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_unbeatable_footwear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_unbeatable_footwear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_unbeatable_footwear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_unbeatable_footwear_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_unbeatable_footwear_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_unbeatable_footwear_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_unbeatable_footwear_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_unbeatable_footwear_11, ""),
+                        CategoryItem(11, "", R.drawable.ic_unbeatable_footwear_12, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_unbeatable_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(140.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = unbeatableCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+
+                    // Festivals of India Simple
+                    val festivalsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_festivals_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_festivals_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_festivals_footwear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_festivals_footwear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_festivals_footwear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_festivals_footwear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_festivals_footwear_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_festivals_footwear_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_festivals_footwear_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_festivals_footwear_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_festivals_footwear_11, ""),
+                        CategoryItem(12, "", R.drawable.ic_festivals_footwear_12, ""),
+                        CategoryItem(13, "", R.drawable.ic_festivals_footwear_13, ""),
+                        CategoryItem(14, "", R.drawable.ic_festivals_footwear_14, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_festivals_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(140.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = festivalsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+                    // Featured Brands Simple
+                    val featuredCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_featured_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_featured_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_featured_footwear_3, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_featured_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(130.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = featuredCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        itemWidth = 200.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+
+                    // Brand in Focus Simple
+                    val brandFocusProducts = listOf(
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_brand_focus_footwear_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_brand_focus_footwear_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_brand_focus_footwear_3),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_brand_focus_footwear_4),
+                        ProductListGrid("", "Up to 30% off", R.drawable.ic_brand_focus_footwear_5),
+                        ProductListGrid("", "New Festive Season", R.drawable.ic_brand_focus_footwear_6),
+                        ProductListGrid("", "Flat 25% off", R.drawable.ic_brand_focus_footwear_7),
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_brand_focus_footwear_8),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_brand_focus_footwear_9),
+                        ProductListGrid("", "Min 40% off", R.drawable.ic_brand_focus_footwear_10),
+                        ProductListGrid("", "Min 70% off", R.drawable.ic_brand_focus_footwear_11),
+                        ProductListGrid("", "Flat 10% off", R.drawable.ic_brand_focus_footwear_12),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_brand_focus_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = brandFocusProducts,
+                        columns = 3,
+                        gridHeight = 850.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFBE8),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Curated By Fashion Simple
+                    val curatedCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_curated_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_curated_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_curated_footwear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_curated_footwear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_curated_footwear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_curated_footwear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_curated_footwear_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_curated_footwear_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_curated_footwear_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_curated_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = curatedCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 200.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
                 }
             }
+
 
 
 
