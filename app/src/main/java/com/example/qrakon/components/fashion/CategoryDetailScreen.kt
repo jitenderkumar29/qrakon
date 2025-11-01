@@ -81,6 +81,9 @@ fun CategoryDetailScreen(
         "footwear" -> listOf(
             R.drawable.ic_fashion_footwear to "Flats",
         )
+        "ad-Ons" -> listOf(
+            R.drawable.ic_fashion_footwear to "Ad-Ons",
+        )
         "jewellery" -> listOf(
             R.drawable.ic_fashion_jewellery to "Earrings",
         )
@@ -2066,6 +2069,171 @@ fun CategoryDetailScreen(
                         horizontalPadding = 12.dp,
                         backgroundColor = Color(0xFFFFFFFF)
 //                        backgroundColor = Color(0xFFA54086)
+                    )
+
+                    // Trending Brands in Focus Simple
+                    val trendingProducts = listOf(
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_trending_footwear_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_trending_footwear_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_trending_footwear_3),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_trending_footwear_4),
+                        ProductListGrid("", "Up to 30% off", R.drawable.ic_trending_footwear_5),
+                        ProductListGrid("", "New Festive Season", R.drawable.ic_trending_footwear_6),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_trending_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = trendingProducts,
+                        columns = 3,
+                        gridHeight = 360.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFCEBD1),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // New Brands Simple
+                    val newBrandsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_brands_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_brands_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_brands_footwear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_brands_footwear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_brands_footwear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_brands_footwear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_brands_footwear_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_new_brands_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = newBrandsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 230.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFCEBD1)
+//                        backgroundColor = Color(0xFFA54086)
+                    )
+                    // Sporty Selects Simple
+                    val sportyCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_sporty_footwear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_sporty_footwear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_sporty_footwear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_sporty_footwear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_sporty_footwear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_sporty_footwear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_sporty_footwear_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_sporty_header_footwear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = sportyCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 230.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFCEBCF)
+                    )
+                }
+            }
+
+            if (name.lowercase() == "ad-ons") {
+                item {
+                    // Banner images for Essentials category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.ad_ons_banner1),
+                        painterResource(id = R.drawable.ad_ons_banner2),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 500.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Ad_Ons Categories List
+                    val ad_onsCategoriesList = remember {
+                        listOf(
+                            Category(0, "Earrings", R.drawable.ic_earrings_ad_ons),
+                            Category(1, "Bangle", R.drawable.ic_bangle_ad_ons),
+                            Category(2, "Necklace and Chains", R.drawable.ic_necklace_ad_ons),
+                            Category(3, "Handbags", R.drawable.ic_handbags_ad_ons),
+                            Category(4, "Ring", R.drawable.ic_ring_ad_ons),
+                            Category(5, "Jewellery Set", R.drawable.ic_jewellery_set_ad_ons),
+                            Category(6, "Bracelet", R.drawable.ic_bracelet_ad_ons),
+                            Category(7, "Mobile Accessories", R.drawable.ic_mobile_accessories_ad_ons),
+                            Category(8, "Pendant", R.drawable.ic_pendant_ad_ons),
+                            Category(9, "Sunglasses", R.drawable.ic_sunglasses_ad_ons),
+                            Category(10, "Watches", R.drawable.ic_watches_ad_ons),
+                            Category(11, "Mangalsutra", R.drawable.ic_mangalsutra_ad_ons),
+                            Category(12, "Clutches", R.drawable.ic_clutches_ad_ons),
+                            Category(13, "Anklet", R.drawable.ic_anklet_ad_ons),
+                            Category(14, "Backpacks", R.drawable.ic_backpacks_ad_ons),
+                            Category(15, "Wallets", R.drawable.ic_wallets_ad_ons),
+                            Category(16, "Francs", R.drawable.ic_francs_ad_ons),
+                            Category(17, "Caps", R.drawable.ic_caps_ad_ons),
+                            Category(18, "Trolley Bag", R.drawable.ic_trolley_bag_ad_ons),
+                            Category(19, "Head Jewellery", R.drawable.ic_head_ad_ons)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = ad_onsCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = ad_onsCategoriesList.first(),
+                        itemWidth = 75,
+                        itemHeight = 75,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
                     )
                 }
             }
