@@ -1382,7 +1382,7 @@ fun CategoryDetailScreen(
                     CarouselFashionOne(
                         categories = essentialsCategories,
                         onTabSelected = { categoryName ->
-                            println("hello")  
+                            println("hello")
 //                            onTabSelected(categoryName) // Then call the original callback
                         },
                         modifier = Modifier,
@@ -2235,8 +2235,187 @@ fun CategoryDetailScreen(
                         verticalSpacing = 8,
                         backgroundColor = MaterialTheme.customColors.white
                     )
+
+                    // Accessories Simple
+                    val accessoriesProducts = listOf(
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_accessories_ad_ons_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_accessories_ad_ons_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_accessories_ad_ons_3),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_accessories_ad_ons_4),
+                        ProductListGrid("", "Up to 30% off", R.drawable.ic_accessories_ad_ons_5),
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_accessories_ad_ons_6),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_accessories_ad_ons_7),
+                        ProductListGrid("", "Up to 45% off", R.drawable.ic_accessories_ad_ons_8),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_accessories_ad_ons_9),
+                        ProductListGrid("", "Up to 55% off", R.drawable.ic_accessories_ad_ons_10),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_accessories_ad_ons_11),
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_accessories_ad_ons_12),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_accessories_header_ad_ons),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = accessoriesProducts,
+                        columns = 3,
+                        gridHeight = 850.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Styling Simple
+                    val stylingCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_styling_ad_ons_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_styling_ad_ons_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_styling_ad_ons_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_styling_ad_ons_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_styling_ad_ons_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_styling_ad_ons_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_styling_ad_ons_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_styling_ad_ons_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_styling_ad_ons_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_styling_ad_ons_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_styling_header_ad_ons),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = stylingCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 350.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFF4F1FF)
+                    )
+                    // New Accessories Simple
+                    val newAccessoriesProducts = listOf(
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_new_accessories_ad_ons_1),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_3),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_new_accessories_ad_ons_4),
+                        ProductListGrid("", "Up to 30% off", R.drawable.ic_new_accessories_ad_ons_5),
+                        ProductListGrid("", "Up to 35% off", R.drawable.ic_new_accessories_ad_ons_6),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_new_accessories_ad_ons_7),
+                        ProductListGrid("", "Up to 45% off", R.drawable.ic_new_accessories_ad_ons_8),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_new_accessories_ad_ons_9),
+                        ProductListGrid("", "Up to 55% off", R.drawable.ic_new_accessories_ad_ons_10),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_11),
+                        ProductListGrid("", "Up to 70% off", R.drawable.ic_new_accessories_ad_ons_12),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_new_accessories_header_ad_ons),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = newAccessoriesProducts,
+                        columns = 3,
+                        gridHeight = 850.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
                 }
             }
+
+            if (name.lowercase() == "jewellery") {
+                item {
+                    // Banner images for Jewellery category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.jewellery_banner1),
+                        painterResource(id = R.drawable.jewellery_banner2),
+                        painterResource(id = R.drawable.jewellery_banner3),
+                        painterResource(id = R.drawable.jewellery_banner4),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 500.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Jewellery Categories List
+                    val jewelleryCategoriesList = remember {
+                        listOf(
+                            Category(0, "Earrings", R.drawable.ic_earrings_jewellery),
+                            Category(1, "Fine Jewellery", R.drawable.ic_fine_jewellery),
+                            Category(2, "Bracelets", R.drawable.ic_bracelet_jewellery),
+                            Category(3, "Jewellery Sets", R.drawable.ic_jewellery_jewellery),
+                            Category(4, "Pendants", R.drawable.ic_pendant_jewellery),
+                            Category(5, "Rings", R.drawable.ic_ring_jewellery),
+                            Category(6, "Gold Coins", R.drawable.ic_gold_coins_jewellery),
+                            Category(7, "Bangles", R.drawable.ic_bangle_jewellery),
+                            Category(8, "Men's Jewellery", R.drawable.ic_mens_jewellery),
+                            Category(9, "Shop All", R.drawable.ic_shop_all)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = jewelleryCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = jewelleryCategoriesList.first(),
+                        itemWidth = 75,
+                        itemHeight = 95,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+                }
+            }
+
+
 
 
 
