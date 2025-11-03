@@ -2412,6 +2412,159 @@ fun CategoryDetailScreen(
                         verticalSpacing = 8,
                         backgroundColor = MaterialTheme.customColors.white
                     )
+
+                    // Shop By Brands
+                    val shopByBrandCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_shop_by_brand_jewellery_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_shop_by_brand_jewellery_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_shop_by_brand_jewellery_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_shop_by_brand_jewellery_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_shop_by_brand_jewellery_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_shop_by_brand_jewellery_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_shop_by_brand_jewellery_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_shop_by_brand_header_jewellery),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = shopByBrandCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 180.dp,
+                        itemHeight = 220.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFF4F1FF)
+                    )
+
+                    // Banner images for On Trend Styles Jewellery category
+                    val bannerImagesTrend = listOf(
+                        painterResource(id = R.drawable.jewellery_trend_banner1),
+                        painterResource(id = R.drawable.jewellery_trend_banner2),
+                        painterResource(id = R.drawable.jewellery_trend_banner3),
+                        painterResource(id = R.drawable.jewellery_trend_banner4),
+                        painterResource(id = R.drawable.jewellery_trend_banner5),
+                        painterResource(id = R.drawable.jewellery_trend_banner6),
+                        painterResource(id = R.drawable.jewellery_trend_banner7),
+                        painterResource(id = R.drawable.jewellery_trend_banner8),
+                        painterResource(id = R.drawable.jewellery_trend_banner9),
+                        painterResource(id = R.drawable.jewellery_trend_banner10),
+                        painterResource(id = R.drawable.jewellery_trend_banner11),
+                        painterResource(id = R.drawable.jewellery_trend_banner12),
+                        painterResource(id = R.drawable.jewellery_trend_banner13),
+                        painterResource(id = R.drawable.jewellery_trend_banner14),
+                        painterResource(id = R.drawable.jewellery_trend_banner15),
+                    )
+                    BannerFashion(
+                        images = bannerImagesTrend,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        backgroundColor = Color(0xFFF4E6DB),
+                        autoScrollDelay = 2000,
+                        height = 600.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 0.dp) // Reduced from 12.dp to 4.dp
+                    )
+                    // Banner images for own Every Occasion Jewellery category
+                    val bannerImagesOccasion = listOf(
+                        painterResource(id = R.drawable.jewellery_occasion_banner1),
+                        painterResource(id = R.drawable.jewellery_occasion_banner2),
+                        painterResource(id = R.drawable.jewellery_occasion_banner3),
+                        painterResource(id = R.drawable.jewellery_occasion_banner4),
+                        painterResource(id = R.drawable.jewellery_occasion_banner5),
+                         )
+                    BannerFashion(
+                        images = bannerImagesOccasion,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        backgroundColor = Color(0xFFF4E6DB),
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 0.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Pocket Friendly Trinkets Simple
+                    val pocketProducts = listOf(
+                        ProductListGrid("", "", R.drawable.ic_pocket_jewellery_1),
+                        ProductListGrid("", "", R.drawable.ic_pocket_jewellery_2),
+                        ProductListGrid("", "", R.drawable.ic_pocket_jewellery_3),
+                        ProductListGrid("", "", R.drawable.ic_pocket_jewellery_4),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_pocket_header_jewellery),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = pocketProducts,
+                        columns = 2,
+                        gridHeight = 550.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFF8E5DE),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                    // Timeless Wedding Treasures
+                    val timelessCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_timeless_jewellery_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_timeless_jewellery_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_timeless_jewellery_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_timeless_jewellery_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_timeless_jewellery_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_timeless_jewellery_6, ""),
+                    )
+//                    Image(
+//                        painter = painterResource(R.drawable.ic_timeless_header_jewellery),
+//                        contentDescription = "Banner",
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+//                        contentScale = ContentScale.FillBounds
+//                    )
+                    CategoryListSimple(
+                        items = timelessCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 350.dp,
+                        itemHeight = 590.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 }
             }
 

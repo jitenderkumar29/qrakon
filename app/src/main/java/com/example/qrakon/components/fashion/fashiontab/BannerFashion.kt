@@ -93,7 +93,8 @@ fun BannerFashion(
         Spacer(
             modifier = Modifier.height(8.dp)
                 .fillMaxWidth()
-                .background(MaterialTheme.customColors.white)
+                .background(backgroundColor)
+//                .background(MaterialTheme.customColors.white)
         )
 
         // Show dots only if dotSize is explicitly set to a positive value
@@ -119,7 +120,8 @@ fun BannerFashion(
         Spacer(
             modifier = Modifier.height(3.dp)
                 .fillMaxWidth()
-                .background(MaterialTheme.customColors.white)
+                .background(backgroundColor)
+//                .background(MaterialTheme.customColors.white)
         )
     }
 }
