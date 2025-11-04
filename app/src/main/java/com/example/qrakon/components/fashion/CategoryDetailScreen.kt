@@ -2546,14 +2546,6 @@ fun CategoryDetailScreen(
                         CategoryItem(4, "", R.drawable.ic_timeless_jewellery_5, ""),
                         CategoryItem(5, "", R.drawable.ic_timeless_jewellery_6, ""),
                     )
-//                    Image(
-//                        painter = painterResource(R.drawable.ic_timeless_header_jewellery),
-//                        contentDescription = "Banner",
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-//                        contentScale = ContentScale.FillBounds
-//                    )
                     CategoryListSimple(
                         items = timelessCategoriesSimple,
                         onItemClick = { item -> println("Selected: ${item.name}") },
@@ -2567,13 +2559,151 @@ fun CategoryDetailScreen(
                     )
                 }
             }
+            // Sportswear
+            if (name.lowercase() == "sportswear") {
+                item {
+                    // Banner images for Jewellery category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.sportswear_banner1),
+                        painterResource(id = R.drawable.sportswear_banner2),
+                        painterResource(id = R.drawable.sportswear_banner3),
+                        painterResource(id = R.drawable.sportswear_banner4),
+                        painterResource(id = R.drawable.sportswear_banner5),
+                        painterResource(id = R.drawable.sportswear_banner6),
+                        painterResource(id = R.drawable.sportswear_banner7),
+                        painterResource(id = R.drawable.sportswear_banner8),
+                        painterResource(id = R.drawable.sportswear_banner9),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // sportswear Categories List
+                    val sportswearCategoriesList = remember {
+                        listOf(
+                            Category(0, "Games", R.drawable.ic_games_sportswear),
+                            Category(1, "Men", R.drawable.ic_men_sportswear),
+                            Category(2, "Women", R.drawable.ic_women_sportswear),
+                            Category(3, "Shoes", R.drawable.ic_shoes_sportswear),
+                            Category(4, "Equipment", R.drawable.ic_equipment_sportswear),
+                            Category(5, "Accessories", R.drawable.ic_accessories_sportswear),
+                            Category(6, "Kids", R.drawable.ic_kids_sportswear),
+                            Category(7, "Fitness", R.drawable.ic_fitness_sportswear),
+                            Category(8, "Team Sports", R.drawable.ic_team_sports),
+                            Category(9, "Outdoor", R.drawable.ic_outdoor_sportswear)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = sportswearCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = sportswearCategoriesList.first(),
+                        itemWidth = 75,
+                        itemHeight = 95,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+
+//                    Turn Up Your Game
+                    Image(
+                        painter = painterResource(R.drawable.ic_turn_up_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(500.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    // Top Deals
+                    val topDealsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_top_deals_sportswear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_top_deals_sportswear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_top_deals_sportswear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_top_deals_sportswear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_top_deals_sportswear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_deals_sportswear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_top_deals_sportswear_7, ""),
+                        CategoryItem(6, "", R.drawable.ic_top_deals_sportswear_8, ""),
+                        CategoryItem(6, "", R.drawable.ic_top_deals_sportswear_9, ""),
+                        CategoryItem(6, "", R.drawable.ic_top_deals_sportswear_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_top_deals_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = topDealsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 200.dp,
+                        itemHeight = 290.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFF4F1FF)
+                    )
+
+                    // Gym and Training Essentials Simple
+                    val gymNTrainingProducts = listOf(
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_gym_n_training_sportswear_1),
+                        ProductListGrid("", "Up to 30-60% off", R.drawable.ic_gym_n_training_sportswear_2),
+                        ProductListGrid("", "Up to 30-60% off", R.drawable.ic_gym_n_training_sportswear_3),
+                        )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_gym_n_training_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = gymNTrainingProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                }
+            }
 
 
-
-
-
-
-                    // Category items list
+            // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(
 //                    modifier = Modifier
