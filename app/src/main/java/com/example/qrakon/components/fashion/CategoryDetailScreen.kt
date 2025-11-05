@@ -2699,6 +2699,153 @@ fun CategoryDetailScreen(
                             println("Clicked on ${product.name}")
                         }
                     )
+                    // Cricket Must Haves Simple
+                    val cricketProducts = listOf(
+                        ProductListGrid("", "Up to 20% off", R.drawable.ic_cricket_sportswear_1),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_cricket_sportswear_2),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_cricket_sportswear_3),
+                        )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_cricket_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = cricketProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                    // Running And Walking Simple
+                    val runningProducts = listOf(
+                        ProductListGrid("", "Up to 20% off", R.drawable.ic_running_sportswear_1),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_running_sportswear_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_running_sportswear_3),
+                        )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_running_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = runningProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                    // Racket Sports Simple
+                    val racketProducts = listOf(
+                        ProductListGrid("", "Up to 20% off", R.drawable.ic_racket_sportswear_1),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_racket_sportswear_2),
+                        ProductListGrid("", "Up to 60% off", R.drawable.ic_racket_sportswear_3),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_racket_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = racketProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                    // Football Must Haves Simple
+                    val footballProducts = listOf(
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_football_sportswear_1),
+                        ProductListGrid("", "Up to 50% off", R.drawable.ic_football_sportswear_2),
+                        ProductListGrid("", "Up to 40% off", R.drawable.ic_football_sportswear_3),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_football_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    CategoryListGrid(
+                        products = footballProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // More Activities
+                    val activitiesCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_activities_sportswear_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_activities_sportswear_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_activities_sportswear_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_activities_sportswear_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_activities_sportswear_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_activities_sportswear_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_activities_sportswear_7, ""),
+                        CategoryItem(6, "", R.drawable.ic_activities_sportswear_8, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_activities_header_sportswear),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = activitiesCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFF085281)
+                    )
                 }
             }
 
