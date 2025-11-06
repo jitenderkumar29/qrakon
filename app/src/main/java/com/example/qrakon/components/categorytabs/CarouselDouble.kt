@@ -157,18 +157,19 @@ fun CategoryItem(
                 modifier = Modifier.fillMaxSize()
             )
         }
+        if (category.name.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(4.dp))
 
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = category.name,
-            fontSize = 12.sp,
-            textAlign = TextAlign.Center,
-            color = Color.Black,
-            fontWeight = FontWeight.Medium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.fillMaxWidth()
-        )
+            Text(
+                text = category.name,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                color = Color.Black,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }

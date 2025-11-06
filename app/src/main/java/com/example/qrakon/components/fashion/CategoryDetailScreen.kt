@@ -53,6 +53,7 @@ import com.example.qrakon.ui.theme.customColors
 @Composable
 fun CategoryDetailScreen(
     categoryName: String?,
+    categoryId: Number?,
     onBackClick: () -> Unit,
     onTabSelected: (Category) -> Unit, // Added this parameter
     onBanner1Click: () -> Unit = {},
@@ -60,6 +61,7 @@ fun CategoryDetailScreen(
     onBanner3Click: () -> Unit = {}
 ) {
     val name = categoryName ?: "Category"
+    val categoryId = categoryId ?: "0"
 
     // Example data per category
     val categoryItems = when (name.lowercase()) {
@@ -226,7 +228,7 @@ fun CategoryDetailScreen(
             verticalArrangement = Arrangement.spacedBy(4.dp) // Reduced from 12.dp to 4.dp
         ) {
             // Show banner only for ethnic category
-            if (name.lowercase() == "ethnic") {
+            if (name.lowercase() == "ethnic"  && categoryId == 0) {
                 item {
                     // Banner images for ethnic category
                     val bannerImages = listOf(
@@ -278,9 +280,10 @@ fun CategoryDetailScreen(
                     )
                     CarouselFashionOne(
                         categories = ethnicCategories,
-                        onTabSelected = { categoryName ->
+                        onTabSelected = { categoryName, categoryId ->
                             println("hello")
-//                            onTabSelected(categoryName) // Then call the original callback
+                            // If you need to call the original callback that only takes name:
+                            // onTabSelected(categoryName)
                         },
                         modifier = Modifier,
                         backgroundColor = MaterialTheme.customColors.white,
@@ -636,7 +639,7 @@ fun CategoryDetailScreen(
                 }
 
 //            Western
-            if (name.lowercase() == "western") {
+            if (name.lowercase() == "western" && categoryId == 1) {
                 item {
                     // Banner images for ethnic category
                     val bannerImages = listOf(
@@ -689,9 +692,10 @@ fun CategoryDetailScreen(
                     )
                     CarouselFashionOne(
                         categories = westernCategories,
-                        onTabSelected = { categoryName ->
+                        onTabSelected = { categoryName, categoryId ->
                             println("hello")
-//                            onTabSelected(categoryName) // Then call the original callback
+                            // If you need to call the original callback that only takes name:
+                            // onTabSelected(categoryName)
                         },
                         modifier = Modifier,
                         backgroundColor = MaterialTheme.customColors.white,
@@ -1127,7 +1131,7 @@ fun CategoryDetailScreen(
                 }
             }
 
-            if (name.lowercase() == "fusion") {
+            if (name.lowercase() == "fusion" && categoryId == 2) {
                 item {
                     // Banner images for ethnic category
                     Image(
@@ -1179,9 +1183,10 @@ fun CategoryDetailScreen(
                          )
                     CarouselFashionOne(
                         categories = fusionCategories,
-                        onTabSelected = { categoryName ->
+                        onTabSelected = { categoryName, categoryId ->
                             println("hello")
-//                            onTabSelected(categoryName) // Then call the original callback
+                            // If you need to call the original callback that only takes name:
+                            // onTabSelected(categoryName)
                         },
                         modifier = Modifier,
                         backgroundColor = MaterialTheme.customColors.white,
@@ -1331,7 +1336,7 @@ fun CategoryDetailScreen(
                 }
             }
 
-            if (name.lowercase() == "essentials") {
+            if (name.lowercase() == "essentials" && categoryId == 3) {
                 item {
                     // Banner images for Essentials category
                     val bannerImages = listOf(
@@ -1381,9 +1386,10 @@ fun CategoryDetailScreen(
                     )
                     CarouselFashionOne(
                         categories = essentialsCategories,
-                        onTabSelected = { categoryName ->
+                        onTabSelected = { categoryName, categoryId ->
                             println("hello")
-//                            onTabSelected(categoryName) // Then call the original callback
+                            // If you need to call the original callback that only takes name:
+                            // onTabSelected(categoryName)
                         },
                         modifier = Modifier,
                         backgroundColor = MaterialTheme.customColors.white,
@@ -1696,7 +1702,7 @@ fun CategoryDetailScreen(
             }
 
 //            Beauty
-            if (name.lowercase() == "beauty") {
+            if (name.lowercase() == "beauty" && categoryId == 4) {
                 item {
                     // Banner images for Essentials category
                     val bannerImages = listOf(
@@ -1837,7 +1843,7 @@ fun CategoryDetailScreen(
                 }
             }
 
-            if (name.lowercase() == "footwear") {
+            if (name.lowercase() == "footwear" && categoryId == 5) {
                 item {
                     // Banner images for Essentials category
                     val bannerImages = listOf(
@@ -2169,7 +2175,7 @@ fun CategoryDetailScreen(
                 }
             }
 
-            if (name.lowercase() == "ad-ons") {
+            if (name.lowercase() == "ad-ons" && categoryId == 6) {
                 item {
                     // Banner images for Essentials category
                     val bannerImages = listOf(
@@ -2354,7 +2360,8 @@ fun CategoryDetailScreen(
                 }
             }
 
-            if (name.lowercase() == "jewellery") {
+//            Jewellery
+            if (name.lowercase() == "jewellery" && categoryId == 7) {
                 item {
                     // Banner images for Jewellery category
                     val bannerImages = listOf(
@@ -2560,7 +2567,7 @@ fun CategoryDetailScreen(
                 }
             }
             // Sportswear
-            if (name.lowercase() == "sportswear") {
+            if (name.lowercase() == "sportswear" && categoryId == 9) {
                 item {
                     // Banner images for Jewellery category
                     val bannerImages = listOf(
@@ -2849,7 +2856,168 @@ fun CategoryDetailScreen(
                 }
             }
 
+// Men Fashion Category Detail Section Page
+            if (name.lowercase() == "casual" && categoryId == 12) {
+                item {
+                    // Banner images for Jewellery category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.casualmen_banner1),
+                        painterResource(id = R.drawable.casualmen_banner2),
+                        painterResource(id = R.drawable.casualmen_banner3),
+                        painterResource(id = R.drawable.casualmen_banner4),
+                        painterResource(id = R.drawable.casualmen_banner5),
+                        painterResource(id = R.drawable.casualmen_banner6),
+                        painterResource(id = R.drawable.casualmen_banner7),
+                        painterResource(id = R.drawable.casualmen_banner8),
+                        painterResource(id = R.drawable.casualmen_banner9),
+                        painterResource(id = R.drawable.casualmen_banner10),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
 
+                    // sportswear Categories List
+                    val casualMenCategoriesList = remember {
+                        listOf(
+                            Category(0, "", R.drawable.ic_cods_ords_casual_men),
+                            Category(1, "", R.drawable.ic_t_shirts_casual_men),
+                            Category(2, "", R.drawable.ic_jackets_casual_men),
+                            Category(3, "", R.drawable.ic_sweaters_casual_men),
+                            Category(4, "", R.drawable.ic_sweatshirts_casual_men),
+                            Category(5, "", R.drawable.ic_shirts_casual_men),
+                            Category(6, "", R.drawable.ic_jeans_casual_men),
+                            Category(7, "", R.drawable.ic_trousers_casual_men),
+                            Category(8, "", R.drawable.ic_shorts_casual_men),
+                         )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = casualMenCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = casualMenCategoriesList.first(),
+                        itemWidth = 85,
+                        itemHeight = 95,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+
+                    // Style Steals
+                    val styleStealsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_style_steals_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_style_steals_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_style_steals_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_style_steals_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_style_steals_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_style_steals_casual_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_style_steals_casual_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_style_steals_casual_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_style_steals_casual_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_style_steals_casual_men_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_style_steals_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = styleStealsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 290.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+
+
+                    // Hot Deal Right Now
+                    val hotDealCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_hot_deal_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_hot_deal_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_hot_deal_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_hot_deal_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_hot_deal_casual_men_5, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_hot_deal_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = hotDealCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 200.dp,
+                        itemHeight = 310.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+
+                    // Style Guide 101
+                    val styleGuideCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_style_guide_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_style_guide_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_style_guide_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_style_guide_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_style_guide_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_style_guide_casual_men_6, ""),
+                        CategoryItem(5, "", R.drawable.ic_style_guide_casual_men_7, ""),
+                        CategoryItem(5, "", R.drawable.ic_style_guide_casual_men_8, ""),
+                        CategoryItem(5, "", R.drawable.ic_style_guide_casual_men_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_style_guide_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListDouble(
+                        items = styleGuideCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        showItemName = false,
+                        itemWidth = 250.dp,
+                        itemHeight = 350.dp,
+                        horizontalSpacing = 12.dp,
+                        verticalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF),
+//                        showOverlayOnImage = false,
+//                        overlayBackground = Color.Black.copy(alpha = 0.6f),
+                    )
+                }
+            }
             // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(

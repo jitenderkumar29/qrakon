@@ -187,15 +187,27 @@ fun FashionTab(
 
         // Show content for each tab
         when (selectedTabIndex) {
-            0 -> WomenFashionPage(onTabSelected = { categoryName ->
-                navController.navigate("categoryDetail/$categoryName")
+            0 -> WomenFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            1 -> MenFashionPage(onTabSelected = { println("Men subcategory: $it") })
-            2 -> KidsFashionPage(onTabSelected = { println("Kids subcategory: $it") })
-            3 -> HomeFashionPage(onTabSelected = { println("Home subcategory: $it") })
-            4 -> LuxeFashionPage(onTabSelected = { println("Luxe subcategory: $it") })
-            5 -> BrandsFashionPage(onTabSelected = { println("Brands subcategory: $it") })
-            else -> WomenFashionPage(onTabSelected = { println("Women subcategory: $it") })
+            1 -> MenFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
+            2 -> KidsFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
+            3 -> HomeFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
+            4 -> LuxeFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
+            5 -> BrandsFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
+            else -> WomenFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
+                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            })
         }
     }
 }
@@ -203,7 +215,7 @@ fun FashionTab(
 
 @Composable
 fun WomenFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
 
@@ -414,18 +426,18 @@ fun WomenFashionPage(
 
 @Composable
 fun MenFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Change to accept both String and Int
     modifier: Modifier = Modifier
 ) {
     val menFashionCategories = listOf(
-        Category(0, "Casual", R.drawable.ic_casual_men),
-        Category(1, "Ethnic", R.drawable.ic_ethnic_men),
-        Category(2, "Footwear", R.drawable.ic_footwear_men),
-        Category(3, "Sports", R.drawable.ic_sports_men),
-        Category(4, "Essentials", R.drawable.ic_essentials_men),
-        Category(5, "Ad-Ons", R.drawable.ic_ad_ons_men),
-        Category(6, "Grooming", R.drawable.ic_grooming_men),
-        Category(7, "Boys", R.drawable.ic_boys_men),
+        Category(12, "Casual", R.drawable.ic_casual_men),
+        Category(13, "Ethnic", R.drawable.ic_ethnic_men),
+        Category(14, "Footwear", R.drawable.ic_footwear_men),
+        Category(15, "Sports", R.drawable.ic_sports_men),
+        Category(16, "Essentials", R.drawable.ic_essentials_men),
+        Category(17, "Ad-Ons", R.drawable.ic_ad_ons_men),
+        Category(18, "Grooming", R.drawable.ic_grooming_men),
+        Category(19, "Boys", R.drawable.ic_boys_men),
     )
     CarouselFashionOne(
         categories = menFashionCategories,
@@ -592,15 +604,15 @@ fun MenFashionPage(
 
 @Composable
 fun KidsFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
     val kidsFashionCategories = listOf(
-        Category(0, "Girls", R.drawable.ic_girls_kids),
-        Category(1, "Boys", R.drawable.ic_boys_kids),
-        Category(2, "Infants", R.drawable.ic_infants_kids),
-        Category(3, "Teens", R.drawable.ic_teens_kids),
-        Category(4, "Ad-Ons", R.drawable.ic_ad_ons_kids),
+        Category(20, "Girls", R.drawable.ic_girls_kids),
+        Category(21, "Boys", R.drawable.ic_boys_kids),
+        Category(22, "Infants", R.drawable.ic_infants_kids),
+        Category(23, "Teens", R.drawable.ic_teens_kids),
+        Category(24, "Ad-Ons", R.drawable.ic_ad_ons_kids),
     )
     CarouselFashionOne(
         categories = kidsFashionCategories,
@@ -763,22 +775,22 @@ fun KidsFashionPage(
 
 @Composable
 fun HomeFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
     val kidsFashionCategories = listOf(
-        Category(0, "Decor", R.drawable.ic_decor_home_fashion),
-        Category(1, "Bedding", R.drawable.ic_bedding_home_fashion),
-        Category(2, "Kitchen", R.drawable.ic_kitchen_dining_home_fashion),
-        Category(3, "Gifts", R.drawable.ic_thoughtful_gifts_home_fashion),
-        Category(4, "Appliances", R.drawable.ic_appliances_home_fashion),
-        Category(5, "Bath", R.drawable.ic_bath_home_fashion),
-        Category(6, "Storage", R.drawable.ic_storage_home_fashion),
-        Category(7, "Furniture", R.drawable.ic_accent_furniture_home_fashion),
-        Category(8, "Cushions", R.drawable.ic_cushions_home_fashion),
-        Category(9, "Global Store", R.drawable.ic_global_store_home_fashion),
-        Category(10, "Gems", R.drawable.ic_hidden_gems_home_fashion),
-        Category(11, "Luxe", R.drawable.ic_luxe_home_fashion),
+        Category(25, "Decor", R.drawable.ic_decor_home_fashion),
+        Category(26, "Bedding", R.drawable.ic_bedding_home_fashion),
+        Category(27, "Kitchen", R.drawable.ic_kitchen_dining_home_fashion),
+        Category(28, "Gifts", R.drawable.ic_thoughtful_gifts_home_fashion),
+        Category(29, "Appliances", R.drawable.ic_appliances_home_fashion),
+        Category(30, "Bath", R.drawable.ic_bath_home_fashion),
+        Category(31, "Storage", R.drawable.ic_storage_home_fashion),
+        Category(32, "Furniture", R.drawable.ic_accent_furniture_home_fashion),
+        Category(33, "Cushions", R.drawable.ic_cushions_home_fashion),
+        Category(34, "Global Store", R.drawable.ic_global_store_home_fashion),
+        Category(35, "Gems", R.drawable.ic_hidden_gems_home_fashion),
+        Category(36, "Luxe", R.drawable.ic_luxe_home_fashion),
     )
     CarouselFashionOne(
         categories = kidsFashionCategories,
@@ -937,23 +949,23 @@ fun HomeFashionPage(
 
 @Composable
 fun LuxeFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
     val luxeFashionCategories = listOf(
-        Category(0, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
-        Category(1, "Women", R.drawable.ic_luxe_women_fashion),
-        Category(2, "Watches", R.drawable.ic_luxe_watches_fashion),
-        Category(3, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
-        Category(4, "Handbags", R.drawable.ic_luxe_handbags_fashion),
-        Category(5, "Beauty", R.drawable.ic_luxe_beauty_fashion),
-        Category(6, "Footwear", R.drawable.ic_luxe_footwear_fashion),
-        Category(7, "MLI", R.drawable.ic_luxe_mli_fashion),
-        Category(8, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
-        Category(9, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
-        Category(10, "Kids", R.drawable.ic_luxe_kids_fashion),
-        Category(10, "Accessories", R.drawable.ic_luxe_accessories_fashion),
-        Category(11, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
+        Category(37, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
+        Category(38, "Women", R.drawable.ic_luxe_women_fashion),
+        Category(39, "Watches", R.drawable.ic_luxe_watches_fashion),
+        Category(40, "Fragrances", R.drawable.ic_luxe_fragrances_fashion),
+        Category(41, "Handbags", R.drawable.ic_luxe_handbags_fashion),
+        Category(42, "Beauty", R.drawable.ic_luxe_beauty_fashion),
+        Category(43, "Footwear", R.drawable.ic_luxe_footwear_fashion),
+        Category(44, "MLI", R.drawable.ic_luxe_mli_fashion),
+        Category(45, "Jewellery", R.drawable.ic_luxe_jewellery_fashion),
+        Category(46, "Eyewear", R.drawable.ic_luxe_eyewear_fashion),
+        Category(47, "Kids", R.drawable.ic_luxe_kids_fashion),
+        Category(48, "Accessories", R.drawable.ic_luxe_accessories_fashion),
+        Category(49, "A-Z Brands", R.drawable.ic_luxe_a_z_brands_fashion),
     )
     CarouselFashionOne(
         categories = luxeFashionCategories,
@@ -1034,7 +1046,7 @@ fun LuxeFashionPage(
 
 @Composable
 fun BrandsFashionPage(
-    onTabSelected: (String) -> Unit,
+    onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
     val luxeFashionCategories = listOf(
@@ -1043,10 +1055,10 @@ fun BrandsFashionPage(
             "Men",
             R.drawable.ic_luxe_men_fashion_brands
         ), // Using existing icon as placeholder
-        Category(1, "Women", R.drawable.ic_luxe_women_fashion_brands),
-        Category(2, "Kids", R.drawable.ic_luxe_kids_fashion_brands),
-        Category(3, "Home", R.drawable.ic_luxe_home_fashion_brands),
-        Category(4, "Footwear", R.drawable.ic_luxe_footwear_fashion_brands),
+        Category(50, "Women", R.drawable.ic_luxe_women_fashion_brands),
+        Category(51, "Kids", R.drawable.ic_luxe_kids_fashion_brands),
+        Category(52, "Home", R.drawable.ic_luxe_home_fashion_brands),
+        Category(53, "Footwear", R.drawable.ic_luxe_footwear_fashion_brands),
     )
     CarouselFashionOne(
         categories = luxeFashionCategories,

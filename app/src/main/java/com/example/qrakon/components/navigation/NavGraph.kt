@@ -44,37 +44,26 @@ fun AppNavGraph(navController: NavHostController) {
 
         // ✅ NEW: Category detail route
         composable(
-            route = "categoryDetail/{categoryName}",
-            arguments = listOf(navArgument("categoryName") { type = NavType.StringType })
+            route = "categoryDetail/{categoryName}/{id}",
+            arguments = listOf(
+                navArgument("categoryName") { type = NavType.StringType },
+                navArgument("id") { type = NavType.IntType }
+            )
         ) { backStackEntry ->
             val categoryName = backStackEntry.arguments?.getString("categoryName")
-            // Example usage in a navigation setup
+            val categoryId = backStackEntry.arguments?.getInt("id")
+
             CategoryDetailScreen(
                 categoryName = categoryName,
+                categoryId = categoryId,
                 onBackClick = { navController.popBackStack() },
                 onTabSelected = { category ->
-                    // Navigate to the selected category screen
-                    navController.navigate("category/${category.id}") {
-                        // Add navigation options if needed
-                    }
+                    navController.navigate("category/${category.id}")
                 },
-                onBanner1Click = {
-                    // Navigate to banner 1 destination
-                    navController.navigate("banner1")
-                },
-                onBanner2Click = {
-                    // Navigate to banner 2 destination
-                    navController.navigate("banner2")
-                },
-                onBanner3Click = {
-                    // Navigate to banner 3 destination
-                    navController.navigate("banner3")
-                }
+                onBanner1Click = { navController.navigate("banner1") },
+                onBanner2Click = { navController.navigate("banner2") },
+                onBanner3Click = { navController.navigate("banner3") }
             )
-//            CategoryDetailScreen(
-//                categoryName = categoryName,
-//                onBackClick = { navController.popBackStack() }
-//            )
         }
     }
 }
