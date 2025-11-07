@@ -68,36 +68,47 @@ fun CategoryDetailScreen(
         "ethnic" -> listOf(
             R.drawable.ic_fashion_ethnic to "Sarees",
         )
+
         "western" -> listOf(
             R.drawable.ic_fashion_western to "Dresses",
         )
+
         "fusion" -> listOf(
             R.drawable.ic_fashion_fusion to "Indo-Western Dresses",
         )
+
         "essentials" -> listOf(
             R.drawable.ic_fashion_essentials to "T-Shirts",
         )
+
         "beauty" -> listOf(
             R.drawable.ic_fashion_beauty to "Makeup",
         )
+
         "footwear" -> listOf(
             R.drawable.ic_fashion_footwear to "Flats",
         )
+
         "ad-Ons" -> listOf(
             R.drawable.ic_fashion_footwear to "Ad-Ons",
         )
+
         "jewellery" -> listOf(
             R.drawable.ic_fashion_jewellery to "Earrings",
         )
+
         "home" -> listOf(
             R.drawable.ic_fashion_home to "Bedding",
         )
+
         "sportswear" -> listOf(
             R.drawable.ic_fashion_sportswear to "Active T-Shirts",
         )
+
         "girls" -> listOf(
             R.drawable.ic_fashion_girls to "Frocks",
         )
+
         else -> listOf(
             R.drawable.ic_view_all_home_tab to "Popular Styles",
         )
@@ -228,7 +239,7 @@ fun CategoryDetailScreen(
             verticalArrangement = Arrangement.spacedBy(4.dp) // Reduced from 12.dp to 4.dp
         ) {
             // Show banner only for ethnic category
-            if (name.lowercase() == "ethnic"  && categoryId == 0) {
+            if (name.lowercase() == "ethnic" && categoryId == 0) {
                 item {
                     // Banner images for ethnic category
                     val bannerImages = listOf(
@@ -315,7 +326,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -348,7 +362,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -372,13 +389,16 @@ fun CategoryDetailScreen(
                         CategoryItem(4, "", R.drawable.ic_ethnic_just_5, ""),
                         CategoryItem(5, "", R.drawable.ic_ethnic_just_6, ""),
                         CategoryItem(6, "", R.drawable.ic_ethnic_just_7, ""),
-                        )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_just),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -410,7 +430,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -430,13 +453,16 @@ fun CategoryDetailScreen(
                         CategoryItem(1, "", R.drawable.ic_ethnic_indie_2, ""),
                         CategoryItem(2, "", R.drawable.ic_ethnic_indie_3, ""),
                         CategoryItem(3, "", R.drawable.ic_ethnic_indie_4, ""),
-                         )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_indie),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -456,13 +482,16 @@ fun CategoryDetailScreen(
                         CategoryItem(1, "", R.drawable.ic_ethnic_celeb_2, ""),
                         CategoryItem(2, "", R.drawable.ic_ethnic_celeb_3, ""),
                         CategoryItem(3, "", R.drawable.ic_ethnic_celeb_4, ""),
-                         )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_celeb),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -483,13 +512,16 @@ fun CategoryDetailScreen(
                         CategoryItem(3, "", R.drawable.ic_ethnic_kurta_4, ""),
                         CategoryItem(4, "", R.drawable.ic_ethnic_kurta_5, ""),
                         CategoryItem(5, "", R.drawable.ic_ethnic_kurta_6, ""),
-                      )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_kurta),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListDouble(
@@ -524,7 +556,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -545,13 +580,16 @@ fun CategoryDetailScreen(
                         CategoryItem(3, "", R.drawable.ic_ethnic_luxe_4, ""),
                         CategoryItem(4, "", R.drawable.ic_ethnic_luxe_5, ""),
                         CategoryItem(5, "", R.drawable.ic_ethnic_luxe_6, ""),
-                     )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_luxe),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -570,13 +608,16 @@ fun CategoryDetailScreen(
                         CategoryItem(1, "", R.drawable.ic_ethnic_wedding_2, ""),
                         CategoryItem(2, "", R.drawable.ic_ethnic_wedding_3, ""),
                         CategoryItem(3, "", R.drawable.ic_ethnic_wedding_4, ""),
-                     )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_wedding),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -595,13 +636,16 @@ fun CategoryDetailScreen(
                         CategoryItem(1, "", R.drawable.ic_ethnic_rising_2, ""),
                         CategoryItem(2, "", R.drawable.ic_ethnic_rising_3, ""),
                         CategoryItem(3, "", R.drawable.ic_ethnic_rising_4, ""),
-                     )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_ethnic_header_rising),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListSimple(
@@ -635,8 +679,8 @@ fun CategoryDetailScreen(
 //                        horizontalPadding = 6.dp,
 //                    )
 
-                    }
                 }
+            }
 
 //            Western
             if (name.lowercase() == "western" && categoryId == 1) {
@@ -841,7 +885,7 @@ fun CategoryDetailScreen(
                         CategoryItem(7, "", R.drawable.ic_new_season_timeline_8, ""),
                         CategoryItem(8, "", R.drawable.ic_new_season_timeline_9, ""),
                         CategoryItem(9, "", R.drawable.ic_new_season_timeline_10, ""),
-                         )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_timeline),
                         contentDescription = "Banner",
@@ -869,7 +913,7 @@ fun CategoryDetailScreen(
                         CategoryItem(0, "", R.drawable.ic_new_season_premium_1, ""),
                         CategoryItem(1, "", R.drawable.ic_new_season_premium_2, ""),
                         CategoryItem(2, "", R.drawable.ic_new_season_premium_3, ""),
-                        )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_premium),
                         contentDescription = "Banner",
@@ -901,7 +945,7 @@ fun CategoryDetailScreen(
                         CategoryItem(4, "", R.drawable.ic_new_season_fan_5, ""),
                         CategoryItem(5, "", R.drawable.ic_new_season_fan_6, ""),
                         CategoryItem(6, "", R.drawable.ic_new_season_fan_7, ""),
-                        )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_fan),
                         contentDescription = "Banner",
@@ -937,7 +981,7 @@ fun CategoryDetailScreen(
                         CategoryItem(8, "", R.drawable.ic_new_season_party_9, ""),
                         CategoryItem(9, "", R.drawable.ic_new_season_party_10, ""),
                         CategoryItem(10, "", R.drawable.ic_new_season_party_11, ""),
-                        )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_party),
                         contentDescription = "Banner",
@@ -970,7 +1014,7 @@ fun CategoryDetailScreen(
                         CategoryItem(5, "", R.drawable.ic_new_season_genz_6, ""),
                         CategoryItem(6, "", R.drawable.ic_new_season_genz_7, ""),
                         CategoryItem(7, "", R.drawable.ic_new_season_genz_8, ""),
-                        )
+                    )
                     Image(
                         painter = painterResource(R.drawable.ic_western_header_genz),
                         contentDescription = "Banner",
@@ -1180,7 +1224,7 @@ fun CategoryDetailScreen(
                         Category(1, "What's New", R.drawable.tops_fusion),
                         Category(2, "Brands To Bag", R.drawable.jeans_fusion),
                         Category(3, "Fusion Deals", R.drawable.l_and_l_fusion),
-                         )
+                    )
                     CarouselFashionOne(
                         categories = fusionCategories,
                         onTabSelected = { categoryName, categoryId ->
@@ -1244,7 +1288,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListDouble(
@@ -1294,18 +1341,66 @@ fun CategoryDetailScreen(
 //                        backgroundColor = Color(0xFFA54086)
                     )
                     val sampleProducts = listOf(
-                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.ic_explore_more_fusion_1),
-                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.ic_explore_more_fusion_2),
-                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.ic_explore_more_fusion_3),
-                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.ic_explore_more_fusion_4),
-                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.ic_explore_more_fusion_5),
-                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_explore_more_fusion_6),
-                        ProductListGrid("Sera Classic", "Starting at ₹350", R.drawable.ic_explore_more_fusion_7),
-                        ProductListGrid("Stylish Top", "Starting at ₹499", R.drawable.ic_explore_more_fusion_8),
-                        ProductListGrid("Trendy Shirt", "Starting at ₹400", R.drawable.ic_explore_more_fusion_9),
-                        ProductListGrid("Dilinger Hoodie", "Starting at ₹599", R.drawable.ic_explore_more_fusion_10),
-                        ProductListGrid("Fnocks Jacket", "Starting at ₹399", R.drawable.ic_explore_more_fusion_11),
-                        ProductListGrid("Rebelmme Tee", "Starting at ₹599", R.drawable.ic_explore_more_fusion_12)
+                        ProductListGrid(
+                            "Iki Chic",
+                            "Starting at ₹399",
+                            R.drawable.ic_explore_more_fusion_1
+                        ),
+                        ProductListGrid(
+                            "Trendy Wear",
+                            "Starting at ₹1299",
+                            R.drawable.ic_explore_more_fusion_2
+                        ),
+                        ProductListGrid(
+                            "Summer Sera",
+                            "Starting at ₹750",
+                            R.drawable.ic_explore_more_fusion_3
+                        ),
+                        ProductListGrid(
+                            "Rebel Tee",
+                            "Starting at ₹999",
+                            R.drawable.ic_explore_more_fusion_4
+                        ),
+                        ProductListGrid(
+                            "Smart Casual",
+                            "Starting at ₹799",
+                            R.drawable.ic_explore_more_fusion_5
+                        ),
+                        ProductListGrid(
+                            "Daily Wear",
+                            "Starting at ₹400",
+                            R.drawable.ic_explore_more_fusion_6
+                        ),
+                        ProductListGrid(
+                            "Sera Classic",
+                            "Starting at ₹350",
+                            R.drawable.ic_explore_more_fusion_7
+                        ),
+                        ProductListGrid(
+                            "Stylish Top",
+                            "Starting at ₹499",
+                            R.drawable.ic_explore_more_fusion_8
+                        ),
+                        ProductListGrid(
+                            "Trendy Shirt",
+                            "Starting at ₹400",
+                            R.drawable.ic_explore_more_fusion_9
+                        ),
+                        ProductListGrid(
+                            "Dilinger Hoodie",
+                            "Starting at ₹599",
+                            R.drawable.ic_explore_more_fusion_10
+                        ),
+                        ProductListGrid(
+                            "Fnocks Jacket",
+                            "Starting at ₹399",
+                            R.drawable.ic_explore_more_fusion_11
+                        ),
+                        ProductListGrid(
+                            "Rebelmme Tee",
+                            "Starting at ₹599",
+                            R.drawable.ic_explore_more_fusion_12
+                        )
                     )
 
 // Display CategoryListGrid showing **name only**
@@ -1381,7 +1476,11 @@ fun CategoryDetailScreen(
                         Category(6, "Maternity Wear", R.drawable.maternity_wear_essentials),
                         Category(7, "Swimwear", R.drawable.swimwear_essentials),
                         Category(8, "Babydolls", R.drawable.babydolls_essentials),
-                        Category(9, "Lingerie Accessories", R.drawable.lingerie_accessories_essentials),
+                        Category(
+                            9,
+                            "Lingerie Accessories",
+                            R.drawable.lingerie_accessories_essentials
+                        ),
                         Category(10, "Saree Shapewear", R.drawable.saree_shapewear_essentials)
                     )
                     CarouselFashionOne(
@@ -1439,12 +1538,36 @@ fun CategoryDetailScreen(
 
                     // Deals So Irresistible Simple
                     val sampleProducts = listOf(
-                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.ic_deals_essentials_1),
-                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.ic_deals_essentials_2),
-                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.ic_deals_essentials_3),
-                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.ic_deals_essentials_4),
-                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.ic_deals_essentials_5),
-                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_deals_essentials_6),
+                        ProductListGrid(
+                            "Iki Chic",
+                            "Starting at ₹399",
+                            R.drawable.ic_deals_essentials_1
+                        ),
+                        ProductListGrid(
+                            "Trendy Wear",
+                            "Starting at ₹1299",
+                            R.drawable.ic_deals_essentials_2
+                        ),
+                        ProductListGrid(
+                            "Summer Sera",
+                            "Starting at ₹750",
+                            R.drawable.ic_deals_essentials_3
+                        ),
+                        ProductListGrid(
+                            "Rebel Tee",
+                            "Starting at ₹999",
+                            R.drawable.ic_deals_essentials_4
+                        ),
+                        ProductListGrid(
+                            "Smart Casual",
+                            "Starting at ₹799",
+                            R.drawable.ic_deals_essentials_5
+                        ),
+                        ProductListGrid(
+                            "Daily Wear",
+                            "Starting at ₹400",
+                            R.drawable.ic_deals_essentials_6
+                        ),
                     )
 
                     // Display CategoryListGrid showing **name only**
@@ -1537,12 +1660,36 @@ fun CategoryDetailScreen(
 
                     // Spice Up Your  Wardrobe Simple
                     val spiceProducts = listOf(
-                        ProductListGrid("Iki Chic", "Starting at ₹399", R.drawable.ic_spice_fusion_1),
-                        ProductListGrid("Trendy Wear", "Starting at ₹1299", R.drawable.ic_spice_fusion_2),
-                        ProductListGrid("Summer Sera", "Starting at ₹750", R.drawable.ic_spice_fusion_3),
-                        ProductListGrid("Rebel Tee", "Starting at ₹999", R.drawable.ic_spice_fusion_4),
-                        ProductListGrid("Smart Casual", "Starting at ₹799", R.drawable.ic_spice_fusion_5),
-                        ProductListGrid("Daily Wear", "Starting at ₹400", R.drawable.ic_spice_fusion_6),
+                        ProductListGrid(
+                            "Iki Chic",
+                            "Starting at ₹399",
+                            R.drawable.ic_spice_fusion_1
+                        ),
+                        ProductListGrid(
+                            "Trendy Wear",
+                            "Starting at ₹1299",
+                            R.drawable.ic_spice_fusion_2
+                        ),
+                        ProductListGrid(
+                            "Summer Sera",
+                            "Starting at ₹750",
+                            R.drawable.ic_spice_fusion_3
+                        ),
+                        ProductListGrid(
+                            "Rebel Tee",
+                            "Starting at ₹999",
+                            R.drawable.ic_spice_fusion_4
+                        ),
+                        ProductListGrid(
+                            "Smart Casual",
+                            "Starting at ₹799",
+                            R.drawable.ic_spice_fusion_5
+                        ),
+                        ProductListGrid(
+                            "Daily Wear",
+                            "Starting at ₹400",
+                            R.drawable.ic_spice_fusion_6
+                        ),
                     )
 
                     Image(
@@ -1822,7 +1969,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListDouble(
@@ -2009,7 +2159,11 @@ fun CategoryDetailScreen(
                         ProductListGrid("", "Up to 60% off", R.drawable.ic_brand_focus_footwear_3),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_brand_focus_footwear_4),
                         ProductListGrid("", "Up to 30% off", R.drawable.ic_brand_focus_footwear_5),
-                        ProductListGrid("", "New Festive Season", R.drawable.ic_brand_focus_footwear_6),
+                        ProductListGrid(
+                            "",
+                            "New Festive Season",
+                            R.drawable.ic_brand_focus_footwear_6
+                        ),
                         ProductListGrid("", "Flat 25% off", R.drawable.ic_brand_focus_footwear_7),
                         ProductListGrid("", "Up to 70% off", R.drawable.ic_brand_focus_footwear_8),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_brand_focus_footwear_9),
@@ -2084,7 +2238,11 @@ fun CategoryDetailScreen(
                         ProductListGrid("", "Up to 60% off", R.drawable.ic_trending_footwear_3),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_trending_footwear_4),
                         ProductListGrid("", "Up to 30% off", R.drawable.ic_trending_footwear_5),
-                        ProductListGrid("", "New Festive Season", R.drawable.ic_trending_footwear_6),
+                        ProductListGrid(
+                            "",
+                            "New Festive Season",
+                            R.drawable.ic_trending_footwear_6
+                        ),
                     )
 
                     // Display CategoryListGrid showing **name only**
@@ -2209,7 +2367,11 @@ fun CategoryDetailScreen(
                             Category(4, "Ring", R.drawable.ic_ring_ad_ons),
                             Category(5, "Jewellery Set", R.drawable.ic_jewellery_set_ad_ons),
                             Category(6, "Bracelet", R.drawable.ic_bracelet_ad_ons),
-                            Category(7, "Mobile Accessories", R.drawable.ic_mobile_accessories_ad_ons),
+                            Category(
+                                7,
+                                "Mobile Accessories",
+                                R.drawable.ic_mobile_accessories_ad_ons
+                            ),
                             Category(8, "Pendant", R.drawable.ic_pendant_ad_ons),
                             Category(9, "Sunglasses", R.drawable.ic_sunglasses_ad_ons),
                             Category(10, "Watches", R.drawable.ic_watches_ad_ons),
@@ -2318,18 +2480,66 @@ fun CategoryDetailScreen(
                     )
                     // New Accessories Simple
                     val newAccessoriesProducts = listOf(
-                        ProductListGrid("", "Up to 35% off", R.drawable.ic_new_accessories_ad_ons_1),
-                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_2),
-                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_3),
-                        ProductListGrid("", "Up to 50% off", R.drawable.ic_new_accessories_ad_ons_4),
-                        ProductListGrid("", "Up to 30% off", R.drawable.ic_new_accessories_ad_ons_5),
-                        ProductListGrid("", "Up to 35% off", R.drawable.ic_new_accessories_ad_ons_6),
-                        ProductListGrid("", "Up to 40% off", R.drawable.ic_new_accessories_ad_ons_7),
-                        ProductListGrid("", "Up to 45% off", R.drawable.ic_new_accessories_ad_ons_8),
-                        ProductListGrid("", "Up to 50% off", R.drawable.ic_new_accessories_ad_ons_9),
-                        ProductListGrid("", "Up to 55% off", R.drawable.ic_new_accessories_ad_ons_10),
-                        ProductListGrid("", "Up to 60% off", R.drawable.ic_new_accessories_ad_ons_11),
-                        ProductListGrid("", "Up to 70% off", R.drawable.ic_new_accessories_ad_ons_12),
+                        ProductListGrid(
+                            "",
+                            "Up to 35% off",
+                            R.drawable.ic_new_accessories_ad_ons_1
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 60% off",
+                            R.drawable.ic_new_accessories_ad_ons_2
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 60% off",
+                            R.drawable.ic_new_accessories_ad_ons_3
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 50% off",
+                            R.drawable.ic_new_accessories_ad_ons_4
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 30% off",
+                            R.drawable.ic_new_accessories_ad_ons_5
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 35% off",
+                            R.drawable.ic_new_accessories_ad_ons_6
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 40% off",
+                            R.drawable.ic_new_accessories_ad_ons_7
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 45% off",
+                            R.drawable.ic_new_accessories_ad_ons_8
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 50% off",
+                            R.drawable.ic_new_accessories_ad_ons_9
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 55% off",
+                            R.drawable.ic_new_accessories_ad_ons_10
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 60% off",
+                            R.drawable.ic_new_accessories_ad_ons_11
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 70% off",
+                            R.drawable.ic_new_accessories_ad_ons_12
+                        ),
                     )
 
                     // Display CategoryListGrid showing **name only**
@@ -2492,7 +2702,7 @@ fun CategoryDetailScreen(
                         painterResource(id = R.drawable.jewellery_occasion_banner3),
                         painterResource(id = R.drawable.jewellery_occasion_banner4),
                         painterResource(id = R.drawable.jewellery_occasion_banner5),
-                         )
+                    )
                     BannerFashion(
                         images = bannerImagesOccasion,
                         onImageClick = { page ->
@@ -2676,10 +2886,22 @@ fun CategoryDetailScreen(
 
                     // Gym and Training Essentials Simple
                     val gymNTrainingProducts = listOf(
-                        ProductListGrid("", "Up to 40% off", R.drawable.ic_gym_n_training_sportswear_1),
-                        ProductListGrid("", "Up to 30-60% off", R.drawable.ic_gym_n_training_sportswear_2),
-                        ProductListGrid("", "Up to 30-60% off", R.drawable.ic_gym_n_training_sportswear_3),
-                        )
+                        ProductListGrid(
+                            "",
+                            "Up to 40% off",
+                            R.drawable.ic_gym_n_training_sportswear_1
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 30-60% off",
+                            R.drawable.ic_gym_n_training_sportswear_2
+                        ),
+                        ProductListGrid(
+                            "",
+                            "Up to 30-60% off",
+                            R.drawable.ic_gym_n_training_sportswear_3
+                        ),
+                    )
 
                     // Display CategoryListGrid showing **name only**
                     Image(
@@ -2711,7 +2933,7 @@ fun CategoryDetailScreen(
                         ProductListGrid("", "Up to 20% off", R.drawable.ic_cricket_sportswear_1),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_cricket_sportswear_2),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_cricket_sportswear_3),
-                        )
+                    )
 
                     // Display CategoryListGrid showing **name only**
                     Image(
@@ -2740,7 +2962,7 @@ fun CategoryDetailScreen(
                         ProductListGrid("", "Up to 20% off", R.drawable.ic_running_sportswear_1),
                         ProductListGrid("", "Up to 50% off", R.drawable.ic_running_sportswear_2),
                         ProductListGrid("", "Up to 60% off", R.drawable.ic_running_sportswear_3),
-                        )
+                    )
 
                     // Display CategoryListGrid showing **name only**
                     Image(
@@ -2901,7 +3123,7 @@ fun CategoryDetailScreen(
                             Category(6, "", R.drawable.ic_jeans_casual_men),
                             Category(7, "", R.drawable.ic_trousers_casual_men),
                             Category(8, "", R.drawable.ic_shorts_casual_men),
-                         )
+                        )
                     }
 //
                     var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -3000,7 +3222,10 @@ fun CategoryDetailScreen(
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 100.dp, max = 300.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                         contentScale = ContentScale.FillBounds
                     )
                     CategoryListDouble(
@@ -3016,9 +3241,179 @@ fun CategoryDetailScreen(
 //                        showOverlayOnImage = false,
 //                        overlayBackground = Color.Black.copy(alpha = 0.6f),
                     )
+
+                    // New & Now
+                    val newNowCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_new_now_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_new_now_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_new_now_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_new_now_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_new_now_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_new_now_casual_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_new_now_casual_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_new_now_casual_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_new_now_casual_men_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_new_now_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = newNowCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 200.dp,
+                        itemHeight = 310.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+
+//                    Category List Grid
+                    val budgetCornerProducts = listOf(
+                        ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.weekend_shirts),
+                        ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.relaxed_tshirts),
+                        ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.vacay_co_ords),
+                        ProductListGrid("Classic Jeans", "Under ₹1299", R.drawable.classic_jeans),
+                        ProductListGrid("Budget Corner", "Under ₹1299", R.drawable.budget_corner),
+                        ProductListGrid("Light Jackets", "Under ₹1299", R.drawable.light_jackets),
+                        ProductListGrid("Everyday Shorts", "Under ₹599", R.drawable.everyday_shorts),
+                        ProductListGrid("Refined Trousers", "Under ₹999", R.drawable.refined_trousers),
+                        ProductListGrid("Track Pants", "Under ₹699", R.drawable.track_pants)
+                    )
+
+// Display CategoryListGrid showing **name only**
+//                    Image(
+//                        painter = painterResource(R.drawable.ic_western_header_list_grid),
+//                        contentDescription = "Banner",
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .heightIn(
+//                                min = 100.dp,
+//                                max = 300.dp
+//                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+//                        contentScale = ContentScale.FillBounds
+//                    )
+                    CategoryListGrid(
+                        products = budgetCornerProducts,
+                        columns = 3,
+                        gridHeight = 695.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = true,   // hide price
+                        imageAspectRatio = 3f / 4.5f,
+//                        defaultCardColor = Color(0xFFB3212E),
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Classic Signature Styles
+                    val classicCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_classic_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_classic_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_classic_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_classic_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_classic_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_classic_casual_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_classic_casual_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_classic_casual_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_classic_casual_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_classic_casual_men_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_classic_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = classicCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Fabrics in Focus
+                    val fabricsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_fabrics_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_fabrics_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_fabrics_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_fabrics_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_fabrics_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_fabrics_casual_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_fabrics_casual_men_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_fabrics_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = fabricsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Standout Selections
+                    val standoutCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_standout_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_standout_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_standout_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_standout_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_standout_casual_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_standout_casual_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_standout_casual_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_standout_casual_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_standout_casual_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_standout_casual_men_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_standout_casual_men_11, ""),
+                        CategoryItem(11, "", R.drawable.ic_standout_casual_men_12, ""),
+                        CategoryItem(12, "", R.drawable.ic_standout_casual_men_13, ""),
+                        CategoryItem(13, "", R.drawable.ic_standout_casual_men_14, ""),
+                        CategoryItem(14, "", R.drawable.ic_standout_casual_men_15, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_standout_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = standoutCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 200.dp,
+                        itemHeight = 310.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 }
             }
-            // Category items list
+                // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(
 //                    modifier = Modifier
@@ -3045,6 +3440,6 @@ fun CategoryDetailScreen(
 //                    )
 //                }
 //            }
+            }
         }
     }
-}
