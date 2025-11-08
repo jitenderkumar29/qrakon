@@ -3413,6 +3413,147 @@ fun CategoryDetailScreen(
                     )
                 }
             }
+//
+            if (name.lowercase() == "ethnic" && categoryId == 13) {
+                item {
+                    // Banner images for ethnic category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.ethnic_men_banner1),
+                        painterResource(id = R.drawable.ethnic_men_banner2),
+                        painterResource(id = R.drawable.ethnic_men_banner3),
+                        painterResource(id = R.drawable.ethnic_men_banner4),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 500.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // ethnic Men Categories List
+                    val ethnicMenCategoriesList = remember {
+                        listOf(
+                            Category(0, "BLAZERS", R.drawable.ic_blazers_ethnic_men),
+                            Category(1, "NEW ARRIVALS", R.drawable.ic_new_arrivals_ethnic_men),
+                            Category(2, "FUSION SHIRTS", R.drawable.ic_fusion_shirts_ethnic_men),
+                            Category(3, "KURTAS", R.drawable.ic_kurtas_ethnic_men),
+                            Category(4, "KURTA SETS", R.drawable.ic_kurta_sets_ethnic_men),
+                            Category(5, "SHERWANIS", R.drawable.ic_sherwanis_ethnic_men),
+                            Category(6, "NEHRU JACKETS", R.drawable.ic_nehru_jackets_ethnic_men),
+                            Category(7, "DHOTIS & MORE", R.drawable.ic_dhotis_more_ethnic_men),
+                            Category(8, "SHORT KURTAS", R.drawable.ic_short_kurtas_ethnic_men)
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = ethnicMenCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = ethnicMenCategoriesList.first(),
+                        itemWidth = 85,
+                        itemHeight = 95,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+
+                    // TrendNXT
+                    val trendCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_trend_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_trend_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_trend_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_trend_casual_men_4, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_trend_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = trendCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Latest On The Scene
+                    val latestCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_latest_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_latest_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_latest_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_latest_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_latest_casual_men_5, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_latest_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = latestCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Stellar Savings
+                    val stellarCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_stellar_casual_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_stellar_casual_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_stellar_casual_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_stellar_casual_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_stellar_casual_men_5, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_stellar_header_casual_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = stellarCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                }
+            }
                 // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(
