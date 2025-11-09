@@ -3474,13 +3474,13 @@ fun CategoryDetailScreen(
 
                     // TrendNXT
                     val trendCategoriesSimple = listOf(
-                        CategoryItem(0, "", R.drawable.ic_trend_casual_men_1, ""),
-                        CategoryItem(1, "", R.drawable.ic_trend_casual_men_2, ""),
-                        CategoryItem(2, "", R.drawable.ic_trend_casual_men_3, ""),
-                        CategoryItem(3, "", R.drawable.ic_trend_casual_men_4, ""),
+                        CategoryItem(0, "", R.drawable.ic_trend_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_trend_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_trend_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_trend_ethnic_men_4, ""),
                     )
                     Image(
-                        painter = painterResource(R.drawable.ic_trend_header_casual_men),
+                        painter = painterResource(R.drawable.ic_trend_header_ethnic_men),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -3500,14 +3500,14 @@ fun CategoryDetailScreen(
                     )
                     // Latest On The Scene
                     val latestCategoriesSimple = listOf(
-                        CategoryItem(0, "", R.drawable.ic_latest_casual_men_1, ""),
-                        CategoryItem(1, "", R.drawable.ic_latest_casual_men_2, ""),
-                        CategoryItem(2, "", R.drawable.ic_latest_casual_men_3, ""),
-                        CategoryItem(3, "", R.drawable.ic_latest_casual_men_4, ""),
-                        CategoryItem(4, "", R.drawable.ic_latest_casual_men_5, ""),
+                        CategoryItem(0, "", R.drawable.ic_latest_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_latest_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_latest_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_latest_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_latest_ethnic_men_5, ""),
                     )
                     Image(
-                        painter = painterResource(R.drawable.ic_latest_header_casual_men),
+                        painter = painterResource(R.drawable.ic_latest_header_ethnic_men),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -3527,14 +3527,14 @@ fun CategoryDetailScreen(
                     )
                     // Stellar Savings
                     val stellarCategoriesSimple = listOf(
-                        CategoryItem(0, "", R.drawable.ic_stellar_casual_men_1, ""),
-                        CategoryItem(1, "", R.drawable.ic_stellar_casual_men_2, ""),
-                        CategoryItem(2, "", R.drawable.ic_stellar_casual_men_3, ""),
-                        CategoryItem(3, "", R.drawable.ic_stellar_casual_men_4, ""),
-                        CategoryItem(4, "", R.drawable.ic_stellar_casual_men_5, ""),
+                        CategoryItem(0, "", R.drawable.ic_stellar_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_stellar_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_stellar_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_stellar_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_stellar_ethnic_men_5, ""),
                     )
                     Image(
-                        painter = painterResource(R.drawable.ic_stellar_header_casual_men),
+                        painter = painterResource(R.drawable.ic_stellar_header_ethnic_men),
                         contentDescription = "Banner",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -3551,6 +3551,171 @@ fun CategoryDetailScreen(
 //                        verticalPadding = 8.dp,
                         horizontalPadding = 12.dp,
                         backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Handpicked Curation
+                    val handpickedCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_handpicked_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_handpicked_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_handpicked_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_handpicked_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_handpicked_ethnic_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_handpicked_ethnic_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_handpicked_ethnic_men_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_handpicked_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(190.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = handpickedCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Celebratory Hues
+                    val celebratoryCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_celebratory_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_celebratory_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_celebratory_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_celebratory_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_celebratory_ethnic_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_celebratory_ethnic_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_celebratory_ethnic_men_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_celebratory_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = celebratoryCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 210.dp,
+                        itemHeight = 280.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFDF1)
+                    )
+
+//                     Everyday Styles Grid
+                    val everydayProducts = listOf(
+                        ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.everyday_ethnic_1),
+                        ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.everyday_ethnic_2),
+                        ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.everyday_ethnic_3),
+                        ProductListGrid("Classic Jeans", "Under ₹1299", R.drawable.everyday_ethnic_4),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_everyday_header_list_grid),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = everydayProducts,
+                        columns = 2,
+                        gridHeight = 615.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 4.5f,
+//                        defaultCardColor = Color(0xFFB3212E),
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+                    // Wedding Diaries
+                    val weddingCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_wedding_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_wedding_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_wedding_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_wedding_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_wedding_ethnic_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_wedding_ethnic_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_wedding_ethnic_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_wedding_ethnic_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_wedding_ethnic_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_wedding_ethnic_men_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_wedding_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = weddingCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFDF1)
+                    )
+                    // The Finest of Brands
+                    val finestCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_finest_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_finest_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_finest_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_finest_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_finest_ethnic_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_finest_ethnic_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_finest_ethnic_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_finest_ethnic_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_finest_ethnic_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_finest_ethnic_men_10, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_finest_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = finestCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 310.dp,
+                        itemHeight = 420.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFDF1)
                     )
                 }
             }
