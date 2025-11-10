@@ -3717,9 +3717,184 @@ fun CategoryDetailScreen(
                         horizontalPadding = 12.dp,
                         backgroundColor = Color(0xFFFFFDF1)
                     )
+                    // Latest On The Scene
+
+                    val latestSceneBannerImages = listOf(
+                        painterResource(id = R.drawable.ic_latest_scene_ethnic_men_1),
+                        painterResource(id = R.drawable.ic_latest_scene_ethnic_men_2),
+                        painterResource(id = R.drawable.ic_latest_scene_ethnic_men_3),
+                        painterResource(id = R.drawable.ic_latest_scene_ethnic_men_4),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_latest_scene_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    BannerFashion(
+                        images = latestSceneBannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+                    // Trend Talk
+                    val trendTalkCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_trend_talk_ethnic_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_trend_talk_ethnic_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_trend_talk_ethnic_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_trend_talk_ethnic_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_trend_talk_ethnic_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_trend_talk_ethnic_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_trend_talk_ethnic_men_7, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_trend_talk_header_ethnic_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = trendTalkCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 310.dp,
+                        itemHeight = 420.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFDF1)
+                    )
                 }
             }
-                // Category items list
+
+            if (name.lowercase() == "footwear" && categoryId == 14) {
+                item {
+                    // Banner images for footwear category
+                    val bannerImages = listOf(
+                        painterResource(id = R.drawable.footwear_men_banner1),
+                        painterResource(id = R.drawable.footwear_men_banner2),
+                        painterResource(id = R.drawable.footwear_men_banner3),
+                        painterResource(id = R.drawable.footwear_men_banner4),
+                        painterResource(id = R.drawable.footwear_men_banner5),
+                        painterResource(id = R.drawable.footwear_men_banner6),
+                        painterResource(id = R.drawable.footwear_men_banner7),
+                        painterResource(id = R.drawable.footwear_men_banner8),
+                        painterResource(id = R.drawable.footwear_men_banner9),
+                        painterResource(id = R.drawable.footwear_men_banner10),
+                    )
+                    BannerFashion(
+                        images = bannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 450.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+//                     Footwear Men Categories List
+                    val footwearMenCategoriesList = remember {
+                        listOf(
+                            Category(0, "Casual Shoes", R.drawable.ic_casual_shoes_footwear_men),
+                            Category(1, "Flip Flops", R.drawable.ic_flip_flops_footwear_men),
+                            Category(2, "Sandals", R.drawable.ic_sandals_footwear_men),
+                            Category(3, "Sports Shoes", R.drawable.ic_sports_shoes_footwear_men),
+                            Category(4, "Sneakers", R.drawable.ic_sneakers_footwear_men),
+                            Category(5, "Get Fit", R.drawable.ic_get_fit_footwear_men),
+                            Category(6, "Kids", R.drawable.ic_kids_footwear_men),
+                            Category(7, "Formal", R.drawable.ic_formal_shoes_footwear_men),
+                            Category(8, "Boots", R.drawable.ic_boots_footwear_men),
+                            Category(9, "Explore Fwd", R.drawable.ic_explore_fwd_footwear_men),
+                            Category(10, "Ethnic", R.drawable.ic_ethnic_footwear_men),
+                            Category(11, "Explore Sports", R.drawable.ic_explore_sports_footwear_men),
+                        )
+                    }
+//
+                    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+                    CategoryProducts(
+                        categories = footwearMenCategoriesList,
+                        onCategorySelected = { category ->
+                            selectedCategory = category
+                            println("Selected category: ${category.name}")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        initialSelectedCategory = footwearMenCategoriesList.first(),
+                        itemWidth = 85,
+                        itemHeight = 85,
+                        horizontalSpacing = 8,
+                        verticalSpacing = 8,
+                        backgroundColor = MaterialTheme.customColors.white
+                    )
+//
+//                    // Unbeatable Deals
+                    val unbeatableCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_unbeatable_footwear_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_unbeatable_footwear_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_unbeatable_footwear_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_unbeatable_footwear_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_unbeatable_footwear_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_unbeatable_footwear_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_unbeatable_footwear_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_unbeatable_footwear_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_unbeatable_footwear_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_unbeatable_footwear_men_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_unbeatable_footwear_men_11, ""),
+                        CategoryItem(11, "", R.drawable.ic_unbeatable_footwear_men_12, ""),
+                        CategoryItem(12, "", R.drawable.ic_unbeatable_footwear_men_13, ""),
+                        CategoryItem(13, "", R.drawable.ic_unbeatable_footwear_men_14, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_unbeatable_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = unbeatableCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 230.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                }
+            }
+
+            // Category items list
 //            items(categoryItems) { (imageRes, title) ->
 //                Row(
 //                    modifier = Modifier
