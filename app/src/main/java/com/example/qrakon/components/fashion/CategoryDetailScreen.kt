@@ -3854,7 +3854,7 @@ fun CategoryDetailScreen(
                         verticalSpacing = 8,
                         backgroundColor = MaterialTheme.customColors.white
                     )
-//
+
 //                    // Unbeatable Deals
                     val unbeatableCategoriesSimple = listOf(
                         CategoryItem(0, "", R.drawable.ic_unbeatable_footwear_men_1, ""),
@@ -3886,6 +3886,163 @@ fun CategoryDetailScreen(
                         showOverlayOnImage = false,
                         itemWidth = 230.dp,
                         itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+
+                    // Wedding Diaries
+                    val weddingDiariesCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_wedding_diaries_footwear_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_wedding_diaries_footwear_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_wedding_diaries_footwear_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_wedding_diaries_footwear_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_wedding_diaries_footwear_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_wedding_diaries_footwear_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_wedding_diaries_footwear_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_wedding_diaries_footwear_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_wedding_diaries_footwear_men_9, ""),
+                        CategoryItem(9, "", R.drawable.ic_wedding_diaries_footwear_men_10, ""),
+                        CategoryItem(10, "", R.drawable.ic_wedding_diaries_footwear_men_11, ""),
+                        CategoryItem(11, "", R.drawable.ic_wedding_diaries_footwear_men_12, ""),
+                        CategoryItem(12, "", R.drawable.ic_wedding_diaries_footwear_men_13, ""),
+                        CategoryItem(13, "", R.drawable.ic_wedding_diaries_footwear_men_14, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_wedding_diaries_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = weddingDiariesCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 180.dp,
+                        itemHeight = 300.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+                    // Featured Brands
+                    val featuredBrandsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_featured_brands_footwear_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_featured_brands_footwear_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_featured_brands_footwear_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_featured_brands_footwear_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_featured_brands_footwear_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_featured_brands_footwear_men_6, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_featured_brands_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = featuredBrandsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 220.dp,
+                        itemHeight = 320.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
+
+                    // Shop By Occasion Banner images for footwear category
+                    val occasionBannerImages = listOf(
+                        painterResource(id = R.drawable.occasion_footwear_men_banner1),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner2),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner3),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner4),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner5),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner6),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner7),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner8),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner9),
+                        painterResource(id = R.drawable.occasion_footwear_men_banner10),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_occasion_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    BannerFashion(
+                        images = occasionBannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 400.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+//                    Priced Just Right
+                    Image(
+                        painter = painterResource(R.drawable.ic_priced_right_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(100.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_priced_right_detail_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(420.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                    // Top Brands Men
+                    val topBrandsCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_top_brands_footwear_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_top_brands_footwear_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_top_brands_footwear_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_top_brands_footwear_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_top_brands_footwear_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_6, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_7, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_8, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_9, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_10, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_11, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_12, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_13, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_footwear_men_14, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_top_brands_header_footwear_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(90.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = topBrandsCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 180.dp,
+                        itemHeight = 250.dp,
                         horizontalSpacing = 12.dp,
 //                        verticalPadding = 8.dp,
                         horizontalPadding = 12.dp,
