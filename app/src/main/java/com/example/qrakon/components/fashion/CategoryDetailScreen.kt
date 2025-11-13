@@ -4210,6 +4210,196 @@ fun CategoryDetailScreen(
                                 horizontalPadding = 12.dp,
                                 backgroundColor = Color(0xFFFFFFFF)
                             )
+
+//                            Gym and Training Essentials Grid
+                            val gymNTrainingMenProducts = listOf(
+                                ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.gym_n_training_men_sports_1),
+                                ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.gym_n_training_men_sports_2),
+                                ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.gym_n_training_men_sports_3),
+                            )
+
+                            // Display CategoryListGrid showing **name only**
+                            Image(
+                                painter = painterResource(R.drawable.ic_gym_n_training_header_men_sports),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListGrid(
+                                products = gymNTrainingMenProducts,
+                                columns = 3,
+                                gridHeight = 210.dp, // fixed height to avoid crashes
+                                showName = false,
+                                showPrice = false,   // hide price
+                                imageAspectRatio = 3f / 4.5f,
+                                defaultCardColor = Color(0xFFFFFFFF),
+                                onItemClick = { product ->
+                                    println("Clicked on ${product.name}")
+                                }
+                            )
+//                            Cricket Must Have Grid
+                            val cricketMenProducts = listOf(
+                                ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.cricket_men_sports_1),
+                                ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.cricket_men_sports_2),
+                                ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.cricket_men_sports_3),
+                            )
+
+                            // Display CategoryListGrid showing **name only**
+                            Image(
+                                painter = painterResource(R.drawable.ic_cricket_header_men_sports),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListGrid(
+                                products = cricketMenProducts,
+                                columns = 3,
+                                gridHeight = 210.dp, // fixed height to avoid crashes
+                                showName = false,
+                                showPrice = false,   // hide price
+                                imageAspectRatio = 3f / 4.5f,
+                                defaultCardColor = Color(0xFFFFFFFF),
+                                onItemClick = { product ->
+                                    println("Clicked on ${product.name}")
+                                }
+                            )
+//                            Running And Walking Men Grid
+                            val runningMenProducts = listOf(
+                                ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.running_men_sports_1),
+                                ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.running_men_sports_2),
+                                ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.running_men_sports_3),
+                            )
+
+                            // Display CategoryListGrid showing **name only**
+                            Image(
+                                painter = painterResource(R.drawable.ic_running_header_men_sports),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListGrid(
+                                products = runningMenProducts,
+                                columns = 3,
+                                gridHeight = 210.dp, // fixed height to avoid crashes
+                                showName = false,
+                                showPrice = false,   // hide price
+                                imageAspectRatio = 3f / 4.5f,
+                                defaultCardColor = Color(0xFFFFFFFF),
+                                onItemClick = { product ->
+                                    println("Clicked on ${product.name}")
+                                }
+                            )
+//                            Racket Sports Men Grid
+                            val racketSportsProducts = listOf(
+                                ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.racket_sports_men_sports_1),
+                                ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.racket_sports_men_sports_2),
+                                ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.racket_sports_men_sports_3),
+                            )
+
+                            // Display CategoryListGrid showing **name only**
+                            Image(
+                                painter = painterResource(R.drawable.ic_racket_sports_header_men_sports),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListGrid(
+                                products = racketSportsProducts,
+                                columns = 3,
+                                gridHeight = 210.dp, // fixed height to avoid crashes
+                                showName = false,
+                                showPrice = false,   // hide price
+                                imageAspectRatio = 3f / 4.5f,
+                                defaultCardColor = Color(0xFFFFFFFF),
+                                onItemClick = { product ->
+                                    println("Clicked on ${product.name}")
+                                }
+                            )
+//                            Football Must Haves Men Grid
+                            val footballMenProducts = listOf(
+                                ProductListGrid("Weekend Shirts", "Under ₹699", R.drawable.football_men_sports_1),
+                                ProductListGrid("Relaxed T-Shirts", "Under ₹499", R.drawable.football_men_sports_2),
+                                ProductListGrid("Vacay Co-Ords", "Under ₹899", R.drawable.football_men_sports_3),
+                            )
+
+                            // Display CategoryListGrid showing **name only**
+                            Image(
+                                painter = painterResource(R.drawable.ic_football_header_men_sports),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListGrid(
+                                products = footballMenProducts,
+                                columns = 3,
+                                gridHeight = 210.dp, // fixed height to avoid crashes
+                                showName = false,
+                                showPrice = false,   // hide price
+                                imageAspectRatio = 3f / 4.5f,
+                                defaultCardColor = Color(0xFFFFFFFF),
+                                onItemClick = { product ->
+                                    println("Clicked on ${product.name}")
+                                }
+                            )
+
+                            // More Activities
+                            val moreActivitiesCategoriesSimple = listOf(
+                                CategoryItem(0, "", R.drawable.ic_more_activities_sports_men_1, ""),
+                                CategoryItem(1, "", R.drawable.ic_more_activities_sports_men_2, ""),
+                                CategoryItem(2, "", R.drawable.ic_more_activities_sports_men_3, ""),
+                                CategoryItem(3, "", R.drawable.ic_more_activities_sports_men_4, ""),
+                                CategoryItem(4, "", R.drawable.ic_more_activities_sports_men_5, ""),
+                                CategoryItem(5, "", R.drawable.ic_more_activities_sports_men_6, ""),
+                                CategoryItem(6, "", R.drawable.ic_more_activities_sports_men_7, ""),
+                                CategoryItem(7, "", R.drawable.ic_more_activities_sports_men_8, ""),
+                               )
+                            Image(
+                                painter = painterResource(R.drawable.ic_more_activities_header_sports_men),
+                                contentDescription = "Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(
+                                        min = 100.dp,
+                                        max = 300.dp
+                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                contentScale = ContentScale.FillBounds
+                            )
+                            CategoryListSimple(
+                                items = moreActivitiesCategoriesSimple,
+                                onItemClick = { item -> println("Selected: ${item.name}") },
+                                showOverlayOnImage = false,
+                                itemWidth = 230.dp,
+                                itemHeight = 320.dp,
+                                horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                                horizontalPadding = 12.dp,
+                                backgroundColor = Color(0xFFFFFFFF)
+                            )
                         }
                     }
 
