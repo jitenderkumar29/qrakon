@@ -4413,10 +4413,7 @@ fun CategoryDetailScreen(
                                 contentDescription = "Banner",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .heightIn(
-                                        min = 100.dp,
-                                        max = 300.dp
-                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                    .height(90.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                                 contentScale = ContentScale.FillBounds
                             )
                             CategoryListGrid(
@@ -4451,10 +4448,7 @@ fun CategoryDetailScreen(
                                 contentDescription = "Banner",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .heightIn(
-                                        min = 100.dp,
-                                        max = 300.dp
-                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                    .height(90.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                                 contentScale = ContentScale.FillBounds
                             )
                             CategoryListSimple(
@@ -4483,10 +4477,7 @@ fun CategoryDetailScreen(
                                 contentDescription = "Banner",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .heightIn(
-                                        min = 100.dp,
-                                        max = 300.dp
-                                    ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                                    .height(90.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
                                 contentScale = ContentScale.FillBounds
                             )
                             CategoryListSimple(
@@ -4594,44 +4585,167 @@ fun CategoryDetailScreen(
                             println("Clicked on ${product.name}")
                         }
                     )
+//                   Shop By Innerwear Men Grid
+                    val innerwearMenProducts = listOf(
+                        ProductListGrid("", "", R.drawable.innerwear_men_sports_1),
+                        ProductListGrid("", "", R.drawable.innerwear_men_sports_2),
+                        ProductListGrid("", "", R.drawable.innerwear_men_sports_3),
+                        ProductListGrid("", "", R.drawable.innerwear_men_sports_4),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_innerwear_header_men_sports),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = innerwearMenProducts,
+                        columns = 2,
+                        gridHeight = 500.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 3.5f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Effortless Loungewear showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_loungewear_header_men_sports),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(500.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+
+//                    Laidback Nightwear Men Grid
+                    val nightwearMenProducts = listOf(
+                        ProductListGrid("", "", R.drawable.nightwear_men_sports_1),
+                        ProductListGrid("", "", R.drawable.nightwear_men_sports_2),
+                        ProductListGrid("", "", R.drawable.nightwear_men_sports_3),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_nightwear_header_men_sports),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = nightwearMenProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 6f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
+
+                    // Seasonal Selections category
+                    val seasonalBannerImages = listOf(
+                        painterResource(id = R.drawable.seasonal_men_banner1),
+                        painterResource(id = R.drawable.seasonal_men_banner2),
+                        painterResource(id = R.drawable.seasonal_men_banner3),
+                    )
+                    BannerFashion(
+                        images = seasonalBannerImages,
+                        onImageClick = { page ->
+                            when (page) {
+                                0 -> onBanner1Click()
+                                1 -> onBanner2Click()
+                                2 -> onBanner3Click()
+                                // Add more cases if needed for other banners
+                                else -> onBanner1Click() // Default fallback
+                            }
+                        },
+                        autoScrollDelay = 2000,
+                        height = 500.dp,
+//                        dotSize = 8.dp,
+                        modifier = Modifier.padding(bottom = 8.dp) // Reduced from 12.dp to 4.dp
+                    )
+
+//                    Best Brands Men Grid
+                    val bestBrandsMenProducts = listOf(
+                        ProductListGrid("", "", R.drawable.best_brands_men_essentials_1),
+                        ProductListGrid("", "", R.drawable.best_brands_men_essentials_2),
+                        ProductListGrid("", "", R.drawable.best_brands_men_essentials_3),
+                    )
+
+                    // Display CategoryListGrid showing **name only**
+                    Image(
+                        painter = painterResource(R.drawable.ic_best_brands_header_men_essentials),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(
+                                min = 100.dp,
+                                max = 300.dp
+                            ), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListGrid(
+                        products = bestBrandsMenProducts,
+                        columns = 3,
+                        gridHeight = 220.dp, // fixed height to avoid crashes
+                        showName = false,
+                        showPrice = false,   // hide price
+                        imageAspectRatio = 3f / 6f,
+                        defaultCardColor = Color(0xFFFFFFFF),
+                        onItemClick = { product ->
+                            println("Clicked on ${product.name}")
+                        }
+                    )
 //
-////                     Winning Brands
-//                    val winningBrandsCategoriesSimple = listOf(
-//                        CategoryItem(0, "", R.drawable.ic_winning_brands_sports_men_1, ""),
-//                        CategoryItem(1, "", R.drawable.ic_winning_brands_sports_men_2, ""),
-//                        CategoryItem(2, "", R.drawable.ic_winning_brands_sports_men_3, ""),
-//                        CategoryItem(3, "", R.drawable.ic_winning_brands_sports_men_4, ""),
-//                        CategoryItem(4, "", R.drawable.ic_winning_brands_sports_men_5, ""),
-//                        CategoryItem(5, "", R.drawable.ic_winning_brands_sports_men_6, ""),
-//                        CategoryItem(6, "", R.drawable.ic_winning_brands_sports_men_7, ""),
-//                        CategoryItem(7, "", R.drawable.ic_winning_brands_sports_men_8, ""),
-//                        CategoryItem(8, "", R.drawable.ic_winning_brands_sports_men_9, ""),
-//                        CategoryItem(9, "", R.drawable.ic_winning_brands_sports_men_10, ""),
-//                        CategoryItem(10, "", R.drawable.ic_winning_brands_sports_men_11, ""),
-//                        CategoryItem(11, "", R.drawable.ic_winning_brands_sports_men_12, ""),
-//                        CategoryItem(12, "", R.drawable.ic_winning_brands_sports_men_13, ""),
-//                        CategoryItem(13, "", R.drawable.ic_winning_brands_sports_men_14, ""),
-//                        CategoryItem(14, "", R.drawable.ic_winning_brands_sports_men_15, ""),
-//                    )
-//                    Image(
-//                        painter = painterResource(R.drawable.ic_winning_brands_sports_header_sports_men),
-//                        contentDescription = "Banner",
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-//                        contentScale = ContentScale.FillBounds
-//                    )
-//                    CategoryListSimple(
-//                        items = winningBrandsCategoriesSimple,
-//                        onItemClick = { item -> println("Selected: ${item.name}") },
-//                        showOverlayOnImage = false,
-//                        itemWidth = 230.dp,
-//                        itemHeight = 400.dp,
-//                        horizontalSpacing = 12.dp,
-////                        verticalPadding = 8.dp,
-//                        horizontalPadding = 12.dp,
-//                        backgroundColor = Color(0xFFFFFFFF)
-//                    )
+////                     Top Brands Men
+                    val topBrandsMenCategoriesSimple = listOf(
+                        CategoryItem(0, "", R.drawable.ic_top_brands_men_essentials_men_1, ""),
+                        CategoryItem(1, "", R.drawable.ic_top_brands_men_essentials_men_2, ""),
+                        CategoryItem(2, "", R.drawable.ic_top_brands_men_essentials_men_3, ""),
+                        CategoryItem(3, "", R.drawable.ic_top_brands_men_essentials_men_4, ""),
+                        CategoryItem(4, "", R.drawable.ic_top_brands_men_essentials_men_5, ""),
+                        CategoryItem(5, "", R.drawable.ic_top_brands_men_essentials_men_6, ""),
+                        CategoryItem(6, "", R.drawable.ic_top_brands_men_essentials_men_7, ""),
+                        CategoryItem(7, "", R.drawable.ic_top_brands_men_essentials_men_8, ""),
+                        CategoryItem(8, "", R.drawable.ic_top_brands_men_essentials_men_9, ""),
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_top_brands_header_essentials_men),
+                        contentDescription = "Banner",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(110.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                        contentScale = ContentScale.FillBounds
+                    )
+                    CategoryListSimple(
+                        items = topBrandsMenCategoriesSimple,
+                        onItemClick = { item -> println("Selected: ${item.name}") },
+                        showOverlayOnImage = false,
+                        itemWidth = 230.dp,
+                        itemHeight = 400.dp,
+                        horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                        horizontalPadding = 12.dp,
+                        backgroundColor = Color(0xFFFFFFFF)
+                    )
                 }
             }
 
