@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,10 +58,13 @@ sealed class FashionCategoryPage {
 @Composable
 fun FashionTab(
     navController: NavController,
+    selectedTabIndex: Int,
+    onTabIndexChanged: (Int) -> Unit,
     onCategorySelected: (FashionCategoryPage) -> Unit = {},
     onOpenFashionCategory: () -> Unit = {}
 ) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    // Remove the internal state management and use the passed state
+    // var selectedTabIndex by remember { mutableIntStateOf(0) } // Remove this line
 
     val tabs = listOf(
         "Women" to null,
@@ -86,7 +90,9 @@ fun FashionTab(
                     modifier = Modifier
                         .weight(1f)
                         .clickable {
-                            selectedTabIndex = index
+                            // Update the parent state
+                            onTabIndexChanged(index)
+
                             val page = when (index) {
                                 0 -> FashionCategoryPage.Women
                                 1 -> FashionCategoryPage.Men
@@ -105,12 +111,12 @@ fun FashionTab(
                             }
                         }
                 ) {
-                    // Content + bottom border are wrapped together
                     Box(
                         modifier = Modifier
-//                            .weight(1f)
                             .clickable {
-                                selectedTabIndex = index
+                                // Update the parent state
+                                onTabIndexChanged(index)
+
                                 val page = when (index) {
                                     0 -> FashionCategoryPage.Women
                                     1 -> FashionCategoryPage.Men
@@ -160,16 +166,6 @@ fun FashionTab(
                             }
                         }
 
-                        // Bottom border (always visible)
-//                        Box(
-//                            modifier = Modifier
-//                                .align(Alignment.BottomCenter)
-//                                .fillMaxWidth()
-//                                .height(1.dp)
-//                                .background(MaterialTheme.customColors.spacerColor)
-//                        )
-
-                        // Active indicator (exactly above border, no gap)
                         if (isSelected) {
                             Box(
                                 modifier = Modifier
@@ -180,7 +176,6 @@ fun FashionTab(
                             )
                         }
                     }
-
                 }
             }
         }
@@ -190,23 +185,23 @@ fun FashionTab(
             0 -> WomenFashionPage(onTabSelected = { categoryName, categoryId ->
                 navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            1 -> MenFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            1 -> MenFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            2 -> KidsFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            2 -> KidsFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            3 -> HomeFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            3 -> HomeFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            4 -> LuxeFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            4 -> LuxeFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            5 -> BrandsFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            5 -> BrandsFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
-            else -> WomenFashionPage(onTabSelected = { categoryName, categoryId -> // Add categoryId parameter
-                navController.navigate("categoryDetail/$categoryName/$categoryId") // Fixed syntax
+            else -> WomenFashionPage(onTabSelected = { categoryName, categoryId ->
+                navController.navigate("categoryDetail/$categoryName/$categoryId")
             })
         }
     }
@@ -1166,25 +1161,38 @@ fun CategoriesFashionPage() {
 @Composable
 fun FashionMainScreen(navController: NavHostController) {
     var currentPage by remember { mutableIntStateOf(0) }
-
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     Column(modifier = Modifier.fillMaxWidth()) {
         FashionTab(
-            navController = navController, // ✅ Pass navController here
-            onCategorySelected = { fashionCategoryPage ->
-                currentPage = when (fashionCategoryPage) {
-                    is FashionCategoryPage.Women -> 0
-                    is FashionCategoryPage.Men -> 1
-                    is FashionCategoryPage.Kids -> 2
-                    is FashionCategoryPage.Home -> 3
-                    is FashionCategoryPage.Luxe -> 4
-                    is FashionCategoryPage.Brands -> 5
-                    is FashionCategoryPage.Categories -> 6
-                }
+            navController = navController,
+            selectedTabIndex = selectedTabIndex, // ✅ Pass the state
+            onTabIndexChanged = { newIndex -> selectedTabIndex = newIndex }, // ✅ Update state
+            onCategorySelected = { categoryPage ->
+                // Handle category selection if needed
+                println("Category selected: $categoryPage")
             },
             onOpenFashionCategory = {
+                // Navigate to categories page when category icon is clicked
                 navController.navigate("fashion_categories")
             }
         )
+//        FashionTab(
+//            navController = navController, // ✅ Pass navController here
+//            onCategorySelected = { fashionCategoryPage ->
+//                currentPage = when (fashionCategoryPage) {
+//                    is FashionCategoryPage.Women -> 0
+//                    is FashionCategoryPage.Men -> 1
+//                    is FashionCategoryPage.Kids -> 2
+//                    is FashionCategoryPage.Home -> 3
+//                    is FashionCategoryPage.Luxe -> 4
+//                    is FashionCategoryPage.Brands -> 5
+//                    is FashionCategoryPage.Categories -> 6
+//                }
+//            },
+//            onOpenFashionCategory = {
+//                navController.navigate("fashion_categories")
+//            }
+//        )
     }
 }
 

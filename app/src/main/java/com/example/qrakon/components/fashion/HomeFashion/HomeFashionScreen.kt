@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -94,8 +95,11 @@ fun HomeFashionScreen(navController: NavHostController) {
 
             // 🟢 Fashion Content Items
             item {
+                var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
                 FashionTab(
-                    navController = navController, // ✅ Pass it here
+                    navController = navController,
+                    selectedTabIndex = selectedTabIndex, // ✅ Pass the state
+                    onTabIndexChanged = { newIndex -> selectedTabIndex = newIndex }, // ✅ Update state
                     onCategorySelected = { categoryPage ->
                         // Handle category selection if needed
                         println("Category selected: $categoryPage")
@@ -105,6 +109,17 @@ fun HomeFashionScreen(navController: NavHostController) {
                         navController.navigate("fashion_categories")
                     }
                 )
+//                FashionTab(
+//                    navController = navController, // ✅ Pass it here
+//                    onCategorySelected = { categoryPage ->
+//                        // Handle category selection if needed
+//                        println("Category selected: $categoryPage")
+//                    },
+//                    onOpenFashionCategory = {
+//                        // Navigate to categories page when category icon is clicked
+//                        navController.navigate("fashion_categories")
+//                    }
+//                )
 //                FashionTab()
             }
 
