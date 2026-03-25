@@ -13,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
@@ -23,6 +24,7 @@ import com.example.qrakon.components.splashscreen.SplashScreen
 import com.example.qrakon.ui.theme.QrakonAppTheme
 import com.example.qrakon.ui.theme.customColors
 import androidx.navigation.compose.rememberNavController
+import com.example.qrakon.components.homescreen.BannerBackgroundManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,17 +58,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppContent(window: Window? = null) {
     var showSplash by remember { mutableStateOf(true) }
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
 
     val statusBarColor: Color = if (showSplash) {
         MaterialTheme.colorScheme.primary
     } else {
         MaterialTheme.customColors.footer
+//        bannerBackgroundColor
     }
 
     val navBarColor: Color = if (showSplash) {
         MaterialTheme.colorScheme.primaryContainer
     } else {
         MaterialTheme.customColors.footer
+//        bannerBackgroundColor
     }
 
     val currentWindow = rememberUpdatedState(window)

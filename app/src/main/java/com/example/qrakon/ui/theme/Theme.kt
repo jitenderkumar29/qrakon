@@ -79,6 +79,7 @@ data class CustomColors(
     val lightGray: Color,
     val gray: Color,
     val darkGray: Color,
+    val yellowish: Color,
 
     // Additional custom colors
     val success: Color,
@@ -161,6 +162,8 @@ val LightCustomColors = CustomColors(
     lightGray = Color(0xFFF5F5F5),
     gray = Color(0xFF9E9E9E),
     darkGray = Color(0xFF424242),
+    yellowish = Color(0xFF9DEE21),
+
 
     // Additional custom colors
     success = Color(0xFF2E7D32),
@@ -240,6 +243,7 @@ val DarkCustomColors = CustomColors(
     lightGray = Color(0xFF2D2D2D),
     gray = Color(0xFF555555),
     darkGray = Color(0xFF1A1A1A),
+    yellowish = Color(0xFF9DEE21),
 
     // Additional custom colors
     success = Color(0xFF81C784),

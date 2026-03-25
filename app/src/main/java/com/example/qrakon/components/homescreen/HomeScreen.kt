@@ -21,6 +21,7 @@ fun HomeScreen() {
     var searchQuery by remember { mutableStateOf("") }
     var showLocationDialog by remember { mutableStateOf(false) }
     var selectedLocation by remember { mutableStateOf("Dhruv 110044") }
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
 
     val lazyListState = rememberLazyListState()
 
@@ -30,6 +31,7 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+//                .background(bannerBackgroundColor)
         ) {
             // 🟢 Category Header FIRST (scrolls away with content)
 //            item {
@@ -52,6 +54,7 @@ fun HomeScreen() {
             stickyHeader {
                 Surface(
                     color = MaterialTheme.customColors.lightAccent,
+//                    color = bannerBackgroundColor,
 //                    color = Color.Transparent,
                     modifier = Modifier.fillMaxWidth()
 //                        .background(
@@ -91,7 +94,7 @@ fun HomeScreen() {
             item {
                 Surface(
                     color = MaterialTheme.customColors.darkAccent,
-//                    color = Color.Transparent,
+//                    color = bannerBackgroundColor,
                     modifier = Modifier.fillMaxWidth()
 //                    .background(
 //                        brush = Brush.verticalGradient(

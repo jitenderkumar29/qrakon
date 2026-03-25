@@ -151,17 +151,21 @@ fun LocationSelectionButton(
     onLocationClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
     Card(
         onClick = onLocationClick,
-        modifier = modifier,
+        modifier = modifier
+            .padding(start = 12.dp, end = 12.dp, top = 0.dp, bottom = 0.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.customColors.darkAccent
+//            containerColor = bannerBackgroundColor
+//            containerColor = MaterialTheme.customColors.onPrimary
         )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, end = 12.dp, top = 0.dp, bottom = 0.dp),
+                .padding(start = 8.dp, end = 2.dp, top = 0.dp, bottom = 0.dp),
 //                .padding(horizontal = 12.dp, vertical = 0.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

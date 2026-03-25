@@ -27,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -43,6 +45,9 @@ import com.example.qrakon.components.homescreen.FurnitureCategory
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 import androidx.compose.ui.text.style.TextAlign
+import com.example.qrakon.components.homescreen.BannerBackgroundManager
+import com.example.qrakon.components.homescreen.BannerItem
+import com.example.qrakon.components.homescreen.BannerPortrait
 
 // Sealed class for different category pages
 sealed class CategoryPage {
@@ -69,6 +74,7 @@ fun CategoryTabs(
     onCategorySelected: (CategoryPage) -> Unit = {}
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
 
     // Pair each tab title with its corresponding icon resource ID
     val tabs = listOf(
@@ -93,6 +99,7 @@ fun CategoryTabs(
         ScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
             containerColor = MaterialTheme.customColors.skyBlue,
+//            containerColor = bannerBackgroundColor,
             contentColor = MaterialTheme.customColors.black,
             edgePadding = 0.dp,
             indicator = { tabPositions ->
@@ -214,6 +221,7 @@ fun ElectronicsCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -343,6 +351,7 @@ fun AppliancesCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -463,6 +472,7 @@ fun HomeCategoryPage() {
         )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -591,6 +601,7 @@ fun FoodHealthCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -713,6 +724,7 @@ fun ToysKidsCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -826,6 +838,7 @@ fun AutoAccessoriesCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -942,6 +955,7 @@ fun SportsCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1064,6 +1078,7 @@ fun FurnitureCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1185,6 +1200,7 @@ fun TwoWheelersCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1307,6 +1323,7 @@ fun BooksCategoryPage() {
         )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1422,6 +1439,7 @@ fun MusicalCategoryPage() {
         )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1533,6 +1551,7 @@ fun FourWheelerCategoryPage() {
         )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1651,6 +1670,7 @@ fun GemstoneCategoryPage() {
         )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
@@ -1782,24 +1802,82 @@ fun SellCategoryPage() { ... }
 // Rest of the existing code remains the same...
 @Composable
 fun AllCategoryPage() {
-    // Example click handlers (define these where needed)
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
     fun onJoinPrimeClick() {
         // Handle join prime click
     }
-
     fun onDealBoxClick() {
         // Handle deal box click
     }
-
     fun onSpecialOfferClick() {
         // Handle special offer click
     }
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .background(MaterialTheme.customColors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
+        val bannerPortraitImages = listOf(
+            BannerItem( imageRes = R.drawable.banner_portrait1, backgroundColor = Color(0xFFF7F3F2)),
+            BannerItem( imageRes = R.drawable.banner_portrait2, backgroundColor = Color(0xFFB3C4D6) ),
+            BannerItem( imageRes = R.drawable.banner_portrait3, backgroundColor = Color(0xFFC5B5A8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait4, backgroundColor = Color(0xFFC5B5A8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait5, backgroundColor = Color(0xFFDFBCA8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait6, backgroundColor = Color(0xFF5FC6F3) ),
+            BannerItem( imageRes = R.drawable.banner_portrait7, backgroundColor = Color(0xFFE4DAC9) ),
+            BannerItem( imageRes = R.drawable.banner_portrait8, backgroundColor = Color(0xFF91E9FF) ),
+            BannerItem( imageRes = R.drawable.banner_portrait9, backgroundColor = Color(0xFFDFBCA8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait10, backgroundColor = Color(0xFFC6BEBA) ),
+            BannerItem( imageRes = R.drawable.banner_portrait11, backgroundColor = Color(0xFF90E7FD) ),
+            BannerItem( imageRes = R.drawable.banner_portrait12, backgroundColor = Color(0xFF757573) ),
+            BannerItem( imageRes = R.drawable.banner_portrait13, backgroundColor = Color(0xFFCFBBB8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait14, backgroundColor = Color(0xFFCFBBB8) ),
+            BannerItem( imageRes = R.drawable.banner_portrait15, backgroundColor = Color(0xFFCFBBB8) ),
+        )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                                MaterialTheme.customColors.white
+                            )
+                        )
+                        )
+//                    .background(bannerBackgroundColor) // Use the global background color
+            ) {
+                BannerPortrait(
+                    items = bannerPortraitImages,
+                    onImageClick = { imageRes ->
+                        // Handle image click
+                        println("Clicked on image: $imageRes")
+                    },
+                    height = 450.dp,
+                    autoScrollDelay = 3000
+                )
+
+                Spacer(
+                    modifier = Modifier.height(10.dp)
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+                )
+            }
+        }
         val bannerImages = listOf(
 //            painterResource(id = R.drawable.banner_home1),
 //            painterResource(id = R.drawable.banner_home2),
@@ -1897,6 +1975,7 @@ fun MobileCategoryPage() {
     )
     Column(
         modifier = Modifier
+            .background(MaterialTheme.customColors.background)
             .fillMaxSize()
 //            .padding(16.dp)
     ) {

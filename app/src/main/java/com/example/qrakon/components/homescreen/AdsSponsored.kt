@@ -1,4 +1,3 @@
-
 package com.example.qrakon.components.homescreen
 
 import androidx.compose.foundation.Image

@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,8 +34,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.qrakon.ui.theme.customColors
 import com.example.qrakon.R
+import com.example.qrakon.components.GroceryHome.GroceryHome
 import com.example.qrakon.components.navigation.TabNavigationApp
 
 data class CategoryHeaderClass(
@@ -50,85 +53,56 @@ fun CategoryHeader(
     modifier: Modifier = Modifier,
     onCategorySelected: (String) -> Unit = {}
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val categories = remember {
         listOf(
             CategoryHeaderClass(1, "Shopping", R.drawable.shopping, Color(0xFFD9C898), selectedColor = Color(
-                0xFFD4AF44
-            )
-            ),
+                0xFFD4AF44)),
+            CategoryHeaderClass(16, "Grocery", R.drawable.grocery, Color(0xFF78CB7E), selectedColor = Color(0xFF56C65E)),
             CategoryHeaderClass(2, "Fashion", R.drawable.fashion_category, Color(0xFFCCF8CF), selectedColor = Color(
-                0xFF2DC137
-            )
-            ),
+                0xFF2DC137)),
             CategoryHeaderClass(3, "Beauty", R.drawable.beauty_category, Color(0xFFD9A7A7), selectedColor = Color(
-                0xFFCA5353
-            )
-            ),
+                0xFFCA5353)),
             CategoryHeaderClass(4, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
-                0xFF31BC3B
-            )
-            ),
+                0xFF31BC3B)),
 //            CategoryHeaderClass(4, "Economy", R.drawable.deal_economy, Color(0xFFFFF9C4), selectedColor = Color(
 //                0xFFD2C54C
 //            )
 //            ),
             CategoryHeaderClass(5, "Deals", R.drawable.deal_category, Color(0xFFA6DF95), selectedColor = Color(
-                0xFF64CD44
-            )
-            ),
+                0xFF64CD44)),
             CategoryHeaderClass(6, "Bridal", R.drawable.bride_category, Color(0xFFF0B7C0), selectedColor = Color(
-                0xFFC6374D
-            )
-            ),
+                0xFFC6374D)),
             CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCEC7A5), selectedColor = Color(
-                0xFFC3B364
-            )
-            ),
+                0xFFC3B364)),
 //            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCBBB6F), selectedColor = Color(
 //                0xFFBAA438
 //            )
 //            ),
             CategoryHeaderClass(8, "Economy", R.drawable.deal_economy, Color(0xFFF1EFDA), selectedColor = Color(
-                0xFFDDD373
-            )
-            ),
+                0xFFDDD373)),
 //            CategoryHeaderClass(7, "Groom", R.drawable.groom_category, Color(0xFFCBBB6F), selectedColor = Color(
 //                0xFFBAA438
 //            )
 //            ),
             CategoryHeaderClass(9, "Airport", R.drawable.airport_category, Color(0xFFAEE9F1), selectedColor = Color(
-                0xFF30A8B8
-            )
-            ),
+                0xFF30A8B8)),
 //            CategoryHeaderClass(9, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
 //                0xFF31BC3B
 //            )
 //            ),
             CategoryHeaderClass(10, "Industry", R.drawable.industry_category, Color(0xFFB0D0E6), selectedColor = Color(
-                0xFF3182BA
-            )
-            ),
+                0xFF3182BA)),
             CategoryHeaderClass(11, "Wholesale", R.drawable.wholesale_category, Color(0xFFDFC396), selectedColor = Color(
-                0xFFAE7B2B
-            )
-            ),
+                0xFFAE7B2B)),
             CategoryHeaderClass(12, "Sell", R.drawable.sell_category, Color(0xFFCEF0A7), selectedColor = Color(
-                0xFF72B526
-            )
-            ),
+                0xFF72B526)),
             CategoryHeaderClass(13, "Medical", R.drawable.medical, Color(0xFFDF8592), selectedColor = Color(
-                0xFFB6253A
-            )
-            ),
+                0xFFB6253A)),
             CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFF95E69A), selectedColor = Color(
-                0xFF24B12D
-            )
-            ),
+                0xFF24B12D)),
             CategoryHeaderClass(15, "Pay", R.drawable.pay, Color(0xFFCFC76D), selectedColor = Color(
-                0xFFE7D532
-            )
-            ),
-        )
+                0xFFE7D532)),)
     }
 
     val selectedCategory = remember { mutableStateOf(categories.first()) }
@@ -146,13 +120,14 @@ fun CategoryHeader(
 //                )
 //            )
             .background(MaterialTheme.customColors.lightAccent)
+//            .background(bannerBackgroundColor)
 
     ) {
         // Fixed height for the LazyRow container to avoid infinite constraints
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp)
+                .height(78.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             LazyRow(
@@ -184,7 +159,7 @@ fun CategoryItemHeader(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .width(75.dp)
+            .width(90.dp)
             .clickable(onClick = onClick)
             .clip(RoundedCornerShape(12.dp))
             .background(if (isSelected) category.selectedColor else category.backgroundColor)
@@ -197,9 +172,9 @@ fun CategoryItemHeader(
     ) {
         Box(
             modifier = Modifier
-                .height(45.dp)
+                .height(40.dp)
                 .fillMaxWidth()
-                .padding(top = 5.dp)
+                .padding(top = 2.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(if (isSelected) category.selectedColor else category.backgroundColor),
             contentAlignment = Alignment.Center
@@ -214,7 +189,7 @@ fun CategoryItemHeader(
 
         Text(
             text = category.name,
-            fontSize = 12.sp,
+            fontSize = 15.sp,
             textAlign = TextAlign.Center,
             color = Color.Black,
             fontWeight = FontWeight.Medium,
@@ -222,7 +197,7 @@ fun CategoryItemHeader(
             overflow = TextOverflow.Visible,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 5.dp)
+                .padding(bottom = 0.dp)
         )
     }
 }
@@ -279,6 +254,7 @@ fun CategoryScreen(onOpenFashion: () -> Unit) {
         ) {
             when (selectedCategory.value) {
                 "Shopping" -> ShoppingScreen()
+                "Grocery" -> GroceryScreen()
                 "Beauty" -> BeautyScreen()
                 "Economy" -> EconomyScreen()
                 "Deals" -> DealsScreen()
@@ -404,6 +380,20 @@ fun ShoppingScreen() {
 ////        Spacer(modifier = Modifier.height(16.dp))
 //        TabNavigationApp() // Your full navigation component
 //    }
+}
+
+@Composable
+fun GroceryScreen(navController: NavHostController? = null) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.customColors.background)
+    ) {
+        GroceryHome(
+            navController = navController,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable
