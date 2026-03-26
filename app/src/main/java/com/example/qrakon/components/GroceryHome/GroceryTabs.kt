@@ -1031,6 +1031,64 @@ fun GiftingCategoryPage() {
                 backgroundColor = MaterialTheme.customColors.background,
                 onBackClick = {}
             )
+
+            Image(
+                painter = painterResource(R.drawable.ic_gifts_for_him),
+                contentDescription = "Banner",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                contentScale = ContentScale.FillBounds
+            )
+            val giftsForHimCategories = listOf(
+                GroceryItemCategory(id = 1, title = "", iconRes = R.drawable.ic_category_audio),
+                GroceryItemCategory(id = 2, title = "", iconRes = R.drawable.ic_category_speakers),
+                GroceryItemCategory(id = 3, title = "", iconRes = R.drawable.ic_category_grooming)
+            )
+            // In your screen composable
+//        Spacer(modifier = Modifier.height(10.dp))
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = giftsForHimCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 120.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = MaterialTheme.customColors.background,
+                onBackClick = {}
+            )
+
+            val toysGamesCraftsCategories = listOf(
+                CategoryItem(0, "", R.drawable.ic_toys_board_games, "View products"),
+                CategoryItem(1, "", R.drawable.ic_toys_cars, "View products"),
+                CategoryItem(2, "", R.drawable.ic_toys_soft_toys, "View products"),
+                CategoryItem(3, "", R.drawable.ic_toys_arts_crafts, "View products")
+            )
+//        Spacer(modifier = Modifier.height(10.dp))
+            Image(
+                painter = painterResource(R.drawable.ic_toys_games_crafts),
+                contentDescription = "Banner",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                contentScale = ContentScale.FillBounds
+            )
+            CategoryListSimple(
+                items = toysGamesCraftsCategories,
+                onItemClick = { item -> println("Selected: ${item.name}") },
+                itemWidth = 100.dp,
+                itemHeight = 120.dp,
+                horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                horizontalPadding = 12.dp,
+                backgroundColor = Color(0xFFFFFFFF)
+            )
         }
     }
 }
@@ -1041,25 +1099,174 @@ fun ToysCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
+        val shopByCategoryToys = listOf(
+            GroceryItemCategory(id = 1, title = "Baby & toddler toys", iconRes = R.drawable.ic_toys_baby_toddler),
+            GroceryItemCategory(id = 2, title = "Soft toys", iconRes = R.drawable.ic_toys_soft_toys_1),
+            GroceryItemCategory(id = 3, title = "Dolls & playsets", iconRes = R.drawable.ic_toys_dolls_playsets),
+            GroceryItemCategory(id = 4, title = "Vehicles & action toys", iconRes = R.drawable.ic_toys_vehicles_action),
+            GroceryItemCategory(id = 5, title = "Board games", iconRes = R.drawable.ic_toys_board_games_1),
+            GroceryItemCategory(id = 6, title = "Blocks & puzzles", iconRes = R.drawable.ic_toys_blocks_puzzles),
+            GroceryItemCategory(id = 7, title = "Educational toys", iconRes = R.drawable.ic_toys_educational),
+            GroceryItemCategory(id = 8, title = "Hobby & craft sets", iconRes = R.drawable.ic_toys_hobby_craft),
+            GroceryItemCategory(id = 9, title = "Activity toys", iconRes = R.drawable.ic_toys_activity),
+            GroceryItemCategory(id = 10, title = "Indoor games", iconRes = R.drawable.ic_toys_indoor_games),
+            GroceryItemCategory(id = 11, title = "Sports equipments", iconRes = R.drawable.ic_toys_sports_equipment),
+            GroceryItemCategory(id = 12, title = "Workout essentials", iconRes = R.drawable.ic_toys_workout_essentials)
+        )// In your screen composable
+//        Spacer(modifier = Modifier.height(10.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(vertical = 0.dp, horizontal = 12.dp )
+    ) {
+        Spacer(modifier = Modifier.height(20.dp))
+        ListItemsGrid(
+            browseText = "Shop By Category",
+            items = shopByCategoryToys,
+            onItemClick = { item ->
+                println("Clicked: ${item.title}")
+            },
+            columns = 4,
+            horizontalSpacing = 8.dp,
+            verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+            itemHeight = 120.dp,          // Increased from 120.dp for larger items
+            imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+            containerSize = 90.dp,        // Added container size for image
+            backgroundColor = MaterialTheme.customColors.background,
+            onBackClick = {}
+        )
+    }
+
+        val shopByAgeGender = listOf(
+            GroceryItemCategory(id = 1, title = "For babies", iconRes = R.drawable.ic_toys_for_babies),
+            GroceryItemCategory(id = 2, title = "For girls", iconRes = R.drawable.ic_toys_for_girls),
+            GroceryItemCategory(id = 3, title = "For boys", iconRes = R.drawable.ic_toys_for_boys),
+            GroceryItemCategory(id = 4, title = "For teens", iconRes = R.drawable.ic_toys_for_teens)
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_shop_by_age_gender),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        ListItemsGrid(
+            browseText = "",
+            showBrowseText = false,
+            items = shopByAgeGender,
+            onItemClick = { item ->
+                println("Clicked: ${item.title}")
+            },
+            columns = 4,
+            horizontalSpacing = 8.dp,
+            verticalSpacing = 10.dp,      // Increased from 1.dp for better spacing
+            itemHeight = 110.dp,          // Increased from 120.dp for larger items
+            imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+            containerSize = 90.dp,        // Added container size for image
+            backgroundColor = Color(0xFFDCF2FF),
+            onBackClick = {}
+        )
+
+        val toyBrands = listOf(
+            GroceryItemCategory(id = 1, title = "Funskool", iconRes = R.drawable.ic_brand_funskool),
+            GroceryItemCategory(id = 2, title = "Mattel", iconRes = R.drawable.ic_brand_mattel),
+            GroceryItemCategory(id = 3, title = "PlayShifu", iconRes = R.drawable.ic_brand_playshifu),
+            GroceryItemCategory(id = 4, title = "Wembley", iconRes = R.drawable.ic_brand_wembley),
+            GroceryItemCategory(id = 5, title = "Hasbro", iconRes = R.drawable.ic_brand_hasbro),
+            GroceryItemCategory(id = 6, title = "Toyshine", iconRes = R.drawable.ic_brand_toyshine)
+        )
+        // In your screen composable
         Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Toys",
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.customColors.black
-            ),
-            maxLines = 1,
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(vertical = 0.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "Discover toys from your favourite brands",
+                items = toyBrands,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 150.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = MaterialTheme.customColors.background,
+                onBackClick = {}
+            )
+        }
+        // In your screen composable
+        Spacer(modifier = Modifier.height(10.dp))
+        val sportsAndFitness = listOf(
+            GroceryItemCategory(id = 1, title = "Swimming", iconRes = R.drawable.ic_sports_swimming),
+            GroceryItemCategory(id = 2, title = "Cricket", iconRes = R.drawable.ic_sports_cricket),
+            GroceryItemCategory(id = 3, title = "Badminton", iconRes = R.drawable.ic_sports_badminton),
+            GroceryItemCategory(id = 4, title = "Fitness, health & nutrition", iconRes = R.drawable.ic_fitness_health_nutrition),
+            GroceryItemCategory(id = 5, title = "Yoga", iconRes = R.drawable.ic_fitness_yoga),
+            GroceryItemCategory(id = 6, title = "Gym essentials", iconRes = R.drawable.ic_fitness_gym_essentials)
         )
-        Text(
-            text = "Kids toys, games & educational items",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
-        )
+            Image(
+                painter = painterResource(R.drawable.ic_sports_and_fitness),
+                contentDescription = "Banner",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                contentScale = ContentScale.FillBounds
+            )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(vertical = 0.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = sportsAndFitness,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 150.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = MaterialTheme.customColors.background,
+                onBackClick = {}
+            )
+
+            val shopByPrice = listOf(
+                GroceryItemCategory(id = 1, title = "Under Rs.199", iconRes = R.drawable.ic_price_under_199),
+                GroceryItemCategory(id = 2, title = "Under Rs.499", iconRes = R.drawable.ic_price_under_499),
+                GroceryItemCategory(id = 3, title = "Rs.500 - 1000", iconRes = R.drawable.ic_price_500_1000),
+                GroceryItemCategory(id = 4, title = "Above Rs.1000", iconRes = R.drawable.ic_price_above_1000)
+            )
+            ListItemsGrid(
+                browseText = "Shop by price",
+//                showBrowseText = false,
+                items = shopByPrice,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 10.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 110.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFDCF2FF),
+                onBackClick = {}
+            )
+        }
     }
 }
 
