@@ -356,7 +356,7 @@ fun AllCategoryPage() {
                 // Handle image click
                 println("Clicked on image: $imageRes")
             },
-            height = 200.dp,
+            height = 225.dp,
             autoScrollDelay = 3000
         )
     }
@@ -1154,22 +1154,30 @@ fun ToysCategoryPage() {
                 .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
             contentScale = ContentScale.FillBounds
         )
-        ListItemsGrid(
-            browseText = "",
-            showBrowseText = false,
-            items = shopByAgeGender,
-            onItemClick = { item ->
-                println("Clicked: ${item.title}")
-            },
-            columns = 4,
-            horizontalSpacing = 8.dp,
-            verticalSpacing = 10.dp,      // Increased from 1.dp for better spacing
-            itemHeight = 110.dp,          // Increased from 120.dp for larger items
-            imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
-            containerSize = 90.dp,        // Added container size for image
-            backgroundColor = Color(0xFFDCF2FF),
-            onBackClick = {}
-        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFDCF2FF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = shopByAgeGender,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 10.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 110.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFDCF2FF),
+                onBackClick = {}
+            )
+        }
 
         val toyBrands = listOf(
             GroceryItemCategory(id = 1, title = "Funskool", iconRes = R.drawable.ic_brand_funskool),
@@ -1206,12 +1214,36 @@ fun ToysCategoryPage() {
         // In your screen composable
         Spacer(modifier = Modifier.height(10.dp))
         val sportsAndFitness = listOf(
-            GroceryItemCategory(id = 1, title = "Swimming", iconRes = R.drawable.ic_sports_swimming),
-            GroceryItemCategory(id = 2, title = "Cricket", iconRes = R.drawable.ic_sports_cricket),
-            GroceryItemCategory(id = 3, title = "Badminton", iconRes = R.drawable.ic_sports_badminton),
-            GroceryItemCategory(id = 4, title = "Fitness, health & nutrition", iconRes = R.drawable.ic_fitness_health_nutrition),
-            GroceryItemCategory(id = 5, title = "Yoga", iconRes = R.drawable.ic_fitness_yoga),
-            GroceryItemCategory(id = 6, title = "Gym essentials", iconRes = R.drawable.ic_fitness_gym_essentials)
+            GroceryItemCategory(
+                id = 1,
+                title = "Swimming",
+                iconRes = R.drawable.ic_sports_swimming
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Cricket",
+                iconRes = R.drawable.ic_sports_cricket
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Badminton",
+                iconRes = R.drawable.ic_sports_badminton
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Fitness, health & nutrition",
+                iconRes = R.drawable.ic_fitness_health_nutrition
+            ),
+            GroceryItemCategory(
+                id = 5,
+                title = "Yoga",
+                iconRes = R.drawable.ic_fitness_yoga
+            ),
+            GroceryItemCategory(
+                id = 6,
+                title = "Gym essentials",
+                iconRes = R.drawable.ic_fitness_gym_essentials
+            )
         )
             Image(
                 painter = painterResource(R.drawable.ic_sports_and_fitness),
@@ -1263,6 +1295,110 @@ fun ToysCategoryPage() {
                 itemHeight = 110.dp,          // Increased from 120.dp for larger items
                 imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
                 containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        Image(
+            painter = painterResource(R.drawable.ic_where_fun),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFDCF0FA))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+                val shopByCategory = listOf(
+                    GroceryItemCategory(
+                        id = 1,
+                        title = "DIY & Activity Kits",
+                        iconRes = R.drawable.ic_diy_activity_kits
+                    ),
+                    GroceryItemCategory(
+                        id = 2,
+                        title = "Puzzles",
+                        iconRes = R.drawable.ic_puzzles
+                    ),
+                    GroceryItemCategory(
+                        id = 3,
+                        title = "Board Games",
+                        iconRes = R.drawable.ic_board_games
+                    ),
+                    GroceryItemCategory(
+                        id = 4,
+                        title = "Clay & Dough Sets",
+                        iconRes = R.drawable.ic_clay_dough_sets
+                    )
+                )
+
+                ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = shopByCategory,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 10.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 110.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFDCF0FA),
+                onBackClick = {}
+            )
+        }
+
+        val actionToysAndCars = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Die Cast",
+                iconRes = R.drawable.ic_die_cast_toys
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Guns",
+                iconRes = R.drawable.ic_action_guns
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Friction & Push-Go Toys",
+                iconRes = R.drawable.ic_friction_push_go_toys
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_action_toys_and_cars),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFDCF2FF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = actionToysAndCars,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
                 backgroundColor = Color(0xFFDCF2FF),
                 onBackClick = {}
             )
@@ -1276,26 +1412,618 @@ fun KidsCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
+        val shopByCategory = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Diapers & wipes",
+                iconRes = R.drawable.ic_category_diapers_wipes
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Food & nutrition",
+                iconRes = R.drawable.ic_category_food_nutrition
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Bath & hygiene",
+                iconRes = R.drawable.ic_category_bath_hygiene
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Feeding & nursing",
+                iconRes = R.drawable.ic_category_feeding_nursing
+            ),
+            GroceryItemCategory(
+                id = 5,
+                title = "Toys & games",
+                iconRes = R.drawable.ic_category_toys_games
+            ),
+            GroceryItemCategory(
+                id = 6,
+                title = "Stationery & books",
+                iconRes = R.drawable.ic_category_stationery_books
+            ),
+            GroceryItemCategory(
+                id = 7,
+                title = "Sports",
+                iconRes = R.drawable.ic_category_sports
+            ),
+            GroceryItemCategory(
+                id = 8,
+                title = "Baby & kids accessories",
+                iconRes = R.drawable.ic_category_baby_accessories
+            )
+        )
+        //        Spacer(modifier = Modifier.height(10.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(vertical = 0.dp, horizontal = 12.dp )
+        ) {
+            Spacer(modifier = Modifier.height(20.dp))
+            ListItemsGrid(
+                browseText = "Shop By Category",
+                items = shopByCategory,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = MaterialTheme.customColors.background,
+                onBackClick = {}
+            )
+        }
+
+        val shopByAge = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Infants (0-2)",
+                iconRes = R.drawable.ic_age_infants
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Toddler (2-4)",
+                iconRes = R.drawable.ic_age_toddler
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Pre-School (4+)",
+                iconRes = R.drawable.ic_age_pre_school
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Primary (6+)",
+                iconRes = R.drawable.ic_age_primary
+            )
+        )
+         Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+             ListItemsGrid(
+                 browseText = "Shop By Age",
+                 items = shopByAge,
+                 onItemClick = { item ->
+                     println("Clicked: ${item.title}")
+                 },
+                 columns = 4,
+                 horizontalSpacing = 8.dp,
+                 verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                 itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                 imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                 containerSize = 90.dp,        // Added container size for image
+                 backgroundColor = Color(0xFFFFFFFF),
+                 onBackClick = {}
+             )
+        }
+
+        val foodAndNutrition = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Infant Formula",
+                iconRes = R.drawable.ic_food_infant_formula
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Baby Food",
+                iconRes = R.drawable.ic_food_baby_food
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Organic & Vegan Baby Food",
+                iconRes = R.drawable.ic_food_organic_vegan
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Kids Cereals",
+                iconRes = R.drawable.ic_food_kids_cereals
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_food_and_nutrition),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(75.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFDBC1))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = foodAndNutrition,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFDBC1),
+                onBackClick = {}
+            )
+        }
+        Image(
+            painter = painterResource(R.drawable.ic_food_and_nutrition_footer),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(15.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+
+
+        val diaperSizes = listOf(
+            GroceryItemCategory(id = 1, title = "", iconRes = R.drawable.ic_diaper_newborn),
+            GroceryItemCategory(id = 2, title = "", iconRes = R.drawable.ic_diaper_small),
+            GroceryItemCategory(id = 3, title = "", iconRes = R.drawable.ic_diaper_medium),
+            GroceryItemCategory(id = 4, title = "", iconRes = R.drawable.ic_diaper_large),
+            GroceryItemCategory(id = 5, title = "", iconRes = R.drawable.ic_diaper_xl),
+            GroceryItemCategory(id = 6, title = "", iconRes = R.drawable.ic_diaper_xxl),
+            GroceryItemCategory(id = 7, title = "", iconRes = R.drawable.ic_nappies),
+            GroceryItemCategory(id = 8, title = "", iconRes = R.drawable.ic_baby_wipes)
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_diaper_sizes),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = diaperSizes,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 100.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        val toyStoreCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Vehicles & action toys",
+                iconRes = R.drawable.ic_toys_vehicles_action_1,
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Dolls & soft toys",
+                iconRes = R.drawable.ic_toys_dolls_soft,
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Board games & education",
+                iconRes = R.drawable.ic_toys_board_games_2,
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Baby & toddler toys",
+                iconRes = R.drawable.ic_toys_baby_toddler_1,
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_toy_store),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFD8BB))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = toyStoreCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFD8BB),
+                onBackClick = {}
+            )
+        }
+
+        // Toy brands from the images
+        val toyBrands = listOf(
+            CategoryItem(0, "LEGO", R.drawable.ic_brand_lego, "View products"),
+            CategoryItem(1, "Imagi make", R.drawable.ic_brand_imagi_make, "View products"),
+            CategoryItem(2, "Barbie", R.drawable.ic_brand_barbie, "View products"),
+            CategoryItem(3, "Hasbro", R.drawable.ic_brand_hasbro_1, "View products"),
+          )
+
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Kids",
+            text = "Toy brand store",
             style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.customColors.black
             ),
             maxLines = 1,
             modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
         )
-        Text(
-            text = "Kids clothing, accessories & more",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+        CategoryListSimple(
+            items = toyBrands,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 140.dp,
+            itemHeight = 210.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFFFFFFF)
         )
-    }
+
+        // Categories matching the toy store pattern
+        val stationeryCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Notebooks",
+                iconRes = R.drawable.notebook_spiral,
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Writing essentials",
+                iconRes = R.drawable.pen_fountain,
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Art supplies",
+                iconRes = R.drawable.watercolor_set,
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Children's books",
+                iconRes = R.drawable.picture_book,
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_stationery),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFED2B5))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = stationeryCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFED2B5),
+                onBackClick = {}
+            )
+        }
+
+        // Categories matching the toy store pattern
+        val schoolSuppliesCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "School bags",
+                iconRes = R.drawable.ic_school_bag   // backpack image
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Lunch boxes & water bottles",
+                iconRes = R.drawable.ic_lunch_box_bottle  // lunchbox + bottle image
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Stationery kits",
+                iconRes = R.drawable.ic_stationery_kit  // pens/pencils pack
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Exam pads & boxes",
+                iconRes = R.drawable.ic_exam_pad_box  // notebook/exam pad image
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_school_supplies),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFED2B5))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = schoolSuppliesCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFED2B5),
+                onBackClick = {}
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+        val giftingCornerCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Babies gift kit",
+                iconRes = R.drawable.ic_baby_gift_kit   // gift box set image
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Dolls & soft toys",
+                iconRes = R.drawable.ic_soft_toy_teddy   // teddy bear image
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Board games & puzzles",
+                iconRes = R.drawable.ic_board_game_jenga   // jenga/board game image
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Vehical & action toys",
+                iconRes = R.drawable.ic_toy_car_remote   // remote car image
+            )
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 0.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "Gifting corner",
+                showBrowseText = true,
+                items = giftingCornerCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        val birthdayPartyCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Party decorations",
+                iconRes = R.drawable.ic_party_decorations   // balloons / happy birthday banner
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Return gifts",
+                iconRes = R.drawable.ic_return_gift_cube   // rubik cube / small gift
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Gifting",
+                iconRes = R.drawable.ic_gifting_box   // gift pack / lego box
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Munchies",
+                iconRes = R.drawable.ic_munchies_snacks   // chips/snacks pack
+            ),
+            GroceryItemCategory(
+                id = 5,
+                title = "Juices & drinks",
+                iconRes = R.drawable.ic_juice_drink   // juice bottle
+            ),
+            GroceryItemCategory(
+                id = 6,
+                title = "Tissues & disposables",
+                iconRes = R.drawable.ic_tissue_pack   // tissue box
+            )
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "Birthday party ready",
+                showBrowseText = true,
+                items = birthdayPartyCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        val shopByConcernCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Diaper rashes",
+                iconRes = R.drawable.ic_diaper_rash_cream   // diaper rash cream tube
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Mosquito bites",
+                iconRes = R.drawable.ic_mosquito_repellent   // mosquito repellent bottle
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Cold & flu",
+                iconRes = R.drawable.ic_baby_cold_rub   // baby rub jar
+            )
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 0.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "Shop by concern",
+                showBrowseText = true,
+                items = shopByConcernCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // Categories matching
+        val kidsActivityCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Sports toys",
+                iconRes = R.drawable.ic_sports_basketball   // basketball image
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Books",
+                iconRes = R.drawable.ic_kids_books   // children book image
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Outdoor play",
+                iconRes = R.drawable.ic_outdoor_play_set   // bucket & spade toys
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Art & craft",
+                iconRes = R.drawable.ic_art_craft_kit   // colors/paint kit
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_kids_activity),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = kidsActivityCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+}
 }
 
 @Composable
@@ -1304,25 +2032,145 @@ fun BeautyCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Beauty",
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.customColors.black
+        // Category mapping
+        val dealZoneCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "",
+                iconRes = R.drawable.ic_deal_zone_1   // basketball image
             ),
-            maxLines = 1,
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+            GroceryItemCategory(
+                id = 2,
+                title = "",
+                iconRes = R.drawable.ic_deal_zone_2   // children book image
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "",
+                iconRes = R.drawable.ic_deal_zone_3   // bucket & spade toys
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "",
+                iconRes = R.drawable.ic_deal_zone_4   // colors/paint kit
+            )
         )
-        Text(
-            text = "Cosmetics, skincare & personal care",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+        Image(
+            painter = painterResource(R.drawable.ic_deal_zone_banner),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(65.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
         )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = dealZoneCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 100.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // Updated shop by concern categories with new image naming
+        val shopByConcernCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "",
+                iconRes = R.drawable.shop_by_concern_1   // Ageing product image
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "",
+                iconRes = R.drawable.shop_by_concern_2   // Sun protection product image
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "",
+                iconRes = R.drawable.shop_by_concern_3   // Dull skin product image
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "",
+                iconRes = R.drawable.shop_by_concern_4   // Acne treatment product image
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_shop_by_concern),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(65.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = shopByConcernCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 100.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // Additional brands for spotlight
+        val spotlightBrands = listOf(
+            CategoryItem(0, "Vaseline", R.drawable.ic_brand_vaseline, "Shop Now"),
+            CategoryItem(1, "LAKME", R.drawable.ic_brand_lakme, "Shop Now"),
+            CategoryItem(2, "MAYBELLINE", R.drawable.ic_brand_maybelline, "Shop Now"),
+            CategoryItem(3, "Minimalist", R.drawable.ic_brand_minimalist, "Shop Now"),
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Image(
+            painter = painterResource(R.drawable.ic_spot_light),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(65.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        CategoryListSimple(
+            items = spotlightBrands,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 140.dp,
+            itemHeight = 210.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFFFFFFF)
+        )
+
     }
 }
 

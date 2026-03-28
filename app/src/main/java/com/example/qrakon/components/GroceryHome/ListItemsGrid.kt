@@ -142,7 +142,6 @@ fun GroceryGridItem(
         // Title - Using your logic
         if (item.title.isNotEmpty()) {
             Spacer(modifier = Modifier.height(6.dp))
-
             Text(
                 text = item.title,
                 fontSize = 12.sp,
