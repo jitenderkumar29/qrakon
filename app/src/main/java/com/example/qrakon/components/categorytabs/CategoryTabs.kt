@@ -1820,6 +1820,8 @@ fun AllCategoryPage() {
     ) {
 
         val bannerPortraitImages = listOf(
+            BannerItem( imageRes = R.drawable.banner_portrait16, backgroundColor = Color(0xFF827E7B)),
+            BannerItem( imageRes = R.drawable.banner_portrait17, backgroundColor = Color(0xFFC5E8FB)),
             BannerItem( imageRes = R.drawable.banner_portrait1, backgroundColor = Color(0xFFF7F3F2)),
             BannerItem( imageRes = R.drawable.banner_portrait2, backgroundColor = Color(0xFFB3C4D6) ),
             BannerItem( imageRes = R.drawable.banner_portrait3, backgroundColor = Color(0xFFC5B5A8) ),

@@ -108,8 +108,8 @@ fun BannerPortrait(
     val screenWidth = configuration.screenWidthDp.dp
 
     // Calculate widths: 70% for current, 15% peeking for previous/next
-    val currentWidth = screenWidth * 0.70f
-    val peekWidth = screenWidth * 0.15f
+    val currentWidth = screenWidth * 0.80f
+    val peekWidth = screenWidth * 0.10f
 
     Box(
         modifier = modifier

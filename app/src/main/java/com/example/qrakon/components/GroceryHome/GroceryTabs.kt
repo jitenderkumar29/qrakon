@@ -317,6 +317,7 @@ fun ImageWithFallback(
 fun AllCategoryPage() {
     val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val allGroceryImages = listOf(
+        BannerItem( imageRes = R.drawable.all_grocery_banner_11, backgroundColor = Color(0xFFFCD7C7) ),
         BannerItem( imageRes = R.drawable.all_grocery_banner_10, backgroundColor = Color(0xFFFEFEFE) ),
         BannerItem( imageRes = R.drawable.all_grocery_banner_9, backgroundColor = Color(0xFFE4E5E9) ),
         BannerItem( imageRes = R.drawable.all_grocery_banner_1, backgroundColor = Color(0xFF533C2F)),
@@ -2117,7 +2118,7 @@ fun BeautyCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(65.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
             contentScale = ContentScale.FillBounds
         )
         Column(
@@ -2157,7 +2158,7 @@ fun BeautyCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(65.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
             contentScale = ContentScale.FillBounds
         )
         CategoryListSimple(
@@ -2171,6 +2172,138 @@ fun BeautyCategoryPage() {
             backgroundColor = Color(0xFFFFFFFF)
         )
 
+        val groomingCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "",
+                iconRes = R.drawable.ic_bath_hygiene   // Bath products, soaps, shower gels
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "",
+                iconRes = R.drawable.ic_shaving_care   // Razors, shaving cream, aftershave
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "",
+                iconRes = R.drawable.ic_face_body   // Moisturizers, cleansers, lotions
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "",
+                iconRes = R.drawable.ic_hair_beard_care   // Shampoo, beard oil, trimmers
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_grooming),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = groomingCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 100.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // All Grooming Items
+        val trendingBrands = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "",
+                iconRes = R.drawable.mamaearth_bath_gel
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "",
+                iconRes = R.drawable.begood_soap
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "",
+                iconRes = R.drawable.thebodyshop_shower_gel
+            ),
+
+            // Category 2: Shaving Care
+            GroceryItemCategory(
+                id = 4,
+                title = "",
+                iconRes = R.drawable.plom_shaving_cream
+            ),
+            GroceryItemCategory(
+                id = 5,
+                title = "",
+                iconRes = R.drawable.mars_razor
+            ),
+            GroceryItemCategory(
+                id = 6,
+                title = "",
+                iconRes = R.drawable.thebodyshop_aftershave
+            ),
+
+            // Category 3: Face & Body
+            GroceryItemCategory(
+                id = 7,
+                title = "",
+                iconRes = R.drawable.aqualogica_hydrating_lotion
+            ),
+            GroceryItemCategory(
+                id = 8,
+                title = "",
+                iconRes = R.drawable.thedermaco_cleanser
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_trending_brands ),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = trendingBrands,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 100.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
     }
 }
 
