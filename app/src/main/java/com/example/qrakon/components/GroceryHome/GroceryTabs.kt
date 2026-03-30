@@ -798,8 +798,7 @@ fun OrganicCategoryPage() {
 }
 
 @Composable
-fun HealthCategoryPage(  // Accept both parameters
-                        modifier: Modifier = Modifier) {
+fun HealthCategoryPage(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -2313,25 +2312,379 @@ fun PetsCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
+        // Shop by Category Items
+        val shopByCategoryItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Treats",
+                iconRes = R.drawable.ic_treats_pets
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Grooming essentials",
+                iconRes = R.drawable.ic_grooming_pets
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Toys & accessories",
+                iconRes = R.drawable.ic_toys_pets
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Others",
+                iconRes = R.drawable.ic_others_pets
+            )
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 0.dp, horizontal = 12.dp)
+        ) {
+            Spacer(modifier = Modifier.height(20.dp))
+
+            ListItemsGrid(
+                browseText = "Shop by category",
+                showBrowseText = true,
+                items = shopByCategoryItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // Pet Life Stage Categories (From pup to purr)
+        val petLifeStageItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Adult dog",
+                iconRes = R.drawable.ic_adult_dog
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Puppy",
+                iconRes = R.drawable.ic_puppy
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Kitten",
+                iconRes = R.drawable.ic_kitten
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Adult cat",
+                iconRes = R.drawable.ic_adult_cat
+            )
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFFFFF))
+                .padding(vertical = 0.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "From pup to purr",
+                showBrowseText = true,
+                items = petLifeStageItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFFFFF),
+                onBackClick = {}
+            )
+        }
+
+        // All-in-One Pet Maintenance Pack Categories
+        val petMaintenanceItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Feeding support",
+                iconRes = R.drawable.ic_feeding_support
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Oils & shampoos",
+                iconRes = R.drawable.ic_oils_shampoos
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Accessories",
+                iconRes = R.drawable.ic_accessories_pet
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "Collars & leashes",
+                iconRes = R.drawable.ic_collars_leashes
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_pet_maintenance),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFE5CE))
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = petMaintenanceItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 4,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 1.dp,      // Increased from 1.dp for better spacing
+                itemHeight = 120.dp,          // Increased from 120.dp for larger items
+                imageSize = 90.dp,            // Increased from 100.dp? Actually reduced to fit 4 columns
+                containerSize = 90.dp,        // Added container size for image
+                backgroundColor = Color(0xFFFFE5CE),
+                onBackClick = {}
+            )
+        }
+
+        // Pet Meals & Beverages Categories
+        val petMealsAndBeveragesItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Dry food",
+                iconRes = R.drawable.ic_dry_food
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Wet food",
+                iconRes = R.drawable.ic_wet_food
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Chew bones & munchies",
+                iconRes = R.drawable.ic_chew_bones
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_pet_meals_and_beverages),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF3F3FF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = petMealsAndBeveragesItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFF3F3FF),
+                onBackClick = {}
+            )
+        }
+
+        // Pet Brands (with IDs starting from 0)
+        val petBrands = listOf(
+            CategoryItem(0, "drools", R.drawable.ic_brand_drools, "Shop Now"),
+            CategoryItem(1, "Pedigree", R.drawable.ic_brand_pedigree, "Shop Now"),
+            CategoryItem(2, "whiskas", R.drawable.ic_brand_whiskas, "Shop Now"),
+            CategoryItem(3, "BearHugs", R.drawable.ic_brand_bearhugs, "Shop Now"),
+            CategoryItem(4, "HUFT", R.drawable.ic_brand_huft, "Shop Now"),
+            CategoryItem(5, "Goofy Tails", R.drawable.ic_brand_goofy_tails, "Shop Now")
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Pets",
+            text = "Shop by brands",
             style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.customColors.black
             ),
             maxLines = 1,
             modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
         )
-        Text(
-            text = "Pet food, accessories & care products",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+        CategoryListSimple(
+            items = petBrands,
+            showOverlayOnImage = false,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 140.dp,
+            itemHeight = 210.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFFFFFFF)
         )
+
+        val bigSavingsCategories = listOf(
+            GroceryItemCategory(id = 1, title = "Min 15% off", iconRes = R.drawable.ic_min_off),
+            GroceryItemCategory(id = 2, title = "Unbeatable Offers", iconRes = R.drawable.ic_unbeatable_offers)
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_big_savings),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp),
+            contentScale = ContentScale.FillBounds
+        )
+        // In your screen composable
+//        Spacer(modifier = Modifier.height(10.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFF6CB))
+                .padding(vertical = 2.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = bigSavingsCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 2,
+                horizontalSpacing = 8.dp,
+                verticalSpacing = 2.dp,  // Increased from 1.dp for better spacing
+                itemHeight = 210.dp,      // Increased height for better proportion
+                imageSize = 180.dp,       // Larger image size (was 190.dp)
+                containerSize = 180.dp,   // Container for image (slightly larger than image)
+                backgroundColor = Color(0xFFFFF6CB),
+                onBackClick = {}
+            )
+        }
+
+        // Pet Meals & Beverages - Flavours
+        val petFlavoursItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Chicken",
+                iconRes = R.drawable.img_chicken_food
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Lamb",
+                iconRes = R.drawable.img_lamb_food
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Fish",
+                iconRes = R.drawable.img_fish_food
+            )
+        )
+         Image(
+            painter = painterResource(R.drawable.ic_pet_flavours_items),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFFE5CE))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = petFlavoursItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFFFE5CE),
+                onBackClick = {}
+            )
+        }
+
+        // Meal Preparations Items
+        val mealPreparationItems = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "Paneer",
+                iconRes = R.drawable.img_paneer
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "Fish",
+                iconRes = R.drawable.img_fish_meal
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "Mutton",
+                iconRes = R.drawable.img_mutton
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_meal_preparation_items),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFFEFEEF))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = mealPreparationItems,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 115.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFFEFEEF),
+                onBackClick = {}
+            )
+        }
     }
 }
 
