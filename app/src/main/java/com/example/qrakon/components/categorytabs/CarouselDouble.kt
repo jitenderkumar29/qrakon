@@ -78,6 +78,7 @@ fun CategoryProducts(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
+            .background(backgroundColor)
             .padding(horizontal = horizontalPadding.dp, vertical = verticalPadding.dp)
     ) {
         items(firstRow.size) { columnIndex ->
@@ -159,7 +160,6 @@ fun CategoryItem(
         }
         if (category.name.isNotEmpty()) {
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
                 text = category.name,
                 fontSize = 12.sp,

@@ -40,6 +40,8 @@ import com.example.qrakon.R
 import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
 import com.example.qrakon.components.categorytabs.CategoryProducts
+import com.example.qrakon.components.fashion.fashiontab.CategoryListGrid
+import com.example.qrakon.components.fashion.fashiontab.ProductListGrid
 import com.example.qrakon.components.homescreen.BannerBackgroundManager
 import com.example.qrakon.components.homescreen.BannerFood
 import com.example.qrakon.components.homescreen.BannerItem
@@ -1245,7 +1247,7 @@ fun ToysCategoryPage() {
                 iconRes = R.drawable.ic_fitness_gym_essentials
             )
         )
-            Image(
+        Image(
                 painter = painterResource(R.drawable.ic_sports_and_fitness),
                 contentDescription = "Banner",
                 modifier = Modifier
@@ -2694,25 +2696,214 @@ fun DecorCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
+        Image(
+            painter = painterResource(R.drawable.ic_decor_banner),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(130.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+
+        // Featured items
+        val featuredLamps = listOf(
+            CategoryItem(0, "", R.drawable.ic_decorative_lamps),
+            CategoryItem(1, "", R.drawable.ic_candles_diffusers),
+            CategoryItem(2, "", R.drawable.ic_bar_accessories),
+            CategoryItem(3, "", R.drawable.ic_coffee_machine),
+            CategoryItem(4, "", R.drawable.ic_greenery),
+            CategoryItem(5, "", R.drawable.ic_home_decor)
+        )
+//        Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Home Decor",
+            text = "Shop by Featured",
             style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.customColors.black
             ),
             maxLines = 1,
             modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
         )
-        Text(
-            text = "Home decoration & furnishings",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+        CategoryListSimple(
+            items = featuredLamps,
+            showOverlayOnImage = false,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 120.dp,
+            itemHeight = 170.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFFFFFFF)
         )
+
+        // First row of room categories (main rooms)
+        val mainRoomsDecor = listOf(
+            Category(0, "", R.drawable.ic_bedroom_decor),
+            Category(1, "", R.drawable.ic_living_room_decor),
+            Category(2, "", R.drawable.ic_kids_room_decor),
+            Category(3, "", R.drawable.ic_kitchen_decor),
+            Category(4, "", R.drawable.ic_party_room_decor),
+            Category(5, "", R.drawable.ic_spiritual_corner_decor),
+            Category(6, "", R.drawable.ic_bathroom_decor),
+            Category(7, "", R.drawable.ic_balcony_decor)
+        )
+
+        var selectedCategory by remember { mutableStateOf<Category?>(null) }
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = "Give every room a glow-up",
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.customColors.black
+            ),
+            maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        )
+        CategoryProducts(
+            categories = mainRoomsDecor,
+            onCategorySelected = { category ->
+                selectedCategory = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = mainRoomsDecor.first(),
+            itemWidth = 120,
+            itemHeight = 200,
+            horizontalSpacing = 8,
+            verticalSpacing = 0,
+            backgroundColor = MaterialTheme.customColors.white
+        )
+
+        // Main decor products (bedsheets, cushions, etc.)
+        val mainDecorProducts = listOf(
+            Category(0, "", R.drawable.ic_bedsheets_covers),
+            Category(1, "", R.drawable.ic_cushions_pillows),
+            Category(2, "", R.drawable.ic_ac_blankets),
+            Category(3, "", R.drawable.ic_rugs_carpets),
+            Category(4, "", R.drawable.ic_floor_mats),
+            Category(5, "", R.drawable.ic_lamps_lights),
+            Category(6, "", R.drawable.ic_sofa_covers_curtains),
+            Category(7, "", R.drawable.ic_fans_coolers)
+        )
+        var selectedCategoryProducts by remember { mutableStateOf<Category?>(null) }
+        Image(
+            painter = painterResource(R.drawable.ic_main_decor_products),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(190.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+        CategoryProducts(
+            categories = mainDecorProducts,
+            onCategorySelected = { category ->
+                selectedCategoryProducts = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = mainRoomsDecor.first(),
+            itemWidth = 120,
+            itemHeight = 120,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = Color(0xFFDFCCB8)
+        )
+
+        // Charming Touch Decor Items
+        val charmingTouchItems = listOf(
+            ProductListGrid("", "Table & Wall Decor", R.drawable.ic_table_wall_decor),
+            ProductListGrid("", "Figurines & Showpieces", R.drawable.ic_figurines_showpieces),
+            ProductListGrid("", "Candles & Diffuser Sets", R.drawable.ic_candles_diffuser_sets),
+            ProductListGrid("", "Pots & Planters", R.drawable.ic_pots_planters)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Add a charming touch",
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.customColors.black
+            ),
+            maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        CategoryListGrid(
+            products = charmingTouchItems,
+            columns = 2,
+            gridHeight = 280.dp, // fixed height to avoid crashes
+            showName = false,
+            showPrice = false,   // hide price
+            imageAspectRatio = 4.5f / 3f,
+//                        defaultCardColor = Color(0xFFB3212E),
+            defaultCardColor = Color(0xFFFFFFFF),
+            onItemClick = { product ->
+                println("Clicked on ${product.name}")
+            }
+        )
+
+        // Budget categories from images
+        val budgetCategories = listOf(
+            CategoryItem(0, "", R.drawable.ic_budget_under_500),
+            CategoryItem(1, "", R.drawable.ic_budget_under_1000),
+            CategoryItem(2, "", R.drawable.ic_budget_under_1500),
+            CategoryItem(3, "", R.drawable.ic_budget_under_2000)
+
+        )
+//        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = "Shop gifts by budget",
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.customColors.black
+            ),
+            maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        )
+        CategoryListSimple(
+            items = budgetCategories,
+            showOverlayOnImage = false,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 110.dp,
+            itemHeight = 110.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFFFFFFF)
+        )
+
+        // Bathing Needs & Utilities
+        Spacer(modifier = Modifier.height(10.dp))
+        Image(
+            painter = painterResource(R.drawable.ic_bathing_and_utilities),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+            contentScale = ContentScale.FillBounds
+        )
+            val bathingAndUtilities = listOf(
+                CategoryItem(0, "", R.drawable.ic_bathing_needs),
+                CategoryItem(1, "", R.drawable.ic_towel_mats),
+                CategoryItem(2, "", R.drawable.ic_utilities),
+                CategoryItem(3, "", R.drawable.ic_fresheners)
+            )
+            CategoryListSimple(
+                items = bathingAndUtilities,
+                showOverlayOnImage = false,
+                onItemClick = { item -> println("Selected: ${item.name}") },
+                itemWidth = 110.dp,
+                itemHeight = 110.dp,
+                horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+                horizontalPadding = 12.dp,
+                backgroundColor = Color(0xFF6BC6E1)
+            )
     }
 }
 
