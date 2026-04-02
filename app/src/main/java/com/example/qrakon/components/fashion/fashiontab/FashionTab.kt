@@ -29,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +44,9 @@ import androidx.navigation.NavController
 import com.example.qrakon.components.categorytabs.CarouselFashionOne
 import com.example.qrakon.components.categorytabs.Category
 import com.example.qrakon.components.categorytabs.CategoryProducts
+import com.example.qrakon.components.homescreen.BannerBackgroundManager
+import com.example.qrakon.components.homescreen.BannerItem
+import com.example.qrakon.components.homescreen.BannerPortrait
 
 // Sealed class for fashion category pages
 sealed class FashionCategoryPage {
@@ -424,6 +428,7 @@ fun MenFashionPage(
     onTabSelected: (String, Int) -> Unit, // Change to accept both String and Int
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
     val menFashionCategories = listOf(
         Category(12, "Casual", R.drawable.ic_casual_men),
         Category(13, "Ethnic", R.drawable.ic_ethnic_men),
@@ -443,34 +448,84 @@ fun MenFashionPage(
         itemHeight = 75,
         horizontalSpacing = 8
     )
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.men_fashion_banner1),
-        painterResource(id = R.drawable.men_fashion_banner2),
-        painterResource(id = R.drawable.men_fashion_banner3),
-        painterResource(id = R.drawable.men_fashion_banner4),
-        painterResource(id = R.drawable.men_fashion_banner5),
-        painterResource(id = R.drawable.men_fashion_banner6),
-        painterResource(id = R.drawable.men_fashion_banner7),
-    )
+    val bannerPortraitImages = listOf(
+        BannerItem( imageRes = R.drawable.men_fashion_banner1, backgroundColor = Color(0xFF3E3D34)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner2, backgroundColor = Color(0xFFDA9AA0) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner3, backgroundColor = Color(0xFF65554E) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner4, backgroundColor = Color(0xFFA00000) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner5, backgroundColor = Color(0xFFAA9000) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner6, backgroundColor = Color(0xFF83432B) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner7, backgroundColor = Color(0xFF1D3642) ),
+        )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImages,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 500.dp,
+                autoScrollDelay = 3000
+            )
 
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.men_fashion_banner1),
+//        painterResource(id = R.drawable.men_fashion_banner2),
+//        painterResource(id = R.drawable.men_fashion_banner3),
+//        painterResource(id = R.drawable.men_fashion_banner4),
+//        painterResource(id = R.drawable.men_fashion_banner5),
+//        painterResource(id = R.drawable.men_fashion_banner6),
+//        painterResource(id = R.drawable.men_fashion_banner7),
+//    )
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 500.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
-        )
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 500.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
 
         Spacer(
             modifier = Modifier

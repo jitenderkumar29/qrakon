@@ -2441,7 +2441,7 @@ fun PetsCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(170.dp),
             contentScale = ContentScale.FillBounds
         )
         Column(
@@ -2491,7 +2491,7 @@ fun PetsCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(170.dp),
             contentScale = ContentScale.FillBounds
         )
         Column(
@@ -2611,8 +2611,8 @@ fun PetsCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
-            contentScale = ContentScale.FillBounds
+                .height(170.dp),
+             contentScale = ContentScale.FillBounds
         )
         Column(
             modifier = Modifier
@@ -2661,7 +2661,7 @@ fun PetsCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(150.dp),
             contentScale = ContentScale.FillBounds
         )
         Column(
@@ -2703,7 +2703,7 @@ fun DecorCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(130.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(130.dp),
             contentScale = ContentScale.FillBounds
         )
 
@@ -2795,7 +2795,7 @@ fun DecorCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(190.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(190.dp),
             contentScale = ContentScale.FillBounds
         )
         CategoryProducts(
@@ -2884,7 +2884,7 @@ fun DecorCategoryPage() {
             contentDescription = "Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp), // Height between min and max, // 30% of screen height, // Sets height based on width and aspect ratio
+                .height(170.dp),
             contentScale = ContentScale.FillBounds
         )
             val bathingAndUtilities = listOf(
@@ -2913,24 +2913,151 @@ fun ImportedCategoryPage() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(12.dp)
+            .padding(0.dp)
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Imported Products",
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.customColors.black
-            ),
-            maxLines = 1,
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        Image(
+            painter = painterResource(R.drawable.ic_imported_banner),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(110.dp),
+            contentScale = ContentScale.FillBounds
         )
-        Text(
-            text = "International brands & imported goods",
-            fontSize = 16.sp,
-            color = MaterialTheme.customColors.gray,
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+
+        // Imported Products Category List
+        val importedProducts = listOf(
+            Category(1, "", R.drawable.img_otoki_korea),
+            Category(2, "", R.drawable.img_monster_usa),
+            Category(3, "", R.drawable.img_ritter_sport_germany),
+            Category(4, "", R.drawable.img_butlers_ireland),
+            Category(5, "", R.drawable.img_yopokki_korea),
+            Category(6, "", R.drawable.img_pastazara_italy),
+            Category(7, "", R.drawable.img_perrier_france),
+            Category(8, "", R.drawable.img_darbo_austria),
+            Category(9, "", R.drawable.img_tiffany_uae),
+            Category(10, "", R.drawable.img_figaro_spain),
+            Category(11, "", R.drawable.img_nespresso_switzerland),
+            Category(12, "", R.drawable.img_pepsi_international_usa),
+            Category(13, "", R.drawable.img_loacker_italy) // from last image
+        )
+        var selectedCategoryImported by remember { mutableStateOf<Category?>(null) }
+        Image(
+            painter = painterResource(R.drawable.ic_imported_products),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(90.dp),
+            contentScale = ContentScale.FillBounds
+        )
+        CategoryProducts(
+            categories = importedProducts,
+            onCategorySelected = { category ->
+                selectedCategoryImported = category
+                println("Selected category: ${category.name}")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            initialSelectedCategory = importedProducts.first(),
+            itemWidth = 120,
+            itemHeight = 150,
+            horizontalSpacing = 8,
+            verticalSpacing = 8,
+            backgroundColor = Color(0xFFEDDACC)
+        )
+
+        // Main Categories from the image - converted to GroceryItemCategory format
+        val mainCategories = listOf(
+            GroceryItemCategory(
+                id = 1,
+                title = "",
+                iconRes = R.drawable.ic_pet_care_imported
+            ),
+            GroceryItemCategory(
+                id = 2,
+                title = "",
+                iconRes = R.drawable.ic_baby_care_imported
+            ),
+            GroceryItemCategory(
+                id = 3,
+                title = "",
+                iconRes = R.drawable.ic_hair_care_imported
+            ),
+            GroceryItemCategory(
+                id = 4,
+                title = "",
+                iconRes = R.drawable.ic_pharma_wellness_imported
+            ),
+            GroceryItemCategory(
+                id = 5,
+                title = "",
+                iconRes = R.drawable.ic_face_care_imported
+            ),
+            GroceryItemCategory(
+                id = 6,
+                title = "",
+                iconRes = R.drawable.ic_toys_games_imported
+            )
+        )
+        Image(
+            painter = painterResource(R.drawable.ic_main_categories),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(90.dp),
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFEAD8CD))
+                .padding(vertical = 5.dp, horizontal = 12.dp )
+        ) {
+            ListItemsGrid(
+                browseText = "",
+                showBrowseText = false,
+                items = mainCategories,
+                onItemClick = { item ->
+                    println("Clicked: ${item.title}")
+                },
+                columns = 3,
+                horizontalSpacing = 5.dp,  // Increased spacing for better readability
+                verticalSpacing = 0.dp,    // Increased vertical spacing
+                itemHeight = 140.dp,        // Taller items to accommodate larger images
+                imageSize = 125.dp,          // Larger image size
+                containerSize = 120.dp,     // Larger container for images
+                backgroundColor = Color(0xFFEAD8CD),
+                onBackClick = {}
+            )
+        }
+
+        // Featured items from images
+        val featuredItems = listOf(
+            CategoryItem(0, "", R.drawable.ic_olaplex),
+            CategoryItem(1, "", R.drawable.ic_swisse),
+            CategoryItem(2, "", R.drawable.ic_schwarzkopf),
+            CategoryItem(3, "", R.drawable.ic_lego),
+            CategoryItem(4, "", R.drawable.ic_sebamed),
+            CategoryItem(5, "", R.drawable.ic_felix),
+            CategoryItem(6, "", R.drawable.ic_the_face_shop)
+        )
+//        Spacer(modifier = Modifier.height(10.dp))
+        Image(
+            painter = painterResource(R.drawable.ic_featured_items),
+            contentDescription = "Banner",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(90.dp),
+            contentScale = ContentScale.FillBounds
+        )
+        CategoryListSimple(
+            items = featuredItems,
+            showOverlayOnImage = false,
+            onItemClick = { item -> println("Selected: ${item.name}") },
+            itemWidth = 140.dp,
+            itemHeight = 210.dp,
+            horizontalSpacing = 12.dp,
+//                        verticalPadding = 8.dp,
+            horizontalPadding = 12.dp,
+            backgroundColor = Color(0xFFEDDBCD)
         )
     }
 }
