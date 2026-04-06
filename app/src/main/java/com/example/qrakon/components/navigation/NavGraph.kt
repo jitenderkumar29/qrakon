@@ -10,6 +10,9 @@ import com.example.qrakon.components.fashion.FashionScreen
 import com.example.qrakon.components.fashion.fashiontab.CategoriesFashionPage
 import com.example.qrakon.components.homescreen.CategoryScreen
 import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen // <- create this
+import com.example.qrakon.components.restaurants.RestaurantDetails
+import com.example.qrakon.components.restaurants.TopRatedRestaurantItem
+import com.example.qrakon.components.restaurants.completeRestaurantItems
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -20,6 +23,7 @@ fun AppNavGraph(navController: NavHostController) {
         // ✅ Home category screen
         composable("category_screen") {
             CategoryScreen(
+                navController = navController,
                 onOpenFashion = {
                     navController.navigate("fashion_screen")
                 }
@@ -65,5 +69,24 @@ fun AppNavGraph(navController: NavHostController) {
                 onBanner3Click = { navController.navigate("banner3") }
             )
         }
+
+        composable(
+            "restaurant_details/{restaurantId}",
+            arguments = listOf(navArgument("restaurantId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val restaurantId = backStackEntry.arguments?.getInt("restaurantId")
+            // Find the restaurant item by ID from your data source
+            val restaurantItem = findRestaurantById(restaurantId)
+
+            RestaurantDetails(
+                onBackClick = { navController.popBackStack() },
+                navController = navController,
+                restaurantItem = restaurantItem
+            )
+        }
     }
+}
+
+fun findRestaurantById(id: Int?): TopRatedRestaurantItem? {
+    return completeRestaurantItems.find { it.id == id }
 }

@@ -73,6 +73,13 @@ data class CustomColors(
     val footer: Color,
     val orange: Color,
     val skyBlue: Color,
+    val blackHeader: Color,
+    val header: Color,
+    val darkAccent2: Color,
+    val yellowButton: Color,
+    val orangeButton: Color,
+    val orangeVivid: Color,
+    val orangeLight: Color,
 
     // Custom gray colors
     val spacerColor: Color,
@@ -152,6 +159,14 @@ val LightCustomColors = CustomColors(
     footer = Color(0xFF760241),
     orange = Color(0xFFFB5E20),
     skyBlue = Color(0xFFDDE0FF),
+    blackHeader = Color(0xFF02050C),
+    header = Color(0xFF661202),
+    darkAccent2 = Color(0xFF3668ED),
+    yellowButton = Color(0xFFFFC107),
+    orangeButton = Color(0xFFFE5200),
+    orangeVivid = Color(0xFFCE7D10),
+    orangeLight = Color(0xFFFF7C1C),
+
 //    lightAccent = Color(0xFFB9DC96),
 //    darkAccent = Color(0xFFCBF0A3),
 //    lightAccent = Color(0xFF162271),
@@ -180,8 +195,6 @@ val LightCustomColors = CustomColors(
 
     //     Image BG Color
     imageBgColor1 = Color(0xFFDDF4FF)
-
-
 )
 
 val DarkCustomColors = CustomColors(
@@ -237,6 +250,13 @@ val DarkCustomColors = CustomColors(
     footer = Color(0xFF760241),
     orange = Color(0xFFFB5E20),
     skyBlue = Color(0xFFDDE0FF),
+    blackHeader = Color(0xFF02050C),
+    header = Color(0xFF760241),
+    darkAccent2 = Color(0xFF3668ED),
+    yellowButton = Color(0xFFFFC107),
+    orangeButton = Color(0xFFFE5200),
+    orangeVivid = Color(0xFFCE7D10),
+    orangeLight = Color(0xFFFF7C1C),
 
     // Custom gray colors
     spacerColor = Color(0xFFE3E2E2),

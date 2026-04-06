@@ -39,6 +39,8 @@ import com.example.qrakon.ui.theme.customColors
 import com.example.qrakon.R
 import com.example.qrakon.components.GroceryHome.GroceryHome
 import com.example.qrakon.components.navigation.TabNavigationApp
+import com.example.qrakon.components.restaurants.TopRatedRestaurants
+import com.example.qrakon.components.restaurants.completeRestaurantItems
 
 data class CategoryHeaderClass(
     val id: Int,
@@ -102,7 +104,12 @@ fun CategoryHeader(
             CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFF95E69A), selectedColor = Color(
                 0xFF24B12D)),
             CategoryHeaderClass(15, "Pay", R.drawable.pay, Color(0xFFCFC76D), selectedColor = Color(
-                0xFFE7D532)),)
+                0xFFE7D532)),
+            CategoryHeaderClass(16, "Food", R.drawable.food_qrakon, Color(0xFFD86F7E), selectedColor = Color(
+                0xFFD93048
+            )
+            ),)
+
     }
 
     val selectedCategory = remember { mutableStateOf(categories.first()) }
@@ -205,9 +212,10 @@ fun CategoryItemHeader(
 // Main composable that handles category selection and displays appropriate content
 
 @Composable
-fun CategoryScreen(onOpenFashion: () -> Unit) {
+fun CategoryScreen(
+    navController: NavHostController,
+    onOpenFashion: () -> Unit) {
     val selectedCategory = remember { mutableStateOf("Shopping") }
-
     val scrollOffset = remember { mutableStateOf(0f) }
     val isHeaderVisible = remember { mutableStateOf(true) }
 
@@ -254,7 +262,7 @@ fun CategoryScreen(onOpenFashion: () -> Unit) {
         ) {
             when (selectedCategory.value) {
                 "Shopping" -> ShoppingScreen()
-                "Grocery" -> GroceryScreen()
+                "Grocery" -> GroceryScreen(navController = navController)
                 "Beauty" -> BeautyScreen()
                 "Economy" -> EconomyScreen()
                 "Deals" -> DealsScreen()
@@ -268,6 +276,7 @@ fun CategoryScreen(onOpenFashion: () -> Unit) {
                 "Medical" -> MedicalScreen()
                 "Fresh" -> FreshScreen()
                 "Pay" -> PayScreen()
+                "Food" -> FoodScreen( navController = navController)
             }
         }
     }
@@ -650,5 +659,49 @@ fun PayScreen() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text("Pay Online!")
+    }
+}
+@Composable
+fun FoodScreen( navController: NavHostController? = null,) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(0.dp)
+    ) {
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Top rated restaurants near you",
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.customColors.black
+            ),
+            maxLines = 1,
+            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        TopRatedRestaurants(
+            heading = null,
+            subtitle = null,
+            restaurantItems = completeRestaurantItems,
+            onItemClick = { foodItem ->
+                // Navigate to RestaurantDetails with the item data - using safe call
+                navController?.navigate("restaurant_details/${foodItem.id}")
+                // Or if using direct navigation with parcelable:
+                // navController?.currentBackStackEntry?.savedStateHandle?.set("restaurantItem", foodItem)
+                // navController?.navigate("restaurant_details")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            backgroundColor = Color.White,
+            cardWidth = 110.dp,
+            cardHeight = 190.dp,
+            imageHeight = 130.dp,
+            imageCornerRadius = 15.dp,
+            spacing = 15.dp,
+            horizontalPadding = 12.dp,
+            verticalPadding = 0.dp,
+            headingBottomPadding = 0.dp
+        )
     }
 }
