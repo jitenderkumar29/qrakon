@@ -190,19 +190,22 @@ fun RestaurantCard(
                     Text(
                         text = currentItem.distance ?: "",
                         fontSize = 14.sp,
-                        color = Color.DarkGray
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "•",
                         fontSize = 20.sp,
-                        color = Color.DarkGray
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = currentItem.address ?: "",
                         fontSize = 14.sp,
                         color = Color.DarkGray,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold
                     )
                     // Down arrow icon
                     Box(
@@ -252,17 +255,20 @@ fun RestaurantCard(
                 Text(
                     text = currentItem.deliveryTime ?: "",
                     fontSize = 14.sp,
-                    color = Color.DarkGray
+                    color = Color.DarkGray,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "•",
                     fontSize = 20.sp,
-                    color = Color.DarkGray
+                    color = Color.DarkGray,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "Schedule for later",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
+                    fontWeight = FontWeight.Bold
                 )
                 // Down arrow icon
                 Icon(

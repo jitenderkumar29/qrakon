@@ -44,6 +44,8 @@ import com.example.qrakon.R
 import com.example.qrakon.components.restaurants.FoodItemDoubleF
 import com.example.qrakon.ui.theme.customColors
 
+// Restaurant Item Details with one items per row(Left side content and right side image)
+// and Horizontally scrollable
 @Composable
 fun RestaurantItemDetails3(
     items: List<FoodItemDoubleF>,
@@ -63,6 +65,7 @@ fun RestaurantItemDetails3(
                 item = item,
                 onAddClick = { onAddClick(item) }
             )
+
         }
     }
 }
@@ -76,8 +79,8 @@ fun RestaurantItemCard3(
         modifier = Modifier
             .width(230.dp)
             .height(230.dp),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(5.dp),
+//        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Box(

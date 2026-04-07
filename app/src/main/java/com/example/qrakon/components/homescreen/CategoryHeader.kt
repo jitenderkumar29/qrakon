@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,82 +54,37 @@ data class CategoryHeaderClass(
 @Composable
 fun CategoryHeader(
     modifier: Modifier = Modifier,
+    selectedCategoryName: String = "Shopping", // Add this parameter
     onCategorySelected: (String) -> Unit = {}
 ) {
     val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val categories = remember {
         listOf(
-            CategoryHeaderClass(1, "Shopping", R.drawable.shopping, Color(0xFFD9C898), selectedColor = Color(
-                0xFFD4AF44)),
+            CategoryHeaderClass(1, "Shopping", R.drawable.shopping, Color(0xFFD9C898), selectedColor = Color(0xFFD4AF44)),
             CategoryHeaderClass(16, "Grocery", R.drawable.grocery, Color(0xFF78CB7E), selectedColor = Color(0xFF56C65E)),
-            CategoryHeaderClass(2, "Fashion", R.drawable.fashion_category, Color(0xFFCCF8CF), selectedColor = Color(
-                0xFF2DC137)),
-            CategoryHeaderClass(3, "Beauty", R.drawable.beauty_category, Color(0xFFD9A7A7), selectedColor = Color(
-                0xFFCA5353)),
-            CategoryHeaderClass(4, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
-                0xFF31BC3B)),
-//            CategoryHeaderClass(4, "Economy", R.drawable.deal_economy, Color(0xFFFFF9C4), selectedColor = Color(
-//                0xFFD2C54C
-//            )
-//            ),
-            CategoryHeaderClass(5, "Deals", R.drawable.deal_category, Color(0xFFA6DF95), selectedColor = Color(
-                0xFF64CD44)),
-            CategoryHeaderClass(6, "Bridal", R.drawable.bride_category, Color(0xFFF0B7C0), selectedColor = Color(
-                0xFFC6374D)),
-            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCEC7A5), selectedColor = Color(
-                0xFFC3B364)),
-//            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCBBB6F), selectedColor = Color(
-//                0xFFBAA438
-//            )
-//            ),
-            CategoryHeaderClass(8, "Economy", R.drawable.deal_economy, Color(0xFFF1EFDA), selectedColor = Color(
-                0xFFDDD373)),
-//            CategoryHeaderClass(7, "Groom", R.drawable.groom_category, Color(0xFFCBBB6F), selectedColor = Color(
-//                0xFFBAA438
-//            )
-//            ),
-            CategoryHeaderClass(9, "Airport", R.drawable.airport_category, Color(0xFFAEE9F1), selectedColor = Color(
-                0xFF30A8B8)),
-//            CategoryHeaderClass(9, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(
-//                0xFF31BC3B
-//            )
-//            ),
-            CategoryHeaderClass(10, "Industry", R.drawable.industry_category, Color(0xFFB0D0E6), selectedColor = Color(
-                0xFF3182BA)),
-            CategoryHeaderClass(11, "Wholesale", R.drawable.wholesale_category, Color(0xFFDFC396), selectedColor = Color(
-                0xFFAE7B2B)),
-            CategoryHeaderClass(12, "Sell", R.drawable.sell_category, Color(0xFFCEF0A7), selectedColor = Color(
-                0xFF72B526)),
-            CategoryHeaderClass(13, "Medical", R.drawable.medical, Color(0xFFDF8592), selectedColor = Color(
-                0xFFB6253A)),
-            CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFF95E69A), selectedColor = Color(
-                0xFF24B12D)),
-            CategoryHeaderClass(15, "Pay", R.drawable.pay, Color(0xFFCFC76D), selectedColor = Color(
-                0xFFE7D532)),
-            CategoryHeaderClass(16, "Food", R.drawable.food_qrakon, Color(0xFFD86F7E), selectedColor = Color(
-                0xFFD93048
-            )
-            ),)
-
+            CategoryHeaderClass(2, "Fashion", R.drawable.fashion_category, Color(0xFFCCF8CF), selectedColor = Color(0xFF2DC137)),
+            CategoryHeaderClass(3, "Beauty", R.drawable.beauty_category, Color(0xFFD9A7A7), selectedColor = Color(0xFFCA5353)),
+            CategoryHeaderClass(4, "Electric", R.drawable.electric_category, Color(0xFFB7EEBB), selectedColor = Color(0xFF31BC3B)),
+            CategoryHeaderClass(5, "Deals", R.drawable.deal_category, Color(0xFFA6DF95), selectedColor = Color(0xFF64CD44)),
+            CategoryHeaderClass(6, "Bridal", R.drawable.bride_category, Color(0xFFF0B7C0), selectedColor = Color(0xFFC6374D)),
+            CategoryHeaderClass(7, "Jewellery", R.drawable.jewellery_category, Color(0xFFCEC7A5), selectedColor = Color(0xFFC3B364)),
+            CategoryHeaderClass(8, "Economy", R.drawable.deal_economy, Color(0xFFF1EFDA), selectedColor = Color(0xFFDDD373)),
+            CategoryHeaderClass(9, "Airport", R.drawable.airport_category, Color(0xFFAEE9F1), selectedColor = Color(0xFF30A8B8)),
+            CategoryHeaderClass(10, "Industry", R.drawable.industry_category, Color(0xFFB0D0E6), selectedColor = Color(0xFF3182BA)),
+            CategoryHeaderClass(11, "Wholesale", R.drawable.wholesale_category, Color(0xFFDFC396), selectedColor = Color(0xFFAE7B2B)),
+            CategoryHeaderClass(12, "Sell", R.drawable.sell_category, Color(0xFFCEF0A7), selectedColor = Color(0xFF72B526)),
+            CategoryHeaderClass(13, "Medical", R.drawable.medical, Color(0xFFDF8592), selectedColor = Color(0xFFB6253A)),
+            CategoryHeaderClass(14, "Fresh", R.drawable.fresh, Color(0xFF95E69A), selectedColor = Color(0xFF24B12D)),
+            CategoryHeaderClass(15, "Pay", R.drawable.pay, Color(0xFFCFC76D), selectedColor = Color(0xFFE7D532)),
+            CategoryHeaderClass(16, "Food", R.drawable.food_qrakon, Color(0xFFD86F7E), selectedColor = Color(0xFFD93048))
+        )
     }
-
-    val selectedCategory = remember { mutableStateOf(categories.first()) }
 
     Column(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-//            .background(
-//                brush = Brush.verticalGradient(
-//                    colors = listOf(
-//                        MaterialTheme.customColors.lightAccent,
-//                        Color(0xFF8B2B2D)
-//                    )
-//                )
-//            )
             .background(MaterialTheme.customColors.lightAccent)
-//            .background(bannerBackgroundColor)
-
     ) {
         // Fixed height for the LazyRow container to avoid infinite constraints
         Box(
@@ -140,14 +96,13 @@ fun CategoryHeader(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize()
-            )       {
+            ) {
                 items(categories.size) { index ->
                     val category = categories[index]
                     CategoryItemHeader(
                         category = category,
-                        isSelected = category == selectedCategory.value,
+                        isSelected = category.name == selectedCategoryName, // Compare by name
                         onClick = {
-                            selectedCategory.value = category
                             onCategorySelected(category.name)
                         }
                     )
@@ -170,12 +125,6 @@ fun CategoryItemHeader(
             .clickable(onClick = onClick)
             .clip(RoundedCornerShape(12.dp))
             .background(if (isSelected) category.selectedColor else category.backgroundColor)
-//            .background(category.backgroundColor)
-//            .border(
-//                width = if (isSelected) 5.dp else 0.dp,
-//                color = if (isSelected) MaterialTheme.customColors.white else Color.Transparent,
-//                shape = RoundedCornerShape(12.dp)
-//            )
     ) {
         Box(
             modifier = Modifier
@@ -210,17 +159,16 @@ fun CategoryItemHeader(
 }
 
 // Main composable that handles category selection and displays appropriate content
-
 @Composable
 fun CategoryScreen(
     navController: NavHostController,
-    onOpenFashion: () -> Unit) {
-    val selectedCategory = remember { mutableStateOf("Shopping") }
+    onOpenFashion: () -> Unit
+) {
+    // Save selected category in rememberSaveable to persist across navigation
+    val selectedCategory = rememberSaveable { mutableStateOf("Shopping") }
     val scrollOffset = remember { mutableStateOf(0f) }
     val isHeaderVisible = remember { mutableStateOf(true) }
-
     val density = LocalDensity.current
-
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -246,6 +194,7 @@ fun CategoryScreen(
             ) + fadeOut(animationSpec = tween(durationMillis = 120))
         ) {
             CategoryHeader(
+                selectedCategoryName = selectedCategory.value, // Pass selected category
                 onCategorySelected = { categoryName ->
                     selectedCategory.value = categoryName
                     if (categoryName == "Fashion") {
@@ -276,7 +225,7 @@ fun CategoryScreen(
                 "Medical" -> MedicalScreen()
                 "Fresh" -> FreshScreen()
                 "Pay" -> PayScreen()
-                "Food" -> FoodScreen( navController = navController)
+                "Food" -> FoodScreen(navController = navController)
             }
         }
     }
@@ -686,16 +635,13 @@ fun FoodScreen( navController: NavHostController? = null,) {
             subtitle = null,
             restaurantItems = completeRestaurantItems,
             onItemClick = { foodItem ->
-                // Navigate to RestaurantDetails with the item data - using safe call
-                navController?.navigate("restaurant_details/${foodItem.id}")
-                // Or if using direct navigation with parcelable:
-                // navController?.currentBackStackEntry?.savedStateHandle?.set("restaurantItem", foodItem)
-                // navController?.navigate("restaurant_details")
+                // Pass both id and category
+                navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
             },
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = Color.White,
             cardWidth = 110.dp,
-            cardHeight = 190.dp,
+            cardHeight = 195.dp,
             imageHeight = 130.dp,
             imageCornerRadius = 15.dp,
             spacing = 15.dp,

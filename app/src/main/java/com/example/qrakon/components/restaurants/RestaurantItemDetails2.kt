@@ -47,7 +47,8 @@ import com.example.qrakon.components.restaurants.getRandomRatings
 import com.example.qrakon.components.restaurants.FoodItemDoubleF
 import com.example.qrakon.ui.theme.customColors
 
-
+// Restaurant Item Details with two items per row
+// and vertically scrollable
 @Composable
 fun RestaurantItemDetails2(
     item: FoodItemDoubleF,
@@ -56,14 +57,14 @@ fun RestaurantItemDetails2(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(5.dp),
+//        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(2.dp)
         ) {
 
             // Image

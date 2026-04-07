@@ -648,6 +648,20 @@ fun TopRatedRestaurantDynamicCornersPreview() {
 val completeRestaurantItems = listOf(
     TopRatedRestaurantItem(
         id = 1,
+        imageRes = R.drawable.ic_top_rated_food_4,
+        title = "Peppers Pizza",
+        price = "199",
+        restaurantName = "Momo Express",
+        rating = "4.2",
+        deliveryTime = "25-30 mins",
+        distance = "2.5 km",
+        discount = "30%",
+        discountAmount = "₹20",
+        address = "Pacific Jasola",
+        category = "pizza"
+    ),
+    TopRatedRestaurantItem(
+        id = 2,
         imageRes = R.drawable.ic_top_rated_food_1,
         title = "Burger King",
         price = "180",
@@ -658,21 +672,7 @@ val completeRestaurantItems = listOf(
         discount = "ITEMS",
         discountAmount = "₹20",
         address = "Pacific Jasola",
-        category = "Burgers"
-    ),
-    TopRatedRestaurantItem(
-        id = 2,
-        imageRes = R.drawable.ic_top_rated_food_2,
-        title = "Bakingo",
-        price = "220",
-        restaurantName = "Amiche Pizza",
-        rating = "4.3",
-        deliveryTime = "60-65 mins",
-        distance = "5.2 km",
-        discount = "30%",
-        discountAmount = "₹20",
-        address = "City Center",
-        category = "Fast Food"
+        category = "burger"
     ),
     TopRatedRestaurantItem(
         id = 3,
@@ -686,21 +686,21 @@ val completeRestaurantItems = listOf(
         discount = "20%",
         discountAmount = "₹20",
         address = "Faridabad Sector-15",
-        category = "Pizzas"
+        category = "rice"
     ),
     TopRatedRestaurantItem(
         id = 4,
-        imageRes = R.drawable.ic_top_rated_food_4,
-        title = "Peppers Pizza",
-        price = "199",
-        restaurantName = "Momo Express",
-        rating = "4.2",
-        deliveryTime = "25-30 mins",
-        distance = "2.5 km",
+        imageRes = R.drawable.ic_top_rated_food_2,
+        title = "Bakingo",
+        price = "220",
+        restaurantName = "Amiche Pizza",
+        rating = "4.3",
+        deliveryTime = "60-65 mins",
+        distance = "5.2 km",
         discount = "30%",
         discountAmount = "₹20",
-        address = "Pacific Jasola",
-        category = "Burgers"
+        address = "City Center",
+        category = "fastfood"
     ),
     TopRatedRestaurantItem(
         id = 5,
@@ -714,7 +714,7 @@ val completeRestaurantItems = listOf(
         discount = "20%",
         discountAmount = "₹20",
         address = "City Center",
-        category = "Fast Food"
+        category = "fastfood"
     ),
     TopRatedRestaurantItem(
         id = 6,
@@ -728,6 +728,6 @@ val completeRestaurantItems = listOf(
         discount = "30%",
         discountAmount = "₹20",
         address = "Faridabad Sector-15",
-        category = "Pizzas"
+        category = "icecream"
     )
 )

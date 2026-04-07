@@ -70,18 +70,26 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
+
+        // RestaurantDetails Route
         composable(
-            "restaurant_details/{restaurantId}",
-            arguments = listOf(navArgument("restaurantId") { type = NavType.IntType })
+            "restaurant_details/{restaurantId}/{category}",
+            arguments = listOf(
+                navArgument("restaurantId") { type = NavType.IntType },
+                navArgument("category") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
             val restaurantId = backStackEntry.arguments?.getInt("restaurantId")
+            val category = backStackEntry.arguments?.getString("category") ?: "all"
+
             // Find the restaurant item by ID from your data source
             val restaurantItem = findRestaurantById(restaurantId)
 
             RestaurantDetails(
                 onBackClick = { navController.popBackStack() },
                 navController = navController,
-                restaurantItem = restaurantItem
+                restaurantItem = restaurantItem,
+                category = category  // Pass the category
             )
         }
     }

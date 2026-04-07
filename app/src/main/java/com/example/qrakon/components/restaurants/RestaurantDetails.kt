@@ -5,12 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.layout.offset  // Correct importimport androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -24,6 +26,7 @@ import com.example.qrakon.R
 import androidx.navigation.NavHostController
 import com.example.hufko.components.restaurants.RestaurantItemDetails
 import com.example.hufko.components.restaurants.RestaurantItemDetails2
+import com.example.qrakon.components.fashion.searchfashion.SearchFashion
 import com.example.qrakon.components.restaurants.RestaurantItemDetails3
 import com.example.qrakon.ui.theme.customColors
 import kotlin.collections.chunked
@@ -33,14 +36,14 @@ import com.example.qrakon.components.restaurants.FilterChip
 import com.example.qrakon.components.restaurants.FilterType
 import com.example.qrakon.components.restaurants.FilterButtonFood
 import com.example.qrakon.components.restaurants.SearchBarRestaurant
-
+import com.example.qrakon.components.searchbar.SearchBar
 
 /**
  * Food item data class with all optional fields
  */
 data class FoodItemDoubleF(
     val id: Int? = null,
-    val imageRes: List<Int>? = null, // 👈 changed
+    val imageRes: List<Int>? = null,
     val title: String? = null,
     val price: String? = null,
     val originalPrice: String? = null,
@@ -61,17 +64,21 @@ data class FoodItemDoubleF(
     val infoIcon: Int? = null,
     val highlyReordered: String? = null,
     val reorderedQuantity: String? = null,
-    val bestSeller:  Boolean? = false,
+    val bestSeller: Boolean? = false,
 )
+
 @Composable
 fun RestaurantDetails(
     onBackClick: () -> Unit,
     navController: NavHostController,
-    restaurantItem: TopRatedRestaurantItem? = null
+    restaurantItem: TopRatedRestaurantItem? = null,
+    category: String = "all"  // Add category parameter with default value
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var showDropdownMenu by remember { mutableStateOf(false) }
-    val foodItems = listOf(
+
+    // All food items data
+    val allFoodItems = listOf(
         FoodItemDoubleF(
             id = 1,
             imageRes = listOf(
@@ -91,7 +98,7 @@ fun RestaurantDetails(
             calories = "450 kcal",
             protein = "22g",
             isHighProtein = true,
-            category = "Fast Food",
+            category = "pizza",
             isWishlisted = false,
             description = "Juicy chicken burger with fresh lettuce, tomato and crispy fries",
             quantity = "1",
@@ -119,7 +126,7 @@ fun RestaurantDetails(
             calories = "380 kcal",
             protein = "14g",
             isHighProtein = false,
-            category = "Snacks",
+            category = "pizza",
             isWishlisted = true,
             description = "Spicy chilli garlic momos tossed with flavorful sauces and herbs",
             quantity = "1",
@@ -147,7 +154,7 @@ fun RestaurantDetails(
             calories = "780 kcal",
             protein = "24g",
             isHighProtein = false,
-            category = "Pizza",
+            category = "pizza",
             isWishlisted = false,
             description = "Classic margherita with extra cheese and basil",
             quantity = "1",
@@ -156,8 +163,6 @@ fun RestaurantDetails(
             reorderedQuantity = "",
             bestSeller = false,
         ),
-
-        // Image 2: Corn Pizza with Deal
         FoodItemDoubleF(
             id = 4,
             imageRes = listOf(
@@ -177,7 +182,7 @@ fun RestaurantDetails(
             calories = "620 kcal",
             protein = "16g",
             isHighProtein = false,
-            category = "Pizza",
+            category = "pizza",
             isWishlisted = false,
             description = "Sweet corn pizza with creamy sauce",
             quantity = "1",
@@ -186,8 +191,6 @@ fun RestaurantDetails(
             reorderedQuantity = "",
             bestSeller = true,
         ),
-
-        // Image 3: Flotzz Pizzas
         FoodItemDoubleF(
             id = 5,
             imageRes = listOf(
@@ -207,7 +210,7 @@ fun RestaurantDetails(
             calories = "850 kcal",
             protein = "32g",
             isHighProtein = true,
-            category = "Pizza",
+            category = "pizza",
             isWishlisted = false,
             description = "Loaded with cheese and toppings",
             quantity = "1",
@@ -216,7 +219,6 @@ fun RestaurantDetails(
             reorderedQuantity = "500+ orders",
             bestSeller = true,
         ),
-
         FoodItemDoubleF(
             id = 6,
             imageRes = listOf(
@@ -236,7 +238,7 @@ fun RestaurantDetails(
             calories = "890 kcal",
             protein = "38g",
             isHighProtein = true,
-            category = "Pizza",
+            category = "pizza",
             isWishlisted = true,
             description = "Tandoori chicken with spicy sauce",
             quantity = "1",
@@ -244,12 +246,179 @@ fun RestaurantDetails(
             highlyReordered = "",
             reorderedQuantity = "500+ orders",
             bestSeller = false,
-        )
+        ),
+        // Burger category items (id 7 to 12)
+        FoodItemDoubleF(
+            id = 7,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_7,
+                R.drawable.restaurant_image_pizzas_food_items_8),
+            title = "Crispy Veg Burger",
+            price = "72",
+            originalPrice = "120",
+            restaurantName = "Burger King",
+            rating = "5.0",
+            deliveryTime = "15-20 mins",
+            distance = "1.2 km",
+            discount = "40% OFF",
+            discountAmount = "₹48 OFF",
+            address = "Food Street, City Center",
+            calories = "450 kcal",
+            protein = "15g",
+            isHighProtein = false,
+            category = "burger",
+            isWishlisted = false,
+            description = "Crispy veg patty with fresh lettuce and special sauce",
+            quantity = "1",
+            infoIcon = R.drawable.ic_veg_rest,
+            highlyReordered = "95",
+            reorderedQuantity = "500+ orders",
+            bestSeller = true,
+        ),
+        FoodItemDoubleF(
+            id = 8,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_8,
+                R.drawable.restaurant_image_pizzas_food_items_9),
+            title = "Crispy Chicken Burger",
+            price = "79",
+            originalPrice = "140",
+            restaurantName = "Burger King",
+            rating = "4.2",
+            deliveryTime = "15-20 mins",
+            distance = "1.3 km",
+            discount = "35% OFF",
+            discountAmount = "₹61 OFF",
+            address = "Food Street, City Center",
+            calories = "520 kcal",
+            protein = "22g",
+            isHighProtein = true,
+            category = "burger",
+            isWishlisted = false,
+            description = "Crispy chicken patty with mayo and fresh veggies",
+            quantity = "1",
+            infoIcon = R.drawable.ic_non_veg_rest,
+            highlyReordered = "85",
+            reorderedQuantity = "569+ orders",
+            bestSeller = true,
+        ),
+        FoodItemDoubleF(
+            id = 9,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_9,
+                R.drawable.restaurant_image_pizzas_food_items_10),
+            title = "Mexican Aloo Tikki Burger",
+            price = "99",
+            originalPrice = "160",
+            restaurantName = "Burger King",
+            rating = "4.3",
+            deliveryTime = "18-22 mins",
+            distance = "1.4 km",
+            discount = "38% OFF",
+            discountAmount = "₹61 OFF",
+            address = "Food Plaza, Sector 5",
+            calories = "480 kcal",
+            protein = "12g",
+            isHighProtein = false,
+            category = "burger",
+            isWishlisted = false,
+            description = "Spicy aloo tikki with Mexican salsa and cheese",
+            quantity = "1",
+            infoIcon = R.drawable.ic_veg_rest,
+            highlyReordered = "88",
+            reorderedQuantity = "454+ orders",
+            bestSeller = true,
+        ),
+        FoodItemDoubleF(
+            id = 10,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_10,
+                R.drawable.restaurant_image_pizzas_food_items_11),
+            title = "Veg American Cheese Supreme Burger",
+            price = "129",
+            originalPrice = "200",
+            restaurantName = "Burger King",
+            rating = "4.5",
+            deliveryTime = "20-25 mins",
+            distance = "1.5 km",
+            discount = "35% OFF",
+            discountAmount = "₹71 OFF",
+            address = "Food Plaza, Sector 5",
+            calories = "560 kcal",
+            protein = "18g",
+            isHighProtein = false,
+            category = "burger",
+            isWishlisted = false,
+            description = "Double cheese, crispy veg patty, and special sauce",
+            quantity = "1",
+            infoIcon = R.drawable.ic_veg_rest,
+            highlyReordered = "92",
+            reorderedQuantity = "525+ orders",
+            bestSeller = true,
+        ),
+        FoodItemDoubleF(
+            id = 11,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_11,
+                R.drawable.restaurant_image_pizzas_food_items_12),
+            title = "Royal Veg Burger",
+            price = "198",
+            originalPrice = "280",
+            restaurantName = "Burger King",
+            rating = "4.5",
+            deliveryTime = "20-25 mins",
+            distance = "1.5 km",
+            discount = "29% OFF",
+            discountAmount = "₹82 OFF",
+            address = "Food Plaza, Sector 5",
+            calories = "620 kcal",
+            protein = "20g",
+            isHighProtein = false,
+            category = "burger",
+            isWishlisted = false,
+            description = "Premium veg burger with exotic veggies and royal sauce",
+            quantity = "1",
+            infoIcon = R.drawable.ic_veg_rest,
+            highlyReordered = "90",
+            reorderedQuantity = "400+ orders",
+            bestSeller = true,
+        ),
+        FoodItemDoubleF(
+            id = 12,
+            imageRes = listOf(R.drawable.restaurant_image_pizzas_food_items_12,
+                R.drawable.restaurant_image_pizzas_food_items_7),
+            title = "Paneer Tikka Burger",
+            price = "149",
+            originalPrice = "220",
+            restaurantName = "Burger King",
+            rating = "4.6",
+            deliveryTime = "18-22 mins",
+            distance = "1.3 km",
+            discount = "32% OFF",
+            discountAmount = "₹71 OFF",
+            address = "Food Street, City Center",
+            calories = "510 kcal",
+            protein = "19g",
+            isHighProtein = true,
+            category = "burger",
+            isWishlisted = false,
+            description = "Grilled paneer tikka burger with mint chutney",
+            quantity = "1",
+            infoIcon = R.drawable.ic_veg_rest,
+            highlyReordered = "93",
+            reorderedQuantity = "350+ orders",
+            bestSeller = true,
+        ),
     )
+
+    // Filter food items based on category
+    val foodItems = remember(category, allFoodItems) {
+        if (category == "all" || category.isEmpty()) {
+            allFoodItems
+        } else {
+            allFoodItems.filter { it.category == category }
+        }
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.customColors.background)
+            .background(MaterialTheme.customColors.white)
     ) {
         // Item 1: Top Bar
         item {
@@ -384,35 +553,39 @@ fun RestaurantDetails(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.customColors.background)
+                        .background(MaterialTheme.customColors.white)
                         .padding(top = 8.dp, bottom = 8.dp, start = 12.dp, end = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp), // Gap between elements
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // SearchBar - 85% width
                     Box(
                         modifier = Modifier
-                            .weight(0.85f) // 85% of available width
+                            .weight(0.85f)
                             .clip(RoundedCornerShape(8.dp))
-                            .background(MaterialTheme.customColors.background)
+                            .background(MaterialTheme.customColors.white)
                     ) {
-                        SearchBarRestaurant(
+                        SearchFashion(
                             query = searchQuery,
-                            backgroundColor = MaterialTheme.customColors.background,
                             placeholder = "Search for dishes",
                             onQueryChange = { searchQuery = it },
-                            onSearch = { println("Search performed: $it") },
-                            qrIconColorMike = MaterialTheme.customColors.orange
+                            onSearch = { query -> println("Search performed: $query") }
                         )
+//                        SearchBarRestaurant(
+//                            query = searchQuery,
+//                            backgroundColor = MaterialTheme.customColors.background,
+//                            placeholder = "Search for dishes",
+//                            onQueryChange = { searchQuery = it },
+//                            onSearch = { println("Search performed: $it") },
+//                            qrIconColorMike = MaterialTheme.customColors.orange
+//                        )
                     }
 
-                    // Image Button - 15% width
                     Surface(
                         shape = RoundedCornerShape(8.dp),
                         color = MaterialTheme.customColors.skyBlue,
                         modifier = Modifier
-                            .weight(0.15f) // 15% of available width
-                            .size(width = 45.dp, height = 45.dp) // Fixed size within weight
+                            .weight(0.15f)
+                            .size(width = 45.dp, height = 45.dp)
                     ) {
                         Row(
                             horizontalArrangement = Arrangement.Center,
@@ -481,14 +654,14 @@ fun RestaurantDetails(
                     ),
                 ),
                 rows = 1,
-                chipHeight = 35,  // Set chip height to 30dp
-                cornerRadius = 8,   // Set corner radius to 8dp
-                chipPadding = 8   // Set corner radius to 8dp
+                chipHeight = 35,
+                cornerRadius = 8,
+                chipPadding = 8
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.customColors.background)
+                    .background(MaterialTheme.customColors.white)
                     .padding(top = 0.dp, bottom = 0.dp, start = 0.dp, end = 0.dp)
                     .offset(y = (-5).dp)
             ) {
@@ -500,43 +673,38 @@ fun RestaurantDetails(
             }
         }
 
-        // Item 4: Filter Button
-//        stickyHeader {
-////            item {
-//
-////            }
-//        }
-
         // Divider
         item {
             Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
         }
 
-        item {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF5F5F5))
-                    .padding(12.dp)
-            ) {
-                Text(
-                    text = "Top Picks",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.customColors.black
-                    ),
-//            textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
-                )
-                Spacer(modifier = Modifier.height(15.dp))
-                RestaurantItemDetails3(
-                    items = foodItems,
-                    onAddClick = { item ->
-                        println("Added: ${item.title}")
-                    }
-                )
+        // Top Picks Section
+        if (foodItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = "Top Picks",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    RestaurantItemDetails3(
+                        items = foodItems,
+                        onAddClick = { item ->
+                            println("Added: ${item.title}")
+                        }
+                    )
+                }
             }
         }
 
@@ -545,152 +713,177 @@ fun RestaurantDetails(
             Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
         }
 
-        // Item 5: Food Items Grid
-        item {
-            Spacer(modifier = Modifier.height(15.dp))
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//                    .padding(horizontal = 12.dp, vertical = 0.dp),
-//                horizontalArrangement = Arrangement.SpaceBetween,
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Image(
-//                    painter = painterResource(R.drawable.ic_99_store),
-//                    contentDescription = "Offer Image",
-//                    modifier = Modifier
-////                        .fillMaxWidth()
-//                        .height(40.dp)
-//                        .width(140.dp),
-//                    contentScale = ContentScale.FillBounds
-//                )
-//
-//                // Down arrow icon
-//                Icon(
-//                    painter = painterResource(id = R.drawable.outline_keyboard_arrow_down_24),
-//                    contentDescription = "Dropdown arrow",
-//                    modifier = Modifier.size(30.dp)
-//                        .padding(top = 1.dp),
-//                    tint = Color.Gray
-//                )
-//            }
-            Surface(
-                shape = RoundedCornerShape(20.dp),
-                color = Color.Transparent, // Make Surface transparent
-//                modifier = Modifier.size(width = 230.dp, height = 30.dp)
-            ) {
-                Row(
+        // Offer Banner Section
+        // Top Picks Section - Only show if foodItems is not empty
+        if (foodItems.isNotEmpty()) {
+            // Divider - Only show if foodItems is not empty
+            item {
+                Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
+            }
+        }
+
+        // Offer Banner Section - Always show (doesn't depend on foodItems)
+        if (foodItems.isNotEmpty()) {
+            item {
+                Spacer(modifier = Modifier.height(15.dp))
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color.Transparent,
+                ) {
+                    Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .padding(start = 12.dp, top = 5.dp, end = 12.dp, bottom = 5.dp)
                     ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_free_delivery_above_99),
-                        contentDescription = "Offer Image",
-                        modifier = Modifier
-//                        .fillMaxWidth()
-                            .height(40.dp)
-                            .width(230.dp),
-                        contentScale = ContentScale.FillBounds
-                    )
+                        Image(
+                            painter = painterResource(R.drawable.ic_free_delivery_above_99),
+                            contentDescription = "Offer Image",
+                            modifier = Modifier
+                                .height(40.dp)
+                                .width(230.dp),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
                 }
             }
         }
 
-
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color(0xFFF5F5F5))
-                            .padding(12.dp)
-                    ) {
-                        val rows = foodItems.chunked(2)
-                        rows.forEach { rowItems ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 12.dp),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                rowItems.forEach { item ->
-                                    RestaurantItemDetails2(
-                                        item = item,
-                                        modifier = Modifier.weight(1f),
-                                        onAddClick = { println("Added: ${item.title}") }
-                                    )
-                                }
-                                if (rowItems.size == 1) {
-                                    Spacer(modifier = Modifier.weight(1f))
-                                }
+// Food Items Grid Section - Only show if foodItems is not empty
+        if (foodItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(12.dp)
+                ) {
+                    val rows = foodItems.chunked(2)
+                    rows.forEach { rowItems ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            rowItems.forEach { item ->
+                                RestaurantItemDetails2(
+                                    item = item,
+                                    modifier = Modifier.weight(1f),
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                            if (rowItems.size == 1) {
+                                Spacer(modifier = Modifier.weight(1f))
                             }
                         }
                     }
                 }
+            }
 
-        // Item 6: Divider
-        item {
-            Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
+            // Divider - Only show if foodItems is not empty
+            item {
+                Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
+            }
         }
 
-        // Item: List View Items
-        item {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF5F5F5))
-                    .padding(vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    text = "Recommended For You",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.customColors.black
-                    ),
-//            textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
-                )
-                foodItems.forEach { item ->
-                    RestaurantItemDetails(
-                        item = item,
-                        showMultipleImages = false,
-                        onAddClick = { println("Added: ${item.title}") }
+// Recommended For You Section (Single Image) - Only show if foodItems is not empty
+        if (foodItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = "Recommended For You",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
                     )
+                    foodItems.forEach { item ->
+                        RestaurantItemDetails(
+                            item = item,
+                            showMultipleImages = false,
+                            onAddClick = { println("Added: ${item.title}") }
+                        )
+                    }
+                }
+            }
+
+            // Recommended For You Section (Multiple Images) - Only show if foodItems is not empty
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = "Recommended For You",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    foodItems.forEach { item ->
+                        RestaurantItemDetails(
+                            item = item,
+                            showMultipleImages = true,
+                            onAddClick = { println("Added: ${item.title}") }
+                        )
+                    }
                 }
             }
         }
-        // Item: List View Items
-//        item {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .background(Color(0xFFF5F5F5))
-//                    .padding(vertical = 12.dp),
-//                verticalArrangement = Arrangement.spacedBy(12.dp)
-//            ) {
-//                Text(
-//                    text = "Recommended For You",
-//                    style = MaterialTheme.typography.bodySmall.copy(
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Bold,
-//                        color = MaterialTheme.customColors.black
-//                    ),
-////            textAlign = TextAlign.Center,
-//                    maxLines = 1,
-//                    modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
-//                )
-//                foodItems.forEach { item ->
-//                    RestaurantItemDetails(
-//                        item = item,
-//                        showMultipleImages = true,
-//                        onAddClick = { println("Added: ${item.title}") }
-//                    )
-//                }
-//            }
-//        }
+
+// Optional: Show empty state message when no items found
+        if (foodItems.isEmpty()) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(32.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_no_data),
+                            contentDescription = "No items found",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .size(250.dp),
+                            tint = Color.Unspecified
+                        )
+                        Text(
+                            text = "No items available",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.Gray
+                        )
+                        Text(
+                            text = "Try changing your filters or check back later",
+                            fontSize = 14.sp,
+                            color = Color.LightGray,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -702,7 +895,8 @@ fun PreviewRestaurantDetails() {
             RestaurantDetails(
                 onBackClick = {},
                 navController = NavHostController(MainActivity()),
-                restaurantItem = null
+                restaurantItem = null,
+                category = "pizza"  // Preview with pizza category
             )
         }
     }
