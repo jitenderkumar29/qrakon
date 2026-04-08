@@ -77,8 +77,8 @@ fun RestaurantItemCard3(
 ) {
     Card(
         modifier = Modifier
-            .width(230.dp)
-            .height(230.dp),
+            .width(240.dp)
+            .height(200.dp),
         shape = RoundedCornerShape(5.dp),
 //        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -201,7 +201,7 @@ fun RestaurantItemCard3(
                             Text(
                                 text = "₹${item.originalPrice ?: "0"}",
                                 fontSize = 12.sp,
-                                color = Color.Gray,
+                                color = Color.DarkGray,
                                 textDecoration = TextDecoration.LineThrough
                             )
                             // Discounted Price (Box)

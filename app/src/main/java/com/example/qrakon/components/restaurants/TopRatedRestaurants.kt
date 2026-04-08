@@ -686,7 +686,7 @@ val completeRestaurantItems = listOf(
         discount = "20%",
         discountAmount = "₹20",
         address = "Faridabad Sector-15",
-        category = "rice"
+        category = "bigbowl"
     ),
     TopRatedRestaurantItem(
         id = 4,
