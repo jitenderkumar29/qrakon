@@ -30,6 +30,7 @@ import com.example.hufko.components.restaurants.RestaurantItemDetails
 import com.example.hufko.components.restaurants.RestaurantItemDetails2
 import com.example.qrakon.components.fashion.searchfashion.SearchFashion
 import com.example.qrakon.components.restaurants.RestaurantItemDetails3
+import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
 import kotlin.collections.chunked
 import kotlin.collections.forEach
@@ -67,6 +68,7 @@ data class FoodItemDoubleF(
     val combo: Boolean? = false,
     val moredetailsbutton: Boolean? = false,
     val salad: Boolean? = false,
+    val above259: Boolean? = false,
 )
 
 @Composable
@@ -93,7 +95,10 @@ fun RestaurantDetails(
 
     // Filter items by their flags
     val topPicksItems = remember(foodItems) { foodItems.filter { it.toppicks == true } }
-    val freeDeliveryItems = remember(foodItems) { foodItems.filter { it.freedelivery == true } }
+    val freeDeliveryItems = remember(foodItems) { foodItems.filter { it.freedelivery == true  &&
+            it.above259 != true} }
+    val freeDeliveryItemsAbove259 = remember(foodItems) { foodItems.filter { it.freedelivery == true &&
+            it.above259 == true} }
     val recommendedItems = remember(foodItems) { foodItems.filter { it.recommended == true } }
     val comboItems = remember(foodItems) { foodItems.filter { it.combo == true } }
     val moredetailsbuttonItems = remember(foodItems) { foodItems.filter { it.moredetailsbutton == true } }
@@ -249,13 +254,23 @@ fun RestaurantDetails(
                             .clip(RoundedCornerShape(8.dp))
                             .background(MaterialTheme.customColors.white)
                     ) {
-                        SearchFashion(
+                        SearchBarRestaurant(
                             query = searchQuery,
                             placeholder = "Search for dishes",
-                            backgroundColor = MaterialTheme.customColors.spacerColor,
+                            backgroundColor = Color(0xFFE5E7E6),
+//                            backgroundColor = MaterialTheme.customColors.spacerColor,
                             onQueryChange = { searchQuery = it },
+                            qrIconColorMike = MaterialTheme.customColors.orangeLight, // Changed to onPrimary for better contrast
                             onSearch = { query -> println("Search performed: $query") }
                         )
+//                        SearchBar(
+//                            query = searchQuery,
+//                            placeholder = "Search for dishes",
+//                            backgroundColor = MaterialTheme.customColors.spacerColor,
+//                            onQueryChange = { searchQuery = it },
+//                            qrIconColor = Color(0xFFE5E7E6), // Changed to onPrimary for better contrast
+//                            onSearch = { query -> println("Search performed: $query") }
+//                        )
                     }
 
 //                    Surface(
@@ -437,6 +452,54 @@ fun RestaurantDetails(
             }
         }
 
+        // ==================== FREE DELIVERY ITEMS STARTING AT 289 SECTION (Grid) ====================
+        if (freeDeliveryItemsAbove259.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = "Items starting at 259 (18)",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    val rows = freeDeliveryItemsAbove259.chunked(2)
+                    rows.forEach { rowItems ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            rowItems.forEach { item ->
+                                RestaurantItemDetails2(
+                                    item = item,
+                                    modifier = Modifier.weight(1f),
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                            if (rowItems.size == 1) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                }
+            }
+            // Divider
+            item {
+                Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
+            }
+        }
+
         // Offer Banner Section
         item {
             Spacer(modifier = Modifier.height(15.dp))
@@ -546,7 +609,7 @@ fun RestaurantDetails(
                     moredetailsbuttonItems.forEach { item ->
                         RestaurantItemDetails(
                             item = item,
-                            showMultipleImages = true,
+                            showMultipleImages = false,
                             onAddClick = { println("Added: ${item.title}") }
                         )
                     }

@@ -201,7 +201,7 @@ fun RestaurantItemCard3(
                             Text(
                                 text = "₹${item.originalPrice ?: "0"}",
                                 fontSize = 12.sp,
-                                color = Color.DarkGray,
+                                color = Color.White,
                                 textDecoration = TextDecoration.LineThrough
                             )
                             // Discounted Price (Box)

@@ -84,7 +84,26 @@ fun RestaurantCard(
                 .padding(15.dp)
                 .background(MaterialTheme.customColors.background),
         ) {
-            // Restaurant Seal
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+//                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    text = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.customColors.greenTitle
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            HorizontalDivider(
+                color = Color.LightGray,
+                thickness = 0.5.dp
+            )
+                // Restaurant Seal
+            Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically

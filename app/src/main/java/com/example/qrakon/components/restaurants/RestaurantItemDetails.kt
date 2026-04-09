@@ -75,7 +75,7 @@ fun RestaurantItemDetails(
                         text = item.title ?: "",
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
-                        maxLines = 2
+                        maxLines = 3
                     )
 
                     // Progress

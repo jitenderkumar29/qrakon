@@ -121,7 +121,8 @@ fun TopRatedRestaurantCard(
             // Restaurant image
             Image(
                 painter = painterResource(id = restaurantItem.imageRes ?: defaultImageRes),
-                contentDescription = restaurantItem.title ?: "Restaurant",
+                contentDescription = restaurantItem.restaurantName ?: "Restaurant",
+//                contentDescription = restaurantItem.title ?: "Restaurant",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxSize()
@@ -215,9 +216,9 @@ fun TopRatedRestaurantCard(
                 .padding(horizontal = 1.dp)
         ) {
             // Restaurant title
-            restaurantItem.title?.let { title ->
+            restaurantItem.restaurantName?.let { restaurantName ->
                 Text(
-                    text = title,
+                    text = restaurantName,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
@@ -291,9 +292,9 @@ fun TopRatedRestaurantCard(
             }
 
             // Category
-            restaurantItem.category?.let { category ->
+            restaurantItem.title?.let { title ->
                 Text(
-                    text = category,
+                    text = title,
                     fontSize = 13.sp,
                     color = Color.Black,
                     maxLines = 1,
@@ -651,7 +652,7 @@ val completeRestaurantItems = listOf(
         imageRes = R.drawable.ic_top_rated_food_4,
         title = "Peppers Pizza",
         price = "199",
-        restaurantName = "Momo Express",
+        restaurantName = "Pizza Express",
         rating = "4.2",
         deliveryTime = "25-30 mins",
         distance = "2.5 km",
@@ -676,6 +677,34 @@ val completeRestaurantItems = listOf(
     ),
     TopRatedRestaurantItem(
         id = 3,
+        imageRes = R.drawable.ic_top_rated_food_bikkgane_biryani,
+        title = "Chicken Biryani",
+        price = "186",
+        restaurantName = "Bikkgane Biryani",
+        rating = "4.4",
+        deliveryTime = "35-40 mins",
+        distance = "3.0 km",
+        discount = "70%",
+        discountAmount = "₹130",
+        address = "Hitech, City",
+        category = "biryani"
+    ),
+    TopRatedRestaurantItem(
+        id = 4,
+        imageRes = R.drawable.ic_top_rated_food_dana_choga,
+        title = "Dana Choga Special",
+        price = "299",
+        restaurantName = "Dana Choga",
+        rating = "4.0",
+        deliveryTime = "45-50 mins",
+        distance = "5.5 km",
+        discount = "",
+        discountAmount = "",
+        address = "Jasola, New Delhi",
+        category = "northindian"
+    ),
+    TopRatedRestaurantItem(
+        id = 5,
         imageRes = R.drawable.ic_top_rated_food_3,
         title = "Big Bowl",
         price = "150",
@@ -689,7 +718,49 @@ val completeRestaurantItems = listOf(
         category = "bigbowl"
     ),
     TopRatedRestaurantItem(
-        id = 4,
+        id = 6,
+        imageRes = R.drawable.ic_top_rated_food_kfc,
+        title = "Chicken Bucket",
+        price = "350",
+        restaurantName = "KFC",
+        rating = "3.9",
+        deliveryTime = "40-45 mins",
+        distance = "2.5 km",
+        discount = "50%",
+        discountAmount = "₹350",
+        address = "Sector-18, Noida",
+        category = "kfcburger"
+    ),
+    TopRatedRestaurantItem(
+        id = 7,
+        imageRes = R.drawable.ic_top_rated_food_curry_queen,
+        title = "Curry Combo",
+        price = "279",
+        restaurantName = "Curry Queen",
+        rating = "3.6",
+        deliveryTime = "30-35 mins",
+        distance = "4.2 km",
+        discount = "₹80 OFF",
+        discountAmount = "₹80",
+        address = "Dhaka, Bangladesh",
+        category = "bangladeshi"
+    ),
+    TopRatedRestaurantItem(
+        id = 8,
+        imageRes = R.drawable.ic_top_rated_food_subway,
+        title = "Sub Sandwich",
+        price = "200",
+        restaurantName = "Subway",
+        rating = "4.2",
+        deliveryTime = "40-45 mins",
+        distance = "2.0 km",
+        discount = "40%",
+        discountAmount = "₹80",
+        address = "Connaught Place",
+        category = "sandwich"
+    ),
+    TopRatedRestaurantItem(
+        id = 9,
         imageRes = R.drawable.ic_top_rated_food_2,
         title = "Bakingo",
         price = "220",
@@ -703,7 +774,7 @@ val completeRestaurantItems = listOf(
         category = "fastfood"
     ),
     TopRatedRestaurantItem(
-        id = 5,
+        id = 10,
         imageRes = R.drawable.ic_top_rated_food_5,
         title = "Zaika Food",
         price = "199",
@@ -717,7 +788,7 @@ val completeRestaurantItems = listOf(
         category = "fastfood"
     ),
     TopRatedRestaurantItem(
-        id = 6,
+        id = 11,
         imageRes = R.drawable.ic_top_rated_food_6,
         title = "Havmor Ice Cream",
         price = "199",
