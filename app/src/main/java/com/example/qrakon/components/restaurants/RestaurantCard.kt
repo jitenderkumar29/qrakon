@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.zIndex
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
 
@@ -67,147 +68,233 @@ fun RestaurantCard(
     if (items.isEmpty()) return
 
     val currentItem = items[restaurantIndex]
-
-    Card(
-        modifier = modifier
+    var paddingTopCard = 0.dp
+    if (currentItem.acceptingOrders != null) {
+        if (currentItem.acceptingOrders == true) {
+            paddingTopCard = 55.dp
+        } else if (currentItem.acceptingOrders == false) {
+            paddingTopCard = 55.dp
+        }
+    } else {
+        paddingTopCard = 5.dp
+    }
+    // Box for overlapping effect (ribbon/sticker style)
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
-            .clickable { onItemClick(currentItem) }
             .background(MaterialTheme.customColors.blackHeader)
-            .padding(top = 0.dp, bottom = 15.dp, start = 12.dp, end = 12.dp),
-        shape = RoundedCornerShape(30.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(
-            modifier = Modifier
+        // Card first (so it sits behind the banner)
+        Card(
+            modifier = modifier
                 .fillMaxWidth()
-                .padding(15.dp)
-                .background(MaterialTheme.customColors.background),
+                .clickable { onItemClick(currentItem) }
+                .padding(top = paddingTopCard, bottom = 15.dp, start = 12.dp, end = 12.dp), // Top padding creates space for banner overlap
+            shape = RoundedCornerShape(30.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+//            Spacer(modifier = Modifier.height(10.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+                    .background(MaterialTheme.customColors.background),
             ) {
-//                Spacer(modifier = Modifier.width(3.dp))
-                Text(
-                    text = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.customColors.greenTitle
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            HorizontalDivider(
-                color = Color.LightGray,
-                thickness = 0.5.dp
-            )
+                if (currentItem.acceptingOrders != null) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        if (currentItem.acceptingOrders == true) {
+                            Text(
+                                text = currentItem.acceptingOrdersMsg ?: "",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.customColors.greenTitle
+                            )
+                        } else if (currentItem.acceptingOrders == false) {
+                            Text(
+                                text = currentItem.acceptingOrdersMsg ?: "",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.customColors.buttonRed
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    HorizontalDivider(
+                        color = Color.LightGray,
+                        thickness = 0.5.dp
+                    )
+                Spacer(modifier = Modifier.height(10.dp))
+                }
+
                 // Restaurant Seal
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_high_protein),
-                    contentDescription = "icon",
-                    modifier = Modifier.size(15.dp),
-                )
-                Spacer(modifier = Modifier.width(3.dp))
-                Text(
-                    text = "High Protein",
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.customColors.darkAccent2
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.hufko_seal),
-                    contentDescription = "icon",
-                    modifier = Modifier.size(15.dp),
-                )
-                Spacer(modifier = Modifier.width(2.dp))
-                Text(
-                    text = "Hufko Seal",
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.customColors.darkAccent2
-                )
-            }
 
-            // Restaurant Header
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Left side: Restaurant Name + Info Icon (grouped together)
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = currentItem.restaurantName ?: "",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.info_exclamation_mark_icon),
-                        contentDescription = "info icon",
-                        modifier = Modifier.size(18.dp),
+                        painter = painterResource(id = R.drawable.ic_high_protein),
+                        contentDescription = "icon",
+                        modifier = Modifier.size(15.dp),
+                    )
+                    Spacer(modifier = Modifier.width(3.dp))
+                    Text(
+                        text = "High Protein",
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.customColors.darkAccent2
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.hufko_seal),
+                        contentDescription = "icon",
+                        modifier = Modifier.size(15.dp),
+                    )
+                    Spacer(modifier = Modifier.width(2.dp))
+                    Text(
+                        text = "Hufko Seal",
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.customColors.darkAccent2
                     )
                 }
 
-                // Right side: Rating Chip
-                Surface(
-                    shape = RoundedCornerShape(20.dp),
-                    color = MaterialTheme.customColors.success,
-                    modifier = Modifier.size(width = 65.dp, height = 30.dp)
+                // Restaurant Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Left side: Restaurant Name + Info Icon (grouped together)
                     Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 4.dp)
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = formatRating(currentItem.rating),
-                            fontSize = 17.sp,
-                            color = Color.White,
+                            text = currentItem.restaurantName ?: "",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Image(
+                            painter = painterResource(id = R.drawable.info_exclamation_mark_icon),
+                            contentDescription = "info icon",
+                            modifier = Modifier.size(18.dp),
+                        )
+                    }
+
+                    // Right side: Rating Chip
+                    Surface(
+                        shape = RoundedCornerShape(20.dp),
+                        color = MaterialTheme.customColors.success,
+                        modifier = Modifier.size(width = 65.dp, height = 30.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 4.dp)
+                        ) {
+                            Text(
+                                text = formatRating(currentItem.rating),
+                                fontSize = 17.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(2.dp))
+                            Text(
+                                text = "★",
+                                fontSize = 18.sp,
+                                color = Color.White,
+                                modifier = Modifier.padding(bottom = 5.dp)
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Distance & Address
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Left side: Location info
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_location_pin_24),
+                            contentDescription = "icon",
+                            modifier = Modifier.size(18.dp),
+                            colorFilter = ColorFilter.tint(MaterialTheme.customColors.success)
+                        )
+                        Text(
+                            text = currentItem.distance ?: "",
+                            fontSize = 14.sp,
+                            color = Color.DarkGray,
                             fontWeight = FontWeight.Bold
                         )
-                        Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "★",
-                            fontSize = 18.sp,
-                            color = Color.White,
-                            modifier = Modifier.padding(bottom = 5.dp)
+                            text = "•",
+                            fontSize = 20.sp,
+                            color = Color.DarkGray,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = currentItem.address ?: "",
+                            fontSize = 14.sp,
+                            color = Color.DarkGray,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontWeight = FontWeight.Bold
+                        )
+                        // Down arrow icon
+                        Box(
+                            modifier = Modifier
+                                .offset(x = (-5).dp) // Pull icon left
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.outline_arrow_drop_down_24),
+                                contentDescription = "Dropdown arrow",
+                                modifier = Modifier.size(30.dp),
+                                tint = Color.DarkGray
+                            )
+                        }
+                    }
+
+                    // Right side: Ratings
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "${getRandomRatings()}K+ ratings",
+                            fontSize = 11.sp,
+                            color = Color.DarkGray
                         )
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(4.dp))
-
-            // Distance & Address
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Left side: Location info
+                // Delivery Time & Distance
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.baseline_location_pin_24),
+                        painter = painterResource(id = R.drawable.outline_flash_on_24),
                         contentDescription = "icon",
-                        modifier = Modifier.size(18.dp),
+                        modifier = Modifier.size(18.dp)
+                            .padding(top = 3.dp),
                         colorFilter = ColorFilter.tint(MaterialTheme.customColors.success)
                     )
                     Text(
-                        text = currentItem.distance ?: "",
+                        text = currentItem.deliveryTime ?: "",
                         fontSize = 14.sp,
                         color = Color.DarkGray,
                         fontWeight = FontWeight.Bold
@@ -219,99 +306,69 @@ fun RestaurantCard(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = currentItem.address ?: "",
+                        text = "Schedule for later",
                         fontSize = 14.sp,
                         color = Color.DarkGray,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.Bold
                     )
                     // Down arrow icon
-                    Box(
-                        modifier = Modifier
-                            .offset(x = (-5).dp) // Pull icon left
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.outline_arrow_drop_down_24),
-                            contentDescription = "Dropdown arrow",
-                            modifier = Modifier.size(30.dp),
-                            tint = Color.DarkGray
-                        )
-                    }
-//                    Icon(
-//                        painter = painterResource(id = R.drawable.outline_arrow_drop_down_24),
-//                        contentDescription = "Dropdown arrow",
-//                        modifier = Modifier.size(30.dp)
-//                            .padding(top = 1.dp),
-//                        tint = Color.Gray
-//                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.outline_keyboard_arrow_down_24),
+                        contentDescription = "Dropdown arrow",
+                        modifier = Modifier.size(25.dp)
+                            .padding(top = 1.dp),
+                        tint = Color.DarkGray
+                    )
                 }
 
-                // Right side: Ratings
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "${getRandomRatings()}K+ ratings",
-                        fontSize = 11.sp,
-                        color = Color.DarkGray
+                Spacer(modifier = Modifier.height(5.dp))
+
+                // Divider
+                HorizontalDivider(
+                    color = Color.LightGray,
+                    thickness = 0.5.dp
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                // Discount / Offer Section - Fixed Version
+                OfferSection(
+                    offerItems = offerItems,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+
+        // Banner on top - overlapping the card's top edge (ribbon/sticker effect)
+        // Only show the Row if acceptingOrders has a value (true or false)
+        if (currentItem.acceptingOrders != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .zIndex(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                if (currentItem.acceptingOrders == true) {
+                    Image(
+                        painter = painterResource(id = R.drawable.accepting_orders),
+                        contentDescription = "accepting orders banner",
+                        modifier = Modifier
+                            .height(70.dp)
+                            .width(170.dp)
+                            .offset(y = 2.dp)
+                    )
+                } else { // false case
+                    Image(
+                        painter = painterResource(id = R.drawable.not_accepting_orders),
+                        contentDescription = "not accepting orders banner",
+                        modifier = Modifier
+                            .height(70.dp)
+                            .width(170.dp)
+                            .offset(y = 2.dp)
                     )
                 }
             }
-
-            // Delivery Time & Distance
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.outline_flash_on_24),
-                    contentDescription = "icon",
-                    modifier = Modifier.size(18.dp)
-                        .padding(top = 3.dp),
-                    colorFilter = ColorFilter.tint(MaterialTheme.customColors.success)
-                )
-                Text(
-                    text = currentItem.deliveryTime ?: "",
-                    fontSize = 14.sp,
-                    color = Color.DarkGray,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "•",
-                    fontSize = 20.sp,
-                    color = Color.DarkGray,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "Schedule for later",
-                    fontSize = 14.sp,
-                    color = Color.DarkGray,
-                    fontWeight = FontWeight.Bold
-                )
-                // Down arrow icon
-                Icon(
-                    painter = painterResource(id = R.drawable.outline_keyboard_arrow_down_24),
-                    contentDescription = "Dropdown arrow",
-                    modifier = Modifier.size(25.dp)
-                        .padding(top = 1.dp),
-                    tint = Color.DarkGray
-                )
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            // Divider
-            HorizontalDivider(
-                color = Color.LightGray,
-                thickness = 0.5.dp
-            )
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            // Discount / Offer Section - Fixed Version
-            OfferSection(
-                offerItems = offerItems,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }

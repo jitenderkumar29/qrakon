@@ -41,6 +41,7 @@ data class CustomColors(
 
     // Background colors
     val background: Color,
+    val background2: Color,
     val onBackground: Color,
 
     // Surface colors
@@ -127,6 +128,7 @@ val LightCustomColors = CustomColors(
 
     // Background colors
     background = Color(0xFFFEFBFF),
+    background2 = Color(0xFFF5F6FB),
     onBackground = Color(0xFF1B1B1F),
 
     // Surface colors
@@ -220,6 +222,7 @@ val DarkCustomColors = CustomColors(
 
     // Background colors
     background = Color(0xFF1B1B1F),
+    background2 = Color(0xFF1B1B1F),
     onBackground = Color(0xFFE4E2E6),
 
     // Surface colors

@@ -69,6 +69,10 @@ data class FoodItemDoubleF(
     val moredetailsbutton: Boolean? = false,
     val salad: Boolean? = false,
     val above259: Boolean? = false,
+    val recommendedWithOutProtein: Boolean? = false,
+    val crazy: Boolean? = false,
+    val bigValue : Boolean? = false,
+    val superSaver : Boolean? = false,
 )
 
 @Composable
@@ -103,6 +107,10 @@ fun RestaurantDetails(
     val comboItems = remember(foodItems) { foodItems.filter { it.combo == true } }
     val moredetailsbuttonItems = remember(foodItems) { foodItems.filter { it.moredetailsbutton == true } }
     val saladItems = remember(foodItems) { foodItems.filter { it.salad == true } }
+    val recommendedWithOutProteinItems = remember(foodItems) { foodItems.filter { it.recommendedWithOutProtein == true } }
+    val crazyBiryaniItems = remember(foodItems) { foodItems.filter { it.crazy == true } }
+    val bigValueBiryaniItems = remember(foodItems) { foodItems.filter { it.bigValue == true } }
+    val superSaverBiryaniItems = remember(foodItems) { foodItems.filter { it.superSaver == true } }
 
     LazyColumn(
         modifier = Modifier
@@ -115,7 +123,7 @@ fun RestaurantDetails(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.customColors.blackHeader)
-                    .padding(start = 12.dp, end = 12.dp, top = 5.dp, bottom = 5.dp),
+                    .padding(start = 12.dp, end = 12.dp, top = 5.dp, bottom = 0.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = onBackClick) {
@@ -451,6 +459,53 @@ fun RestaurantDetails(
                 Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
             }
         }
+        // ==================== RECOMMENTDE WITHOUT PROTEIN SECTION (Grid) ====================
+        if (recommendedWithOutProteinItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = "Recommended (20)",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    val rows = recommendedWithOutProteinItems.chunked(2)
+                    rows.forEach { rowItems ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            rowItems.forEach { item ->
+                                RestaurantItemDetails2(
+                                    item = item,
+                                    modifier = Modifier.weight(1f),
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                            if (rowItems.size == 1) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                }
+            }
+            // Divider
+            item {
+                Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(vertical = 0.dp))
+            }
+        }
 
         // ==================== FREE DELIVERY ITEMS STARTING AT 289 SECTION (Grid) ====================
         if (freeDeliveryItemsAbove259.isNotEmpty()) {
@@ -502,7 +557,7 @@ fun RestaurantDetails(
 
         // Offer Banner Section
         item {
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Surface(
                 shape = RoundedCornerShape(20.dp),
                 color = Color.Transparent,
@@ -532,8 +587,8 @@ fun RestaurantDetails(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.customColors.white)
-                        .padding(vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+//                        .padding(vertical = 12.dp),
+//                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
                         text = "Recommended For You",
@@ -545,7 +600,111 @@ fun RestaurantDetails(
                         maxLines = 1,
                         modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
                     recommendedItems.forEach { item ->
+                        RestaurantItemDetails(
+                            item = item,
+                            showMultipleImages = false,
+                            onAddClick = { println("Added: ${item.title}") }
+                        )
+                    }
+                }
+            }
+        }
+        // ==================== CRAZY SECTION (Single Image) ====================
+        if (crazyBiryaniItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+//                        .padding(vertical = 12.dp),
+//                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = "Crazy Biryani Box",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    crazyBiryaniItems.forEach { item ->
+                        RestaurantItemDetails(
+                            item = item,
+                            showMultipleImages = false,
+                            onAddClick = { println("Added: ${item.title}") }
+                        )
+                    }
+                }
+            }
+        }
+        // ==================== BIG VALUE SECTION (Single Image) ====================
+        if (bigValueBiryaniItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+//                        .padding(vertical = 12.dp),
+//                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = "Big Value Biryani Bowl 500ml",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    bigValueBiryaniItems.forEach { item ->
+                        RestaurantItemDetails(
+                            item = item,
+                            showMultipleImages = false,
+                            onAddClick = { println("Added: ${item.title}") }
+                        )
+                    }
+                }
+            }
+        }
+        // ==================== SUPER SAVER SECTION (Single Image) ====================
+        if (superSaverBiryaniItems.isNotEmpty()) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.customColors.white)
+                ) {
+//                    Text(
+//                        text = superSaverBiryaniItems.joinToString(", ") { it.id.toString() }, // Convert id to string
+//                        style = MaterialTheme.typography.bodySmall.copy(
+//                            fontSize = 20.sp,
+//                            fontWeight = FontWeight.Bold,
+//                            color = MaterialTheme.customColors.black
+//                        ),
+//                        maxLines = 1,
+//                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+//                    )
+                    Text(
+                        text = "Super Saver Biryani Bowl 500ml",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.black
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    // This will display ALL 6 items
+                    superSaverBiryaniItems.forEach { item ->
                         RestaurantItemDetails(
                             item = item,
                             showMultipleImages = false,
@@ -563,8 +722,8 @@ fun RestaurantDetails(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.customColors.white)
-                        .padding(vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+//                        .padding(vertical = 12.dp),
+//                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
                         text = "Combo For You",
@@ -576,6 +735,7 @@ fun RestaurantDetails(
                         maxLines = 1,
                         modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
                     comboItems.forEach { item ->
                         RestaurantItemDetails(
                             item = item,
@@ -593,11 +753,11 @@ fun RestaurantDetails(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.customColors.white)
-                        .padding(vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+//                        .padding(vertical = 12.dp),
+//                    verticalArrangement = Arrangement.spacedBy(0.dp)
                 ) {
                     Text(
-                        text = "Detailed Items For You",
+                        text = "Big Party Meal For You",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
@@ -606,6 +766,7 @@ fun RestaurantDetails(
                         maxLines = 1,
                         modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
                     moredetailsbuttonItems.forEach { item ->
                         RestaurantItemDetails(
                             item = item,

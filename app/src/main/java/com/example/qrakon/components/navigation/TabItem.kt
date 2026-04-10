@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavController
 import com.example.qrakon.R
 import com.example.qrakon.components.homescreen.HomeScreen
 
@@ -16,13 +17,14 @@ sealed class TabItem(
     val title: String,
     val icon: ImageVector,
     val imageResource: Int? = null,
-    val screen: @Composable () -> Unit
+    val screen: @Composable (NavController) -> Unit
 ) {
     data object Home : TabItem(
         title = "Home",
         icon = Icons.Filled.Home,
         imageResource = R.drawable.outline_home_24, // Add this image to your drawable resources
-        screen = { HomeScreen() }
+        screen = { navController -> HomeScreen(navController) }
+//        screen = { HomeScreen() }
     )
 
     data object Explore : TabItem(

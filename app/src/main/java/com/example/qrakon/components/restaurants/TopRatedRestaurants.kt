@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
+import kotlin.Boolean
+import kotlin.String
 import kotlin.collections.take
 import kotlin.let
 import kotlin.text.isNotEmpty
@@ -62,6 +64,8 @@ data class TopRatedRestaurantItem(
     val isHighProtein: Boolean? = null,
     val category: String? = null,
     val isWishlisted: Boolean? = null,
+    val acceptingOrders: Boolean? = null,
+    val acceptingOrdersMsg: String? = null,
 ) : Parcelable
 
 /**
@@ -659,7 +663,9 @@ val completeRestaurantItems = listOf(
         discount = "30%",
         discountAmount = "₹20",
         address = "Pacific Jasola",
-        category = "pizza"
+        category = "pizza",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
     ),
     TopRatedRestaurantItem(
         id = 2,
@@ -673,8 +679,10 @@ val completeRestaurantItems = listOf(
         discount = "ITEMS",
         discountAmount = "₹20",
         address = "Pacific Jasola",
-        category = "burger"
-    ),
+        category = "burger",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+        ),
     TopRatedRestaurantItem(
         id = 3,
         imageRes = R.drawable.ic_top_rated_food_bikkgane_biryani,
@@ -687,8 +695,10 @@ val completeRestaurantItems = listOf(
         discount = "70%",
         discountAmount = "₹130",
         address = "Hitech, City",
-        category = "biryani"
-    ),
+        category = "biryani",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+        ),
     TopRatedRestaurantItem(
         id = 4,
         imageRes = R.drawable.ic_top_rated_food_dana_choga,
@@ -701,7 +711,9 @@ val completeRestaurantItems = listOf(
         discount = "",
         discountAmount = "",
         address = "Jasola, New Delhi",
-        category = "northindian"
+        category = "northindian",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 5,
@@ -715,7 +727,8 @@ val completeRestaurantItems = listOf(
         discount = "20%",
         discountAmount = "₹20",
         address = "Faridabad Sector-15",
-        category = "bigbowl"
+        category = "bigbowl",
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 6,
@@ -729,7 +742,9 @@ val completeRestaurantItems = listOf(
         discount = "50%",
         discountAmount = "₹350",
         address = "Sector-18, Noida",
-        category = "kfcburger"
+        category = "kfcburger",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 7,
@@ -743,7 +758,9 @@ val completeRestaurantItems = listOf(
         discount = "₹80 OFF",
         discountAmount = "₹80",
         address = "Dhaka, Bangladesh",
-        category = "bangladeshi"
+        category = "bangladeshi",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 8,
@@ -757,7 +774,9 @@ val completeRestaurantItems = listOf(
         discount = "40%",
         discountAmount = "₹80",
         address = "Connaught Place",
-        category = "sandwich"
+        category = "sandwich",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 9,
@@ -771,7 +790,9 @@ val completeRestaurantItems = listOf(
         discount = "30%",
         discountAmount = "₹20",
         address = "City Center",
-        category = "fastfood"
+        category = "fastfood",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 10,
@@ -785,7 +806,9 @@ val completeRestaurantItems = listOf(
         discount = "20%",
         discountAmount = "₹20",
         address = "City Center",
-        category = "fastfood"
+        category = "fastfood",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 11,
@@ -799,6 +822,8 @@ val completeRestaurantItems = listOf(
         discount = "30%",
         discountAmount = "₹20",
         address = "Faridabad Sector-15",
-        category = "icecream"
+        category = "icecream",
+        acceptingOrders = false,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     )
 )

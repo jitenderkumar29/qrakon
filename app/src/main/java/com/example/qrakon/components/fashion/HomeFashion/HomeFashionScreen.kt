@@ -1,6 +1,5 @@
 package com.example.qrakon.components.homescreen
 
-import LocationAddress
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,6 +19,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.qrakon.components.fashion.fashiontab.FashionTab
 import com.example.qrakon.components.fashion.searchfashion.SearchFashion
+import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
 
@@ -180,17 +180,39 @@ fun HomeFashionScreen(navController: NavHostController) {
     // 🟢 Location Dialog
     if (showLocationDialog) {
         Dialog(onDismissRequest = { showLocationDialog = false }) {
-            LocationAddress(
-                onBackClick = { showLocationDialog = false },
-                onLocationSelected = { location ->
-                    selectedLocation = location
-                    showLocationDialog = false
-                },
-                onUseCurrentLocation = {
-                    selectedLocation = "Current Location"
-                    showLocationDialog = false
+            // 🔴 Overlay screen (LocationAddress)
+            if (showLocationDialog) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background)
+                ) {
+                    LocationAddress(
+                        onBackClick = { showLocationDialog = false },
+
+                        onLocationSelected = { location ->
+                            selectedLocation = location
+                            showLocationDialog = false
+                        },
+
+                        onUseCurrentLocation = {
+                            selectedLocation = "Current Location"
+                            showLocationDialog = false
+                        }
+                    )
                 }
-            )
+            }
+//            LocationAddress(
+//                onBackClick = { showLocationDialog = false },
+//                onLocationSelected = { location ->
+//                    selectedLocation = location
+//                    showLocationDialog = false
+//                },
+//                onUseCurrentLocation = {
+//                    selectedLocation = "Current Location"
+//                    showLocationDialog = false
+//                }
+//            )
         }
     }
 }

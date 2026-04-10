@@ -37,9 +37,10 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.navigationBars
+import androidx.navigation.NavController
 
 @Composable
-fun TabNavigationApp() {
+fun TabNavigationApp(navController: NavController) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
 
     val tabItems = listOf(
@@ -157,7 +158,7 @@ fun TabNavigationApp() {
                 .fillMaxWidth()
                 .fillMaxSize()
         ) {
-            tabItems[selectedTabIndex].screen()
+            tabItems[selectedTabIndex].screen(navController)
         }
     }
 }

@@ -210,7 +210,7 @@ fun CategoryScreen(
                 .nestedScroll(nestedScrollConnection)
         ) {
             when (selectedCategory.value) {
-                "Shopping" -> ShoppingScreen()
+                "Shopping" -> ShoppingScreen(navController = navController)
                 "Grocery" -> GroceryScreen(navController = navController)
                 "Beauty" -> BeautyScreen()
                 "Economy" -> EconomyScreen()
@@ -322,8 +322,8 @@ fun CategoryScreen(
 
 // Separate screen composables for each category
 @Composable
-fun ShoppingScreen() {
-    TabNavigationApp()
+fun ShoppingScreen(navController: NavHostController) {
+    TabNavigationApp(navController = navController)
 //    Column(
 //        modifier = Modifier
 //            .fillMaxSize()

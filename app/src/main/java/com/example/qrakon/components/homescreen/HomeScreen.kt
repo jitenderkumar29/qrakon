@@ -1,6 +1,5 @@
 package com.example.qrakon.components.homescreen
 
-import LocationAddress
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,13 +10,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
 import com.example.qrakon.components.categorytabs.CategoryTabs
+import com.example.qrakon.components.location.LocationAddress
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
     var showLocationDialog by remember { mutableStateOf(false) }
     var selectedLocation by remember { mutableStateOf("Dhruv 110044") }
@@ -107,7 +108,9 @@ fun HomeScreen() {
                 ) {
                     LocationSelectionButton(
                         selectedLocation = selectedLocation,
-                        onLocationClick = { showLocationDialog = true }
+                        onLocationClick = {
+                            navController.navigate("location")   // 🚀 OPEN NEW SCREEN
+                        }
                     )
                 }
             }
@@ -230,15 +233,22 @@ fun HomeScreen() {
         }
     }
 
-    // 🟢 Location Dialog
+    // 🔴 FULL SCREEN LOCATION PAGE
+    // 🔴 Overlay screen (LocationAddress)
     if (showLocationDialog) {
-        Dialog(onDismissRequest = { showLocationDialog = false }) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
             LocationAddress(
                 onBackClick = { showLocationDialog = false },
+
                 onLocationSelected = { location ->
                     selectedLocation = location
                     showLocationDialog = false
                 },
+
                 onUseCurrentLocation = {
                     selectedLocation = "Current Location"
                     showLocationDialog = false
@@ -246,4 +256,21 @@ fun HomeScreen() {
             )
         }
     }
+
+    // 🟢 Location Dialog
+//    if (showLocationDialog) {
+//        Dialog(onDismissRequest = { showLocationDialog = false }) {
+//            LocationAddress(
+//                onBackClick = { showLocationDialog = false },
+//                onLocationSelected = { location ->
+//                    selectedLocation = location
+//                    showLocationDialog = false
+//                },
+//                onUseCurrentLocation = {
+//                    selectedLocation = "Current Location"
+//                    showLocationDialog = false
+//                }
+//            )
+//        }
+//    }
 }

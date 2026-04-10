@@ -79,7 +79,7 @@ fun RestaurantItemDetails(
                     )
 
                     // Progress
-                    if (item.moredetailsbutton != true && item.salad  != true) {
+                    if (item.moredetailsbutton != true && item.salad  != true && item.crazy  != true) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             val progress = (item.highlyReordered?.toFloatOrNull() ?: 0f) / 100f
                             Box(
@@ -106,7 +106,7 @@ fun RestaurantItemDetails(
                     }
 
                     // Price
-                    if (item.salad  == true) {
+                    if (item.salad  == true ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -154,36 +154,85 @@ fun RestaurantItemDetails(
                     }
                     // Price Row
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        if (item.moredetailsbutton != true  && item.salad  != true) {
+                        if (item.moredetailsbutton != true  && item.salad  != true && item.crazy  != true) {
                             Text(
                                 text = "₹${item.price}",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 15.sp
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(2.dp))
                             Image(
                                 painter = painterResource(R.drawable.discount_badge),
                                 contentDescription = "",
                                 modifier = Modifier.size(12.dp),
                                 contentScale = ContentScale.FillBounds
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(2.dp))
                             Text(
                                 text = item.discount ?: "",
-                                fontSize = 12.sp,
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.DarkGray
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "USE HUFKO COUPON",
-                                fontSize = 11.sp,
+                                text = "USE COUPON",
+                                fontSize = 10.sp,
                                 color = Color.DarkGray,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
                         }
                     }
+
+                    if (item.crazy  == true) {
+                        // Price and Button
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+//                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+//                            Column(
+//                                verticalArrangement = Arrangement.spacedBy(0.dp)
+//                            ) {
+                    // Original Price (Strikethrough)
+                    Text(
+                        text = "₹${item.originalPrice ?: "0"}",
+                        fontSize = 12.sp,
+                        color = Color.Gray,
+                        textDecoration = TextDecoration.LineThrough
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                                // Discounted Price (Box)
+                    Box(
+                        modifier = Modifier
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(4.dp),
+                                clip = false // important for natural shadow
+                            )
+                            .background(
+                                color = MaterialTheme.customColors.yellowButton,
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color(0xFFBDBDBD), // light gray border
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(horizontal = 5.dp, vertical = 1.dp)
+                    ) {
+                        Text(
+                            text = "₹${item.price ?: "0"}",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    }
+                  }
+                    Spacer(modifier = Modifier.height(5.dp))
+//                        }
+                }
 
                     // Rating
                     if (item.moredetailsbutton != true  && item.salad  != true) {
@@ -231,7 +280,7 @@ fun RestaurantItemDetails(
                     }
 
                     // Protein + Calories
-                    if (item.moredetailsbutton != true  && item.salad  != true) {
+                    if (item.moredetailsbutton != true  && item.salad  != true && item.crazy  != true && item.bigValue != true && item.superSaver  != true) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = "${item.protein}",
@@ -272,6 +321,32 @@ fun RestaurantItemDetails(
                         )
                     }
 
+//                    Row(verticalAlignment = Alignment.CenterVertically) {
+//                        if (item.moredetailsbutton != true  && item.salad  != true) {
+//                            Image(
+//                                painter = painterResource(R.drawable.discount_badge),
+//                                contentDescription = "",
+//                                modifier = Modifier.size(12.dp),
+//                                contentScale = ContentScale.FillBounds
+//                            )
+//                            Spacer(modifier = Modifier.width(4.dp))
+//                            Text(
+//                                text = item.discount ?: "",
+//                                fontSize = 12.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                color = Color.DarkGray
+//                            )
+//                            Spacer(modifier = Modifier.width(4.dp))
+//                            Text(
+//                                text = "USE HUFKO COUPON",
+//                                fontSize = 11.sp,
+//                                color = Color.DarkGray,
+//                                maxLines = 1,
+//                                overflow = TextOverflow.Ellipsis
+//                            )
+//                        }
+//                    }
+
 
 
                     // Save & Share
@@ -295,7 +370,46 @@ fun RestaurantItemDetails(
                     }
 
                     if (item.moredetailsbutton == true) {
-                        Spacer(modifier = Modifier.height(15.dp))
+                        Row (
+//                                verticalArrangement = Arrangement.spacedBy(0.dp)
+                        ) {
+                            // Original Price (Strikethrough)
+                            Text(
+                                text = "₹${item.originalPrice ?: "0"}",
+                                fontSize = 14.sp,
+                                color = Color.Gray,
+                                textDecoration = TextDecoration.LineThrough
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            // Discounted Price (Box)
+                            Box(
+                                modifier = Modifier
+                                    .shadow(
+                                        elevation = 4.dp,
+                                        shape = RoundedCornerShape(4.dp),
+                                        clip = false // important for natural shadow
+                                    )
+                                    .background(
+                                        color = MaterialTheme.customColors.yellowButton,
+                                        shape = RoundedCornerShape(4.dp)
+                                    )
+                                    .border(
+                                        width = 1.dp,
+                                        color = Color(0xFFBDBDBD), // light gray border
+                                        shape = RoundedCornerShape(4.dp)
+                                    )
+                                    .padding(horizontal = 5.dp, vertical = 1.dp)
+                            ) {
+                                Text(
+                                    text = "₹${item.price ?: "0"}",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(8.dp))
