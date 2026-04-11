@@ -236,6 +236,7 @@ fun HomeScreen(navController: NavController) {
     // 🔴 FULL SCREEN LOCATION PAGE
     // 🔴 Overlay screen (LocationAddress)
     if (showLocationDialog) {
+        var showAddressMap by remember { mutableStateOf(false) }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -252,7 +253,8 @@ fun HomeScreen(navController: NavController) {
                 onUseCurrentLocation = {
                     selectedLocation = "Current Location"
                     showLocationDialog = false
-                }
+                },
+                navigateToAddAddress = { showAddressMap = false }
             )
         }
     }

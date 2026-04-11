@@ -10,6 +10,7 @@ import com.example.qrakon.components.fashion.FashionScreen
 import com.example.qrakon.components.fashion.fashiontab.CategoriesFashionPage
 import com.example.qrakon.components.homescreen.CategoryScreen
 import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen // <- create this
+import com.example.qrakon.components.homescreen.AddressMap
 import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.components.restaurants.RestaurantDetails
 import com.example.qrakon.components.restaurants.TopRatedRestaurantItem
@@ -113,6 +114,16 @@ fun AppNavGraph(navController: NavHostController) {
                         ?.savedStateHandle
                         ?.set("selected_location", "Current Location")
 
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("address_map") {
+            AddressMap(
+                onBackClick = { navController.popBackStack() },
+                onSaveAddress = {
+                    // Handle save address logic
                     navController.popBackStack()
                 }
             )
