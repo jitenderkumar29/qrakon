@@ -1,5 +1,6 @@
 package com.example.qrakon.components.location
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,7 +22,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -154,6 +157,14 @@ fun LocationAddress(
                                 title = "Import addresses from Hufko",
                                 onClick = onImportBlinkit
                             )
+
+                            Divider()
+
+                            ActionItemWithImage(
+                                icon = Icons.Default.LocationOn,
+                                title = "Request address from someone else",
+                                onClick = onImportBlinkit
+                            )
                         }
                     }
                 }
@@ -227,6 +238,13 @@ fun LocationAddress(
                         )
                     ) {
                         Column {
+                            Text(
+                                text = "NEARBY LOCATIONS",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color.Gray,
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(14.dp)
+                            )
                             NearbyItem(
                                 "SK Payal Public School",
                                 "Budh Vihar Road, Badarpur Extension"
@@ -248,6 +266,32 @@ fun LocationAddress(
                             NearbyItem(
                                 "International Institute of Hotel Management",
                                 "Mathura Road"
+                            )
+                        }
+                    }
+                }
+
+                // Recently searched locations
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        elevation = CardDefaults.cardElevation(2.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.customColors.white
+                        )
+                    ) {
+                        Column {
+                            Text(
+                                text = "RECENTLY SEARCHED LOCATIONS",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color.Gray,
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(14.dp)
+                            )
+                            NearbyItem(
+                                "A block",
+                                "Tajpur Road, Badarpur Extension, Tajpur, Badarpur, New Delhi, Delhi, India"
                             )
                         }
                     }
@@ -291,13 +335,73 @@ fun ActionItem(
                 Icon(
                     icon,
                     contentDescription = null,
-                    tint = MaterialTheme.customColors.buttonRed
+                    tint = MaterialTheme.customColors.greenTitle
                 )
                 Spacer(Modifier.width(12.dp))
                 Text(
                     title,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.customColors.buttonRed
+                    color = MaterialTheme.customColors.greenTitle
+                )
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.outline_arrow_forward_ios_24),
+                contentDescription = "Navigate",
+                tint = MaterialTheme.customColors.black,
+                modifier = Modifier.size(17.dp)
+            )
+        }
+
+        if (!address.isNullOrEmpty()) {
+            Text(
+                text = address,
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Gray,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(start = 52.dp, end = 0.dp, bottom = 14.dp, top = 0.dp),
+            )
+        } else {
+            Spacer(modifier = Modifier.height(14.dp))
+        }
+    }
+}
+
+
+@Composable
+fun ActionItemWithImage(
+    icon: ImageVector,
+    title: String,
+    address: String? = null,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .background(MaterialTheme.customColors.white)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 14.dp, end = 14.dp, bottom = 0.dp, top = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.whatsapp_image),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.size(28.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.customColors.black
                 )
             }
 
@@ -485,7 +589,7 @@ fun NearbyItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_clock),
+            painter = painterResource(id = R.drawable.baseline_location_pin_24),
             contentDescription = null,
             tint = Color.Gray
         )

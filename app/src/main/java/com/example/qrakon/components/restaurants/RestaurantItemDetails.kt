@@ -80,29 +80,56 @@ fun RestaurantItemDetails(
 
                     // Progress
                     if (item.moredetailsbutton != true && item.salad  != true && item.crazy  != true) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            val progress = (item.highlyReordered?.toFloatOrNull() ?: 0f) / 100f
-                            Box(
-                                modifier = Modifier
-                                    .width(50.dp)
-                                    .height(6.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(MaterialTheme.customColors.spacerColor)
-                            ) {
+
+                        if (item.highlyReordered != null && !item.reorderedQuantity.isNullOrEmpty()) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                val maxOrders = 1000
+                                val progress = (item.reorderedQuantity?.toFloatOrNull() ?: 0f) / maxOrders
                                 Box(
                                     modifier = Modifier
-                                        .fillMaxHeight()
-                                        .fillMaxWidth(progress)
-                                        .background(MaterialTheme.customColors.success)
+                                        .width(50.dp)
+                                        .height(6.dp)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(MaterialTheme.customColors.spacerColor)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxHeight()
+                                            .fillMaxWidth(progress.coerceIn(0f, 1f))
+                                            .background(MaterialTheme.customColors.success)
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "Highly reordered",
+                                    fontSize = 11.sp,
+                                    color = Color.Gray
                                 )
                             }
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = "Highly reordered",
-                                fontSize = 11.sp,
-                                color = Color.Gray
-                            )
                         }
+//                        Row(verticalAlignment = Alignment.CenterVertically) {
+//                            val progress = (item.highlyReordered?.toFloatOrNull() ?: 0f) / 100f
+//                            Box(
+//                                modifier = Modifier
+//                                    .width(50.dp)
+//                                    .height(6.dp)
+//                                    .clip(RoundedCornerShape(10.dp))
+//                                    .background(MaterialTheme.customColors.spacerColor)
+//                            ) {
+//                                Box(
+//                                    modifier = Modifier
+//                                        .fillMaxHeight()
+//                                        .fillMaxWidth(progress)
+//                                        .background(MaterialTheme.customColors.success)
+//                                )
+//                            }
+//                            Spacer(modifier = Modifier.width(6.dp))
+//                            Text(
+//                                text = "Highly reordered",
+//                                fontSize = 11.sp,
+//                                color = Color.Gray
+//                            )
+//                        }
                     }
 
                     // Price
@@ -152,7 +179,7 @@ fun RestaurantItemDetails(
                             }
                         }
                     }
-                    // Price Row
+                    // Price discount Row
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (item.moredetailsbutton != true  && item.salad  != true && item.crazy  != true) {
                             Text(
@@ -160,28 +187,52 @@ fun RestaurantItemDetails(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 15.sp
                             )
-                            Spacer(modifier = Modifier.width(2.dp))
-                            Image(
-                                painter = painterResource(R.drawable.discount_badge),
-                                contentDescription = "",
-                                modifier = Modifier.size(12.dp),
-                                contentScale = ContentScale.FillBounds
-                            )
-                            Spacer(modifier = Modifier.width(2.dp))
-                            Text(
-                                text = item.discount ?: "",
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.DarkGray
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "USE COUPON",
-                                fontSize = 10.sp,
-                                color = Color.DarkGray,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+                            if (!item.discount.isNullOrEmpty()) {
+                                Spacer(modifier = Modifier.width(2.dp))
+                                Image(
+                                    painter = painterResource(R.drawable.discount_badge),
+                                    contentDescription = "",
+                                    modifier = Modifier.size(12.dp),
+                                    contentScale = ContentScale.FillBounds
+                                )
+                                Spacer(modifier = Modifier.width(2.dp))
+                                Text(
+                                    text = item.discount ?: "",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "USE COUPON",
+                                    fontSize = 10.sp,
+                                    color = Color.DarkGray,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+//                            Spacer(modifier = Modifier.width(2.dp))
+//                            Image(
+//                                painter = painterResource(R.drawable.discount_badge),
+//                                contentDescription = "",
+//                                modifier = Modifier.size(12.dp),
+//                                contentScale = ContentScale.FillBounds
+//                            )
+//                            Spacer(modifier = Modifier.width(2.dp))
+//                            Text(
+//                                text = item.discount ?: "",
+//                                fontSize = 11.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                color = Color.DarkGray
+//                            )
+//                            Spacer(modifier = Modifier.width(4.dp))
+//                            Text(
+//                                text = "USE COUPON",
+//                                fontSize = 10.sp,
+//                                color = Color.DarkGray,
+//                                maxLines = 1,
+//                                overflow = TextOverflow.Ellipsis
+//                            )
                         }
                     }
 

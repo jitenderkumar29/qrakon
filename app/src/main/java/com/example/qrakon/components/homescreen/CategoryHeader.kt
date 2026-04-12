@@ -1,5 +1,6 @@
 package com.example.qrakon.components.homescreen
 
+import DisclaimerFood
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -648,6 +649,12 @@ fun FoodScreen( navController: NavHostController? = null,) {
             horizontalPadding = 12.dp,
             verticalPadding = 0.dp,
             headingBottomPadding = 0.dp
+        )
+//        Spacer(modifier = Modifier.height(20.dp))
+        DisclaimerFood(
+            onReportIssueClick = {
+                // Handle report issue click
+            }
         )
     }
 }
