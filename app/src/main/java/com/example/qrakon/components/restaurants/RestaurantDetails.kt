@@ -1,5 +1,7 @@
 package com.example.qrakon.components.restaurants
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -75,6 +77,7 @@ data class FoodItemDoubleF(
     val superSaver : Boolean? = false,
 )
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RestaurantDetails(
     onBackClick: () -> Unit,
@@ -232,14 +235,36 @@ fun RestaurantDetails(
             ) {
                 if (restaurantItem != null) {
                     RestaurantCard(
-                        items = listOf(restaurantItem),
-                        onItemClick = { println("Clicked: ${it.restaurantName}") }
+                        item = restaurantItem,  // Pass single item, not a list
+                        onItemClick = { item ->
+                            // Navigate to restaurant details
+                            navController.navigate("restaurant_details/${item.id}/${item.category}")
+                        },
+                        onInfoIconClick = { item ->
+                            // Navigate to restaurant info page
+                            item.restaurantName?.let {
+                                navController.navigate("restaurant_info/$it")
+                            }
+                        },
+                        onScheduleLaterClick = { item ->
+                            // Handle schedule later click
+                            // You can show a toast, log, or perform any other action
+                            // The bottom sheet will automatically open from within RestaurantCard
+                            println("Schedule later clicked for ${item.restaurantName}")
+
+                            // Optional: You can also track analytics or perform additional logic
+                            // trackEvent("schedule_later_clicked", mapOf("restaurant_id" to item.id))
+                        }
                     )
                 } else {
-                    RestaurantCard(
-                        items = completeRestaurantItems,
-                        onItemClick = { println("Clicked: ${it.restaurantName}") }
-                    )
+                    // Handle case when restaurantItem is null - maybe show a placeholder or don't render
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = "No restaurant data available",
+                            modifier = Modifier.padding(16.dp),
+                            color = Color.Gray
+                        )
+                    }
                 }
             }
         }

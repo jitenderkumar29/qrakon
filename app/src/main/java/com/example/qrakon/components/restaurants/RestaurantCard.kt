@@ -31,6 +31,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.ui.zIndex
 import com.example.qrakon.R
 import com.example.qrakon.ui.theme.customColors
+import android.os.Build
+import androidx.annotation.RequiresApi
 
 // Data classes for offer items
 data class OfferItem(
@@ -49,25 +51,22 @@ val offerItems = listOf(
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RestaurantCard(
-    items: List<TopRatedRestaurantItem>,
+    item: TopRatedRestaurantItem,
     modifier: Modifier = Modifier,
-    onItemClick: (TopRatedRestaurantItem) -> Unit = {}
+    onItemClick: (TopRatedRestaurantItem) -> Unit = {},
+    onInfoIconClick: (TopRatedRestaurantItem) -> Unit = {},
+    onScheduleLaterClick: (TopRatedRestaurantItem) -> Unit = {} // New callback
 ) {
-    var restaurantIndex by remember { mutableIntStateOf(0) }
+    val currentItem = item
 
-    // Auto-slide every 3 seconds
-    LaunchedEffect(Unit) {
-        while (items.isNotEmpty()) {
-            delay(3000)
-            restaurantIndex = (restaurantIndex + 1) % items.size
-        }
-    }
+    // State for bottom sheet
+    var showScheduleSheet by remember { mutableStateOf(false) }
+    var selectedDateIndex by remember { mutableStateOf(0) }
+    var selectedTimeIndex by remember { mutableStateOf(3) }
 
-    if (items.isEmpty()) return
-
-    val currentItem = items[restaurantIndex]
     var paddingTopCard = 0.dp
     if (currentItem.acceptingOrders != null) {
         if (currentItem.acceptingOrders == true) {
@@ -78,6 +77,7 @@ fun RestaurantCard(
     } else {
         paddingTopCard = 5.dp
     }
+
     // Box for overlapping effect (ribbon/sticker style)
     Box(
         modifier = Modifier
@@ -89,12 +89,11 @@ fun RestaurantCard(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable { onItemClick(currentItem) }
-                .padding(top = paddingTopCard, bottom = 15.dp, start = 12.dp, end = 12.dp), // Top padding creates space for banner overlap
+                .padding(top = paddingTopCard, bottom = 15.dp, start = 12.dp, end = 12.dp),
             shape = RoundedCornerShape(30.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
-//            Spacer(modifier = Modifier.height(10.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,11 +127,10 @@ fun RestaurantCard(
                         color = Color.LightGray,
                         thickness = 0.5.dp
                     )
-                Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
 
                 // Restaurant Seal
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -164,13 +162,12 @@ fun RestaurantCard(
                     )
                 }
 
-                // Restaurant Header
+                // Restaurant Header (Static - no auto-slide)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Left side: Restaurant Name + Info Icon (grouped together)
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -184,11 +181,12 @@ fun RestaurantCard(
                         Image(
                             painter = painterResource(id = R.drawable.info_exclamation_mark_icon),
                             contentDescription = "info icon",
-                            modifier = Modifier.size(18.dp),
+                            modifier = Modifier
+                                .size(18.dp)
+                                .clickable { onInfoIconClick(currentItem) },
                         )
                     }
 
-                    // Right side: Rating Chip
                     Surface(
                         shape = RoundedCornerShape(20.dp),
                         color = MaterialTheme.customColors.success,
@@ -218,13 +216,12 @@ fun RestaurantCard(
 
                 Spacer(modifier = Modifier.height(4.dp))
 
-                // Distance & Address
+                // Distance & Address (Static)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Left side: Location info
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -255,10 +252,9 @@ fun RestaurantCard(
                             overflow = TextOverflow.Ellipsis,
                             fontWeight = FontWeight.Bold
                         )
-                        // Down arrow icon
                         Box(
                             modifier = Modifier
-                                .offset(x = (-5).dp) // Pull icon left
+                                .offset(x = (-5).dp)
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.outline_arrow_drop_down_24),
@@ -269,7 +265,6 @@ fun RestaurantCard(
                         }
                     }
 
-                    // Right side: Ratings
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -281,7 +276,7 @@ fun RestaurantCard(
                     }
                 }
 
-                // Delivery Time & Distance
+                // Delivery Time & Distance (Static) - Make "Schedule for later" clickable
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -308,22 +303,29 @@ fun RestaurantCard(
                     Text(
                         text = "Schedule for later",
                         fontSize = 14.sp,
-                        color = Color.DarkGray,
-                        fontWeight = FontWeight.Bold
+                        color = Color.DarkGray, // Make it look clickable
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            onScheduleLaterClick(currentItem)
+                            showScheduleSheet = true // Open bottom sheet
+                        }
                     )
-                    // Down arrow icon
                     Icon(
                         painter = painterResource(id = R.drawable.outline_keyboard_arrow_down_24),
                         contentDescription = "Dropdown arrow",
-                        modifier = Modifier.size(25.dp)
-                            .padding(top = 1.dp),
+                        modifier = Modifier
+                            .size(25.dp)
+                            .padding(top = 1.dp)
+                            .clickable {
+                                onScheduleLaterClick(currentItem)
+                                showScheduleSheet = true // Open bottom sheet
+                            },
                         tint = Color.DarkGray
                     )
                 }
 
                 Spacer(modifier = Modifier.height(5.dp))
 
-                // Divider
                 HorizontalDivider(
                     color = Color.LightGray,
                     thickness = 0.5.dp
@@ -331,16 +333,16 @@ fun RestaurantCard(
 
                 Spacer(modifier = Modifier.height(5.dp))
 
-                // Discount / Offer Section - Fixed Version
+                // Only OfferSection auto-slides
                 OfferSection(
                     offerItems = offerItems,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    autoRotate = true
                 )
             }
         }
 
-        // Banner on top - overlapping the card's top edge (ribbon/sticker effect)
-        // Only show the Row if acceptingOrders has a value (true or false)
+        // Banner on top (Static based on current item)
         if (currentItem.acceptingOrders != null) {
             Row(
                 modifier = Modifier
@@ -358,7 +360,7 @@ fun RestaurantCard(
                             .width(170.dp)
                             .offset(y = 2.dp)
                     )
-                } else { // false case
+                } else {
                     Image(
                         painter = painterResource(id = R.drawable.not_accepting_orders),
                         contentDescription = "not accepting orders banner",
@@ -371,8 +373,55 @@ fun RestaurantCard(
             }
         }
     }
+
+    // Bottom Sheet for Schedule Later
+    if (showScheduleSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showScheduleSheet = false },
+            containerColor = Color.Transparent,
+//            containerColor = Color.White,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            ScheduleLaterRestOrder(
+                selectedDateIndex = selectedDateIndex,
+                selectedTimeIndex = selectedTimeIndex,
+                onDateSelected = { selectedDateIndex = it },
+                onTimeSelected = { selectedTimeIndex = it },
+                onConfirm = {
+                    // Handle confirm action
+                    showScheduleSheet = false
+                    // You can pass the selected time back to the parent
+                    onScheduleLaterClick(currentItem)
+                },
+                onDismiss = { showScheduleSheet = false }
+            )
+        }
+    }
 }
 
+// OfferSection remains the same with auto-slide functionality
 @Composable
 fun OfferSection(
     offerItems: List<OfferItem>,
@@ -382,7 +431,7 @@ fun OfferSection(
 ) {
     var offerIndex by remember { mutableIntStateOf(0) }
 
-    // Auto-rotation effect
+    // Auto-rotation effect - ONLY for offers
     if (autoRotate && offerItems.isNotEmpty()) {
         LaunchedEffect(Unit) {
             while (true) {
@@ -399,16 +448,15 @@ fun OfferSection(
         color = MaterialTheme.customColors.background,
         modifier = modifier
     ) {
-        // Single AnimatedContent for the whole section
         AnimatedContent(
             targetState = offerIndex,
             transitionSpec = {
                 slideInHorizontally(
                     animationSpec = tween(500, easing = FastOutSlowInEasing),
-                    initialOffsetX = { fullWidth -> fullWidth } // From right
+                    initialOffsetX = { fullWidth -> fullWidth }
                 ) togetherWith slideOutHorizontally(
                     animationSpec = tween(500, easing = FastOutSlowInEasing),
-                    targetOffsetX = { fullWidth -> -fullWidth } // To left
+                    targetOffsetX = { fullWidth -> -fullWidth }
                 )
             },
             label = "offerTransition"
@@ -418,7 +466,6 @@ fun OfferSection(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Left side: Image
                 Image(
                     painter = painterResource(id = offerItems[index].imageResId),
                     contentDescription = "Offer Image",
@@ -428,7 +475,6 @@ fun OfferSection(
                     contentScale = ContentScale.Crop
                 )
 
-                // Middle: Text content
                 Column(
                     modifier = Modifier.weight(1f)
                 ) {
@@ -447,13 +493,11 @@ fun OfferSection(
                     )
                 }
 
-                // Right side: Page indicator and dots container
                 Column(
                     modifier = Modifier.wrapContentWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    // Page number text
                     Text(
                         text = "${index + 1}/${offerItems.size}",
                         fontSize = 18.sp,
@@ -462,7 +506,6 @@ fun OfferSection(
                         modifier = Modifier.padding(bottom = 6.dp)
                     )
 
-                    // Dot indicators with smooth transition
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically

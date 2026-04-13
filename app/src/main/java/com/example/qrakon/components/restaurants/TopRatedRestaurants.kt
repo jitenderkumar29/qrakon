@@ -68,13 +68,88 @@ data class TopRatedRestaurantItem(
     val acceptingOrdersMsg: String? = null,
 ) : Parcelable
 
+
+/**
+ * Top Rated Restaurants with heading
+ */
+@Composable
+fun TopRatedRestaurants(
+    heading: String? = null,
+    subtitle: String? = null,
+    restaurantItems: List<TopRatedRestaurantItem>,
+    onItemClick: (TopRatedRestaurantItem) -> Unit,
+    onInfoIconClick: (TopRatedRestaurantItem) -> Unit = {}, // Add this parameter
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.customColors.white,
+    cardWidth: Dp = 160.dp,
+    cardHeight: Dp = 240.dp,
+    imageHeight: Dp? = null,
+    imageWidth: Dp? = null,
+    imageSizeFraction: Float = 0.75f,
+    imageCornerRadius: Dp = 12.dp,
+    spacing: Dp = 12.dp,
+    horizontalPadding: Dp = 16.dp,
+    verticalPadding: Dp = 16.dp,
+    headingBottomPadding: Dp = 12.dp
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(backgroundColor)
+    ) {
+        if (heading != null || subtitle != null) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+                    .padding(top = verticalPadding, bottom = headingBottomPadding)
+            ) {
+                heading?.let {
+                    Text(
+                        text = heading,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                }
+                subtitle?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+        }
+
+        TopRatedRestaurantsList(
+            restaurantItems = restaurantItems,
+            onItemClick = onItemClick,
+            onInfoIconClick = onInfoIconClick, // Pass the callback
+            backgroundColor = backgroundColor,
+            cardWidth = cardWidth,
+            cardHeight = cardHeight,
+            imageHeight = imageHeight,
+            imageWidth = imageWidth,
+            imageSizeFraction = imageSizeFraction,
+            imageCornerRadius = imageCornerRadius,
+            spacing = spacing,
+            horizontalPadding = horizontalPadding
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+    }
+}
+
 /**
  * Individual Top Rated Restaurant card
  */
+
 @Composable
 fun TopRatedRestaurantCard(
     restaurantItem: TopRatedRestaurantItem,
     onClick: () -> Unit,
+    onInfoIconClick: () -> Unit = {}, // Add this parameter
     onWishlistClick: (Int?) -> Unit = {},
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.customColors.white,
@@ -126,7 +201,6 @@ fun TopRatedRestaurantCard(
             Image(
                 painter = painterResource(id = restaurantItem.imageRes ?: defaultImageRes),
                 contentDescription = restaurantItem.restaurantName ?: "Restaurant",
-//                contentDescription = restaurantItem.title ?: "Restaurant",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxSize()
@@ -168,27 +242,6 @@ fun TopRatedRestaurantCard(
                         modifier = Modifier
                             .wrapContentSize()
                     ) {
-                        // Discount Box
-//                        restaurantItem.discount?.let { discount ->
-//                            if (discount.isNotEmpty()) {
-//                                Box(
-//                                    modifier = Modifier
-//                                        .background(Color(0x7746322B), RoundedCornerShape(6.dp))
-//                                        .padding(horizontal = 2.dp, vertical = 1.dp)
-//                                ) {
-//                                    Text(
-//                                        text = "$discount",
-//                                        fontSize = 10.sp,
-//                                        fontWeight = FontWeight.ExtraBold,
-//                                        color = Color.White
-//                                    )
-//                                }
-//                            }
-//                        }
-
-                        // Add some spacing between discount and price
-                        Spacer(modifier = Modifier.height(1.dp))
-
                         // Price Box
                         restaurantItem.price?.let { price ->
                             if (price.isNotEmpty()) {
@@ -219,23 +272,39 @@ fun TopRatedRestaurantCard(
                 .fillMaxSize()
                 .padding(horizontal = 1.dp)
         ) {
-            // Restaurant title
-            restaurantItem.restaurantName?.let { restaurantName ->
-                Text(
-                    text = restaurantName,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.fillMaxWidth(),
-                    lineHeight = 13.sp,
-                    style = TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
+            // Restaurant title with info icon
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                restaurantItem.restaurantName?.let { restaurantName ->
+                    Text(
+                        text = restaurantName,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f),
+                        lineHeight = 13.sp,
+                        style = TextStyle(
+                            platformStyle = PlatformTextStyle(
+                                includeFontPadding = false
+                            )
                         )
                     )
-                )
+                }
+
+                // Info icon
+//                Icon(
+//                    painter = painterResource(id = R.drawable.info_exclamation_mark_icon),
+//                    contentDescription = "Info",
+//                    modifier = Modifier
+//                        .size(14.dp)
+//                        .clickable { onInfoIconClick() },
+//                    tint = Color.Gray
+//                )
             }
 
             // Rating + delivery time
@@ -322,6 +391,7 @@ fun TopRatedRestaurantCard(
 fun TopRatedRestaurantsList(
     restaurantItems: List<TopRatedRestaurantItem>,
     onItemClick: (TopRatedRestaurantItem) -> Unit,
+    onInfoIconClick: (TopRatedRestaurantItem) -> Unit = {}, // Add this parameter
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.customColors.white,
     cardWidth: Dp = 160.dp,
@@ -360,6 +430,7 @@ fun TopRatedRestaurantsList(
             TopRatedRestaurantCard(
                 restaurantItem = restaurantItem,
                 onClick = { onItemClick(restaurantItem) },
+                onInfoIconClick = { onInfoIconClick(restaurantItem) }, // Pass the item
                 cardWidth = cardWidth,
                 cardHeight = cardHeight,
                 imageHeight = imageHeight,
@@ -368,76 +439,6 @@ fun TopRatedRestaurantsList(
                 imageCornerRadius = imageCornerRadius
             )
         }
-    }
-}
-
-/**
- * Top Rated Restaurants with heading
- */
-@Composable
-fun TopRatedRestaurants(
-    heading: String? = null,
-    subtitle: String? = null,
-    restaurantItems: List<TopRatedRestaurantItem>,
-    onItemClick: (TopRatedRestaurantItem) -> Unit,
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.customColors.white,
-    cardWidth: Dp = 160.dp,
-    cardHeight: Dp = 240.dp,
-    imageHeight: Dp? = null,
-    imageWidth: Dp? = null,
-    imageSizeFraction: Float = 0.75f,
-    imageCornerRadius: Dp = 12.dp,
-    spacing: Dp = 12.dp,
-    horizontalPadding: Dp = 16.dp,
-    verticalPadding: Dp = 16.dp,
-    headingBottomPadding: Dp = 12.dp
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(backgroundColor)
-    ) {
-        if (heading != null || subtitle != null) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalPadding)
-                    .padding(top = verticalPadding, bottom = headingBottomPadding)
-            ) {
-                heading?.let {
-                    Text(
-                        text = heading,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                }
-                subtitle?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Gray,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
-            }
-        }
-
-        TopRatedRestaurantsList(
-            restaurantItems = restaurantItems,
-            onItemClick = onItemClick,
-            backgroundColor = backgroundColor,
-            cardWidth = cardWidth,
-            cardHeight = cardHeight,
-            imageHeight = imageHeight,
-            imageWidth = imageWidth,
-            imageSizeFraction = imageSizeFraction,
-            imageCornerRadius = imageCornerRadius,
-            spacing = spacing,
-            horizontalPadding = horizontalPadding
-        )
-        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 
@@ -662,7 +663,7 @@ val completeRestaurantItems = listOf(
         distance = "2.5 km",
         discount = "30%",
         discountAmount = "₹20",
-        address = "Pacific Jasola",
+        address = "Pacific Jasola, New Delhi",
         category = "pizza",
         acceptingOrders = true,
         acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
@@ -678,10 +679,10 @@ val completeRestaurantItems = listOf(
         distance = "7.3 km",
         discount = "ITEMS",
         discountAmount = "₹20",
-        address = "Pacific Jasola",
+        address = "Pacific Jasola, New Delhi",
         category = "burger",
-        acceptingOrders = true,
-        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+//        acceptingOrders = true,
+//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
         ),
     TopRatedRestaurantItem(
         id = 3,
@@ -694,10 +695,10 @@ val completeRestaurantItems = listOf(
         distance = "3.0 km",
         discount = "70%",
         discountAmount = "₹130",
-        address = "Hitech, City",
+        address = "Hitech City, Hydrabad",
         category = "biryani",
-        acceptingOrders = true,
-        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+//        acceptingOrders = true,
+//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
         ),
     TopRatedRestaurantItem(
         id = 4,
@@ -773,7 +774,7 @@ val completeRestaurantItems = listOf(
         distance = "2.0 km",
         discount = "40%",
         discountAmount = "₹80",
-        address = "Connaught Place",
+        address = "Connaught Place, New Delhi",
         category = "sandwich",
         acceptingOrders = false,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
@@ -789,7 +790,7 @@ val completeRestaurantItems = listOf(
         distance = "5.2 km",
         discount = "30%",
         discountAmount = "₹20",
-        address = "City Center",
+        address = "City Center, New Delhi",
         category = "fastfood",
         acceptingOrders = false,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
@@ -805,7 +806,7 @@ val completeRestaurantItems = listOf(
         distance = "2.5 km",
         discount = "20%",
         discountAmount = "₹20",
-        address = "City Center",
+        address = "City Center, New Delhi",
         category = "fastfood",
         acceptingOrders = false,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",

@@ -636,8 +636,14 @@ fun FoodScreen( navController: NavHostController? = null,) {
             subtitle = null,
             restaurantItems = completeRestaurantItems,
             onItemClick = { foodItem ->
-                // Pass both id and category
+                // Navigate to restaurant details
                 navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
+            },
+            onInfoIconClick = { restaurantItem ->  // Add this callback
+                // Navigate to restaurant info with the clicked item
+                restaurantItem.restaurantName?.let {
+                    navController?.navigate("restaurant_info/$it")
+                }
             },
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = Color.White,
@@ -650,6 +656,25 @@ fun FoodScreen( navController: NavHostController? = null,) {
             verticalPadding = 0.dp,
             headingBottomPadding = 0.dp
         )
+//        TopRatedRestaurants(
+//            heading = null,
+//            subtitle = null,
+//            restaurantItems = completeRestaurantItems,
+//            onItemClick = { foodItem ->
+//                // Pass both id and category
+//                navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
+//            },
+//            modifier = Modifier.fillMaxWidth(),
+//            backgroundColor = Color.White,
+//            cardWidth = 110.dp,
+//            cardHeight = 195.dp,
+//            imageHeight = 130.dp,
+//            imageCornerRadius = 15.dp,
+//            spacing = 15.dp,
+//            horizontalPadding = 12.dp,
+//            verticalPadding = 0.dp,
+//            headingBottomPadding = 0.dp
+//        )
 //        Spacer(modifier = Modifier.height(20.dp))
         DisclaimerFood(
             onReportIssueClick = {

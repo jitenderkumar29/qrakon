@@ -1,5 +1,6 @@
 package com.example.qrakon.components.navigation
 
+import RestaurantInfo
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -9,7 +10,7 @@ import androidx.navigation.navArgument
 import com.example.qrakon.components.fashion.FashionScreen
 import com.example.qrakon.components.fashion.fashiontab.CategoriesFashionPage
 import com.example.qrakon.components.homescreen.CategoryScreen
-import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen // <- create this
+import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen
 import com.example.qrakon.components.homescreen.AddressMap
 import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.components.restaurants.RestaurantDetails
@@ -48,7 +49,7 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-        // ✅ NEW: Category detail route
+        // ✅ Category detail route
         composable(
             route = "categoryDetail/{categoryName}/{id}",
             arguments = listOf(
@@ -72,7 +73,6 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-
         // RestaurantDetails Route
         composable(
             "restaurant_details/{restaurantId}/{category}",
@@ -91,7 +91,7 @@ fun AppNavGraph(navController: NavHostController) {
                 onBackClick = { navController.popBackStack() },
                 navController = navController,
                 restaurantItem = restaurantItem,
-                category = category  // Pass the category
+                category = category
             )
         }
 
@@ -100,7 +100,6 @@ fun AppNavGraph(navController: NavHostController) {
                 onBackClick = {
                     navController.popBackStack()
                 },
-
                 onLocationSelected = { location ->
                     navController.previousBackStackEntry
                         ?.savedStateHandle
@@ -108,7 +107,6 @@ fun AppNavGraph(navController: NavHostController) {
 
                     navController.popBackStack()
                 },
-
                 onUseCurrentLocation = {
                     navController.previousBackStackEntry
                         ?.savedStateHandle
@@ -126,6 +124,38 @@ fun AppNavGraph(navController: NavHostController) {
                     // Handle save address logic
                     navController.popBackStack()
                 }
+            )
+        }
+
+        // ✅ Fixed: Restaurant Info Route - Using completeRestaurantItems instead of restaurantItems
+        composable(
+            "restaurant_info/{restaurantName}",
+            arguments = listOf(navArgument("restaurantName") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val restaurantName = backStackEntry.arguments?.getString("restaurantName") ?: ""
+            // Fixed: Use completeRestaurantItems instead of restaurantItems
+            val restaurantItem = completeRestaurantItems.find { it.restaurantName == restaurantName }
+
+            RestaurantInfo(
+                restaurantName = restaurantItem?.restaurantName ?: "",
+//                cuisineInfo = restaurantItem?.cuisineInfo ?: "",
+                address = restaurantItem?.address ?: "",
+//                openStatus = restaurantItem?.openStatus ?: "Open now",
+//                closeStatus = restaurantItem?.closeStatus ?: "Closes 11:00 pm",
+//                serviceType = restaurantItem?.serviceType ?: "Provides both delivery & dining",
+//                sinceYear = restaurantItem?.sinceYear ?: "2020",
+//                legalName = restaurantItem?.legalName ?: "",
+//                gstNumber = restaurantItem?.gstNumber ?: "",
+//                isBikgane = restaurantItem?.isBikgane ?: false,
+//                bikganeLegalName = restaurantItem?.bikganeLegalName ?: "",
+//                bikganeGst = restaurantItem?.bikganeGst ?: "",
+//                fssaiLicense = restaurantItem?.fssaiLicense ?: "",
+                onBackPressed = { navController.popBackStack() },
+                onSaveRestaurant = { /* Handle save */ },
+                onShareRestaurant = { /* Handle share */ },
+                onViewDiningPage = { /* Handle dining page */ },
+                onHideRestaurant = { /* Handle hide */ },
+                onGoBackToMenu = { navController.popBackStack() }
             )
         }
     }
