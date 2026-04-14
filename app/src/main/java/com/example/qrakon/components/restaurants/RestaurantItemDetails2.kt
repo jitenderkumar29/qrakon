@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,12 +22,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,16 +53,20 @@ import com.example.qrakon.R
 import com.example.qrakon.components.restaurants.formatRating
 import com.example.qrakon.components.restaurants.getRandomRatings
 import com.example.qrakon.components.restaurants.FoodItemDoubleF
+import com.example.qrakon.components.restaurants.RestItemIndividual
 import com.example.qrakon.ui.theme.customColors
 
 // Restaurant Item Details with two items per row
 // and vertically scrollable
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantItemDetails2(
     item: FoodItemDoubleF,
     modifier: Modifier = Modifier,
     onAddClick: () -> Unit = {}
 ) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(5.dp),
@@ -65,11 +77,12 @@ fun RestaurantItemDetails2(
             // Image
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+//                    .fillMaxWidth()
                     .height(170.dp)  // Increased from 120 to 180
                     .width(170.dp)   // Increased from 120 to 180
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.customColors.background)
+                    .clickable { showBottomSheet = true }
             ) {
                 val imageList = item.imageRes ?: emptyList()
                 if (imageList.isNotEmpty()) {
@@ -316,11 +329,12 @@ fun RestaurantItemDetails2(
                 // Image
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth()
+//                        .fillMaxWidth()
                         .height(170.dp)  // Increased from 120 to 180
                         .width(170.dp)   // Increased from 120 to 180
                         .clip(RoundedCornerShape(12.dp))
                         .background(MaterialTheme.customColors.background)
+                        .clickable { showBottomSheet = true }
                 ) {
                     val imageList = item.imageRes ?: emptyList()
 
@@ -586,6 +600,52 @@ fun RestaurantItemDetails2(
                     }
                 }
             }
+        }
+    }
+    // Bottom Sheet with RestItemIndividual
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            containerColor = Color.Transparent,
+//            containerColor = Color.White,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        )
+            {
+            RestItemIndividual(
+                item = item,
+                onAddClick = {
+                    onAddClick()
+                    showBottomSheet = false
+                },
+                onCustomiseClick = {
+                    showBottomSheet = false
+                },
+                onDismiss = {
+                    showBottomSheet = false   // 👈 THIS IS THE FIX
+                }
+            )
         }
     }
 }

@@ -21,11 +21,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,6 +53,7 @@ import com.example.qrakon.ui.theme.customColors
 
 // Restaurant Item Details with one items per row(Left side content and right side image)
 // and Horizontally scrollable
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantItemDetails3(
     items: List<FoodItemDoubleF>,
@@ -68,13 +76,17 @@ fun RestaurantItemDetails3(
 
         }
     }
+
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantItemCard3(
     item: FoodItemDoubleF,
     onAddClick: () -> Unit = {}
 ) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
     Card(
         modifier = Modifier
             .width(240.dp)
@@ -92,6 +104,7 @@ fun RestaurantItemCard3(
                     .fillMaxSize()
                     .clip(RoundedCornerShape(16.dp))
                     .background(MaterialTheme.customColors.background)
+                    .clickable { showBottomSheet = true }
             ) {
                 val imageList = item.imageRes ?: emptyList()
 
@@ -259,6 +272,53 @@ fun RestaurantItemCard3(
                     }
                 }
             }
+        }
+    }
+
+    // Bottom Sheet with RestItemIndividual
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            containerColor = Color.Transparent,
+//            containerColor = Color.White,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        )
+        {
+            RestItemIndividual(
+                item = item,
+                onAddClick = {
+                    onAddClick()
+                    showBottomSheet = false
+                },
+                onCustomiseClick = {
+                    showBottomSheet = false
+                },
+                onDismiss = {
+                    showBottomSheet = false   // 👈 THIS IS THE FIX
+                }
+            )
         }
     }
 }

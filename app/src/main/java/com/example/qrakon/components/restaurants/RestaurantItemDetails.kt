@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
 import com.example.qrakon.components.restaurants.FoodItemDoubleF
+import com.example.qrakon.components.restaurants.RestItemIndividual
 import com.example.qrakon.components.restaurants.formatRating
 import com.example.qrakon.components.restaurants.getRandomRatings
 import com.example.qrakon.ui.theme.customColors
@@ -36,12 +41,16 @@ import com.example.qrakon.ui.theme.customColors
 // Restaurant Item Details with all items per row(Top image with overlay content)
 // and vertically scrollable
 const val MAX_CHARS = 80  // Adjust based on your layout
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantItemDetails(
     item: FoodItemDoubleF,
     showMultipleImages: Boolean = true, // 👈 control behavior
     onAddClick: () -> Unit = {}
 ) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+
     Column {
         Card(
             modifier = Modifier
@@ -495,9 +504,14 @@ fun RestaurantItemDetails(
                             .height(190.dp)
                     ) {
                         val images = item.imageRes ?: emptyList()
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { showBottomSheet = true }
+                        ) {
                         when {
-                            // 🔥 DOUBLE IMAGE (Stacked vertically)
-                            images.size >= 2 && showMultipleImages -> {
+                                // 🔥 DOUBLE IMAGE (Stacked vertically)
+                                images.size >= 2 && showMultipleImages -> {
                                 Column(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -535,8 +549,8 @@ fun RestaurantItemDetails(
                                 }
                             }
 
-                            // ✅ SINGLE IMAGE
-                            images.isNotEmpty() -> {
+                                // ✅ SINGLE IMAGE
+                                images.isNotEmpty() -> {
                                 Image(
                                     painter = painterResource(images[0]),
                                     contentDescription = "",
@@ -547,8 +561,8 @@ fun RestaurantItemDetails(
                                 )
                             }
 
-                            // ❌ NO IMAGE
-                            else -> {
+                                // ❌ NO IMAGE
+                                else -> {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -561,6 +575,7 @@ fun RestaurantItemDetails(
                                         tint = Color.Gray
                                     )
                                 }
+                            }
                             }
                         }
 
@@ -600,5 +615,52 @@ fun RestaurantItemDetails(
             color = Color.Gray,
             thickness = 0.5.dp
         )
+    }
+
+    // Bottom Sheet with RestItemIndividual
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            containerColor = Color.Transparent,
+//            containerColor = Color.White,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        )
+        {
+            RestItemIndividual(
+                item = item,
+                onAddClick = {
+                    onAddClick()
+                    showBottomSheet = false
+                },
+                onCustomiseClick = {
+                    showBottomSheet = false
+                },
+                onDismiss = {
+                    showBottomSheet = false   // 👈 THIS IS THE FIX
+                }
+            )
+        }
     }
 }
