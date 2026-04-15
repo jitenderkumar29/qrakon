@@ -48,7 +48,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
-import com.example.qrakon.components.restaurants.FoodItemDoubleF
 import com.example.qrakon.ui.theme.customColors
 
 // Restaurant Item Details with one items per row(Left side content and right side image)
@@ -58,8 +57,18 @@ import com.example.qrakon.ui.theme.customColors
 fun RestaurantItemDetails3(
     items: List<FoodItemDoubleF>,
     modifier: Modifier = Modifier,
-    onAddClick: (FoodItemDoubleF) -> Unit = {}
+    onAddClick: (FoodItemDoubleF) -> Unit = {},
+    getAddOnCategories: (FoodItemDoubleF) -> List<AddOnCategory> = { emptyList() }
 ) {
+    // State hoisted to parent level
+    var showBottomSheet by remember { mutableStateOf(false) }
+    var selectedItemForBottomSheet by remember { mutableStateOf<FoodItemDoubleF?>(null) }
+    var showAddRestItemPopUp by remember { mutableStateOf(false) }
+    var selectedItemForAddPopup by remember { mutableStateOf<FoodItemDoubleF?>(null) }
+    var showAddRestItemPizza by remember { mutableStateOf(false) }
+    var selectedItemForPizza by remember { mutableStateOf<FoodItemDoubleF?>(null) }
+
+    val sheetState = rememberModalBottomSheetState()
     val scrollState = rememberScrollState()
 
     Row(
@@ -71,28 +80,188 @@ fun RestaurantItemDetails3(
         items.forEach { item ->
             RestaurantItemCard3(
                 item = item,
-                onAddClick = { onAddClick(item) }
+                onImageClick = {
+                    selectedItemForBottomSheet = item
+                    showBottomSheet = true
+                },
+                onAddClick = {
+                    if (item.category == "pizza") {
+                        selectedItemForPizza = item
+                        showAddRestItemPizza = true
+                    } else {
+                        selectedItemForAddPopup = item
+                        showAddRestItemPopUp = true
+                    }
+                }
             )
-
         }
     }
 
+    // Bottom Sheet for Image Preview
+    if (showBottomSheet && selectedItemForBottomSheet != null) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                showBottomSheet = false
+                selectedItemForBottomSheet = null
+            },
+            containerColor = Color.Transparent,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+                            .height(0.dp)
+                            .background(
+                                color = Color.Transparent,
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            RestItemIndividual(
+                item = selectedItemForBottomSheet!!,
+                onAddClick = {
+                    onAddClick(selectedItemForBottomSheet!!)
+                    showBottomSheet = false
+                    selectedItemForBottomSheet = null
+                },
+                onCustomiseClick = {
+                    showBottomSheet = false
+                    selectedItemForBottomSheet = null
+                },
+                onDismiss = {
+                    showBottomSheet = false
+                    selectedItemForBottomSheet = null
+                }
+            )
+        }
+    }
+
+    // AddRestItemPopUp Modal Bottom Sheet
+    if (showAddRestItemPopUp && selectedItemForAddPopup != null) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                showAddRestItemPopUp = false
+                selectedItemForAddPopup = null
+            },
+            containerColor = Color.Transparent,
+            modifier = Modifier,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+                            .height(0.dp)
+                            .background(
+                                color = Color.Transparent,
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            val sampleCategories = getAddOnCategories(selectedItemForAddPopup!!)
+
+            AddRestItemPopUp(
+                mainItemName = selectedItemForAddPopup!!.title ?: "",
+                mainItemPrice = selectedItemForAddPopup!!.price?.toIntOrNull() ?: 0,
+                mainItemIconRes = selectedItemForAddPopup!!.imageRes?.firstOrNull(),
+                restaurantName = selectedItemForAddPopup!!.restaurantName ?: "",
+                deliveryTime = selectedItemForAddPopup!!.deliveryTime ?: "",
+                location = selectedItemForAddPopup!!.address ?: "",
+                rating = selectedItemForAddPopup!!.rating?.toDoubleOrNull() ?: 0.0,
+                ratingCount = selectedItemForAddPopup!!.reorderedQuantity ?: "3.2K+",
+                categories = if (sampleCategories.isNotEmpty()) sampleCategories else getSampleCategories(),
+                onAddToCart = { totalPrice, selectedItems ->
+                    println("Added to cart: ₹$totalPrice for ${selectedItemForAddPopup!!.title}")
+                    onAddClick(selectedItemForAddPopup!!)
+                    showAddRestItemPopUp = false
+                    selectedItemForAddPopup = null
+                },
+                onDismiss = {
+                    showAddRestItemPopUp = false
+                    selectedItemForAddPopup = null
+                }
+            )
+        }
+    }
+
+    // AddRestItemPizza Modal Bottom Sheet
+    if (showAddRestItemPizza && selectedItemForPizza != null) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                showAddRestItemPizza = false
+                selectedItemForPizza = null
+            },
+            containerColor = Color.Transparent,
+            modifier = Modifier,
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+                            .height(0.dp)
+                            .background(
+                                color = Color.Transparent,
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            AddRestItemPizza(
+                mainItemName = selectedItemForPizza!!.title ?: "Pizza",
+                mainItemDescription = selectedItemForPizza!!.description ?: "Delicious pizza",
+                mainItemIconRes = selectedItemForPizza!!.imageRes?.firstOrNull(),
+                regularPrice = selectedItemForPizza!!.price?.toIntOrNull() ?: 289,
+                mediumPrice = 479,
+                largePrice = 579,
+                onDismiss = {
+                    showAddRestItemPizza = false
+                    selectedItemForPizza = null
+                },
+                onAddToCart = { size, quantity, note, totalPrice ->
+                    println("Added to cart: Size: $size, Quantity: $quantity, Note: $note, Total: ₹$totalPrice for ${selectedItemForPizza!!.title}")
+                    onAddClick(selectedItemForPizza!!)
+                    showAddRestItemPizza = false
+                    selectedItemForPizza = null
+                }
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantItemCard3(
     item: FoodItemDoubleF,
+    onImageClick: () -> Unit = {},
     onAddClick: () -> Unit = {}
 ) {
-    var showBottomSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState()
     Card(
         modifier = Modifier
             .width(240.dp)
             .height(200.dp),
         shape = RoundedCornerShape(5.dp),
-//        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Box(
@@ -104,13 +273,13 @@ fun RestaurantItemCard3(
                     .fillMaxSize()
                     .clip(RoundedCornerShape(16.dp))
                     .background(MaterialTheme.customColors.background)
-                    .clickable { showBottomSheet = true }
+                    .clickable { onImageClick() }
             ) {
                 val imageList = item.imageRes ?: emptyList()
 
                 if (imageList.isNotEmpty()) {
                     Image(
-                        painter = painterResource(id = imageList[0]), // 👈 ONLY FIRST IMAGE
+                        painter = painterResource(id = imageList[0]),
                         contentDescription = item.title ?: "Food item",
                         modifier = Modifier
                             .fillMaxSize()
@@ -141,7 +310,7 @@ fun RestaurantItemCard3(
                                     Color.Transparent,
                                     Color.Black.copy(alpha = 0.2f)
                                 ),
-                                startY = 0.5f,  // Start exactly at middle
+                                startY = 0.5f,
                                 endY = 1f
                             )
                         )
@@ -170,19 +339,9 @@ fun RestaurantItemCard3(
                             modifier = Modifier.size(16.dp)
                         )
                     }
-
-                    // Best Seller Badge
-//                    if (item.bestSeller == true) {
-//                        Image(
-//                            painter = painterResource(id = R.drawable.best_seller),
-//                            contentDescription = "Best Seller",
-//                            modifier = Modifier
-//                                .size(width = 50.dp, height = 15.dp),
-//                            contentScale = ContentScale.FillBounds
-//                        )
-//                    }
                 }
                 Spacer(modifier = Modifier.height(6.dp))
+
                 // Bottom section with Title and Price
                 Column(
                     modifier = Modifier.fillMaxWidth()
@@ -223,7 +382,7 @@ fun RestaurantItemCard3(
                                     .shadow(
                                         elevation = 4.dp,
                                         shape = RoundedCornerShape(4.dp),
-                                        clip = false // important for natural shadow
+                                        clip = false
                                     )
                                     .background(
                                         color = MaterialTheme.customColors.yellowButton,
@@ -231,7 +390,7 @@ fun RestaurantItemCard3(
                                     )
                                     .border(
                                         width = 1.dp,
-                                        color = MaterialTheme.customColors.yellowButton, // light gray border
+                                        color = MaterialTheme.customColors.yellowButton,
                                         shape = RoundedCornerShape(4.dp)
                                     )
                                     .padding(horizontal = 5.dp, vertical = 1.dp)
@@ -245,9 +404,9 @@ fun RestaurantItemCard3(
                             }
                         }
 
-
                         // ADD Button
                         Surface(
+                            onClick = onAddClick,
                             shape = RoundedCornerShape(8.dp),
                             border = BorderStroke(1.dp, color = MaterialTheme.customColors.white),
                             color = MaterialTheme.customColors.white,
@@ -263,64 +422,138 @@ fun RestaurantItemCard3(
                                     text = "ADD",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.customColors.success,
-                                    modifier = Modifier.clickable { onAddClick() }
+                                    color = MaterialTheme.customColors.success
                                 )
                             }
                         }
-
                     }
                 }
             }
         }
     }
+}
 
-    // Bottom Sheet with RestItemIndividual
-    if (showBottomSheet) {
-        ModalBottomSheet(
-            onDismissRequest = { showBottomSheet = false },
-            containerColor = Color.Transparent,
-//            containerColor = Color.White,
-            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-            dragHandle = {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(0.dp),
-//                        .padding(12.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(0.dp)
-//                            .width(40.dp)
-                            .height(0.dp)
-//                            .height(4.dp)
-                            .background(
-                                color = Color.Transparent,
-//                                color = Color.Gray.copy(alpha = 0.5f),
-                                shape = RoundedCornerShape(2.dp)
-                            )
-                    )
-                }
-            }
-        )
-        {
-            RestItemIndividual(
-                item = item,
-                onAddClick = {
-                    onAddClick()
-                    showBottomSheet = false
-                },
-                onCustomiseClick = {
-                    showBottomSheet = false
-                },
-                onDismiss = {
-                    showBottomSheet = false   // 👈 THIS IS THE FIX
-                }
+// Helper function for sample categories
+fun getSampleCategories(): List<AddOnCategory> {
+    return listOf(
+        AddOnCategory(
+            title = "Add Extra Gravy",
+            selectionType = SelectionType.RADIO,
+            items = listOf(
+                AddOnItem(
+                    id = 1,
+                    name = "Gravy (80g)",
+                    price = 49,
+                    iconRes = R.drawable.ic_veg_rest
+                )
             )
-        }
-    }
+        ),
+        AddOnCategory(
+            title = "Add a Starter",
+            subtitle = "Select upto 4",
+            selectLimit = "Select upto 4",
+            selectionType = SelectionType.CHECKBOX,
+            items = listOf(
+                AddOnItem(
+                    id = 2,
+                    name = "Cheesy Chicken Meatballs (3 pcs)",
+                    price = 69,
+                    iconRes = R.drawable.ic_non_veg_rest
+                ),
+                AddOnItem(
+                    id = 3,
+                    name = "French Fries (M)",
+                    price = 99,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 4,
+                    name = "Falafel Nuggets with Mayo Dip (12 pcs)",
+                    price = 109,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 5,
+                    name = "Chicken Tikki (5 pcs)",
+                    price = 139,
+                    iconRes = R.drawable.ic_non_veg_rest
+                )
+            )
+        ),
+        AddOnCategory(
+            title = "Add a Beverage",
+            subtitle = "Select upto 5",
+            selectLimit = "Select upto 5",
+            selectionType = SelectionType.CHECKBOX,
+            items = listOf(
+                AddOnItem(
+                    id = 6,
+                    name = "Masala Lemonade (200 ml)",
+                    price = 59,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 7,
+                    name = "Jeera Masala Cola (250 ml)",
+                    price = 59,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 8,
+                    name = "Coca-Cola Bottle (475 ml)",
+                    price = 69,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 9,
+                    name = "Lemon Ice Tea (250 ml)",
+                    price = 79,
+                    iconRes = R.drawable.ic_veg_rest
+                )
+            )
+        ),
+        AddOnCategory(
+            title = "Add a Dessert",
+            subtitle = "Select upto 4",
+            selectLimit = "Select upto 4",
+            selectionType = SelectionType.CHECKBOX,
+            items = listOf(
+                AddOnItem(
+                    id = 10,
+                    name = "Gulab Jamun (1 pc)",
+                    price = 29,
+                    isBestSeller = true,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 11,
+                    name = "Gulab Jamun (2 pcs)",
+                    price = 58,
+                    isBestSeller = true,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 12,
+                    name = "Choco Chip Brownie",
+                    price = 109,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 13,
+                    name = "Walnut Brownie",
+                    price = 109,
+                    iconRes = R.drawable.ic_veg_rest
+                ),
+                AddOnItem(
+                    id = 14,
+                    name = "Choco Lava Cake",
+                    price = 0,
+                    isUnavailable = true,
+                    iconRes = R.drawable.ic_veg_rest
+                )
+            )
+        )
+    )
 }
 
 @Preview(showBackground = true)
@@ -350,7 +583,8 @@ fun PreviewRestaurantItemDetails3() {
             address = "Food Court, Mall",
             calories = "450 kcal",
             protein = "18g",
-            bestSeller = true
+            bestSeller = true,
+            category = "burger"
         ),
         FoodItemDoubleF(
             id = 2,
@@ -358,80 +592,25 @@ fun PreviewRestaurantItemDetails3() {
                 R.drawable.restaurant_image_pizzas_food_items_2,
                 R.drawable.restaurant_image_pizzas_food_items_3
             ),
-            title = "Paneer Tikka Roll",
-            price = "199",
-            originalPrice = "279",
-            restaurantName = "Tandoori Junction",
+            title = "Margherita Pizza",
+            price = "289",
+            originalPrice = "479",
+            restaurantName = "Pizza Hut",
             rating = "4.6",
             deliveryTime = "25-30 mins",
             distance = "2.5 km",
             discount = "15% OFF",
             discountAmount = "₹33",
-            description = "Delicious paneer tikka roll",
+            description = "Delicious margherita pizza",
             quantity = "15",
             infoIcon = R.drawable.ic_veg_rest,
             highlyReordered = "icon_name",
             reorderedQuantity = "icon_name",
             address = "Food Court, Mall",
-            calories = "380 kcal",
-            protein = "15g",
-            bestSeller = false
-        ),
-        FoodItemDoubleF(
-            id = 3,
-            imageRes = listOf(
-                R.drawable.restaurant_image_pizzas_food_items_3,
-                R.drawable.restaurant_image_pizzas_food_items_4
-            ),
-            title = "Margherita Pizza",
-            price = "199",
-            originalPrice = "279",
-            restaurantName = "Pizza House",
-            rating = "4.7",
-            deliveryTime = "30-35 mins",
-            distance = "3.0 km",
-            discount = "20% OFF",
-            discountAmount = "₹90 OFF",
-            address = "Pizza Street",
             calories = "680 kcal",
             protein = "25g",
-            isHighProtein = false,
-            category = "Pizza",
-            isWishlisted = false,
-            description = "Classic Margherita pizza with fresh mozzarella and basil",
-            quantity = "1",
-            infoIcon = R.drawable.ic_veg_rest,
-            highlyReordered = "30",
-            reorderedQuantity = "300+ orders",
-            bestSeller = true
-        ),
-        FoodItemDoubleF(
-            id = 4,
-            imageRes = listOf(
-                R.drawable.restaurant_image_pizzas_food_items_4,
-                R.drawable.restaurant_image_pizzas_food_items_5
-            ),
-            title = "Veggie Supreme Pizza",
-            price = "199",
-            originalPrice = "279",
-            restaurantName = "Pizza House",
-            rating = "4.4",
-            deliveryTime = "30-35 mins",
-            distance = "3.0 km",
-            discount = "20% OFF",
-            discountAmount = "₹90 OFF",
-            address = "Pizza Street",
-            calories = "580 kcal",
-            protein = "20g",
-            isHighProtein = false,
-            category = "Pizza",
-            isWishlisted = false,
-            description = "Loaded with fresh vegetables",
-            quantity = "1",
-            infoIcon = R.drawable.ic_veg_rest,
-            highlyReordered = "30",
-            reorderedQuantity = "300+ orders",
-            bestSeller = false
+            bestSeller = false,
+            category = "pizza"
         )
     )
     Column(

@@ -82,6 +82,7 @@ data class CustomColors(
     val orangeVivid: Color,
     val orangeLight: Color,
     val greenTitle: Color,
+    val greenButton: Color,
 
     // Custom gray colors
     val spacerColor: Color,
@@ -170,6 +171,7 @@ val LightCustomColors = CustomColors(
     orangeVivid = Color(0xFFCE7D10),
     orangeLight = Color(0xFFFF7C1C),
     greenTitle = Color(0xFF058F5F),
+    greenButton = Color(0xFF1CA672),
 
 //    lightAccent = Color(0xFFB9DC96),
 //    darkAccent = Color(0xFFCBF0A3),
@@ -263,6 +265,7 @@ val DarkCustomColors = CustomColors(
     orangeVivid = Color(0xFFCE7D10),
     orangeLight = Color(0xFFFF7C1C),
     greenTitle = Color(0xFF058F5F),
+    greenButton = Color(0xFF1CA672),
 
     // Custom gray colors
     spacerColor = Color(0xFFE3E2E2),

@@ -63,7 +63,7 @@ fun RestItemIndividual(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Close",
-                        tint = Color.Black
+                        tint = Color.White
                     )
                 }
             }

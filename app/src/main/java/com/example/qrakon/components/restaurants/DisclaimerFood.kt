@@ -9,9 +9,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
@@ -232,6 +235,92 @@ fun DisclaimerFood(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+    }
+}
 
+@Composable
+fun ViewCartButton(
+    itemCount: Int = 1,
+    onViewCartClick: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp)
+//            .shadow(
+//                elevation = 8.dp,
+//                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+//                clip = false // keep shadow visible outside
+//            )
+            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+            .background(MaterialTheme.customColors.white)
+            .padding(top = 8.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 5.dp)
+                .shadow(
+                    elevation = 6.dp,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .background(
+                    color = MaterialTheme.customColors.greenButton,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .clickable { onViewCartClick() }
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                // Left Text
+                Text(
+                    text = "$itemCount ${if (itemCount > 1) "Items" else "Item"} added",
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
+                // Right Section
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "View Cart",
+                        color = Color.White,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.outline_arrow_forward_ios_24),
+                        contentDescription = "View Cart",
+                        tint = Color.White,
+                        modifier = Modifier.size(17.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+@Composable
+fun ViewCartButtonPreview() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF5F5F5)), // screen background
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        ViewCartButton(itemCount = 1)
     }
 }

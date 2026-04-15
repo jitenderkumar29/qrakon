@@ -1,6 +1,7 @@
 package com.example.qrakon.components.homescreen
 
 import DisclaimerFood
+import ViewCartButton
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -12,8 +13,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -611,75 +615,78 @@ fun PayScreen() {
         Text("Pay Online!")
     }
 }
-@Composable
-fun FoodScreen( navController: NavHostController? = null,) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp)
-    ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = "Top rated restaurants near you",
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.customColors.black
-            ),
-            maxLines = 1,
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
-        )
-        Spacer(modifier = Modifier.height(20.dp))
 
-        TopRatedRestaurants(
-            heading = null,
-            subtitle = null,
-            restaurantItems = completeRestaurantItems,
-            onItemClick = { foodItem ->
-                // Navigate to restaurant details
-                navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
-            },
-            onInfoIconClick = { restaurantItem ->  // Add this callback
-                // Navigate to restaurant info with the clicked item
-                restaurantItem.restaurantName?.let {
-                    navController?.navigate("restaurant_info/$it")
+
+@Composable
+fun FoodScreen(navController: NavHostController? = null) {
+
+    Scaffold(
+        bottomBar = {
+            ViewCartButton(
+                itemCount = 1,
+                onViewCartClick = {
+                    // Navigate to cart
                 }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            backgroundColor = Color.White,
-            cardWidth = 110.dp,
-            cardHeight = 195.dp,
-            imageHeight = 130.dp,
-            imageCornerRadius = 15.dp,
-            spacing = 15.dp,
-            horizontalPadding = 12.dp,
-            verticalPadding = 0.dp,
-            headingBottomPadding = 0.dp
-        )
-//        TopRatedRestaurants(
-//            heading = null,
-//            subtitle = null,
-//            restaurantItems = completeRestaurantItems,
-//            onItemClick = { foodItem ->
-//                // Pass both id and category
-//                navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
-//            },
-//            modifier = Modifier.fillMaxWidth(),
-//            backgroundColor = Color.White,
-//            cardWidth = 110.dp,
-//            cardHeight = 195.dp,
-//            imageHeight = 130.dp,
-//            imageCornerRadius = 15.dp,
-//            spacing = 15.dp,
-//            horizontalPadding = 12.dp,
-//            verticalPadding = 0.dp,
-//            headingBottomPadding = 0.dp
-//        )
-//        Spacer(modifier = Modifier.height(20.dp))
-        DisclaimerFood(
-            onReportIssueClick = {
-                // Handle report issue click
-            }
-        )
+            )
+        }
+    ) { innerPadding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState()) // ✅ MAKE SCROLLABLE
+        ) {
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Top rated restaurants near you",
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.customColors.black
+                ),
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp)
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            TopRatedRestaurants(
+                heading = null,
+                subtitle = null,
+                restaurantItems = completeRestaurantItems,
+                onItemClick = { foodItem ->
+                    navController?.navigate("restaurant_details/${foodItem.id}/${foodItem.category}")
+                },
+                onInfoIconClick = { restaurantItem ->
+                    restaurantItem.restaurantName?.let {
+                        navController?.navigate("restaurant_info/$it")
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                backgroundColor = Color.White,
+                cardWidth = 110.dp,
+                cardHeight = 195.dp,
+                imageHeight = 130.dp,
+                imageCornerRadius = 15.dp,
+                spacing = 15.dp,
+                horizontalPadding = 12.dp,
+                verticalPadding = 0.dp,
+                headingBottomPadding = 0.dp
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            DisclaimerFood(
+                onReportIssueClick = {}
+            )
+
+            // ✅ Extra space so last item not hidden behind bottom bar
+//            Spacer(modifier = Modifier.height(20.dp))
+        }
     }
 }

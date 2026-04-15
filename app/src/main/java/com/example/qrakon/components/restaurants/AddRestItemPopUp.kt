@@ -1,5 +1,6 @@
 package com.example.qrakon.components.restaurants
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,16 +21,13 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -80,7 +79,6 @@ val CardBg = Color.White
 
 // -------------------- MAIN UI --------------------
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRestItemPopUp(
     mainItemName: String,
@@ -91,9 +89,10 @@ fun AddRestItemPopUp(
     rating: Double,
     ratingCount: String,
     categories: List<AddOnCategory>,
-    onDismiss: () -> Unit,
+//    onDismiss: () -> Unit,
     onAddToCart: (totalPrice: Int,
-                  selectedItems: Map<Int, List<Int>>) -> Unit,
+    selectedItems: Map<Int, List<Int>>) -> Unit,
+    onDismiss: () -> Unit = {}
 ) {
 
     val selectedItemsState = remember { mutableStateOf(mutableMapOf<Int, MutableList<Int>>()) }
@@ -123,205 +122,221 @@ fun AddRestItemPopUp(
         total
     }
 
-    // -------------------- SHEET --------------------
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        containerColor = Color.White,
-        dragHandle = null
+    // -------------------- SIMPLE LAYOUT --------------------
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Transparent)
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
+        // 🔥 CLOSE BUTTON - Top Center
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 5.dp),
+//                .background(color = Color.Transparent),
+            contentAlignment = Alignment.Center
         ) {
-            // 🔥 CLOSE BUTTON - Top Center
-            Box(
+            IconButton(
+                onClick = onDismiss,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
-                    .background(color = Color.Transparent),
-                contentAlignment = Alignment.Center
-            ) {
-                IconButton(
-                    onClick = onDismiss,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .background(
-                            color = Color.Black.copy(alpha = 0.6f),
-                            shape = RoundedCornerShape(50)
-                        )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "Close",
-                        tint = Color.White
+                    .size(40.dp)
+                    .background(
+                        color = Color.Black.copy(alpha = 0.6f),
+                        shape = RoundedCornerShape(50)
                     )
-                }
-            }
-
-            // -------------------- SCROLLABLE CONTENT --------------------
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
             ) {
-                // HEADER
-                item {
-                    Spacer(modifier = Modifier.height(8.dp))
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    tint = Color.White
+                )
+            }
+        }
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        mainItemIconRes?.let {
-                            Surface(
-                                modifier = Modifier.size(28.dp),
-                                shape = RoundedCornerShape(8.dp),
-                                color = Color.Transparent
-                            ) {
+        // -------------------- SCROLLABLE CONTENT --------------------
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                .background(Color.White)
+        ) {
+            // HEADER
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    mainItemIconRes?.let {
+                        // Dynamic Icon Box with Rounded Corners
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(12.dp))  // 👈 Clip the box to rounded corners
+                                .background(Color.LightGray, RoundedCornerShape(12.dp)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (mainItemIconRes != null) {
+                                Image(
+                                    painter = painterResource(mainItemIconRes),
+                                    contentDescription = mainItemName,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(12.dp)),
+                                    contentScale = ContentScale.FillBounds,
+                                    colorFilter = null // Remove any tint to show original colors
+                                )
+                            } else {
+                                // Default placeholder icon
                                 Icon(
-                                    painter = painterResource(it),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified,
-                                    modifier = Modifier.fillMaxSize()
+                                    painter = painterResource(R.drawable.outline_photo_camera_24),
+                                    contentDescription = "Food item",
+                                    tint = Color.Gray,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(8.dp)
                                 )
                             }
-                            Spacer(modifier = Modifier.width(8.dp))
                         }
-
-                        Text(
-                            text = mainItemName,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                        Spacer(modifier = Modifier.width(8.dp))
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = mainItemName,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
 
-                // -------------------- CATEGORIES --------------------
-                categories.forEach { category ->
-                    item {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            // -------------------- CATEGORIES --------------------
+            categories.forEach { category ->
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(SectionBg)
+                            .padding(12.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column {
+                                Text(
+                                    category.title,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 16.sp
+                                )
+                                category.subtitle?.let {
+                                    Text(it, fontSize = 12.sp, color = Color.Gray)
+                                }
+                            }
+
+                            if (category.selectionType == SelectionType.CHECKBOX && category.items.size > 1) {
+                                TextButton(
+                                    onClick = {
+                                        val map = selectedItemsState.value.toMutableMap()
+                                        val categoryKey = category.title.hashCode()
+
+                                        val allSelected = category.items.all { item ->
+                                            map[categoryKey]?.contains(item.id) == true
+                                        }
+
+                                        if (allSelected) {
+                                            map[categoryKey] = mutableListOf()
+                                        } else {
+                                            val allItemIds = category.items
+                                                .filter { !it.isUnavailable }
+                                                .map { it.id }
+                                                .toMutableList()
+                                            map[categoryKey] = allItemIds
+                                        }
+                                        selectedItemsState.value = map
+                                    }
+                                ) {
+                                    Text(
+                                        "Select All",
+                                        color = MaterialTheme.customColors.success,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(SectionBg)
-                                .padding(12.dp)
+                                .background(CardBg, RoundedCornerShape(12.dp))
+                                .padding(horizontal = 12.dp, vertical = 8.dp)
                         ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Column {
-                                    Text(
-                                        category.title,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 16.sp
-                                    )
-                                    category.subtitle?.let {
-                                        Text(it, fontSize = 12.sp, color = Color.Gray)
+                            category.items.forEachIndexed { index, item ->
+                                when (category.selectionType) {
+                                    SelectionType.CHECKBOX -> {
+                                        AddOnItemRowWithCheckbox(
+                                            item = item,
+                                            isSelected = selectedItemsState.value[category.title.hashCode()]?.contains(item.id) == true,
+                                            onSelectionChange = { checked ->
+                                                val map = selectedItemsState.value.toMutableMap()
+                                                val list = map[category.title.hashCode()]?.toMutableList() ?: mutableListOf()
+
+                                                if (checked) list.add(item.id)
+                                                else list.remove(item.id)
+
+                                                map[category.title.hashCode()] = list
+                                                selectedItemsState.value = map
+                                            }
+                                        )
                                     }
-                                }
-
-                                if (category.selectionType == SelectionType.CHECKBOX && category.items.size > 1) {
-                                    TextButton(
-                                        onClick = {
-                                            val map = selectedItemsState.value.toMutableMap()
-                                            val categoryKey = category.title.hashCode()
-
-                                            val allSelected = category.items.all { item ->
-                                                map[categoryKey]?.contains(item.id) == true
+                                    SelectionType.RADIO -> {
+                                        AddOnItemRowWithRadio(
+                                            item = item,
+                                            isSelected = radioSelectionState.value[category.title.hashCode()] == item.id,
+                                            onSelectionChange = {
+                                                val map = radioSelectionState.value.toMutableMap()
+                                                map[category.title.hashCode()] = it
+                                                radioSelectionState.value = map
                                             }
-
-                                            if (allSelected) {
-                                                map[categoryKey] = mutableListOf()
-                                            } else {
-                                                val allItemIds = category.items
-                                                    .filter { !it.isUnavailable }
-                                                    .map { it.id }
-                                                    .toMutableList()
-                                                map[categoryKey] = allItemIds
-                                            }
-                                            selectedItemsState.value = map
-                                        }
-                                    ) {
-                                        Text(
-                                            "Select All",
-                                            color = MaterialTheme.customColors.success,
-                                            fontSize = 13.sp,
-                                            fontWeight = FontWeight.Medium
                                         )
                                     }
                                 }
-                            }
 
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(CardBg, RoundedCornerShape(12.dp))
-                                    .padding(horizontal = 12.dp, vertical = 8.dp)
-                            ) {
-                                category.items.forEachIndexed { index, item ->
-                                    when (category.selectionType) {
-                                        SelectionType.CHECKBOX -> {
-                                            AddOnItemRowWithCheckbox(
-                                                item = item,
-                                                isSelected = selectedItemsState.value[category.title.hashCode()]?.contains(item.id) == true,
-                                                onSelectionChange = { checked ->
-                                                    val map = selectedItemsState.value.toMutableMap()
-                                                    val list = map[category.title.hashCode()]?.toMutableList() ?: mutableListOf()
-
-                                                    if (checked) list.add(item.id)
-                                                    else list.remove(item.id)
-
-                                                    map[category.title.hashCode()] = list
-                                                    selectedItemsState.value = map
-                                                }
-                                            )
-                                        }
-                                        SelectionType.RADIO -> {
-                                            AddOnItemRowWithRadio(
-                                                item = item,
-                                                isSelected = radioSelectionState.value[category.title.hashCode()] == item.id,
-                                                onSelectionChange = {
-                                                    val map = radioSelectionState.value.toMutableMap()
-                                                    map[category.title.hashCode()] = it
-                                                    radioSelectionState.value = map
-                                                }
-                                            )
-                                        }
-                                    }
-
-                                    if (index != category.items.lastIndex) {
-                                        Spacer(modifier = Modifier.height(12.dp))
-                                    }
+                                if (index != category.items.lastIndex) {
+                                    Spacer(modifier = Modifier.height(12.dp))
                                 }
                             }
                         }
                     }
                 }
-
-                // Bottom padding to ensure content doesn't touch the edge
-                item {
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
             }
 
-            // -------------------- STICKY BOTTOM BAR --------------------
-            BottomBar(
-                quantity = quantity,
-                onIncrease = { quantity++ },
-                onDecrease = { if (quantity > 1) quantity-- },
-                totalPrice = totalPrice,
-                onAddClick = {
-                    val selectedMap = selectedItemsState.value.mapValues { it.value.toList() }
-                    onAddToCart(totalPrice, selectedMap)
-                    onDismiss()
-                }
-            )
+            // Bottom padding to ensure content doesn't touch the edge
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
+
+        // -------------------- STICKY BOTTOM BAR --------------------
+        BottomBar(
+            quantity = quantity,
+            onIncrease = { quantity++ },
+            onDecrease = { if (quantity > 1) quantity-- },
+            totalPrice = totalPrice,
+            onAddClick = {
+                val selectedMap = selectedItemsState.value.mapValues { it.value.toList() }
+                onAddToCart(totalPrice, selectedMap)
+                onDismiss()
+            }
+        )
     }
 }
 

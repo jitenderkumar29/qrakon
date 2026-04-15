@@ -50,10 +50,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.qrakon.R
+import com.example.qrakon.components.restaurants.AddOnCategory
+import com.example.qrakon.components.restaurants.AddOnItem
+import com.example.qrakon.components.restaurants.AddRestItemPizza
+import com.example.qrakon.components.restaurants.AddRestItemPopUp
 import com.example.qrakon.components.restaurants.formatRating
 import com.example.qrakon.components.restaurants.getRandomRatings
 import com.example.qrakon.components.restaurants.FoodItemDoubleF
 import com.example.qrakon.components.restaurants.RestItemIndividual
+import com.example.qrakon.components.restaurants.SelectionType
 import com.example.qrakon.ui.theme.customColors
 
 // Restaurant Item Details with two items per row
@@ -63,10 +68,14 @@ import com.example.qrakon.ui.theme.customColors
 fun RestaurantItemDetails2(
     item: FoodItemDoubleF,
     modifier: Modifier = Modifier,
-    onAddClick: () -> Unit = {}
+    onAddClick: () -> Unit = {},
+    getAddOnCategories: (FoodItemDoubleF) -> List<AddOnCategory> = { emptyList() }
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
+    var showAddRestItemPopUp by remember { mutableStateOf(false) }
+    var showAddRestItemPizza by remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(5.dp),
@@ -302,7 +311,14 @@ fun RestaurantItemDetails2(
                 }
 
                 OutlinedButton(
-                    onClick = onAddClick,
+                    onClick = {
+                        if (item.category == "pizza") {
+                            showAddRestItemPizza = true
+                        } else {
+                            showAddRestItemPopUp = true
+                        }  // 👈 Open AddRestItemPopUp instead
+                    },
+//                    onClick = onAddClick,
                     modifier = Modifier
                         .height(32.dp)
                         .width(70.dp),
@@ -582,7 +598,14 @@ fun RestaurantItemDetails2(
                     }
 
                     OutlinedButton(
-                        onClick = onAddClick,
+                        onClick = {
+                            if (item.category == "pizza") {
+                                showAddRestItemPizza = true
+                            } else {
+                                showAddRestItemPopUp = true
+                            }  // 👈 Open AddRestItemPopUp instead
+                        },
+//                        onClick = onAddClick,
                         modifier = Modifier
                             .height(32.dp)
                             .width(70.dp),
@@ -648,7 +671,231 @@ fun RestaurantItemDetails2(
             )
         }
     }
+
+    // AddRestItemPopUp Modal Bottom Sheet
+    if (showAddRestItemPopUp) {
+        ModalBottomSheet(
+            onDismissRequest = { showAddRestItemPopUp = false },
+            containerColor = Color.Transparent,
+            modifier = Modifier,
+//                .fillMaxHeight(0.9f), // 👈 Set height to 90% of screen
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+//            sheetState = sheetState,
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            val sampleCategories = listOf(
+                AddOnCategory(
+                    title = "Add Extra Gravy",
+                    selectionType = SelectionType.RADIO,
+                    items = listOf(
+                        AddOnItem(
+                            id = 1,
+                            name = "Gravy (80g)",
+                            price = 49,
+                            iconRes = R.drawable.ic_veg_rest
+                        )
+                    )
+                ),
+                AddOnCategory(
+                    title = "Add a Starter",
+                    subtitle = "Select upto 4",
+                    selectLimit = "Select upto 4",
+                    selectionType = SelectionType.CHECKBOX,
+                    items = listOf(
+                        AddOnItem(
+                            id = 2,
+                            name = "Cheesy Chicken Meatballs (3 pcs)",
+                            price = 69,
+                            iconRes = R.drawable.ic_non_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 3,
+                            name = "French Fries (M)",
+                            price = 99,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 4,
+                            name = "Falafel Nuggets with Mayo Dip (12 pcs)",
+                            price = 109,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 5,
+                            name = "Chicken Tikki (5 pcs)",
+                            price = 139,
+                            iconRes = R.drawable.ic_non_veg_rest
+                        )
+                    )
+                ),
+                AddOnCategory(
+                    title = "Add a Beverage",
+                    subtitle = "Select upto 5",
+                    selectLimit = "Select upto 5",
+                    selectionType = SelectionType.CHECKBOX,
+                    items = listOf(
+                        AddOnItem(
+                            id = 6,
+                            name = "Masala Lemonade (200 ml)",
+                            price = 59,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 7,
+                            name = "Jeera Masala Cola (250 ml)",
+                            price = 59,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 8,
+                            name = "Coca-Cola Bottle (475 ml)",
+                            price = 69,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 9,
+                            name = "Lemon Ice Tea (250 ml)",
+                            price = 79,
+                            iconRes = R.drawable.ic_veg_rest
+                        )
+                    )
+                ),
+                AddOnCategory(
+                    title = "Add a Dessert",
+                    subtitle = "Select upto 4",
+                    selectLimit = "Select upto 4",
+                    selectionType = SelectionType.CHECKBOX,
+                    items = listOf(
+                        AddOnItem(
+                            id = 10,
+                            name = "Gulab Jamun (1 pc)",
+                            price = 29,
+                            isBestSeller = true,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 11,
+                            name = "Gulab Jamun (2 pcs)",
+                            price = 58,
+                            isBestSeller = true,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 12,
+                            name = "Choco Chip Brownie",
+                            price = 109,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 13,
+                            name = "Walnut Brownie",
+                            price = 109,
+                            iconRes = R.drawable.ic_veg_rest
+                        ),
+                        AddOnItem(
+                            id = 14,
+                            name = "Choco Lava Cake",
+                            price = 0,
+                            isUnavailable = true,
+                            iconRes = R.drawable.ic_veg_rest
+                        )
+                    )
+                )
+            )
+            AddRestItemPopUp(
+                mainItemName = item.title ?: "",
+                mainItemPrice = item.price?.toIntOrNull() ?: 0,
+                mainItemIconRes = item.imageRes?.firstOrNull(),
+                restaurantName = item.restaurantName ?: "",
+                deliveryTime = item.deliveryTime ?: "",
+                location = item.address ?: "",
+                rating = item.rating?.toDoubleOrNull() ?: 0.0,
+                ratingCount = item.reorderedQuantity ?: "3.2K+",
+                categories = sampleCategories,
+                onAddToCart = { totalPrice, selectedItems ->
+                    println("Added to cart: ₹$totalPrice for ${item.title}")
+                    onAddClick() // Call the original onAddClick if needed
+                    showAddRestItemPopUp = false
+                },
+                onDismiss = {
+                    showAddRestItemPopUp = false
+                }
+            )
+        }
+    }
+
+    // AddRestItemPizza Modal Bottom Sheet
+    if (showAddRestItemPizza) {
+        ModalBottomSheet(
+            onDismissRequest = { showAddRestItemPizza = false },
+            containerColor = Color.Transparent,
+            modifier = Modifier,
+//                .fillMaxHeight(0.9f), // 👈 Set height to 90% of screen
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+//            sheetState = sheetState,
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+//                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(0.dp)
+//                            .width(40.dp)
+                            .height(0.dp)
+//                            .height(4.dp)
+                            .background(
+                                color = Color.Transparent,
+//                                color = Color.Gray.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+            }
+        ) {
+            AddRestItemPizza(
+                mainItemName = item.title ?: "",
+                mainItemDescription = item.description ?: "",
+                mainItemIconRes = item.imageRes?.firstOrNull(),
+                regularPrice = item.price?.toIntOrNull() ?: 289,
+                mediumPrice = 479,
+                largePrice = 579,
+                onDismiss = {
+                    showAddRestItemPizza = false
+                },
+                onAddToCart = { size, quantity, note, totalPrice ->
+                    println("Added to cart: Size: $size, Quantity: $quantity, Note: $note, Total: ₹$totalPrice")
+                    showAddRestItemPizza = false
+                }
+            )
+        }
+    }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewRestaurantItemDetails2() {
