@@ -326,7 +326,7 @@ fun TopRatedRestaurantCard(
 
                     Text(
                         text = rating,
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Black,
                         lineHeight = 10.sp,
@@ -339,19 +339,19 @@ fun TopRatedRestaurantCard(
                 }
 
                 restaurantItem.deliveryTime?.let { deliveryTime ->
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(2.dp))
 
                     Text(
                         text = "•",
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         color = Color.Black
                     )
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(2.dp))
 
                     Text(
                         text = deliveryTime,
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Black,
                         lineHeight = 10.sp,
@@ -654,19 +654,18 @@ fun TopRatedRestaurantDynamicCornersPreview() {
 val completeRestaurantItems = listOf(
     TopRatedRestaurantItem(
         id = 1,
-        imageRes = R.drawable.ic_top_rated_food_4,
-        title = "Peppers Pizza",
-        price = "199",
-        restaurantName = "Pizza Express",
-        rating = "4.2",
-        deliveryTime = "25-30 mins",
+        imageRes = R.drawable.ic_top_rated_food_14,
+        title = "North Indian",
+        price = "299",
+        restaurantName = "Kitchen Exotica",
+        rating = "4.1",
+        deliveryTime = "40-45 mins",
         distance = "2.5 km",
-        discount = "30%",
-        discountAmount = "₹20",
-        address = "Pacific Jasola",
-        category = "pizza",
-        acceptingOrders = true,
-        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+        discount = "20% OFF",
+        discountAmount = "₹60",
+        address = "Greenfields",
+        category = "northindian",
+//        acceptingOrders = true,
     ),
     TopRatedRestaurantItem(
         id = 2,
@@ -695,7 +694,7 @@ val completeRestaurantItems = listOf(
         distance = "3.0 km",
         discount = "70%",
         discountAmount = "₹130",
-        address = "“Greater Kailash New",
+        address = "Greater Kailash New",
         category = "biryani",
 //        acceptingOrders = true,
 //        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
@@ -858,5 +857,21 @@ val completeRestaurantItems = listOf(
         category = "north_indian",
         acceptingOrders = true,
         acceptingOrdersMsg = ""
+    ),
+    TopRatedRestaurantItem(
+        id = 14,
+        imageRes = R.drawable.ic_top_rated_food_4,
+        title = "Peppers Pizza",
+        price = "199",
+        restaurantName = "Pizza Express",
+        rating = "4.2",
+        deliveryTime = "25-30 mins",
+        distance = "2.5 km",
+        discount = "30%",
+        discountAmount = "₹20",
+        address = "Pacific Jasola",
+        category = "pizza",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
     )
 )

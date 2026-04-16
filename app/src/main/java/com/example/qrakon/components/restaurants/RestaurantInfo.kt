@@ -176,26 +176,26 @@ fun RestaurantInfo(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(20.dp))
-                                .background(Color.White)
-                                .border(
-                                    1.dp,
-                                    MaterialTheme.customColors.lightGray,
-                                    RoundedCornerShape(20.dp)
-                                ),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_call),
-                                contentDescription = "Call",
-                                modifier = Modifier.size(18.dp),
-                                tint = Color.Unspecified
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
+//                        Box(
+//                            modifier = Modifier
+//                                .size(36.dp)
+//                                .clip(RoundedCornerShape(20.dp))
+//                                .background(Color.White)
+//                                .border(
+//                                    1.dp,
+//                                    MaterialTheme.customColors.lightGray,
+//                                    RoundedCornerShape(20.dp)
+//                                ),
+//                            contentAlignment = Alignment.Center
+//                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.ic_call),
+//                                contentDescription = "Call",
+//                                modifier = Modifier.size(18.dp),
+//                                tint = Color.Unspecified
+//                            )
+//                        }
+//                        Spacer(modifier = Modifier.width(8.dp))
                         Box(
                             modifier = Modifier
                                 .size(36.dp)
@@ -496,7 +496,7 @@ fun RestaurantInfo(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Live on Qrakon since $sinceYear",
+                            text = "Live on Hufko since $sinceYear",
                             fontSize = 14.sp,
                             color = Color.DarkGray
                         )
@@ -618,7 +618,7 @@ fun RestaurantInfo(
                 // Terms of service and back to menu
                 Row {
                     Text(
-                        text = "Please review the terms of service for Zomato ",
+                        text = "Please review the terms of service for Hufko ",
                         fontSize = 14.sp,
                         color = Color.DarkGray,
                         fontWeight = FontWeight.Medium

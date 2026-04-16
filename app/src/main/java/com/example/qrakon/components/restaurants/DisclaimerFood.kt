@@ -22,6 +22,10 @@ import com.example.qrakon.ui.theme.customColors
 
 @Composable
 fun DisclaimerFood(
+    restaurantName: String = "Anshu Dhabo",
+    outlet: String = "Saiket",
+    address: String = "Shop No.-21 Ground Floor, Local Shopping Centre, Madangiri, Pushpa Bhowan, Madan Gir, Hauz Khas, South , Delhi - 110062",
+    fssaiLicense: String = "23318008000752",
     onReportIssueClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -42,8 +46,6 @@ fun DisclaimerFood(
         Spacer(modifier = Modifier.height(8.dp))
 
         // Disclaimer points
-        // Disclaimer points with indentation
-
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -52,7 +54,7 @@ fun DisclaimerFood(
                     text = "•",
                     fontSize = 20.sp,
                     color = MaterialTheme.customColors.darkGray,
-                    modifier = Modifier.width(20.dp) // Fixed width for bullet
+                    modifier = Modifier.width(20.dp)
                 )
                 Text(
                     text = "All prices are set directly by the restaurant.",
@@ -118,7 +120,6 @@ fun DisclaimerFood(
             }
         }
 
-
         Spacer(modifier = Modifier.height(12.dp))
 
         // Divider
@@ -137,7 +138,6 @@ fun DisclaimerFood(
                 painter = painterResource(R.drawable.ic_report),
                 contentDescription = null,
                 modifier = Modifier.size(18.dp),
-//        tint = Unsp
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
@@ -154,7 +154,9 @@ fun DisclaimerFood(
                 tint = MaterialTheme.customColors.darkGray
             )
         }
+
         Spacer(modifier = Modifier.height(12.dp))
+
         // Divider
         HorizontalDivider(color = Color(0xFFE0E0E0), thickness = 1.dp)
 
@@ -163,9 +165,7 @@ fun DisclaimerFood(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onReportIssueClick() }
+            modifier = Modifier.fillMaxWidth()
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_license),
@@ -173,17 +173,15 @@ fun DisclaimerFood(
                 modifier = Modifier
                     .height(30.dp)
                     .width(90.dp),
-//        tint = Unsp
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                text = "FSSAI License No. 23318008000752",
+                text = "FSSAI License No. $fssaiLicense",
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.customColors.darkGray,
                 modifier = Modifier.padding(top = 5.dp)
             )
-            Spacer(modifier = Modifier.weight(1f)) // Pushes content to the left
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -193,48 +191,52 @@ fun DisclaimerFood(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Restaurant name
-        Text(
-            text = "Anshu Dhabo",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
-
-        Spacer(modifier = Modifier.height(2.dp))
-
-        // Outlet
-        Text(
-            text = "(Outlet : Saiket)",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.customColors.darkGray,
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Address
-        Row(
-//            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.baseline_location_pin_24),
-                contentDescription = null,
-                modifier = Modifier.size(18.dp),
-                tint = Color(0xFF757575)
-            )
-            Spacer(modifier = Modifier.width(5.dp))
+        // Restaurant name - Dynamic
+        if (restaurantName.isNotEmpty()) {
             Text(
-                text = "Shop No.-21 Ground Floor, Local Shopping Centre, Madangiri, Pushpa Bhowan, Madan Gir, Hauz Khas, South , Delhi - 110062",
-                fontSize = 13.sp,
-                color = MaterialTheme.customColors.darkGray,
-                lineHeight = 18.sp
+                text = restaurantName,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
             )
+
+            Spacer(modifier = Modifier.height(2.dp))
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        // Outlet - Dynamic
+        if (outlet.isNotEmpty()) {
+            Text(
+                text = "(Outlet : $outlet)",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.customColors.darkGray,
+            )
 
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        // Address - Dynamic
+        if (address.isNotEmpty()) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.baseline_location_pin_24),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                    tint = Color(0xFF757575)
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = address,
+                    fontSize = 13.sp,
+                    color = MaterialTheme.customColors.darkGray,
+                    lineHeight = 18.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
     }
 }
 
