@@ -701,6 +701,22 @@ val completeRestaurantItems = listOf(
         ),
     TopRatedRestaurantItem(
         id = 4,
+        imageRes = R.drawable.ic_top_rated_food_13,
+        title = "North Indian Combo",
+        price = "229",
+        restaurantName = "Sanjha Chulha",
+        rating = "4.3",
+        deliveryTime = "55-65 mins",
+        distance = "3.5 km",
+        discount = "20%",
+        discountAmount = "₹40",
+        address = "Sector 46",
+        category = "northindiansc",
+//        acceptingOrders = true,
+//        acceptingOrdersMsg = ""
+        ),
+        TopRatedRestaurantItem(
+        id = 5,
         imageRes = R.drawable.ic_top_rated_food_dana_choga,
         title = "Dana Choga Special",
         price = "299",
@@ -716,7 +732,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 5,
+        id = 6,
         imageRes = R.drawable.ic_top_rated_food_3,
         title = "Big Bowl",
         price = "150",
@@ -731,7 +747,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 6,
+        id = 7,
         imageRes = R.drawable.ic_top_rated_food_kfc,
         title = "Chicken Bucket",
         price = "350",
@@ -747,7 +763,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 7,
+        id = 8,
         imageRes = R.drawable.ic_top_rated_food_curry_queen,
         title = "Curry Combo",
         price = "279",
@@ -763,7 +779,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 8,
+        id = 9,
         imageRes = R.drawable.ic_top_rated_food_subway,
         title = "Sub Sandwich",
         price = "200",
@@ -779,7 +795,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 9,
+        id = 10,
         imageRes = R.drawable.ic_top_rated_food_2,
         title = "Bakingo",
         price = "220",
@@ -795,7 +811,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 10,
+        id = 11,
         imageRes = R.drawable.ic_top_rated_food_5,
         title = "Zaika Food",
         price = "199",
@@ -811,7 +827,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 11,
+        id = 12,
         imageRes = R.drawable.ic_top_rated_food_6,
         title = "Havmor Ice Cream",
         price = "199",
@@ -827,7 +843,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 12,
+        id = 13,
         imageRes = R.drawable.ic_top_rated_food_12,
         title = "Whopper Meal",
         price = "249",
@@ -839,22 +855,6 @@ val completeRestaurantItems = listOf(
         discountAmount = "₹80",
         address = "Village Mewla Maharajpur",
         category = "burger",
-        acceptingOrders = true,
-        acceptingOrdersMsg = ""
-    ),
-    TopRatedRestaurantItem(
-        id = 13,
-        imageRes = R.drawable.ic_top_rated_food_13,
-        title = "North Indian Combo",
-        price = "229",
-        restaurantName = "Sanjha Chulha",
-        rating = "4.3",
-        deliveryTime = "55-65 mins",
-        distance = "3.5 km",
-        discount = "20%",
-        discountAmount = "₹40",
-        address = "Sector 46",
-        category = "north_indian",
         acceptingOrders = true,
         acceptingOrdersMsg = ""
     ),

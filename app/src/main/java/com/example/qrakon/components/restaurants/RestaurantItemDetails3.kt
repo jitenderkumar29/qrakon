@@ -301,20 +301,20 @@ fun RestaurantItemCard3(
                 }
 
                 // Dark Overlay only on bottom half (50% of image)
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    Color.Black.copy(alpha = 0.2f)
-                                ),
-                                startY = 0.5f,
-                                endY = 1f
-                            )
-                        )
-                )
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(
+//                            Brush.verticalGradient(
+//                                colors = listOf(
+//                                    Color.Transparent,
+//                                    Color.Black.copy(alpha = 0.2f)
+//                                ),
+//                                startY = 0.5f,
+//                                endY = 1f
+//                            )
+//                        )
+//                )
             }
 
             // Content Overlay

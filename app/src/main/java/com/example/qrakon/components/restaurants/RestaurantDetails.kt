@@ -1782,6 +1782,545 @@ fun RestaurantDetails(
                     }
                 }
             }
+
+            //            Sanjha Chulha North Indian Category
+            else if (restaurantItem?.category == "northindiansc") {
+                // ==================== TOP PICKS SECTION ====================
+                if (topPicksItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = "Top Picks",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            RestaurantItemDetails3(
+                                items = topPicksItems,
+                                onAddClick = { item ->
+                                    println("Added: ${item.title}")
+                                }
+                            )
+                        }
+                    }
+                    // Divider
+                    item {
+                        Divider(
+                            color = Color.LightGray,
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(vertical = 0.dp)
+                        )
+                    }
+                }
+
+                // ==================== FREE DELIVERY SECTION (Grid) ====================
+                if (freeDeliveryItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = "Free Delivery",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            val rows = freeDeliveryItems.chunked(2)
+                            rows.forEach { rowItems ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 12.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    rowItems.forEach { item ->
+                                        RestaurantItemDetails2(
+                                            item = item,
+                                            modifier = Modifier.weight(1f),
+                                            onAddClick = { println("Added: ${item.title}") }
+                                        )
+                                    }
+                                    if (rowItems.size == 1) {
+                                        Spacer(modifier = Modifier.weight(1f))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Divider
+                    item {
+                        Divider(
+                            color = Color.LightGray,
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(vertical = 0.dp)
+                        )
+                    }
+                }
+
+                // ==================== CRAZY / Indian Main Course SECTION (Single Image) ====================
+                if (crazyItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = "Indian Main Course",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            crazyItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // ==================== RECOMMENDED / Indian Starters SECTION (Single Image) ====================
+                if (recommendedItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = "Indian Starters",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            recommendedItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // ==================== BIG VALUE / Sanjha Rolls & Momos SECTION (Single Image) ====================
+                if (bigValueItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Text(
+                                text = "Sanjha Rolls & Momos",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            bigValueItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // ==================== SUPER SAVER / Chinese Starters SECTION (Single Image) ====================
+                if (superSaverItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Text(
+                                text = "Chinese Starters",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+
+                            // This will display ALL items
+                            superSaverItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // ==================== FREE DELIVERY / Tawa Special ITEMS STARTING AT 289 SECTION (Grid) ====================
+                if (freeDeliveryItemsAbove259.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = "Tawa Special",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            val rows = freeDeliveryItemsAbove259.chunked(2)
+                            rows.forEach { rowItems ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 12.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    rowItems.forEach { item ->
+                                        RestaurantItemDetails2(
+                                            item = item,
+                                            modifier = Modifier.weight(1f),
+                                            onAddClick = { println("Added: ${item.title}") }
+                                        )
+                                    }
+                                    if (rowItems.size == 1) {
+                                        Spacer(modifier = Modifier.weight(1f))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Divider
+                    item {
+                        Divider(
+                            color = Color.LightGray,
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(vertical = 0.dp)
+                        )
+                    }
+                }
+
+                // ==================== COMBO / Indian Breads SECTION (Multiple Images) ====================
+                if (comboItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Text(
+                                text = "Indian Breads",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            comboItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = true,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+
+
+                // ==================== RECOMMENDED WITHOUT PROTEIN SECTION (Grid) ====================
+                if (recommendedWithOutProteinItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = "Recommended (20)",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            val rows = recommendedWithOutProteinItems.chunked(2)
+                            rows.forEach { rowItems ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 12.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    rowItems.forEach { item ->
+                                        RestaurantItemDetails2(
+                                            item = item,
+                                            modifier = Modifier.weight(1f),
+                                            onAddClick = { println("Added: ${item.title}") }
+                                        )
+                                    }
+                                    if (rowItems.size == 1) {
+                                        Spacer(modifier = Modifier.weight(1f))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Divider
+                    item {
+                        Divider(
+                            color = Color.LightGray,
+                            thickness = 1.dp,
+                            modifier = Modifier.padding(vertical = 0.dp)
+                        )
+                    }
+                }
+
+//                // ==================== FREE DELIVERY ITEMS STARTING AT 289 SECTION (Grid) ====================
+//                if (freeDeliveryItemsAbove259.isNotEmpty()) {
+//                    item {
+//                        Column(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .background(MaterialTheme.customColors.white)
+//                                .padding(12.dp)
+//                        ) {
+//                            Text(
+//                                text = "Items starting at 259",
+//                                style = MaterialTheme.typography.bodySmall.copy(
+//                                    fontSize = 20.sp,
+//                                    fontWeight = FontWeight.Bold,
+//                                    color = MaterialTheme.customColors.black
+//                                ),
+//                                maxLines = 1,
+//                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+//                            )
+//                            Spacer(modifier = Modifier.height(15.dp))
+//                            val rows = freeDeliveryItemsAbove259.chunked(2)
+//                            rows.forEach { rowItems ->
+//                                Row(
+//                                    modifier = Modifier
+//                                        .fillMaxWidth()
+//                                        .padding(bottom = 12.dp),
+//                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+//                                ) {
+//                                    rowItems.forEach { item ->
+//                                        RestaurantItemDetails2(
+//                                            item = item,
+//                                            modifier = Modifier.weight(1f),
+//                                            onAddClick = { println("Added: ${item.title}") }
+//                                        )
+//                                    }
+//                                    if (rowItems.size == 1) {
+//                                        Spacer(modifier = Modifier.weight(1f))
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    // Divider
+//                    item {
+//                        Divider(
+//                            color = Color.LightGray,
+//                            thickness = 1.dp,
+//                            modifier = Modifier.padding(vertical = 0.dp)
+//                        )
+//                    }
+//                }
+
+//                // ==================== COMBO / Indian Breads SECTION (Multiple Images) ====================
+//                if (comboItems.isNotEmpty()) {
+//                    item {
+//                        Column(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .background(MaterialTheme.customColors.white)
+//                        ) {
+//                            Text(
+//                                text = "Indian Breads",
+//                                style = MaterialTheme.typography.bodySmall.copy(
+//                                    fontSize = 20.sp,
+//                                    fontWeight = FontWeight.Bold,
+//                                    color = MaterialTheme.customColors.black
+//                                ),
+//                                maxLines = 1,
+//                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+//                            )
+//                            Spacer(modifier = Modifier.height(15.dp))
+//                            comboItems.forEach { item ->
+//                                RestaurantItemDetails(
+//                                    item = item,
+//                                    showMultipleImages = false,
+//                                    onAddClick = { println("Added: ${item.title}") }
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+
+                // ==================== Fried Rice & Noodle / MORE DETAILS BUTTON SECTION (Single Images) ====================
+                if (saladItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(vertical = 12.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Text(
+                                text = "Fried Rice & Noodle",
+//                        text = "Salad For You",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            saladItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+
+
+                // ==================== MORE DETAILS BUTTON SECTION (Single Image) ====================
+                if (moredetailsbuttonItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                        ) {
+                            Text(
+                                text = "Big Party Meal For You",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            moredetailsbuttonItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
+
+
+                // Empty state when no items found
+                if (foodItems.isEmpty()) {
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(32.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_no_data),
+                                    contentDescription = "No items found",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .size(250.dp),
+                                    tint = Color.Unspecified
+                                )
+                                Text(
+                                    text = "No items available",
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color.Gray
+                                )
+                                Text(
+                                    text = "Try changing your filters or check back later",
+                                    fontSize = 14.sp,
+                                    color = Color.LightGray,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
 //            Pizza Category
             else if (restaurantItem?.category == "pizza") {
                 // ==================== TOP PICKS SECTION ====================
