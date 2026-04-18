@@ -2059,6 +2059,7 @@ fun RestaurantDetails(
                                 .fillMaxWidth()
                                 .background(MaterialTheme.customColors.white)
                         ) {
+                            Spacer(modifier = Modifier.height(15.dp))
                             Text(
                                 text = "Indian Breads",
                                 style = MaterialTheme.typography.bodySmall.copy(
@@ -2081,6 +2082,37 @@ fun RestaurantDetails(
                     }
                 }
 
+                // ==================== Fried Rice & Noodle / MORE DETAILS BUTTON SECTION (Single Images) ====================
+                if (saladItems.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.customColors.white)
+                                .padding(vertical = 12.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Text(
+                                text = "Fried Rice & Noodle",
+//                        text = "Salad For You",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColors.black
+                                ),
+                                maxLines = 1,
+                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
+                            )
+                            saladItems.forEach { item ->
+                                RestaurantItemDetails(
+                                    item = item,
+                                    showMultipleImages = false,
+                                    onAddClick = { println("Added: ${item.title}") }
+                                )
+                            }
+                        }
+                    }
+                }
 
 
                 // ==================== RECOMMENDED WITHOUT PROTEIN SECTION (Grid) ====================
@@ -2217,37 +2249,6 @@ fun RestaurantDetails(
 //                    }
 //                }
 
-                // ==================== Fried Rice & Noodle / MORE DETAILS BUTTON SECTION (Single Images) ====================
-                if (saladItems.isNotEmpty()) {
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(MaterialTheme.customColors.white)
-                                .padding(vertical = 12.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Text(
-                                text = "Fried Rice & Noodle",
-//                        text = "Salad For You",
-                                style = MaterialTheme.typography.bodySmall.copy(
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.customColors.black
-                                ),
-                                maxLines = 1,
-                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp)
-                            )
-                            saladItems.forEach { item ->
-                                RestaurantItemDetails(
-                                    item = item,
-                                    showMultipleImages = false,
-                                    onAddClick = { println("Added: ${item.title}") }
-                                )
-                            }
-                        }
-                    }
-                }
 
 
 
@@ -2412,6 +2413,7 @@ fun RestaurantDetails(
                         )
                     }
                 }
+
                 // ==================== RECOMMENDED WITHOUT PROTEIN SECTION (Grid) ====================
                 if (recommendedWithOutProteinItems.isNotEmpty()) {
                     item {
@@ -2546,6 +2548,7 @@ fun RestaurantDetails(
                         }
                     }
                 }
+
                 // ==================== CRAZY / MAIN SECTION (Single Image) ====================
                 if (crazyItems.isNotEmpty()) {
                     item {
@@ -2576,6 +2579,7 @@ fun RestaurantDetails(
                         }
                     }
                 }
+
                 // ==================== BIG VALUE SECTION (Single Image) ====================
                 if (bigValueItems.isNotEmpty()) {
                     item {
@@ -2605,6 +2609,7 @@ fun RestaurantDetails(
                         }
                     }
                 }
+
                 // ==================== SUPER SAVER SECTION (Single Image) ====================
                 if (superSaverItems.isNotEmpty()) {
                     item {
@@ -2666,6 +2671,7 @@ fun RestaurantDetails(
                         }
                     }
                 }
+
                 // ==================== MORE DETAILS BUTTON SECTION (Single Image) ====================
                 if (moredetailsbuttonItems.isNotEmpty()) {
                     item {
@@ -2707,7 +2713,7 @@ fun RestaurantDetails(
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             Text(
-                                text = "Special Combo For You",
+                                text = "Special Slide For You",
 //                        text = "Salad For You",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,

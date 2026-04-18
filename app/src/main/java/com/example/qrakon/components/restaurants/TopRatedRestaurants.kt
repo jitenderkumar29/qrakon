@@ -442,219 +442,10 @@ fun TopRatedRestaurantsList(
     }
 }
 
-/**
- * Sample data for Top Rated Restaurants
- */
-val sampleTopRatedRestaurants = listOf(
-    TopRatedRestaurantItem(
-        id = 1,
-        imageRes = R.drawable.restaurant_1,
-        title = "Shree Jee Restaurant",
-        rating = "4.1",
-        deliveryTime = "45-50 mins",
-        distance = "7.3 km",
-        discount = "60",
-        discountAmount = "up to ₹120",
-        address = "Delhi",
-        category = "North Indian"
-    ),
-    TopRatedRestaurantItem(
-        id = 2,
-        imageRes = R.drawable.restaurant_1,
-        title = "Amiche Pizza",
-        rating = "4.3",
-        deliveryTime = "60-65 mins",
-        category = "Italian"
-    ),
-    TopRatedRestaurantItem(
-        id = 3,
-        imageRes = R.drawable.restaurant_1,
-        title = "Spice Garden",
-        rating = "4.0",
-        deliveryTime = "30-35 mins",
-        discount = "40",
-        category = "Multi-cuisine"
-    ),
-    TopRatedRestaurantItem(
-        id = 4,
-        imageRes = R.drawable.restaurant_1,
-        title = "South Indian Delight",
-        rating = "4.5",
-        deliveryTime = "20-25 mins",
-        discount = "20",
-        category = "South Indian"
-    ),
-    TopRatedRestaurantItem(
-        id = 5,
-        imageRes = R.drawable.restaurant_1,
-        title = "Biryani House",
-        rating = "4.2",
-        deliveryTime = "35-40 mins",
-        category = "Mughlai"
-    ),
-    TopRatedRestaurantItem(
-        id = 6,
-        imageRes = R.drawable.restaurant_1,
-        title = "Fast Food Center",
-        rating = "4.0",
-        deliveryTime = "15-20 mins",
-        category = "Fast Food"
-    ),
-    TopRatedRestaurantItem(
-        id = 7,
-        imageRes = R.drawable.restaurant_1,
-        title = "Chinese Corner",
-        rating = "4.4",
-        deliveryTime = "25-30 mins",
-        discount = "30",
-        category = "Chinese"
-    )
-)
-
-@Preview(showBackground = true)
-@Composable
-fun TopRatedRestaurantCardPreview() {
-    MaterialTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            // Preview with custom image height (larger image)
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[0],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[0].title}") },
-                cardWidth = 180.dp,
-                cardHeight = 260.dp,
-                imageHeight = 200.dp
-            )
-
-            // Preview with smaller image height
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[1],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[1].title}") },
-                cardWidth = 140.dp,
-                cardHeight = 200.dp,
-                imageHeight = 120.dp
-            )
-
-            // Preview with custom image width (square image)
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[2],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[2].title}") },
-                cardWidth = 160.dp,
-                cardHeight = 240.dp,
-                imageWidth = 140.dp,
-                imageHeight = 140.dp
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopRatedRestaurantsPreview() {
-    MaterialTheme {
-        TopRatedRestaurants(
-            heading = "Top Rated Restaurants",
-            subtitle = "Based on ratings and reviews",
-            restaurantItems = sampleTopRatedRestaurants,
-            onItemClick = { restaurant -> println("Clicked ${restaurant.title}") },
-            backgroundColor = Color.White
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopRatedRestaurantsCustomImageSizePreview() {
-    MaterialTheme {
-        TopRatedRestaurants(
-            heading = "Featured Restaurants",
-            subtitle = "With custom image sizes",
-            restaurantItems = sampleTopRatedRestaurants.take(3),
-            onItemClick = { restaurant -> println("Clicked ${restaurant.title}") },
-            backgroundColor = Color.White,
-            cardWidth = 180.dp,
-            cardHeight = 280.dp,
-            imageHeight = 200.dp,
-            imageSizeFraction = 0.7f,
-            imageCornerRadius = 16.dp
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopRatedRestaurantsSquareImagesPreview() {
-    MaterialTheme {
-        TopRatedRestaurants(
-            heading = "Square Layout",
-            restaurantItems = sampleTopRatedRestaurants.take(4),
-            onItemClick = { restaurant -> println("Clicked ${restaurant.title}") },
-            backgroundColor = Color.White,
-            cardWidth = 150.dp,
-            cardHeight = 220.dp,
-            imageWidth = 150.dp,
-            imageHeight = 150.dp,
-            imageCornerRadius = 8.dp
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopRatedRestaurantDynamicCornersPreview() {
-    MaterialTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            // Full width image (rounded top corners only)
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[0],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[0].title}") },
-                cardWidth = 180.dp,
-                cardHeight = 260.dp,
-                imageWidth = 180.dp,
-                imageHeight = 180.dp,
-                imageCornerRadius = 16.dp
-            )
-
-            // Narrower image (all corners rounded)
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[1],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[1].title}") },
-                cardWidth = 180.dp,
-                cardHeight = 260.dp,
-                imageWidth = 160.dp,
-                imageHeight = 180.dp,
-                imageCornerRadius = 8.dp
-            )
-
-            // Square image with custom corner radius
-            TopRatedRestaurantCard(
-                restaurantItem = sampleTopRatedRestaurants[2],
-                onClick = { println("Clicked ${sampleTopRatedRestaurants[2].title}") },
-                cardWidth = 160.dp,
-                cardHeight = 240.dp,
-                imageWidth = 160.dp,
-                imageHeight = 160.dp,
-                imageCornerRadius = 20.dp
-            )
-        }
-    }
-}
-
 val completeRestaurantItems = listOf(
     TopRatedRestaurantItem(
         id = 1,
-        imageRes = R.drawable.ic_top_rated_food_14,
+        imageRes = R.drawable.ic_kitchen_exotica,
         title = "North Indian",
         price = "299",
         restaurantName = "Kitchen Exotica",
@@ -669,7 +460,7 @@ val completeRestaurantItems = listOf(
     ),
     TopRatedRestaurantItem(
         id = 2,
-        imageRes = R.drawable.ic_top_rated_food_1,
+        imageRes = R.drawable.ic_mcdonalds,
         title = "Burger King",
         price = "180",
         restaurantName = "McDonald's",
@@ -681,7 +472,7 @@ val completeRestaurantItems = listOf(
         address = "Pacific Jasola",
         category = "burger",
 //        acceptingOrders = true,
-//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 1 mins, but why wait? Place your order right away!",
         ),
     TopRatedRestaurantItem(
         id = 3,
@@ -697,11 +488,11 @@ val completeRestaurantItems = listOf(
         address = "Greater Kailash New",
         category = "biryani",
 //        acceptingOrders = true,
-//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 2 mins, but why wait? Place your order right away!",
         ),
     TopRatedRestaurantItem(
         id = 4,
-        imageRes = R.drawable.ic_top_rated_food_13,
+        imageRes = R.drawable.ic_sanjha_chulha,
         title = "North Indian Combo",
         price = "229",
         restaurantName = "Sanjha Chulha",
@@ -715,8 +506,24 @@ val completeRestaurantItems = listOf(
 //        acceptingOrders = true,
 //        acceptingOrdersMsg = ""
         ),
-        TopRatedRestaurantItem(
+    TopRatedRestaurantItem(
         id = 5,
+        imageRes = R.drawable.ic_pizza_wings,
+        title = "Peppers Pizza",
+        price = "199",
+        restaurantName = "Pizza Wings",
+        rating = "4.2",
+        deliveryTime = "25-30 mins",
+        distance = "2.5 km",
+        discount = "30%",
+        discountAmount = "₹20",
+        address = "Sector 37",
+        category = "pizza",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
+        ),
+    TopRatedRestaurantItem(
+        id = 6,
         imageRes = R.drawable.ic_top_rated_food_dana_choga,
         title = "Dana Choga Special",
         price = "299",
@@ -730,10 +537,11 @@ val completeRestaurantItems = listOf(
         category = "northindian",
         acceptingOrders = false,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
-    ),
+
+        ),
     TopRatedRestaurantItem(
-        id = 6,
-        imageRes = R.drawable.ic_top_rated_food_3,
+        id = 7,
+        imageRes = R.drawable.ic_spice_garden,
         title = "Big Bowl",
         price = "150",
         restaurantName = "Spice Garden",
@@ -747,7 +555,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 7,
+        id = 8,
         imageRes = R.drawable.ic_top_rated_food_kfc,
         title = "Chicken Bucket",
         price = "350",
@@ -763,7 +571,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 8,
+        id = 9,
         imageRes = R.drawable.ic_top_rated_food_curry_queen,
         title = "Curry Combo",
         price = "279",
@@ -779,7 +587,7 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 9,
+        id = 10,
         imageRes = R.drawable.ic_top_rated_food_subway,
         title = "Sub Sandwich",
         price = "200",
@@ -795,8 +603,8 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 10,
-        imageRes = R.drawable.ic_top_rated_food_2,
+        id = 11,
+        imageRes = R.drawable.ic_amiche_pizza,
         title = "Bakingo",
         price = "220",
         restaurantName = "Amiche Pizza",
@@ -811,8 +619,8 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 11,
-        imageRes = R.drawable.ic_top_rated_food_5,
+        id = 12,
+        imageRes = R.drawable.ic_pizza_heaven,
         title = "Zaika Food",
         price = "199",
         restaurantName = "Pizza Heaven",
@@ -827,8 +635,8 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 12,
-        imageRes = R.drawable.ic_top_rated_food_6,
+        id = 13,
+        imageRes = R.drawable.ic_pizza_corner,
         title = "Havmor Ice Cream",
         price = "199",
         restaurantName = "Pizza Corner",
@@ -843,8 +651,8 @@ val completeRestaurantItems = listOf(
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
-        id = 13,
-        imageRes = R.drawable.ic_top_rated_food_12,
+        id = 14,
+        imageRes = R.drawable.ic_burger_king,
         title = "Whopper Meal",
         price = "249",
         restaurantName = "Burger King",
@@ -858,20 +666,4 @@ val completeRestaurantItems = listOf(
         acceptingOrders = true,
         acceptingOrdersMsg = ""
     ),
-    TopRatedRestaurantItem(
-        id = 14,
-        imageRes = R.drawable.ic_top_rated_food_4,
-        title = "Peppers Pizza",
-        price = "199",
-        restaurantName = "Pizza Express",
-        rating = "4.2",
-        deliveryTime = "25-30 mins",
-        distance = "2.5 km",
-        discount = "30%",
-        discountAmount = "₹20",
-        address = "Pacific Jasola",
-        category = "pizza",
-        acceptingOrders = true,
-        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 14 mins, but why wait? Place your order right away!",
-    )
 )
