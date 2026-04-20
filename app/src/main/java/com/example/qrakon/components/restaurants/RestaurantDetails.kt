@@ -127,8 +127,11 @@ fun RestaurantDetails(
                 ViewCartButton(
 //                    itemCount = cartItemCount,
                     onViewCartClick = {
-                        // Navigate to cart screen
-                        navController.navigate("cart_screen")
+                        // Navigate to CheckOutFood
+                        // For example with Compose Navigation:
+                        navController.navigate("checkout_food")
+                        // Or with Activity navigation:
+                        // context.startActivity(Intent(context, CheckOutFoodActivity::class.java))
                     }
                 )
 //            }
@@ -155,6 +158,22 @@ fun RestaurantDetails(
                             contentDescription = "Back",
                             tint = MaterialTheme.customColors.white,
                             modifier = Modifier.size(28.dp)
+                        )
+                    }
+                    if (restaurantItem?.premium == "premium") {
+                        Icon(
+                            painter = painterResource(id = R.drawable.premium),
+                            contentDescription = "Back",
+                            tint = Color.Unspecified,
+                            modifier = Modifier.height(35.dp)
+                        )
+                    }
+                    else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ultra_premium),
+                            contentDescription = "Back",
+                            tint = Color.Unspecified,
+                            modifier = Modifier.height(35.dp)
                         )
                     }
 

@@ -625,7 +625,11 @@ fun FoodScreen(navController: NavHostController? = null) {
             ViewCartButton(
                 itemCount = 1,
                 onViewCartClick = {
-                    // Navigate to cart
+                    // Navigate to CheckOutFood
+                    // For example with Compose Navigation:
+                    navController?.navigate("checkout_food")
+                    // Or with Activity navigation:
+                    // context.startActivity(Intent(context, CheckOutFoodActivity::class.java))
                 }
             )
         }

@@ -1,6 +1,8 @@
 package com.example.qrakon.components.navigation
 
 import RestaurantInfo
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -13,10 +15,12 @@ import com.example.qrakon.components.homescreen.CategoryScreen
 import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen
 import com.example.qrakon.components.homescreen.AddressMap
 import com.example.qrakon.components.location.LocationAddress
+import com.example.qrakon.components.restaurants.CheckOutFood
 import com.example.qrakon.components.restaurants.RestaurantDetails
 import com.example.qrakon.components.restaurants.TopRatedRestaurantItem
 import com.example.qrakon.components.restaurants.completeRestaurantItems
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavGraph(navController: NavHostController) {
     NavHost(
@@ -158,6 +162,24 @@ fun AppNavGraph(navController: NavHostController) {
                 onGoBackToMenu = { navController.popBackStack() }
             )
         }
+
+
+        // ✅ ADD THIS: CheckOutFood route
+        composable("checkout_food") {
+            CheckOutFood(
+                onBackClick = { navController.popBackStack() },
+                onConfirmOrder = {
+                    // Handle order confirmation - navigate to success screen or pop back
+                    navController.navigate("order_confirmation") {
+                        popUpTo("checkout_food") { inclusive = true }
+                    }
+                },
+                // Optional: Pass cart items data if needed
+                // cartItems = cartItemsList,
+                // totalAmount = totalAmount
+            )
+        }
+
     }
 }
 
