@@ -1,14 +1,18 @@
 package com.example.qrakon.components.restaurants
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,15 +23,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -55,8 +64,8 @@ fun CheckOutFood(
                         .background(
                             brush = Brush.horizontalGradient(
                                 colors = listOf(
-                                    Color(0xFFCFEAFF),
-                                    Color(0xFFFDFEFF)
+                                    Color.White,
+                                    Color.White,
                                 )
                             )
                         )
@@ -118,7 +127,7 @@ fun CheckOutFood(
                             .clip(RoundedCornerShape(8.dp))
                             .background(
                                 brush = Brush.horizontalGradient(
-                                    colors = listOf(Color(0xFF84C6FA), Color(0xFFFFFFFF))
+                                    colors = listOf(Color(0xFFDDFBEF), Color(0xFFDDFBEF))
                                 )
                             )
                     ) {
@@ -126,13 +135,45 @@ fun CheckOutFood(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = "224 Saved with store", fontSize = 12.sp, color = Color.Black)
+                            Text(text = "224 Saved with",
+                                fontSize = 14.sp,
+                                color = MaterialTheme.customColors.greenTitle,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Image(
+                                painter = painterResource(R.drawable.ic_99_store),
+                                contentDescription = "Offer Image",
+                                modifier = Modifier
+                                    .height(20.dp)
+                                    .width(45.dp),
+                                contentScale = ContentScale.FillBounds
+                            )
                         }
                     }
                 }
             }
         },
-        containerColor = Color(0xFFF5F5F5)
+        containerColor = Color(0xFFF5F5F5),
+        bottomBar = {
+            // Payment Button at Bottom
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+//                .padding(bottom = 16.dp)
+
+                shadowElevation = 8.dp,
+                color = Color.White
+            ) {
+                PaymentButtonF(
+                    amount = "₹1710",
+                    paymentMethod = "Credit card",
+                    cardLast4 = "6247",
+                    onClick = {
+                        // Handle payment click
+                    }
+                )
+            }
+        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
@@ -167,14 +208,41 @@ fun CheckOutFood(
             }
 
             // Delivery Type Section
-//            item {
-//                DeliveryTypeCard()
-//            }
-//
-//            // Payment Summary Section
-//            item {
-//                PaymentSummaryCard(onPayClick = onConfirmOrder)
-//            }
+            item {
+                DeliveryTypeCard()
+            }
+
+            // Payment Summary Section
+            item {
+                PaymentSummaryCard()
+            }
+
+            // Cancellation policy Section
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                ) {
+                    Text(
+                        text = "Cancellation policy:",
+                        fontSize = 14.sp,
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Please double-check your order and address details. Orders are non-refundable once placed.",
+                        fontSize = 12.sp,
+                        color = Color.Gray
+                    )
+                }
+            }
+
+            // Add bottom padding to avoid overlap with bottom bar
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }
@@ -200,10 +268,11 @@ fun MembershipExpiredCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.icon_one),
+                        painter = painterResource(id = R.drawable.ic_prime),
                         contentDescription = "One",
                         tint = Color.Unspecified,
                         modifier = Modifier.height(15.dp)
+                            .width(35.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -274,6 +343,9 @@ fun MembershipExpiredCard(
 fun OrderItemsList() {
     var pizzaQuantity by remember { mutableStateOf(1) }
     var twistiesQuantity by remember { mutableStateOf(1) }
+    var burgerQuantity by remember { mutableStateOf(1) }
+    var friesQuantity by remember { mutableStateOf(1) }
+    var drinkQuantity by remember { mutableStateOf(1) }
 
     Column(modifier = Modifier.padding(12.dp)) {
         // Item 1: Spicy Twisties
@@ -285,11 +357,11 @@ fun OrderItemsList() {
             onQuantityChange = { twistiesQuantity = it }
         )
 
-//        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        Divider(modifier = Modifier.padding(vertical = 8.dp))
 
         // Item 2: Cheese Margherita Cheese Burst Pizza
         OrderItemWithQuantityAndCustomization(
-            name = "Cheese Margherita Cheese Burst Pizza",
+            name = "Cheese Margherita Pizza",
             originalPrice = "₹599",
             discountedPrice = "₹439",
             finalPrice = "₹399",
@@ -300,8 +372,45 @@ fun OrderItemsList() {
             onDropdownClick = { }
         )
 
-//        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+        // Item 3: Classic Chicken Burger
+        OrderItemWithQuantity(
+            name = "Classic Chicken Burger",
+            originalPrice = "₹299",
+            discountedPrice = "₹199",
+            quantity = burgerQuantity,
+            onQuantityChange = { burgerQuantity = it }
+        )
+
+        Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+        // Item 4: French Fries with Dip
+        OrderItemWithQuantityAndCustomization(
+            name = "French Fries with Dip",
+            originalPrice = "₹149",
+            discountedPrice = "₹99",
+            finalPrice = "₹89",
+            subtitle = "Extra Dip: Tomato Ketchup",
+            quantity = friesQuantity,
+            onQuantityChange = { friesQuantity = it },
+            showDropdown = true,
+            onDropdownClick = { }
+        )
+
+        Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+        // Item 5: Cold Drink (Pepsi/Coke)
+        OrderItemWithQuantity(
+            name = "Cold Drink (Pepsi/Coke)",
+            originalPrice = "₹60",
+            discountedPrice = "₹40",
+            quantity = drinkQuantity,
+            onQuantityChange = { drinkQuantity = it }
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
+
         // Add Items Row
         AddItemsRow()
     }
@@ -335,7 +444,7 @@ fun OrderItemWithQuantity(
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = name,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
             )
         }
@@ -349,7 +458,7 @@ fun OrderItemWithQuantity(
             Row(
                 modifier = Modifier
                     .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(
                     text = "-",
@@ -360,13 +469,13 @@ fun OrderItemWithQuantity(
                         if (quantity > 1) onQuantityChange(quantity - 1)
                     }
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = quantity.toString(),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = "+",
                     fontSize = 16.sp,
@@ -383,7 +492,7 @@ fun OrderItemWithQuantity(
             // Prices column with fixed width
             Column(
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.width(30.dp)
+                modifier = Modifier.width(35.dp)
             ) {
                 Text(
                     text = originalPrice,
@@ -393,9 +502,9 @@ fun OrderItemWithQuantity(
                 )
                 Text(
                     text = discountedPrice,
-                    fontSize = 14.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFE53935)
+                    color = Color.Black
                 )
             }
         }
@@ -424,7 +533,7 @@ fun OrderItemWithQuantityAndCustomization(
             modifier = Modifier.weight(1f)
         ) {
             Row(
-//                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically,
 //                modifier = Modifier.weight(1f)
             ) {
                 Icon(
@@ -438,7 +547,7 @@ fun OrderItemWithQuantityAndCustomization(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = name,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
             }
@@ -481,7 +590,7 @@ fun OrderItemWithQuantityAndCustomization(
             Row(
                 modifier = Modifier
                     .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(
                     text = "-",
@@ -492,13 +601,13 @@ fun OrderItemWithQuantityAndCustomization(
                         if (quantity > 1) onQuantityChange(quantity - 1)
                     }
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = quantity.toString(),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = "+",
                     fontSize = 16.sp,
@@ -515,7 +624,7 @@ fun OrderItemWithQuantityAndCustomization(
             // Prices column with fixed width
             Column(
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.width(30.dp)
+                modifier = Modifier.width(35.dp)
             ) {
                 Text(
                     text = originalPrice,
@@ -526,9 +635,9 @@ fun OrderItemWithQuantityAndCustomization(
                 )
                 Text(
                     text = discountedPrice,
-                    fontSize = 14.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF388E3C),
+                    color = Color.Black,
                     maxLines = 1
                 )
             }
@@ -826,7 +935,7 @@ fun CompleteYourMealItem(
 
     Column(
         modifier = Modifier
-            .width(90.dp)
+            .width(75.dp)
             .background(Color(0xFFF5F5F5), RoundedCornerShape(12.dp))
 //            .padding(8.dp)
     ) {
@@ -835,7 +944,7 @@ fun CompleteYourMealItem(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp)
+                .height(75.dp)
                 .clip(RoundedCornerShape(10.dp))
         ) {
             Image(
@@ -882,7 +991,7 @@ fun CompleteYourMealItem(
         Box {
             Text(
                 text = data.name,
-                fontSize = 13.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
@@ -898,7 +1007,7 @@ fun CompleteYourMealItem(
                 contentDescription = if (data.isVeg) "Veg" else "Non-Veg",
                 tint = Color.Unspecified,
                 modifier = Modifier
-                    .size(14.dp)
+                    .size(12.dp)
                     .align(Alignment.TopStart)
             )
         }
@@ -908,7 +1017,7 @@ fun CompleteYourMealItem(
         // Price
         Text(
             text = data.price,
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
@@ -1164,104 +1273,903 @@ fun SavingsRow(
     }
 }
 
+
 @Composable
 fun DeliveryTypeCard() {
+    var selectedTab by remember { mutableStateOf(0) }
+    val tabs = listOf("Delivery Type", "Tip", "Instructions")
+
+    // State for selected delivery option
+    var selectedDeliveryOption by remember { mutableStateOf(0) }
+
+    // State for selected tip amount
+    var selectedTip by remember { mutableStateOf(1) } // 0: ₹20, 1: ₹30, 2: ₹50
+    var customTipAmount by remember { mutableStateOf("") }
+    var showCustomTipInput by remember { mutableStateOf(false) }
+
+    // State for instructions
+    var directions by remember { mutableStateOf(false) } // Add this state
+    var leaveAtDoor by remember { mutableStateOf(false) }
+    var avoidRinging by remember { mutableStateOf(false) }
+    var leaveWithSecurity by remember { mutableStateOf(false) }
+    var avoidCalling by remember { mutableStateOf(false) }
+    var directionsToReach by remember { mutableStateOf("") }
+
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+//                .padding(16.dp)
+        ) {
+            // Tab Row
+            Surface(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 0.dp),
+                shape = RoundedCornerShape(30.dp),
+                color = Color(0xFFF5F5F5)
             ) {
-                Text("Delivery Type", fontWeight = FontWeight.Bold)
-                Text("Tip", fontWeight = FontWeight.Bold)
-                Text("Instructions", fontWeight = FontWeight.Bold)
+                ScrollableTabRow(
+                    selectedTabIndex = selectedTab,
+                    containerColor = Color.Transparent,
+                    edgePadding = 0.dp,
+                    divider = {},
+                    indicator = { tabPositions ->
+                        if (selectedTab < tabPositions.size) {
+                            val currentTab = tabPositions[selectedTab]
+                            Box(
+                                modifier = Modifier
+                                    .tabIndicatorOffset(currentTab)
+                                    .width(currentTab.width)
+                                    .fillMaxHeight()
+                                    .background(
+                                        color = Color.Black,
+                                        shape = RoundedCornerShape(30.dp)
+                                    )
+                                    .zIndex(0f)
+                            )
+                        }
+                    }
+                ) {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(
+                            selected = selectedTab == index,
+                            onClick = { selectedTab = index },
+                            modifier = Modifier
+                                .zIndex(1f),
+                            text = {
+                                Text(
+                                    text = title,
+                                    fontSize = 13.sp,
+                                    fontWeight = if (selectedTab == index)
+                                        FontWeight.Bold else FontWeight.Medium,
+                                    color = if (selectedTab == index)
+                                        Color.White else Color.Black,
+                                    modifier = Modifier.padding(horizontal = 5.dp, vertical = 0.dp)
+                                )
+                            }
+                        )
+                    }
+                }
             }
-            Spacer(modifier = Modifier.height(12.dp))
-            DeliveryOptionRow(title = "Express - ₹29 ₹19", time = "20-25 mins", isSelected = true)
-            DeliveryOptionRow(title = "Standard", subtitle = "Minimal order grouping", time = "25-30 mins")
-            DeliveryOptionRow(title = "Eco Saver", subtitle = "Lesser CO2 by order grouping", time = "30-40 mins")
+
+//            Spacer(modifier = Modifier.height(16.dp))
+
+            // Tab Content
+            when (selectedTab) {
+                0 -> DeliveryTypeContent(
+                    selectedOption = selectedDeliveryOption,
+                    onOptionSelected = { selectedDeliveryOption = it }
+                )
+                1 -> TipContent(
+                    selectedTip = selectedTip,
+                    onTipSelected = { selectedTip = it },
+                    customTipAmount = customTipAmount,
+                    onCustomTipChange = { customTipAmount = it },
+                    showCustomTipInput = showCustomTipInput,
+                    onShowCustomTipInput = { showCustomTipInput = it }
+                )
+                2 -> InstructionsContent(
+                    directions = directions,  // Add this
+                    onDirectionsChange = { directions = it },  // Add this
+                    leaveAtDoor = leaveAtDoor,
+                    onLeaveAtDoorChange = { leaveAtDoor = it },
+                    avoidRinging = avoidRinging,
+                    onAvoidRingingChange = { avoidRinging = it },
+                    leaveWithSecurity = leaveWithSecurity,
+                    onLeaveWithSecurityChange = { leaveWithSecurity = it },
+                    avoidCalling = avoidCalling,
+                    onAvoidCallingChange = { avoidCalling = it },
+                    directionsToReach = directionsToReach,
+                    onDirectionsToReachChange = { directionsToReach = it }
+                )
+            }
         }
     }
 }
 
 @Composable
-fun DeliveryOptionRow(title: String, subtitle: String = "", time: String, isSelected: Boolean = false) {
+fun DeliveryTypeContent(
+    selectedOption: Int,
+    onOptionSelected: (Int) -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()){
+        // Express Option
+        DeliveryOptionItem(
+            title = "Express-4",
+            price = "₹29",
+            discountedPrice = "₹19",
+            time = "20–25 mins",
+            subtitle = "Fastest delivery, directly to you!",
+            isSelected = selectedOption == 0,
+            onClick = { onOptionSelected(0) }
+        )
+        Divider(modifier = Modifier.padding(vertical = 0.dp))
+        // Standard Option
+        DeliveryOptionItem(
+            title = "Standard",
+            price = null,
+            discountedPrice = null,
+            time = "25–30 mins",
+            subtitle = "Minimal order grouping",
+            isSelected = selectedOption == 1,
+            onClick = { onOptionSelected(1) }
+        )
+        Divider(modifier = Modifier.padding(vertical = 0.dp))
+        // Eco Saver Option
+        DeliveryOptionItem(
+            title = "Eco Saver",
+            price = null,
+            discountedPrice = null,
+            time = "30–40 mins",
+            subtitle = "Lesser CO2 by order grouping",
+            isSelected = selectedOption == 2,
+            onClick = { onOptionSelected(2) }
+        )
+    }
+}
+
+@Composable
+fun DeliveryOptionItem(
+    title: String,
+    price: String?,
+    discountedPrice: String?,
+    time: String,
+    subtitle: String,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(if (isSelected) Color(0xFFE3F2FD) else Color.Transparent)
-            .padding(8.dp),
+//            .background(
+//                if (isSelected) Color(0xFFE3F2FD) else Color.Transparent
+//            )
+            .clickable { onClick() }
+            .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
-            Text(
-                text = title,
-                fontSize = 14.sp,
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (isSelected) Color(0xFF1565C0) else Color.Black
+        Row(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RadioButton(
+                selected = isSelected,
+                onClick = onClick,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.customColors.buttonRed
+                )
             )
-            if (subtitle.isNotEmpty()) {
-                Text(subtitle, fontSize = 11.sp, color = Color.Gray)
+            Spacer(modifier = Modifier.width(4.dp))
+            Column {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = title,
+                        fontSize = 14.sp,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isSelected) MaterialTheme.customColors.buttonRed else Color.Black
+                    )
+                    if (price != null) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = price,
+                            fontSize = 12.sp,
+                            color = Color.Gray,
+                            textDecoration = TextDecoration.LineThrough
+                        )
+                    }
+                    if (discountedPrice != null) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = discountedPrice,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.customColors.buttonRed
+                        )
+                    }
+                }
+                Text(
+                    text = subtitle,
+                    fontSize = 11.sp,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(top = 0.dp)
+                )
             }
         }
-        Text(time, fontSize = 12.sp, color = Color.Gray)
+
+        Text(
+            text = time,
+            fontSize = 12.sp,
+            fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
+            color = if (isSelected) MaterialTheme.customColors.buttonRed else Color.Gray,
+            textAlign = TextAlign.End
+        )
+    }
+}
+
+@Composable
+fun TipContent(
+    selectedTip: Int,
+    onTipSelected: (Int) -> Unit,
+    customTipAmount: String,
+    onCustomTipChange: (String) -> Unit,
+    showCustomTipInput: Boolean,
+    onShowCustomTipInput: (Boolean) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        // Description Row with Text and Image
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Day & night, our delivery partners bring your favourite meals. Thank them with a tip.",
+                fontSize = 13.sp,
+                color = Color.Gray,
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_tip_hand),
+                contentDescription = "Thank delivery partner",
+                modifier = Modifier
+                    .size(68.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Tip Amount Options
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            TipAmountChip(
+                amount = "₹20",
+                isSelected = selectedTip == 0,
+                onClick = {
+                    onTipSelected(0)
+                    onShowCustomTipInput(false)
+                },
+                modifier = Modifier.weight(1f)
+            )
+
+            TipAmountChip(
+                amount = "₹30",
+                isSelected = selectedTip == 1,
+                onClick = {
+                    onTipSelected(1)
+                    onShowCustomTipInput(false)
+                },
+                modifier = Modifier.weight(1f)
+            )
+
+            TipAmountChip(
+                amount = "₹50",
+                isSelected = selectedTip == 2,
+                onClick = {
+                    onTipSelected(2)
+                    onShowCustomTipInput(false)
+                },
+                modifier = Modifier.weight(1f)
+            )
+
+            TipAmountChip(
+                amount = "Other",
+                isSelected = showCustomTipInput,
+                onClick = {
+                    onShowCustomTipInput(!showCustomTipInput)
+                    onTipSelected(-1)
+                },
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        // Custom Tip Input
+        if (showCustomTipInput) {
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = customTipAmount,
+                onValueChange = onCustomTipChange,
+                placeholder = { Text("Enter amount") },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                singleLine = true,
+                prefix = { Text("₹") }
+            )
+        }
+    }
+}
+
+
+@Composable
+fun TipAmountChip(
+    amount: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                if (isSelected) Color.White else Color.White
+            )
+            .border(
+                width = 1.dp,
+                color = if (isSelected) MaterialTheme.customColors.orangeButton else Color(0xFFE0E0E0),
+                shape = RoundedCornerShape(12.dp)
+            )
+            .clickable { onClick() }
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 6.dp, vertical = 10.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = amount,
+                fontSize = 14.sp,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold,
+                color = if (isSelected) MaterialTheme.customColors.orangeButton else Color(0xFF212121)
+            )
+        }
+    }
+}
+
+
+@Composable
+fun InstructionsContent(
+    directions: Boolean,
+    onDirectionsChange: (Boolean) -> Unit, // Added this parameter
+    leaveAtDoor: Boolean,
+    onLeaveAtDoorChange: (Boolean) -> Unit,
+    avoidRinging: Boolean,
+    onAvoidRingingChange: (Boolean) -> Unit,
+    leaveWithSecurity: Boolean,
+    onLeaveWithSecurityChange: (Boolean) -> Unit,
+    avoidCalling: Boolean,
+    onAvoidCallingChange: (Boolean) -> Unit,
+    directionsToReach: String,
+    onDirectionsToReachChange: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Delivery Instructions Section
+//        Text(
+//            text = "Delivery Instructions",
+//            fontSize = 14.sp,
+//            fontWeight = FontWeight.Bold,
+//            color = Color.Black
+//        )
+
+        // Horizontally scrollable instruction cards
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            InstructionCard(
+                iconRes = R.drawable.ic_directions,
+                title = "Directions",
+                subtitle = "to reach",
+                isSelected = directions,
+                onClick = { onDirectionsChange(!directions) } // Fixed: now uses correct callback
+            )
+
+            InstructionCard(
+                iconRes = R.drawable.ic_avoid_call,
+                title = "Avoid",
+                subtitle = "calling",
+                isSelected = avoidCalling,
+                onClick = { onAvoidCallingChange(!avoidCalling) }
+            )
+
+            InstructionCard(
+                iconRes = R.drawable.ic_leave_door,
+                title = "Leave at",
+                subtitle = "the door",
+                isSelected = leaveAtDoor,
+                onClick = { onLeaveAtDoorChange(!leaveAtDoor) }
+            )
+
+            InstructionCard(
+                iconRes = R.drawable.ic_bell,
+                title = "Avoid",
+                subtitle = "ringing bell",
+                isSelected = avoidRinging,
+                onClick = { onAvoidRingingChange(!avoidRinging) }
+            )
+
+            InstructionCard(
+                iconRes = R.drawable.ic_security,
+                title = "Leave with",
+                subtitle = "security",
+                isSelected = leaveWithSecurity,
+                onClick = { onLeaveWithSecurityChange(!leaveWithSecurity) }
+            )
+        }
+
+        // Optional: Show text field only when Directions is selected
+//        if (directions) {
+//            OutlinedTextField(
+//                value = directionsToReach,
+//                onValueChange = onDirectionsToReachChange,
+//                placeholder = { Text("Add directions for delivery partner...") },
+//                modifier = Modifier.fillMaxWidth(),
+//                shape = RoundedCornerShape(8.dp),
+//                minLines = 2,
+//                maxLines = 4,
+//                colors = OutlinedTextFieldDefaults.colors(
+//                    focusedBorderColor = Color(0xFF1565C0),
+//                    unfocusedBorderColor = Color(0xFFE0E0E0)
+//                )
+//            )
+//        }
+    }
+}
+
+@Composable
+fun InstructionCard(
+    iconRes: Int,
+    title: String,
+    subtitle: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .width(100.dp)
+            .height(90.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick() },
+        color = if (isSelected) Color(0xFFFFECE5) else Color.White,
+        shape = RoundedCornerShape(12.dp),
+        border = if (isSelected) BorderStroke(1.dp, MaterialTheme.customColors.orangeButton.copy(0.5f)) else  BorderStroke(1.dp, Color.Gray)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Icon at top
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = title,
+                tint =  if (isSelected) MaterialTheme.customColors.orangeButton.copy(0.5f) else Color.Unspecified,
+                modifier = Modifier.size(24.dp)
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            // Text in two lines
+            Text(
+                text = title,
+                fontSize = 12.sp,
+                fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
+                color = if (isSelected) Color.Black else Color.Black,
+                textAlign = TextAlign.Center
+            )
+
+            Text(
+                text = subtitle,
+                fontSize = 12.sp,
+                fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
+                color = if (isSelected) Color.Black else Color.Black,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
 @Composable
 fun PaymentSummaryCard() {
+
+    var expanded by remember { mutableStateOf(false) }
+
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize() // smooth expand/collapse
+            .clickable { expanded = !expanded },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+
+        Column(modifier = Modifier
+//            .padding(16.dp)
+        ) {
+
+            // 🔹 Top Row (Always Visible)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "To Pay", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(text = "₹1356 ₹1132", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "₹224 saved on the total!", fontSize = 12.sp, color = Color(0xFF388E3C))
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "FREE Delivery on your order!", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF388E3C))
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = "Cancellation policy:\nPlease double-check your order and address details. Orders are non-refundable once placed.",
-                fontSize = 12.sp,
-                color = Color.Gray
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Divider()
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.CreditCard, contentDescription = null, modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Credit card - 6247", fontSize = 14.sp)
-                }
-                Button(
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE53935)),
-                    shape = RoundedCornerShape(8.dp)
+                // Left side: Receipt Icon + Payment Details
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
                 ) {
-                    Text("Pay ₹1132", fontSize = 16.sp)
+                    Icon(
+                        imageVector = Icons.Default.Receipt,
+                        contentDescription = null,
+                        tint = Color(0xFF2E7D32),
+                        modifier = Modifier.size(20.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    // Payment Details
+                    Column {
+                        Row {
+                            Text(
+                                text = "To Pay",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "₹995.99",
+                                fontSize = 14.sp,
+                                color = Color.Gray,
+                                textDecoration = TextDecoration.LineThrough
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "₹751",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Text(
+                            text = "₹244.99 saved on the total!",
+                            fontSize = 12.sp,
+                            color = Color(0xFF2E7D32)
+                        )
+                    }
                 }
+
+                // Right side: Expand/Collapse Icon
+                Icon(
+                    imageVector = if (expanded) Icons.Default.KeyboardArrowUp
+                    else Icons.Default.KeyboardArrowDown,
+                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+            // 🔽 Expandable Section
+            if (expanded) {
+                Divider()
+
+
+                Column(modifier = Modifier.padding(16.dp)) {
+                    PaymentRow(
+                        "Item Total",
+                        "₹572",
+                        "₹352.01",
+                        valueColor = MaterialTheme.customColors.success,
+                        labelColor = Color.Black
+                    )
+
+                    PaymentRow(
+                        label = "Delivery Fee | 60.0 kms",
+                        value = "₹103.00",
+                        valueColor = Color.Black,
+                        labelColor = Color.Black,
+                        showDottedUnderline = true
+                    )
+
+                    Text(
+                        text = "This fee fairly goes to our delivery partners for delivering your food",
+                        fontSize = 11.sp,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 0.dp)
+                    )
+
+                    PaymentRow(
+                        label = "Extra discount for you",
+                        value = "-₹25.00",
+                        valueColor = MaterialTheme.customColors.success,
+                        labelColor = Color.Black,
+                        showDottedUnderline = true
+                    )
+
+                    // Dashed line (dashes)
+                    DashedLine(
+                        dashLength = 12f,
+                        gapLength = 8f,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+
+                    PaymentRow(
+                        label = "Delivery Tip",
+                        value = "Add tip",
+                        valueColor = MaterialTheme.customColors.buttonRed,
+                        labelColor = Color.Black,
+                    )
+
+                    PaymentRow(
+                        label = "Cancellation Fee",
+                        value = "₹244",
+                        valueColor = Color.Black,
+                        labelColor = Color.Black,
+                    )
+
+                    PaymentRow(
+                        label = "GST & Other Charges",
+                        value = "₹76.72",
+                        valueColor = Color.Black,
+                        labelColor = Color.Black,
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Dashed line (dashes)
+                    DashedLine(
+                        dashLength = 12f,
+                        gapLength = 8f,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+//                    Divider(
+//                        color = Color.LightGray.copy(alpha = 0.5f),
+//                        thickness = 1.dp
+//                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    PaymentRow(
+                        label = "To Pay",
+                        value = "₹751",
+                        isBold = true,
+                        labelColor = Color.Black,
+                        valueColor = Color.Black,
+                    )
+                }
+
+            }
+        }
+    }
+}
+
+@Composable
+fun DashedLine(
+    color: Color = Color.LightGray,
+    dashLength: Float = 20f,
+    gapLength: Float = 12f,
+    strokeWidth: Dp = 1.dp,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(strokeWidth * 2)
+            .drawBehind {
+                val y = size.height / 2
+                drawLine(
+                    color = color,
+                    start = Offset(0f, y),
+                    end = Offset(size.width, y),
+                    strokeWidth = strokeWidth.toPx(),
+                    pathEffect = PathEffect.dashPathEffect(
+                        floatArrayOf(dashLength, gapLength), 0f
+                    )
+                )
+            }
+    )
+}
+
+@Composable
+fun PaymentRow(
+    label: String,
+    value: String,
+    strikeValue: String? = null,
+    labelColor: Color = Color.DarkGray,
+    valueColor: Color = Color.Black,
+    isBold: Boolean = false,
+    showDottedUnderline: Boolean = false // 👈 control when to show
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(0.7f)
+        ) {
+            Text(
+                text = label,
+                fontSize = 14.sp,
+                color = labelColor,
+                modifier = if (showDottedUnderline) {
+                    Modifier.drawBehind {
+                        val strokeWidth = 2f
+                        val y = size.height + 4f
+
+                        drawLine(
+                            color = Color.LightGray,
+                            start = Offset(0f, y),
+                            end = Offset(size.width, y),
+                            strokeWidth = strokeWidth,
+                            pathEffect = PathEffect.dashPathEffect(
+                                floatArrayOf(6f, 6f), 0f // dotted effect
+                            )
+                        )
+                    }
+                } else Modifier
+            )
+        }
+
+        Row(
+            modifier = Modifier.weight(0.3f),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            strikeValue?.let {
+                Text(
+                    text = it,
+                    fontSize = 14.sp,
+                    color = Color.Gray,
+                    textDecoration = TextDecoration.LineThrough
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+            }
+
+            Text(
+                text = value,
+                fontSize = 14.sp,
+                fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
+                color = valueColor
+            )
+        }
+    }
+}
+
+@Composable
+fun PaymentButtonF(
+    amount: String = "₹1710",
+    paymentMethod: String = "Credit card",
+    cardLast4: String = "6247",
+    onClick: () -> Unit = {}
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+//            .padding(bottom = 16.dp),
+        tonalElevation = 6.dp,
+        shadowElevation = 6.dp,
+        color = Color.White
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .padding(bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            // 🔹 Left Section (Payment Info)
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    // Small card badge (fake VISA style)
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(4.dp))
+                            .border(1.dp, Color.LightGray, RoundedCornerShape(4.dp))
+                            .background(Color.White)
+                            .padding(horizontal = 6.dp, vertical = 6.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_visa),
+                            contentDescription = "VISA",
+                            modifier = Modifier
+                                .height(10.dp)
+                                .width(30.dp),
+//                                .clip(RoundedCornerShape(8.dp)),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Text(
+                        text = "PAY USING",
+                        fontSize = 14.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Medium
+                    )
+
+                    Spacer(modifier = Modifier.width(0.dp))
+
+                    Icon(
+                        painter = painterResource(R.drawable.outline_arrow_drop_up_24),
+                        contentDescription = null,
+                        tint = Color.Gray,
+                        modifier = Modifier.size(40.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(0.dp))
+
+                Text(
+                    text = "$paymentMethod  ••  $cardLast4",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // 🔹 Pay Button
+            Button(
+                onClick = onClick,
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF1FA672) // green like image
+                ),
+                contentPadding = PaddingValues(horizontal = 38.dp, vertical = 15.dp)
+            ) {
+                Text(
+                    text = "Pay $amount",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
             }
         }
     }
