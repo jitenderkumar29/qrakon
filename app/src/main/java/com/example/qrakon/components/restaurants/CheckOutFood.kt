@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,9 +50,11 @@ import com.example.qrakon.ui.theme.customColors
 fun CheckOutFood(
     onBackClick: () -> Unit = {},
     onConfirmOrder: () -> Unit = {},
+    onPaymentClick: () -> Unit = {},
     restaurantName: String = "Pizza Wings",
     restaurantAddress: String = "F109, Arnab House, 4th Floor, Block - F..."
 ) {
+
     Scaffold(
         topBar = {
             Surface(
@@ -168,9 +171,7 @@ fun CheckOutFood(
                     amount = "₹1710",
                     paymentMethod = "Credit card",
                     cardLast4 = "6247",
-                    onClick = {
-                        // Handle payment click
-                    }
+                    onClick = onPaymentClick
                 )
             }
         }
@@ -357,7 +358,10 @@ fun OrderItemsList() {
             onQuantityChange = { twistiesQuantity = it }
         )
 
-        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 8.dp),
+                color = MaterialTheme.customColors.veryLightGray
+        )
 
         // Item 2: Cheese Margherita Cheese Burst Pizza
         OrderItemWithQuantityAndCustomization(
@@ -372,7 +376,10 @@ fun OrderItemsList() {
             onDropdownClick = { }
         )
 
-        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 8.dp),
+            color = MaterialTheme.customColors.veryLightGray
+        )
 
         // Item 3: Classic Chicken Burger
         OrderItemWithQuantity(
@@ -383,7 +390,10 @@ fun OrderItemsList() {
             onQuantityChange = { burgerQuantity = it }
         )
 
-        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 8.dp),
+            color = MaterialTheme.customColors.veryLightGray
+        )
 
         // Item 4: French Fries with Dip
         OrderItemWithQuantityAndCustomization(
@@ -398,7 +408,10 @@ fun OrderItemsList() {
             onDropdownClick = { }
         )
 
-        Divider(modifier = Modifier.padding(vertical = 8.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 8.dp),
+            color = MaterialTheme.customColors.veryLightGray
+        )
 
         // Item 5: Cold Drink (Pepsi/Coke)
         OrderItemWithQuantity(
@@ -1058,7 +1071,10 @@ fun SavingsCornerCard(onAddClick: () -> Unit = {},
                 )
             }
 
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier
+                .padding(vertical = 8.dp),
+                color = MaterialTheme.customColors.veryLightGray
+            )
 
             // ₹180 saved row
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -1069,7 +1085,10 @@ fun SavingsCornerCard(onAddClick: () -> Unit = {},
                 )
             }
 
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier
+                .padding(vertical = 8.dp),
+                color = MaterialTheme.customColors.veryLightGray
+            )
 
             // ₹20 extra off row
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -1080,7 +1099,10 @@ fun SavingsCornerCard(onAddClick: () -> Unit = {},
                 )
             }
 
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier
+                .padding(vertical = 8.dp),
+                color = MaterialTheme.customColors.veryLightGray
+            )
 
             // ₹24 saved row
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -1091,7 +1113,10 @@ fun SavingsCornerCard(onAddClick: () -> Unit = {},
                 )
             }
 
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier
+                .padding(vertical = 8.dp),
+                color = MaterialTheme.customColors.veryLightGray
+            )
 
             // Savings summary row
             Row(
@@ -1409,7 +1434,10 @@ fun DeliveryTypeContent(
             isSelected = selectedOption == 0,
             onClick = { onOptionSelected(0) }
         )
-        Divider(modifier = Modifier.padding(vertical = 0.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 0.dp),
+            color = MaterialTheme.customColors.veryLightGray
+        )
         // Standard Option
         DeliveryOptionItem(
             title = "Standard",
@@ -1420,7 +1448,10 @@ fun DeliveryTypeContent(
             isSelected = selectedOption == 1,
             onClick = { onOptionSelected(1) }
         )
-        Divider(modifier = Modifier.padding(vertical = 0.dp))
+        HorizontalDivider(modifier = Modifier
+            .padding(vertical = 0.dp),
+            color = MaterialTheme.customColors.veryLightGray
+        )
         // Eco Saver Option
         DeliveryOptionItem(
             title = "Eco Saver",
@@ -1888,9 +1919,10 @@ fun PaymentSummaryCard() {
 
             // 🔽 Expandable Section
             if (expanded) {
-                Divider()
-
-
+                HorizontalDivider(modifier = Modifier
+                    .padding(vertical = 0.dp),
+                    color = MaterialTheme.customColors.veryLightGray
+                )
                 Column(modifier = Modifier.padding(16.dp)) {
                     PaymentRow(
                         "Item Total",
@@ -1905,7 +1937,8 @@ fun PaymentSummaryCard() {
                         value = "₹103.00",
                         valueColor = Color.Black,
                         labelColor = Color.Black,
-                        showDottedUnderline = true
+                        showDottedUnderline = true,
+                        makeItFree = true
                     )
 
                     Text(
@@ -1918,6 +1951,13 @@ fun PaymentSummaryCard() {
                     PaymentRow(
                         label = "Extra discount for you",
                         value = "-₹25.00",
+                        valueColor = MaterialTheme.customColors.success,
+                        labelColor = Color.Black,
+                        showDottedUnderline = true
+                    )
+                    PaymentRow(
+                        label = "Item Discount",
+                        value = "-₹49.17",
                         valueColor = MaterialTheme.customColors.success,
                         labelColor = Color.Black,
                         showDottedUnderline = true
@@ -1959,10 +1999,6 @@ fun PaymentSummaryCard() {
                         gapLength = 8f,
                         modifier = Modifier.padding(vertical = 4.dp)
                     )
-//                    Divider(
-//                        color = Color.LightGray.copy(alpha = 0.5f),
-//                        thickness = 1.dp
-//                    )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -2015,7 +2051,8 @@ fun PaymentRow(
     labelColor: Color = Color.DarkGray,
     valueColor: Color = Color.Black,
     isBold: Boolean = false,
-    showDottedUnderline: Boolean = false // 👈 control when to show
+    showDottedUnderline: Boolean = false, // 👈 control when to show
+    makeItFree: Boolean = false // 👈 control when to show
 ) {
     Row(
         modifier = Modifier
@@ -2065,13 +2102,24 @@ fun PaymentRow(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
             }
-
+        Column(
+            horizontalAlignment = Alignment.End   // Aligns the entire Column to the right
+        ) {
             Text(
                 text = value,
                 fontSize = 14.sp,
                 fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
                 color = valueColor
             )
+            if (makeItFree) {
+                Text(
+                    text = "Make it FREE",
+                    fontSize = 14.sp,
+                    fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
+                    color = MaterialTheme.customColors.buttonRed
+                )
+            }
+        }
         }
     }
 }
@@ -2085,7 +2133,6 @@ fun PaymentButtonF(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-//            .padding(bottom = 16.dp),
         tonalElevation = 6.dp,
         shadowElevation = 6.dp,
         color = Color.White
@@ -2097,15 +2144,11 @@ fun PaymentButtonF(
                 .padding(bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // 🔹 Left Section (Payment Info)
+            // Left Section (Payment Info)
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-
                 Row(verticalAlignment = Alignment.CenterVertically) {
-
-                    // Small card badge (fake VISA style)
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(4.dp))
@@ -2119,7 +2162,6 @@ fun PaymentButtonF(
                             modifier = Modifier
                                 .height(10.dp)
                                 .width(30.dp),
-//                                .clip(RoundedCornerShape(8.dp)),
                             contentScale = ContentScale.FillBounds
                         )
                     }
@@ -2133,8 +2175,6 @@ fun PaymentButtonF(
                         fontWeight = FontWeight.Medium
                     )
 
-                    Spacer(modifier = Modifier.width(0.dp))
-
                     Icon(
                         painter = painterResource(R.drawable.outline_arrow_drop_up_24),
                         contentDescription = null,
@@ -2142,8 +2182,6 @@ fun PaymentButtonF(
                         modifier = Modifier.size(40.dp)
                     )
                 }
-
-                Spacer(modifier = Modifier.height(0.dp))
 
                 Text(
                     text = "$paymentMethod  ••  $cardLast4",
@@ -2155,12 +2193,12 @@ fun PaymentButtonF(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            // 🔹 Pay Button
+            // Pay Button
             Button(
                 onClick = onClick,
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1FA672) // green like image
+                    containerColor = Color(0xFF1FA672)
                 ),
                 contentPadding = PaddingValues(horizontal = 38.dp, vertical = 15.dp)
             ) {

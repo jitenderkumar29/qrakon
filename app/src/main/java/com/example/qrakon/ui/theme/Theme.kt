@@ -87,6 +87,7 @@ data class CustomColors(
     // Custom gray colors
     val spacerColor: Color,
     val lightGray: Color,
+    val veryLightGray: Color,
     val gray: Color,
     val darkGray: Color,
     val yellowish: Color,
@@ -181,6 +182,7 @@ val LightCustomColors = CustomColors(
     // Custom gray colors
     spacerColor = Color(0xFFE3E2E2),
     lightGray = Color(0xFFF5F5F5),
+    veryLightGray = Color(0xFFF0F0F0),
     gray = Color(0xFF9E9E9E),
     darkGray = Color(0xFF424242),
     yellowish = Color(0xFF9DEE21),
@@ -270,6 +272,7 @@ val DarkCustomColors = CustomColors(
     // Custom gray colors
     spacerColor = Color(0xFFE3E2E2),
     lightGray = Color(0xFF2D2D2D),
+    veryLightGray = Color(0xFFF0F0F0),
     gray = Color(0xFF555555),
     darkGray = Color(0xFF1A1A1A),
     yellowish = Color(0xFF9DEE21),

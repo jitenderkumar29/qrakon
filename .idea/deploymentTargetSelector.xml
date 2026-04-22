@@ -13,6 +13,9 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
+      <SelectionState runConfigName="PaymentOptionsPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
       <SelectionState runConfigName="CheckOutFoodPreview">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>

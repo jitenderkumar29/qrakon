@@ -16,6 +16,7 @@ import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen
 import com.example.qrakon.components.homescreen.AddressMap
 import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.components.restaurants.CheckOutFood
+import com.example.qrakon.components.restaurants.PaymentOptionsF
 import com.example.qrakon.components.restaurants.RestaurantDetails
 import com.example.qrakon.components.restaurants.TopRatedRestaurantItem
 import com.example.qrakon.components.restaurants.completeRestaurantItems
@@ -142,18 +143,7 @@ fun AppNavGraph(navController: NavHostController) {
 
             RestaurantInfo(
                 restaurantName = restaurantItem?.restaurantName ?: "",
-//                cuisineInfo = restaurantItem?.cuisineInfo ?: "",
                 address = restaurantItem?.address ?: "",
-//                openStatus = restaurantItem?.openStatus ?: "Open now",
-//                closeStatus = restaurantItem?.closeStatus ?: "Closes 11:00 pm",
-//                serviceType = restaurantItem?.serviceType ?: "Provides both delivery & dining",
-//                sinceYear = restaurantItem?.sinceYear ?: "2020",
-//                legalName = restaurantItem?.legalName ?: "",
-//                gstNumber = restaurantItem?.gstNumber ?: "",
-//                isBikgane = restaurantItem?.isBikgane ?: false,
-//                bikganeLegalName = restaurantItem?.bikganeLegalName ?: "",
-//                bikganeGst = restaurantItem?.bikganeGst ?: "",
-//                fssaiLicense = restaurantItem?.fssaiLicense ?: "",
                 onBackPressed = { navController.popBackStack() },
                 onSaveRestaurant = { /* Handle save */ },
                 onShareRestaurant = { /* Handle share */ },
@@ -163,23 +153,42 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-
-        // ✅ ADD THIS: CheckOutFood route
+        // ✅ CheckOutFood route with payment navigation
         composable("checkout_food") {
             CheckOutFood(
                 onBackClick = { navController.popBackStack() },
                 onConfirmOrder = {
-                    // Handle order confirmation - navigate to success screen or pop back
+                    // Handle order confirmation - navigate to success screen
                     navController.navigate("order_confirmation") {
                         popUpTo("checkout_food") { inclusive = true }
                     }
                 },
-                // Optional: Pass cart items data if needed
-                // cartItems = cartItemsList,
-                // totalAmount = totalAmount
+                onPaymentClick = {
+                    // Navigate to payment options screen
+                    navController.navigate("payment_options")
+                }
             )
         }
 
+        // ✅ Payment Options route
+        composable("payment_options") {
+            PaymentOptionsF(
+                onBackClick = { navController.popBackStack() },
+                onPaymentComplete = { paymentDetails ->
+                    // Handle successful payment
+                    // Navigate back to checkout or to order confirmation
+                    navController.navigate("order_confirmation") {
+                        popUpTo("checkout_food") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        // ✅ My Orders route (optional - you may need to create this)
+        composable("my_orders") {
+            // MyOrdersScreen()
+            navController.popBackStack()
+        }
     }
 }
 
