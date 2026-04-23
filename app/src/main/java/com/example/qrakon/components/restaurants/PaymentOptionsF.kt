@@ -100,7 +100,7 @@ fun PaymentOptionsF(
 //                        }
                     )
                     CreditDebitCardsSection()
-//                    MorePaymentOptionsSection()
+                    MorePaymentOptionsSection()
                 }
             }
         }

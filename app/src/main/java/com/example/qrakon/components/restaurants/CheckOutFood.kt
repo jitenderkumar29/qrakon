@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -40,8 +41,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.zIndex
 import com.example.qrakon.R
+import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.ui.theme.customColors
 
 
@@ -52,8 +56,13 @@ fun CheckOutFood(
     onConfirmOrder: () -> Unit = {},
     onPaymentClick: () -> Unit = {},
     restaurantName: String = "Pizza Wings",
-    restaurantAddress: String = "F109, Arnab House, 4th Floor, Block - F..."
+    initialRestaurantAddress: String = "" // Changed parameter name to avoid confusion
 ) {
+    var showLocationDialog by remember { mutableStateOf(false) }
+    var selectedLocation by remember { mutableStateOf("") }
+
+    // Make restaurantAddress a mutable state that can be updated
+    var restaurantAddress by remember { mutableStateOf(initialRestaurantAddress) }
 
     Scaffold(
         topBar = {
@@ -96,17 +105,21 @@ fun CheckOutFood(
                                 color = Color.Black
                             )
                             Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically
+//                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                // Make the entire row clickable to open location dialog
+                                modifier = Modifier.fillMaxWidth().clickable {
+                                    showLocationDialog = true
+                                }
                             ) {
                                 Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black, modifier = Modifier.size(16.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text(text = "Home |", fontSize = 13.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                                Text(text = if (restaurantAddress.isNotBlank()) "Selected |" else "Add |", fontSize = 13.sp, color = Color.Black, fontWeight = FontWeight.Bold)
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = restaurantAddress,
+                                    text = if (restaurantAddress.isNotBlank()) restaurantAddress else "Select delivery address",
                                     fontSize = 13.sp,
-                                    color = Color.DarkGray,
+                                    color = if (restaurantAddress.isNotBlank()) Color.Black else Color.DarkGray,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                     modifier = Modifier.weight(1f)
@@ -122,57 +135,64 @@ fun CheckOutFood(
 
                     Spacer(modifier = Modifier.height(4.dp))
 
-                    // Saved Info Card
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 12.dp, end = 12.dp, top = 0.dp, bottom = 8.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(
-                                brush = Brush.horizontalGradient(
-                                    colors = listOf(Color(0xFFDDFBEF), Color(0xFFDDFBEF))
-                                )
-                            )
-                    ) {
+                    // Saved Info Card - Only show if address is selected
+//                    if (restaurantAddress.isNotBlank()) {
                         Row(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 12.dp, end = 12.dp, top = 0.dp, bottom = 8.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(
+                                    brush = Brush.horizontalGradient(
+                                        colors = listOf(Color(0xFFDDFBEF), Color(0xFFDDFBEF))
+                                    )
+                                )
                         ) {
-                            Text(text = "224 Saved with",
-                                fontSize = 14.sp,
-                                color = MaterialTheme.customColors.greenTitle,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Image(
-                                painter = painterResource(R.drawable.ic_99_store),
-                                contentDescription = "Offer Image",
-                                modifier = Modifier
-                                    .height(20.dp)
-                                    .width(45.dp),
-                                contentScale = ContentScale.FillBounds
-                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(text = "224 Saved with this order",
+                                    fontSize = 14.sp,
+                                    color = MaterialTheme.customColors.greenTitle,
+                                    fontWeight = FontWeight.Bold
+                                )
+//                                Spacer(modifier = Modifier.width(4.dp))
+//                                Image(
+//                                    painter = painterResource(R.drawable.ic_99_store),
+//                                    contentDescription = "Offer Image",
+//                                    modifier = Modifier
+//                                        .height(20.dp)
+//                                        .width(45.dp),
+//                                    contentScale = ContentScale.FillBounds
+//                                )
+                            }
                         }
-                    }
+//                    }
                 }
             }
         },
         containerColor = Color(0xFFF5F5F5),
         bottomBar = {
-            // Payment Button at Bottom
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-//                .padding(bottom = 16.dp)
-
                 shadowElevation = 8.dp,
                 color = Color.White
             ) {
-                PaymentButtonF(
-                    amount = "₹1710",
-                    paymentMethod = "Credit card",
-                    cardLast4 = "6247",
-                    onClick = onPaymentClick
-                )
+                if (restaurantAddress.isNotBlank()) {
+                    PaymentButtonF(
+                        amount = "₹1710",
+                        paymentMethod = "Credit card",
+                        cardLast4 = "6247",
+                        onClick = onPaymentClick
+                    )
+                } else {
+                    AddressAddCheckout(
+                        onClick = {
+                            showLocationDialog = true
+                        }
+                    )
+                }
             }
         }
     ) { paddingValues ->
@@ -181,68 +201,136 @@ fun CheckOutFood(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Order Items Section
-            item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White)
-                ) {
-                    Column(modifier = Modifier.padding(6.dp)) {
-                        // Membership Expired Card
-                        MembershipExpiredCard(onRenewClick = onConfirmOrder)
-
-                        // Order Items
-                        OrderItemsList()
+            // Only show order items if address is selected
+//            if (restaurantAddress.isNotBlank()) {
+                // Order Items Section
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                    ) {
+                        Column(modifier = Modifier.padding(6.dp)) {
+                            MembershipExpiredCard(onRenewClick = onConfirmOrder)
+                            OrderItemsList()
+                        }
                     }
                 }
-            }
 
-            // Complete Your Meal Section
-            item {
-                CompleteYourMealSection()
-            }
-
-            // Savings Corner Section
-            item {
-                SavingsCornerCard(onAddClick = onConfirmOrder, onRenewClick = onConfirmOrder)
-            }
-
-            // Delivery Type Section
-            item {
-                DeliveryTypeCard()
-            }
-
-            // Payment Summary Section
-            item {
-                PaymentSummaryCard()
-            }
-
-            // Cancellation policy Section
-            item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 6.dp),
-                ) {
-                    Text(
-                        text = "Cancellation policy:",
-                        fontSize = 14.sp,
-                        color = Color.DarkGray,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Please double-check your order and address details. Orders are non-refundable once placed.",
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    )
+                // Complete Your Meal Section
+                item {
+                    CompleteYourMealSection()
                 }
-            }
 
-            // Add bottom padding to avoid overlap with bottom bar
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
+                // Savings Corner Section
+                item {
+                    SavingsCornerCard(onAddClick = onConfirmOrder, onRenewClick = onConfirmOrder)
+                }
+
+                // Delivery Type Section
+                item {
+                    DeliveryTypeCard()
+                }
+
+                // Payment Summary Section
+                item {
+                    PaymentSummaryCard()
+                }
+
+                // Cancellation policy Section
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 6.dp),
+                    ) {
+                        Text(
+                            text = "Cancellation policy:",
+                            fontSize = 14.sp,
+                            color = Color.DarkGray,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Please double-check your order and address details. Orders are non-refundable once placed.",
+                            fontSize = 12.sp,
+                            color = Color.Gray
+                        )
+                    }
+                }
+
+                // Add bottom padding to avoid overlap with bottom bar
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+//            } else {
+                // Show empty state or welcome message when no address is selected
+//                item {
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .height(400.dp),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Column(
+//                            horizontalAlignment = Alignment.CenterHorizontally,
+//                            verticalArrangement = Arrangement.spacedBy(16.dp)
+//                        ) {
+//                            Icon(
+//                                imageVector = Icons.Default.LocationOn,
+//                                contentDescription = "Location",
+//                                tint = Color(0xFFFF5A00),
+//                                modifier = Modifier.size(64.dp)
+//                            )
+//                            Text(
+//                                text = "Add delivery address to continue",
+//                                fontSize = 16.sp,
+//                                color = Color.Gray,
+//                                fontWeight = FontWeight.Medium
+//                            )
+//                            Text(
+//                                text = "Please select or add an address above",
+//                                fontSize = 14.sp,
+//                                color = Color.LightGray
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+        }
+    }
+
+    // Location Dialog
+    if (showLocationDialog) {
+        var showAddressMap by remember { mutableStateOf(false) }
+
+        Dialog(
+            onDismissRequest = { showLocationDialog = false },
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                LocationAddress(
+                    onBackClick = { showLocationDialog = false },
+                    onLocationSelected = { location ->
+                        selectedLocation = location
+                        restaurantAddress = location // ✅ Update with selected address
+                        showLocationDialog = false
+                    },
+                    onUseCurrentLocation = {
+                        // ✅ Fix: Use a meaningful current location string instead of empty string
+                        val currentLocation = "Current Location: Dhruv, Chennai-110044"
+                        selectedLocation = currentLocation
+                        restaurantAddress = currentLocation // ✅ Update with current location
+                        showLocationDialog = false
+                    },
+                    navigateToAddAddress = {
+                        showAddressMap = true
+                    }
+                )
             }
         }
     }
@@ -268,13 +356,20 @@ fun MembershipExpiredCard(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_prime),
-                        contentDescription = "One",
-                        tint = Color.Unspecified,
-                        modifier = Modifier.height(15.dp)
-                            .width(35.dp)
+                    Text(
+                        text = "PRIME",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.customColors.buttonRed,
+                        maxLines = 1
                     )
+//                    Icon(
+//                        painter = painterResource(id = R.drawable.ic_prime),
+//                        contentDescription = "One",
+//                        tint = Color.Unspecified,
+//                        modifier = Modifier.height(15.dp)
+//                            .width(35.dp)
+//                    )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "membership expired!",
@@ -2191,20 +2286,20 @@ fun PaymentButtonF(
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(15.dp))
 
             // Pay Button
             Button(
                 onClick = onClick,
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1FA672)
+                    containerColor = MaterialTheme.customColors.greenButton
                 ),
-                contentPadding = PaddingValues(horizontal = 38.dp, vertical = 15.dp)
+                contentPadding = PaddingValues(horizontal = 50.dp, vertical = 20.dp)
             ) {
                 Text(
                     text = "Pay $amount",
-                    fontSize = 16.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
@@ -2212,6 +2307,68 @@ fun PaymentButtonF(
         }
     }
 }
+
+@Composable
+fun AddressAddCheckout(
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFF5F5F5))
+            .padding(16.dp)
+            .padding(bottom = 16.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                imageVector = Icons.Default.Navigation,
+                contentDescription = "Location",
+                tint = MaterialTheme.customColors.orangeButton,
+                modifier = Modifier
+                    .size(30.dp)
+                    .padding(top = 4.dp)
+                    .rotate(45f)
+            )
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Text(
+                text = "Where would you like us to deliver this order?",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF333333),
+                lineHeight = 24.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF5A00)
+            ),
+            elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
+        ) {
+            Text(
+                text = "Add or Select address",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+    }
+}
+
+
+
 
 @Preview(showBackground = true)
 @Composable
