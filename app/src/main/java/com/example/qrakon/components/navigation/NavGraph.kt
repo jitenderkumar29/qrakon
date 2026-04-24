@@ -16,6 +16,7 @@ import com.example.qrakon.components.fashion.categorydetail.CategoryDetailScreen
 import com.example.qrakon.components.homescreen.AddressMap
 import com.example.qrakon.components.location.LocationAddress
 import com.example.qrakon.components.restaurants.CheckOutFood
+import com.example.qrakon.components.restaurants.OTPVerification
 import com.example.qrakon.components.restaurants.PaymentOptionsF
 import com.example.qrakon.components.restaurants.RestaurantDetails
 import com.example.qrakon.components.restaurants.TopRatedRestaurantItem
@@ -174,12 +175,54 @@ fun AppNavGraph(navController: NavHostController) {
         composable("payment_options") {
             PaymentOptionsF(
                 onBackClick = { navController.popBackStack() },
+                onNavigateToOTPVerification = { paymentAmount ->
+                    // Navigate to OTP Verification screen with payment amount
+                    navController.navigate("otp_verification/$paymentAmount") {
+                        // This ensures proper back stack handling
+                        // User can press back to return to payment options
+                    }
+                },
+                onNavigateToAddCard = {
+                    navController.navigate("add_card_screen")
+                },
                 onPaymentComplete = { paymentDetails ->
                     // Handle successful payment
-                    // Navigate back to checkout or to order confirmation
                     navController.navigate("order_confirmation") {
                         popUpTo("checkout_food") { inclusive = true }
                     }
+                }
+            )
+        }
+
+        // ✅ OTP Verification route
+        composable(
+            route = "otp_verification/{amount}",
+            arguments = listOf(
+                navArgument("amount") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val amount = backStackEntry.arguments?.getString("amount") ?: "1710"
+            val totalAmount = amount.toDoubleOrNull() ?: 1710.0
+
+            OTPVerification(
+                totalAmount = totalAmount,
+                bankName = "SBI", // You can pass this dynamically if needed
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onPaymentComplete = {
+                    // Navigate to order confirmation and clear checkout/payment stack
+                    navController.navigate("order_confirmation") {
+                        popUpTo("checkout_food") { inclusive = true }
+                    }
+                },
+                onResendOTP = {
+                    // Implement actual OTP resend API call here
+                    println("Resending OTP...")
+                },
+                onGoToBankPage = {
+                    // Handle navigation to bank page
+                    println("Go to bank page clicked")
                 }
             )
         }

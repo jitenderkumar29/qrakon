@@ -52,55 +52,58 @@ data class MoreOption(
 @Composable
 fun PaymentOptionsF(
     onBackClick: () -> Unit = {},
-    onPaymentComplete: (Map<String, String>) -> Unit = {}
+    onPaymentComplete: (Map<String, String>) -> Unit = {},
+    onNavigateToAddCard: () -> Unit = {},
+    onNavigateToOTPVerification: (String) -> Unit = {}
 ) {
     var selectedCardId by remember { mutableStateOf("VISA") }
     var selectedUpi by remember { mutableStateOf(phonePeUpi) }
+    var showAddCardScreen by remember { mutableStateOf(false) }
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFF5F5F5)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            PaymentOptionsHeader(onBackClick = onBackClick) // Modified to use callback
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                DeliveryInfoSection()
-                OfferBanner()
-                HufkoUpiPromoBanner()
+    if (showAddCardScreen) {
+        AddCreditDebitCard(
+            onBackClick = { showAddCardScreen = false },
+            onAddCardClick = {
+                // Handle card addition logic here
+                showAddCardScreen = false
+                onNavigateToAddCard()
+            }
+        )
+    } else {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = Color(0xFFF5F5F5)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                PaymentOptionsHeader(onBackClick = onBackClick)
 
                 Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
                 ) {
-                    PreferredPaymentSection(
-                        selectedCardId = selectedCardId,
-                        onCardSelected = { selectedCardId = it },
-                        onPayClick = {
-                            // Handle payment with selected card
-                            onPaymentComplete(mapOf(
-                                "method" to "card",
-                                "cardId" to selectedCardId
-                            ))
-                        }
-                    )
-                    UpiSection(
-                        selectedUpi = selectedUpi,
-                        onUpiSelected = { selectedUpi = it },
-//                        onPayClick = {
-//                            // Handle payment with selected UPI
-//                            onPaymentComplete(mapOf(
-//                                "method" to "upi",
-//                                "upiName" to selectedUpi.name
-//                            ))
-//                        }
-                    )
-                    CreditDebitCardsSection()
-                    MorePaymentOptionsSection()
+                    DeliveryInfoSection()
+                    OfferBanner()
+                    HufkoUpiPromoBanner()
+
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        PreferredPaymentSection(
+                            selectedCardId = selectedCardId,
+                            onCardSelected = { selectedCardId = it },
+                            onPayClick = { onNavigateToOTPVerification("1710") } // Trigger OTP navigation
+                        )
+                        UpiSection(
+                            selectedUpi = selectedUpi,
+                            onUpiSelected = { selectedUpi = it },
+                        )
+                        CreditDebitCardsSection(
+                            onAddCardClick = { showAddCardScreen = true }
+                        )
+                        MorePaymentOptionsSection()
+                    }
                 }
             }
         }
@@ -280,9 +283,10 @@ fun OfferIcon() {
 
 // region Payment Sections
 @Composable
-fun PreferredPaymentSection(selectedCardId: String,
-                            onCardSelected: (String) -> Unit,
-                            onPayClick: () -> Unit = {}
+fun PreferredPaymentSection(
+    selectedCardId: String,
+    onCardSelected: (String) -> Unit,
+    onPayClick: () -> Unit = {} // This will trigger OTP navigation
 ) {
     Column {
         Text(
@@ -304,7 +308,8 @@ fun PreferredPaymentSection(selectedCardId: String,
                     card = visaCard,
                     isSelected = selectedCardId == "VISA",
                     onSelect = { onCardSelected("VISA") },
-                    showCvvInfo = true
+                    showCvvInfo = true,
+                    onPayClick = onPayClick // Pass the callback
                 )
 
                 DottedDivider()
@@ -313,7 +318,8 @@ fun PreferredPaymentSection(selectedCardId: String,
                     card = hdfcCard,
                     isSelected = selectedCardId == "HDFC",
                     onSelect = { onCardSelected("HDFC") },
-                    showCvvInfo = false
+                    showCvvInfo = false,
+                    onPayClick = onPayClick // Pass the callback
                 )
             }
         }
@@ -325,7 +331,8 @@ fun PaymentCardItem(
     card: CardData,
     isSelected: Boolean,
     onSelect: () -> Unit,
-    showCvvInfo: Boolean = false
+    showCvvInfo: Boolean = false,
+    onPayClick: () -> Unit = {} // This parameter exists
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         Row(
@@ -347,7 +354,10 @@ fun PaymentCardItem(
 
         if (isSelected) {
             Spacer(modifier = Modifier.height(12.dp))
-            PayButton(amount = "₹1710")
+            PayButton(
+                amount = "₹1710",
+                onClick = onPayClick // ✅ This should already be correct
+            )
             if (showCvvInfo) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -610,7 +620,7 @@ fun NewBadge() {
 
 // region Credit/Debit Cards Section
 @Composable
-fun CreditDebitCardsSection() {
+fun CreditDebitCardsSection(onAddCardClick: () -> Unit = {}) {
     Column {
         Text(
             text = "Credit & Debit Cards",
@@ -627,17 +637,17 @@ fun CreditDebitCardsSection() {
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
-            AddNewCardOption()
+            AddNewCardOption(onAddCardClick = onAddCardClick)
         }
     }
 }
 
 @Composable
-fun AddNewCardOption() {
+fun AddNewCardOption(onAddCardClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* Handle add card */ }
+            .clickable { onAddCardClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -691,7 +701,6 @@ fun MorePaymentOptionsSection() {
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(modifier = Modifier.padding(0.dp)) {
-//            Spacer(modifier = Modifier.height(12.dp))
             moreOptionsList.forEachIndexed { index, option ->
                 MoreOptionItem(option = option, showDivider = index < moreOptionsList.size - 1)
             }
@@ -709,15 +718,13 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // 🔹 Left Icon Box
             Box(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.customColors.veryLightGray, // light grey border
+                        color = MaterialTheme.customColors.veryLightGray,
                         shape = RoundedCornerShape(8.dp)
                     )
                     .background(Color.White),
@@ -733,7 +740,6 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            // 🔹 Text Section
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -756,7 +762,6 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
                 }
             }
 
-            // 🔹 Chevron Icon (RIGHT)
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = null,
@@ -765,7 +770,6 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
             )
         }
 
-        // 🔹 Divider with left padding (matches design)
         if (showDivider) {
             Divider(
                 modifier = Modifier.padding(0.dp),
@@ -779,9 +783,13 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
 
 // region Common Components
 @Composable
-fun PayButton(amount: String? = null, paymentMethod: String? = null) {
+fun PayButton(
+    amount: String? = null,
+    paymentMethod: String? = null,
+    onClick: () -> Unit = {} // Add onClick parameter
+) {
     Button(
-        onClick = {},
+        onClick = onClick, // Use the onClick parameter
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),
@@ -806,25 +814,21 @@ fun HufkoUpiPromoBanner() {
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(
-                        Color(0xFF0F6D5E), // dark green
-                        Color(0xFF117A65)  // lighter green
+                        Color(0xFF0F6D5E),
+                        Color(0xFF117A65)
                     )
                 )
             )
             .padding(16.dp)
     ) {
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // 🔹 LEFT CONTENT
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-
                 Text(
                     text = "UPI payments, now 3X Faster",
                     fontSize = 18.sp,
@@ -842,7 +846,6 @@ fun HufkoUpiPromoBanner() {
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // 🔹 BUTTON (Pill)
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
@@ -861,9 +864,8 @@ fun HufkoUpiPromoBanner() {
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            // 🔹 RIGHT LOGO
             Image(
-                painter = painterResource(id = R.drawable.ic_upi_hufko), // use proper asset
+                painter = painterResource(id = R.drawable.ic_upi_hufko),
                 contentDescription = null,
                 modifier = Modifier
                     .height(70.dp)
@@ -873,8 +875,6 @@ fun HufkoUpiPromoBanner() {
         }
     }
 }
-
-
 // endregion
 
 // region Data Constants
@@ -914,6 +914,7 @@ private val moreOptionsList = listOf(
     MoreOption("CRED pay", null, R.drawable.ic_cred),
     MoreOption("Pay on Delivery", "Pay in cash or pay online.", R.drawable.ic_cod)
 )
+// endregion
 
 // region Preview
 @Preview(showBackground = true)
@@ -921,3 +922,4 @@ private val moreOptionsList = listOf(
 fun PaymentOptionsPreview() {
     PaymentOptionsF()
 }
+// endregion
