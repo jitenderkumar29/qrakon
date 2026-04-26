@@ -573,7 +573,7 @@ val completeRestaurantItems = listOf(
         title = "Best in Biryani gourmet",
         price = "249",
         restaurantName = "Biryani By Kilo",
-        rating = "0.0",
+        rating = "5.0",
         deliveryTime = "50-60 mins",
         distance = "3.2 km",
         discount = "₹20 OFF",
@@ -583,7 +583,7 @@ val completeRestaurantItems = listOf(
         category = "biriyani_by_kilo",
         premium = "premium",
         acceptingOrders = false,
-        acceptingOrdersMsg = "",
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 9,
@@ -601,7 +601,7 @@ val completeRestaurantItems = listOf(
         category = "charcoal_eats",
         premium = "ultrapremium",
         acceptingOrders = true,
-        acceptingOrdersMsg = "",
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 10,
