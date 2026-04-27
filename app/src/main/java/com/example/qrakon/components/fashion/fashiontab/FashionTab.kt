@@ -217,7 +217,7 @@ fun WomenFashionPage(
     onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
-
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     // Women's Fashion Categories
     val womenFashionCategories = listOf(
         Category(0, "Ethnic", R.drawable.ic_fashion_ethnic),
@@ -254,36 +254,107 @@ fun WomenFashionPage(
         itemHeight = 75,
         horizontalSpacing = 8
     )
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.women_fashion_banner1),
-        painterResource(id = R.drawable.women_fashion_banner6),
-        painterResource(id = R.drawable.women_fashion_banner7),
-        painterResource(id = R.drawable.women_fashion_banner2),
-        painterResource(id = R.drawable.women_fashion_banner3),
-        painterResource(id = R.drawable.women_fashion_banner4),
-        painterResource(id = R.drawable.women_fashion_banner5),
+    val bannerPortraitImagesWomen = listOf(
+        BannerItem( imageRes = R.drawable.women_fashion_banner1, backgroundColor = Color(0xFFA48165)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner2, backgroundColor = Color(0xFF783C19)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner3, backgroundColor = Color(0xFF8A745E)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner4, backgroundColor = Color(0xFFBFB9A3)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner5, backgroundColor = Color(0xFF797A7E)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner6, backgroundColor = Color(0xFFC4948F)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner7, backgroundColor = Color(0xFFAE8954)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait1, backgroundColor = Color(0xFFC7A88C)),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait2, backgroundColor = Color(0xFF797A74) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait3, backgroundColor = Color(0xFFB58688) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait4, backgroundColor = Color(0xFF7C6C53) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait5, backgroundColor = Color(0xFFA3938A) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait6, backgroundColor = Color(0xFFA1866B) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait7, backgroundColor = Color(0xFF564C3F) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait8, backgroundColor = Color(0xFF6D5A4C) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait9, backgroundColor = Color(0xFF696E72) ),
+        BannerItem( imageRes = R.drawable.women_fashion_banner_portrait10, backgroundColor = Color(0xFF1C1F26) ),
+    )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
         )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImagesWomen,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 370.dp,
+                autoScrollDelay = 3000
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.women_fashion_banner1),
+//        painterResource(id = R.drawable.women_fashion_banner6),
+//        painterResource(id = R.drawable.women_fashion_banner7),
+//        painterResource(id = R.drawable.women_fashion_banner2),
+//        painterResource(id = R.drawable.women_fashion_banner3),
+//        painterResource(id = R.drawable.women_fashion_banner4),
+//        painterResource(id = R.drawable.women_fashion_banner5),
+//        )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 500.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
-        )
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 500.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
 
-//
         Spacer(
             modifier = Modifier
                 .height(2.dp)
@@ -428,7 +499,7 @@ fun MenFashionPage(
     onTabSelected: (String, Int) -> Unit, // Change to accept both String and Int
     modifier: Modifier = Modifier
 ) {
-    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }    // Example click handlers (define these where needed)
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val menFashionCategories = listOf(
         Category(12, "Casual", R.drawable.ic_casual_men),
         Category(13, "Ethnic", R.drawable.ic_ethnic_men),
@@ -450,13 +521,32 @@ fun MenFashionPage(
     )
     val bannerPortraitImages = listOf(
         BannerItem( imageRes = R.drawable.men_fashion_banner1, backgroundColor = Color(0xFF3E3D34)),
-        BannerItem( imageRes = R.drawable.men_fashion_banner2, backgroundColor = Color(0xFFDA9AA0) ),
-        BannerItem( imageRes = R.drawable.men_fashion_banner3, backgroundColor = Color(0xFF65554E) ),
-        BannerItem( imageRes = R.drawable.men_fashion_banner4, backgroundColor = Color(0xFFA00000) ),
-        BannerItem( imageRes = R.drawable.men_fashion_banner5, backgroundColor = Color(0xFFAA9000) ),
-        BannerItem( imageRes = R.drawable.men_fashion_banner6, backgroundColor = Color(0xFF83432B) ),
-        BannerItem( imageRes = R.drawable.men_fashion_banner7, backgroundColor = Color(0xFF1D3642) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner2, backgroundColor = Color(0xFFDA9AA0)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner3, backgroundColor = Color(0xFF65554E)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner4, backgroundColor = Color(0xFFA00000)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner5, backgroundColor = Color(0xFFAA9000)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner6, backgroundColor = Color(0xFF83432B)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner7, backgroundColor = Color(0xFF1D3642)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait1, backgroundColor = Color(0xFFB59473)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait2, backgroundColor = Color(0xFF533203) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait3, backgroundColor = Color(0xFFD2C591) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait4, backgroundColor = Color(0xFF4B3623) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait5, backgroundColor = Color(0xFFD6B19C) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait6, backgroundColor = Color(0xFF7B706E) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait7, backgroundColor = Color(0xFF414043) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait8, backgroundColor = Color(0xFF005188) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait9, backgroundColor = Color(0xFF213649) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait10, backgroundColor = Color(0xFF731C12) ),
         )
+//    val bannerPortraitImages = listOf(
+//        BannerItem( imageRes = R.drawable.men_fashion_banner1, backgroundColor = Color(0xFF3E3D34)),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner2, backgroundColor = Color(0xFFDA9AA0) ),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner3, backgroundColor = Color(0xFF65554E) ),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner4, backgroundColor = Color(0xFFA00000) ),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner5, backgroundColor = Color(0xFFAA9000) ),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner6, backgroundColor = Color(0xFF83432B) ),
+//        BannerItem( imageRes = R.drawable.men_fashion_banner7, backgroundColor = Color(0xFF1D3642) ),
+//        )
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -487,7 +577,7 @@ fun MenFashionPage(
                     // Handle image click
                     println("Clicked on image: $imageRes")
                 },
-                height = 500.dp,
+                height = 370.dp,
                 autoScrollDelay = 3000
             )
 
@@ -526,6 +616,18 @@ fun MenFashionPage(
 //            dotSize = 8.dp,
 //            modifier = Modifier.padding(bottom = 0.dp)
 //        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
 
         Spacer(
             modifier = Modifier
@@ -657,6 +759,7 @@ fun KidsFashionPage(
     onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val kidsFashionCategories = listOf(
         Category(20, "Girls", R.drawable.ic_girls_kids),
         Category(21, "Boys", R.drawable.ic_boys_kids),
@@ -680,36 +783,107 @@ fun KidsFashionPage(
         // Handle the selection - update state, filter data, etc.
     }
 
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.kids_fashion_banner1),
-        painterResource(id = R.drawable.kids_fashion_banner2),
-        painterResource(id = R.drawable.kids_fashion_banner3),
-        painterResource(id = R.drawable.kids_fashion_banner4),
-        painterResource(id = R.drawable.kids_fashion_banner5),
-        painterResource(id = R.drawable.kids_fashion_banner6),
-        painterResource(id = R.drawable.kids_fashion_banner7),
-        painterResource(id = R.drawable.kids_fashion_banner8),
+    val bannerPortraitImagesKids = listOf(
+        BannerItem( imageRes = R.drawable.kids_fashion_banner1, backgroundColor = Color(0xFF856D60)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner2, backgroundColor = Color(0xFF006C53)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner3, backgroundColor = Color(0xFF005A44)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner4, backgroundColor = Color(0xFF00634D)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner5, backgroundColor = Color(0xFFB3ABA2)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner6, backgroundColor = Color(0xFFD48589)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner7, backgroundColor = Color(0xFF00674B)),
+        BannerItem( imageRes = R.drawable.kids_fashion_banner8, backgroundColor = Color(0xFF841A19)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids1, backgroundColor = Color(0xFF856D60)),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids2, backgroundColor = Color(0xFF333706) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids3, backgroundColor = Color(0xFF9E5B53) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids4, backgroundColor = Color(0xFF606060) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids5, backgroundColor = Color(0xFF583C2C) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids6, backgroundColor = Color(0xFFDAAA5E) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids7, backgroundColor = Color(0xFF556405) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids8, backgroundColor = Color(0xFF686667) ),
+        BannerItem( imageRes = R.drawable.men_fashion_banner_portrait_kids9, backgroundColor = Color(0xFFB7A28F) ),
     )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImagesKids,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 370.dp,
+                autoScrollDelay = 3000
+            )
 
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.kids_fashion_banner1),
+//        painterResource(id = R.drawable.kids_fashion_banner2),
+//        painterResource(id = R.drawable.kids_fashion_banner3),
+//        painterResource(id = R.drawable.kids_fashion_banner4),
+//        painterResource(id = R.drawable.kids_fashion_banner5),
+//        painterResource(id = R.drawable.kids_fashion_banner6),
+//        painterResource(id = R.drawable.kids_fashion_banner7),
+//        painterResource(id = R.drawable.kids_fashion_banner8),
+//    )
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 500.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
-        )
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 500.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
 
         Spacer(
             modifier = Modifier
@@ -828,6 +1002,7 @@ fun HomeFashionPage(
     onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
     val kidsFashionCategories = listOf(
         Category(25, "Decor", R.drawable.ic_decor_home_fashion),
         Category(26, "Bedding", R.drawable.ic_bedding_home_fashion),
@@ -858,36 +1033,110 @@ fun HomeFashionPage(
 //        // Handle the selection - update state, filter data, etc.
 //    }
 
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.home_category_banner9),
-        painterResource(id = R.drawable.home_category_banner10),
-        painterResource(id = R.drawable.home_category_banner11),
-        painterResource(id = R.drawable.home_category_banner12),
-        painterResource(id = R.drawable.home_fashion_banner1),
-        painterResource(id = R.drawable.home_fashion_banner2),
-        painterResource(id = R.drawable.home_fashion_banner3),
-        painterResource(id = R.drawable.home_fashion_banner4),
-        painterResource(id = R.drawable.home_fashion_banner5),
-        painterResource(id = R.drawable.home_fashion_banner6),
+    val bannerPortraitImagesHome = listOf(
+        BannerItem( imageRes = R.drawable.home_category_banner9, backgroundColor = Color(0xFFA69D8C)),
+        BannerItem( imageRes = R.drawable.home_category_banner10, backgroundColor = Color(0xFFDAC6A8) ),
+        BannerItem( imageRes = R.drawable.home_category_banner11, backgroundColor = Color(0xFF825430) ),
+        BannerItem( imageRes = R.drawable.home_category_banner12, backgroundColor = Color(0xFF442A1B) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner1, backgroundColor = Color(0xFF858C66) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner2, backgroundColor = Color(0xFF121207) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner3, backgroundColor = Color(0xFFC5AE96) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner4, backgroundColor = Color(0xFF864511) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner5, backgroundColor = Color(0xFF77604A) ),
+        BannerItem( imageRes = R.drawable.home_fashion_banner6, backgroundColor = Color(0xFF89562E) ),
     )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImagesHome,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 370.dp,
+                autoScrollDelay = 3000
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.home_category_banner9),
+//        painterResource(id = R.drawable.home_category_banner10),
+//        painterResource(id = R.drawable.home_category_banner11),
+//        painterResource(id = R.drawable.home_category_banner12),
+//        painterResource(id = R.drawable.home_fashion_banner1),
+//        painterResource(id = R.drawable.home_fashion_banner2),
+//        painterResource(id = R.drawable.home_fashion_banner3),
+//        painterResource(id = R.drawable.home_fashion_banner4),
+//        painterResource(id = R.drawable.home_fashion_banner5),
+//        painterResource(id = R.drawable.home_fashion_banner6),
+//    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 470.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 470.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
+
+        Spacer(
+            modifier = Modifier
+                .height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
 
         val homeFashionCategoriesTwo = remember {
@@ -1002,6 +1251,8 @@ fun LuxeFashionPage(
     onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
+
     val luxeFashionCategories = listOf(
         Category(37, "Men", R.drawable.ic_luxe_men_fashion), // Using existing icon as placeholder
         Category(38, "Women", R.drawable.ic_luxe_women_fashion),
@@ -1027,36 +1278,110 @@ fun LuxeFashionPage(
         horizontalSpacing = 8
     )
 
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.luxe_fashion_banner1), // Using existing banner as placeholder
-        painterResource(id = R.drawable.luxe_fashion_banner2),
-        painterResource(id = R.drawable.luxe_fashion_banner3),
-        painterResource(id = R.drawable.luxe_fashion_banner4),
-        painterResource(id = R.drawable.luxe_fashion_banner5),
-        painterResource(id = R.drawable.luxe_fashion_banner6),
-        painterResource(id = R.drawable.luxe_fashion_banner7),
-        painterResource(id = R.drawable.luxe_fashion_banner8),
-        painterResource(id = R.drawable.luxe_fashion_banner9),
-        painterResource(id = R.drawable.luxe_fashion_banner10),
+    val bannerPortraitImagesLuxe = listOf(
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner1, backgroundColor = Color(0xFF7B5438)),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner2, backgroundColor = Color(0xFFA78E98) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner3, backgroundColor = Color(0xFF251825) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner4, backgroundColor = Color(0xFF603C34) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner5, backgroundColor = Color(0xFFB3918D) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner6, backgroundColor = Color(0xFFFFAEAC) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner7, backgroundColor = Color(0xFF89603D) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner8, backgroundColor = Color(0xFFB78981) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner9, backgroundColor = Color(0xFFAC8479) ),
+        BannerItem( imageRes = R.drawable.luxe_fashion_banner10, backgroundColor = Color(0xFF513015) ),
     )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImagesLuxe,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 370.dp,
+                autoScrollDelay = 3000
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.luxe_fashion_banner1), // Using existing banner as placeholder
+//        painterResource(id = R.drawable.luxe_fashion_banner2),
+//        painterResource(id = R.drawable.luxe_fashion_banner3),
+//        painterResource(id = R.drawable.luxe_fashion_banner4),
+//        painterResource(id = R.drawable.luxe_fashion_banner5),
+//        painterResource(id = R.drawable.luxe_fashion_banner6),
+//        painterResource(id = R.drawable.luxe_fashion_banner7),
+//        painterResource(id = R.drawable.luxe_fashion_banner8),
+//        painterResource(id = R.drawable.luxe_fashion_banner9),
+//        painterResource(id = R.drawable.luxe_fashion_banner10),
+//    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 470.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 470.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
+
+        Spacer(
+            modifier = Modifier
+                .height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
 
         val luxeFashionCategoriesTwo = remember {
@@ -1099,6 +1424,8 @@ fun BrandsFashionPage(
     onTabSelected: (String, Int) -> Unit, // Accept both parameters
     modifier: Modifier = Modifier
 ) {
+    val bannerBackgroundColor by remember { BannerBackgroundManager.backgroundColor }
+
     val luxeFashionCategories = listOf(
         Category(
             0,
@@ -1120,31 +1447,100 @@ fun BrandsFashionPage(
         horizontalSpacing = 8
     )
 
-    val bannerImages = listOf(
-        painterResource(id = R.drawable.brands_fashion_banner4),
-        painterResource(id = R.drawable.brands_fashion_banner5),
-        painterResource(id = R.drawable.brands_fashion_banner1), // Using existing banner as placeholder
-        painterResource(id = R.drawable.brands_fashion_banner2),
-        painterResource(id = R.drawable.brands_fashion_banner3)
+    val bannerPortraitImagesBrands = listOf(
+        BannerItem( imageRes = R.drawable.brands_fashion_banner1, backgroundColor = Color(0xFF677F33)),
+        BannerItem( imageRes = R.drawable.brands_fashion_banner2, backgroundColor = Color(0xFF474446) ),
+        BannerItem( imageRes = R.drawable.brands_fashion_banner3, backgroundColor = Color(0xFF393330) ),
+        BannerItem( imageRes = R.drawable.brands_fashion_banner4, backgroundColor = Color(0xFF99897A) ),
+        BannerItem( imageRes = R.drawable.brands_fashion_banner5, backgroundColor = Color(0xFF827B71) )
     )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(
+            modifier = Modifier.height(10.dp)
+                .fillMaxWidth()
+                .background(bannerBackgroundColor)
+//                    .background(MaterialTheme.customColors.background)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            bannerBackgroundColor,  // Directly use the Color object, don't wrap it
+                            MaterialTheme.customColors.white
+                        )
+                    )
+                )
+//                    .background(bannerBackgroundColor) // Use the global background color
+        ) {
+            BannerPortrait(
+                items = bannerPortraitImagesBrands,
+                onImageClick = { imageRes ->
+                    // Handle image click
+                    println("Clicked on image: $imageRes")
+                },
+                height = 370.dp,
+                autoScrollDelay = 3000
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.customColors.white)
+//                    .background(MaterialTheme.customColors.background)
+            )
+        }
+    }
+
+//    val bannerImages = listOf(
+//        painterResource(id = R.drawable.brands_fashion_banner4),
+//        painterResource(id = R.drawable.brands_fashion_banner5),
+//        painterResource(id = R.drawable.brands_fashion_banner1), // Using existing banner as placeholder
+//        painterResource(id = R.drawable.brands_fashion_banner2),
+//        painterResource(id = R.drawable.brands_fashion_banner3)
+//    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BannerFashion(
-            images = bannerImages,
-            onImageClick = { page ->
-                when (page) {
-                    0 -> onBanner1Click()
-                    1 -> onBanner2Click()
-                    2 -> onBanner3Click()
-                }
-            },
-            autoScrollDelay = 2000,
-            height = 470.dp,
-            dotSize = 8.dp,
-            modifier = Modifier.padding(bottom = 0.dp)
+//        BannerFashion(
+//            images = bannerImages,
+//            onImageClick = { page ->
+//                when (page) {
+//                    0 -> onBanner1Click()
+//                    1 -> onBanner2Click()
+//                    2 -> onBanner3Click()
+//                }
+//            },
+//            autoScrollDelay = 2000,
+//            height = 470.dp,
+//            dotSize = 8.dp,
+//            modifier = Modifier.padding(bottom = 0.dp)
+//        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 10.dp, start = 15.dp, end = 15.dp),
+        ) {
+            OfferSectionFashion(
+                offerItems = fashionOfferItems,
+                modifier = Modifier.fillMaxWidth(),
+                autoRotate = true
+            )
+        }
+
+        Spacer(
+            modifier = Modifier
+                .height(2.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.customColors.spacerColor)
         )
 
         val brandsFashionCategoriesTwo = remember {
