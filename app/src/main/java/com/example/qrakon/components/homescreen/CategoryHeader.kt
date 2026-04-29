@@ -20,10 +20,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -174,6 +176,10 @@ fun CategoryScreen(
     val scrollOffset = remember { mutableStateOf(0f) }
     val isHeaderVisible = remember { mutableStateOf(true) }
     val density = LocalDensity.current
+
+    // Add a key to track when we're on Fashion screen
+    val isOnFashionScreen = remember { mutableStateOf(false) }
+
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -203,6 +209,7 @@ fun CategoryScreen(
                 onCategorySelected = { categoryName ->
                     selectedCategory.value = categoryName
                     if (categoryName == "Fashion") {
+                        isOnFashionScreen.value = true
                         onOpenFashion() // 🚀 navigate to new screen
                     }
                 }
@@ -234,7 +241,93 @@ fun CategoryScreen(
             }
         }
     }
+
+    // Effect to reset category when coming back from Fashion screen
+    LaunchedEffect(Unit) {
+        // Check if we're returning to this composable and were on Fashion
+        snapshotFlow { isOnFashionScreen.value }
+            .collect { wasOnFashion ->
+                if (wasOnFashion) {
+                    // Reset to Shopping when returning from Fashion
+                    selectedCategory.value = "Shopping"
+                    isOnFashionScreen.value = false
+                }
+            }
+    }
 }
+
+// Main composable that handles category selection and displays appropriate content
+//@Composable
+//fun CategoryScreen(
+//    navController: NavHostController,
+//    onOpenFashion: () -> Unit
+//) {
+//    // Save selected category in rememberSaveable to persist across navigation
+//    val selectedCategory = rememberSaveable { mutableStateOf("Shopping") }
+//    val scrollOffset = remember { mutableStateOf(0f) }
+//    val isHeaderVisible = remember { mutableStateOf(true) }
+//    val density = LocalDensity.current
+//    val nestedScrollConnection = remember {
+//        object : NestedScrollConnection {
+//            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+//                val delta = available.y
+//                scrollOffset.value = (scrollOffset.value - delta).coerceAtLeast(0f)
+//                if (delta < 0f) isHeaderVisible.value = false
+//                if (delta > 0f || scrollOffset.value <= 0f) isHeaderVisible.value = true
+//                return Offset.Zero
+//            }
+//        }
+//    }
+//
+//    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.customColors.white)) {
+//        AnimatedVisibility(
+//            visible = isHeaderVisible.value,
+//            enter = slideInVertically(
+//                initialOffsetY = { -it },
+//                animationSpec = tween(durationMillis = 200)
+//            ) + fadeIn(animationSpec = tween(durationMillis = 200)),
+//            exit = slideOutVertically(
+//                targetOffsetY = { -it },
+//                animationSpec = tween(durationMillis = 120)
+//            ) + fadeOut(animationSpec = tween(durationMillis = 120))
+//        ) {
+//            CategoryHeader(
+//                selectedCategoryName = selectedCategory.value, // Pass selected category
+//                onCategorySelected = { categoryName ->
+//                    selectedCategory.value = categoryName
+//                    if (categoryName == "Fashion") {
+//                        onOpenFashion() // 🚀 navigate to new screen
+//                    }
+//                }
+//            )
+//        }
+//
+//        Box(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .nestedScroll(nestedScrollConnection)
+//        ) {
+//            when (selectedCategory.value) {
+//                "Shopping" -> ShoppingScreen(navController = navController)
+//                "Grocery" -> GroceryScreen(navController = navController)
+//                "Beauty" -> BeautyScreen()
+//                "Economy" -> EconomyScreen()
+//                "Deals" -> DealsScreen()
+//                "Bridal" -> BrideScreen()
+//                "Jewellery" -> JewelleryScreen()
+//                "Airport" -> AirportScreen()
+//                "Electric" -> ElectricScreen()
+//                "Industry" -> IndustryScreen()
+//                "Wholesale" -> WholesaleScreen()
+//                "Sell" -> SellScreen()
+//                "Medical" -> MedicalScreen()
+//                "Fresh" -> FreshScreen()
+//                "Pay" -> PayScreen()
+//                "Food" -> FoodScreen(navController = navController)
+//            }
+//        }
+//    }
+//}
 
 
 //

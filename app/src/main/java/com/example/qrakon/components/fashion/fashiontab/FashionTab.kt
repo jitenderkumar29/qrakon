@@ -304,6 +304,8 @@ fun WomenFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 
@@ -578,6 +580,8 @@ fun MenFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 
@@ -833,6 +837,8 @@ fun KidsFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 
@@ -1076,6 +1082,8 @@ fun HomeFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 
@@ -1321,6 +1329,8 @@ fun LuxeFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 
@@ -1485,6 +1495,8 @@ fun BrandsFashionPage(
                     println("Clicked on image: $imageRes")
                 },
                 height = 370.dp,
+                currentWidthPercent = 0.84f,
+                peekWidthPercent = 0.08f,
                 autoScrollDelay = 3000
             )
 

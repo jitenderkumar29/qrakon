@@ -24,6 +24,10 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlin.math.absoluteValue
 
+// Default width values as private constants
+private const val DEFAULT_CURRENT_WIDTH_PERCENT = 0.80f
+private const val DEFAULT_PEEK_WIDTH_PERCENT = 0.10f
+
 // Data class to hold image and its associated background color
 data class BannerItem(
     val imageRes: Int,
@@ -41,9 +45,22 @@ fun BannerPortrait(
     autoScrollDelay: Long = 5000,
     autoScrollEnabled: Boolean = true,
     placeholderImage: Int? = null, // Optional placeholder image resource
-    onBackgroundColorChange: ((Color) -> Unit)? = null // Callback for background color changes
+    onBackgroundColorChange: ((Color) -> Unit)? = null, // Callback for background color changes
+    // Optional dynamic width parameters (null means use default percent)
+    currentWidthPercent: Float? = null,
+    peekWidthPercent: Float? = null,
+    // Optional fixed width overrides (takes precedence over percent)
+    customCurrentWidth: Dp? = null,
+    customPeekWidth: Dp? = null
 ) {
     require(items.isNotEmpty()) { "Items list cannot be empty" }
+
+    // Use provided values or defaults
+    val effectiveCurrentPercent = currentWidthPercent ?: DEFAULT_CURRENT_WIDTH_PERCENT
+    val effectivePeekPercent = peekWidthPercent ?: DEFAULT_PEEK_WIDTH_PERCENT
+
+    require(effectiveCurrentPercent in 0.0f..1.0f) { "currentWidthPercent must be between 0.0 and 1.0" }
+    require(effectivePeekPercent in 0.0f..1.0f) { "peekWidthPercent must be between 0.0 and 1.0" }
 
     val actualCount = items.size
     val infiniteCount = Int.MAX_VALUE
@@ -107,9 +124,9 @@ fun BannerPortrait(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
 
-    // Calculate widths: 70% for current, 15% peeking for previous/next
-    val currentWidth = screenWidth * 0.80f
-    val peekWidth = screenWidth * 0.10f
+    // Calculate widths: custom fixed width > percent based > default percent
+    val currentWidth = customCurrentWidth ?: (screenWidth * effectiveCurrentPercent)
+    val peekWidth = customPeekWidth ?: (screenWidth * effectivePeekPercent)
 
     Box(
         modifier = modifier
@@ -173,7 +190,12 @@ fun BannerPortraitSimple(
     contentScale: ContentScale = ContentScale.Crop,
     autoScrollDelay: Long = 5000,
     autoScrollEnabled: Boolean = true,
-    onBackgroundColorChange: ((Color) -> Unit)? = null
+    onBackgroundColorChange: ((Color) -> Unit)? = null,
+    // Optional dynamic width parameters
+    currentWidthPercent: Float? = null,
+    peekWidthPercent: Float? = null,
+    customCurrentWidth: Dp? = null,
+    customPeekWidth: Dp? = null
 ) {
     val items = if (backgroundColors.isNotEmpty() && backgroundColors.size == imageResList.size) {
         imageResList.mapIndexed { index, imageRes ->
@@ -204,6 +226,10 @@ fun BannerPortraitSimple(
         contentScale = contentScale,
         autoScrollDelay = autoScrollDelay,
         autoScrollEnabled = autoScrollEnabled,
-        onBackgroundColorChange = onBackgroundColorChange
+        onBackgroundColorChange = onBackgroundColorChange,
+        currentWidthPercent = currentWidthPercent,
+        peekWidthPercent = peekWidthPercent,
+        customCurrentWidth = customCurrentWidth,
+        customPeekWidth = customPeekWidth
     )
 }
