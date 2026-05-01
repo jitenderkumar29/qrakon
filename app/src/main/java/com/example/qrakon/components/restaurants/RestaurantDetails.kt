@@ -9,7 +9,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme
@@ -17,11 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,10 +27,6 @@ import com.example.qrakon.R
 import androidx.navigation.NavHostController
 import com.example.hufko.components.restaurants.RestaurantItemDetails
 import com.example.hufko.components.restaurants.RestaurantItemDetails2
-import com.example.qrakon.components.fashion.searchfashion.SearchFashion
-import com.example.qrakon.components.homescreen.FoodScreen
-import com.example.qrakon.components.restaurants.RestaurantItemDetails3
-import com.example.qrakon.components.searchbar.SearchBar
 import com.example.qrakon.ui.theme.customColors
 import kotlin.collections.chunked
 import kotlin.collections.forEach
