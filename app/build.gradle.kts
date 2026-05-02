@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     // 🔹 Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -93,4 +92,14 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    androidTestImplementation("androidx.concurrent:concurrent-futures:1.2.0")
+    androidTestImplementation("androidx.concurrent:concurrent-futures-ktx:1.2.0")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.concurrent:concurrent-futures:1.2.0")
+        force("androidx.concurrent:concurrent-futures-ktx:1.2.0")
+    }
 }
