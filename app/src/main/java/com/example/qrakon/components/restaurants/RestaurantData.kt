@@ -47,6 +47,12 @@ object RestaurantData {
 
             // Dana Choga
             addAll(RestaurantDataDanaChoga.danaChogaItems)
+
+            // Dana Choga
+            addAll(RestaurantDataDanaChoga.danaChogaItems)
+
+            // Anupam Sweets and Restaurant
+            addAll(RestaurantDataAnupamSweets.anupamSweetsItems)
         }
     }
 

@@ -172,10 +172,12 @@ fun RestaurantCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = currentItem.restaurantName ?: "",
+                            text = currentItem.restaurantName?.limitChars(20) ?: "",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Black
+                            color = Color.Black,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Image(
@@ -581,4 +583,8 @@ private fun getCouponCode(item: TopRatedRestaurantItem): String {
         restaurantName == "Amiche Pizza" -> "USE VISAPLATINUMIDC | ABOVE ₹300"
         else -> "USE CODE: ${restaurantName.uppercase().replace(" ", "")}"
     }
+}
+
+fun String.limitChars(maxChars: Int): String {
+    return if (length > maxChars) take(maxChars) + "..." else this
 }
