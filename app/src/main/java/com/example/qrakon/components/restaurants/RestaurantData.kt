@@ -53,6 +53,9 @@ object RestaurantData {
 
             // Anupam Sweets and Restaurant
             addAll(RestaurantDataAnupamSweets.anupamSweetsItems)
+
+            // Broomie's
+            addAll(RestaurantDataBroomies.broomiesItems)
         }
     }
 

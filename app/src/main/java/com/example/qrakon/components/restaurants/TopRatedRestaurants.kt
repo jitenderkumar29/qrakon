@@ -784,6 +784,24 @@ val completeRestaurantItems = listOf(
         acceptingOrders = false,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
+    TopRatedRestaurantItem(
+        id = 19,
+        imageRes = R.drawable.ic_broomies,
+        title = "Broomie's",
+        price = "199",
+        restaurantName = "Broomie's",
+        rating = "3.6",
+        deliveryTime = "40-45 mins",
+        distance = "1.4 km",
+        discount = "30% OFF",
+        discountAmount = "₹75",
+        outlet = "Sec 34",
+        address = "Sec 34, 1.4 km away",
+        category = "broomies",
+        premium = "premium",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
+    ),
 
 
 
