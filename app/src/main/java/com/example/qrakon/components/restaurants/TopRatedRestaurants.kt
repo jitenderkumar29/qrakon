@@ -802,6 +802,24 @@ val completeRestaurantItems = listOf(
         acceptingOrders = true,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
+    TopRatedRestaurantItem(
+        id = 20,
+        imageRes = R.drawable.ic_madras_curd_rice, // replace with your drawable
+        title = "Madras Curd Rice Company",
+        price = "199",
+        restaurantName = "Madras Curd Rice Company",
+        rating = "4.3",
+        deliveryTime = "50-60 mins",
+        distance = "2 km",
+        discount = "Extra ₹20 off",
+        discountAmount = "₹20",
+        outlet = "Sector 31",
+        address = "Sector 31",
+        category = "madras_curd_rice_company",
+        premium = "premium",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM"
+    ),
 
 
 

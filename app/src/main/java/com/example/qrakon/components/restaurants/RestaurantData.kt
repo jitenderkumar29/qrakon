@@ -56,6 +56,9 @@ object RestaurantData {
 
             // Broomie's
             addAll(RestaurantDataBroomies.broomiesItems)
+
+            // Madras Curd Rice Company
+            addAll(RestaurantDataMadrasCurdRiceCompany.madrasCurdRiceCompanyItems)
         }
     }
 
