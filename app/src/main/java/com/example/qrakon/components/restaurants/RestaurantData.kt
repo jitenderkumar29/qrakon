@@ -59,6 +59,9 @@ object RestaurantData {
 
             // Madras Curd Rice Company
             addAll(RestaurantDataMadrasCurdRiceCompany.madrasCurdRiceCompanyItems)
+
+            // The Good Bowl
+            addAll(RestaurantDataMadrasTheGoodBowl.theGoodBowlCompanyItems)
         }
     }
 

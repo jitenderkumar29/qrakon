@@ -820,6 +820,24 @@ val completeRestaurantItems = listOf(
         acceptingOrders = true,
         acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM"
     ),
+    TopRatedRestaurantItem(
+        id = 21,
+        imageRes = R.drawable.ic_the_good_bowl, // replace with actual drawable
+        title = "Best in Butter Chicken",
+        price = "399",
+        restaurantName = "The Good Bowl",
+        rating = "4.2",
+        deliveryTime = "35-40 mins",
+        distance = "Sector 19",
+        discount = "Flat ₹166 off",
+        discountAmount = "₹166",
+        outlet = "Sector 19",
+        address = "Sector 19",
+        category = "the_good_bowl",
+        premium = "premium",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM"
+    )
 
 
 
