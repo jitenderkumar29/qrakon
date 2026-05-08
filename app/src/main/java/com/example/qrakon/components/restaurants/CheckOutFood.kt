@@ -261,7 +261,7 @@ fun CheckOutFood(
 
                 // Add bottom padding to avoid overlap with bottom bar
                 item {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
                 }
 //            } else {
                 // Show empty state or welcome message when no address is selected

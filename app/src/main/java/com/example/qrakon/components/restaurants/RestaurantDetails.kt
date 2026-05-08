@@ -1288,7 +1288,7 @@ fun RestaurantDetails(
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             Text(
-                                text = "Special Combo For You",
+                                text = "Special For You",
 //                        text = "Salad For You",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,

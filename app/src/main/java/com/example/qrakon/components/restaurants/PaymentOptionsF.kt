@@ -706,6 +706,8 @@ fun MorePaymentOptionsSection() {
             }
         }
     }
+    Spacer(modifier = Modifier.height(32.dp))
+
 }
 
 @Composable
@@ -780,6 +782,7 @@ fun MoreOptionItem(option: MoreOption, showDivider: Boolean) {
     }
 }
 // endregion
+
 
 // region Common Components
 @Composable
