@@ -50,6 +50,7 @@ import kotlin.text.isNotEmpty
 data class TopRatedRestaurantItem(
     val id: Int? = null,
     val imageRes: Int? = null,
+    val videoUrls: List<Int>? = null,
     val title: String? = null,
     val price: String? = null,
     val restaurantName: String? = null,
@@ -448,6 +449,11 @@ val completeRestaurantItems = listOf(
     TopRatedRestaurantItem(
         id = 1,
         imageRes = R.drawable.ic_kitchen_exotica_badarpur,
+        videoUrls = listOf(
+            R.raw.pizza_video1,  // Now using raw folder
+            R.raw.pizza_video2,
+            R.raw.pizza_video3
+        ),
         title = "North Indian",
         price = "399",
         restaurantName = "Kitchen Exotica",
@@ -461,6 +467,7 @@ val completeRestaurantItems = listOf(
         category = "kitchen_exotica_badarpur",
         premium = "premium",
 //        acceptingOrders = true,
+//        acceptingOrdersMsg = "Uh-oh! Outlet is not accepting orders at the moment. They should be back by 11:30 AM",
     ),
     TopRatedRestaurantItem(
         id = 2,
@@ -477,8 +484,8 @@ val completeRestaurantItems = listOf(
         address = "Pacific Jasola",
         category = "burger",
         premium = "ultrapremium",
-//        acceptingOrders = true,
-//        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 1 mins, but why wait? Place your order right away!",
+        acceptingOrders = true,
+        acceptingOrdersMsg = "Hey early bird! Restaurant opens in 1 mins, but why wait? Place your order right away!",
     ),
     TopRatedRestaurantItem(
         id = 3,

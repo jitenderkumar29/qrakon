@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.runtime)
     // 🔹 Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -82,6 +83,13 @@ dependencies {
     implementation(libs.play.services.wallet)
     implementation(libs.litert.support.api)
 
+    // ExoPlayer for video playback
+    implementation("androidx.media3:media3-exoplayer:1.3.1")
+    implementation("androidx.media3:media3-ui:1.3.1")
+    implementation("androidx.media3:media3-common:1.3.1")
+
+
+
     // 🔹 Debug tools
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
@@ -95,6 +103,7 @@ dependencies {
 
     androidTestImplementation("androidx.concurrent:concurrent-futures:1.2.0")
     androidTestImplementation("androidx.concurrent:concurrent-futures-ktx:1.2.0")
+
 }
 
 configurations.all {
