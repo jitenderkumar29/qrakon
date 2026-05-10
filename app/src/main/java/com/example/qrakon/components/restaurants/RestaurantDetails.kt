@@ -498,7 +498,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -952,7 +952,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -1397,7 +1397,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -1843,7 +1843,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -2382,7 +2382,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -2833,7 +2833,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -3284,7 +3284,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -3735,7 +3735,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -4186,7 +4186,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -4637,7 +4637,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -5088,7 +5088,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -5539,7 +5539,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -5991,7 +5991,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -6442,7 +6442,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -6893,7 +6893,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -7345,7 +7345,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
@@ -7797,7 +7797,7 @@ fun RestaurantDetails(
                                 .padding(12.dp)
                         ) {
                             Text(
-                                text = "Free Delivery",
+                                text = "Main Course",
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
